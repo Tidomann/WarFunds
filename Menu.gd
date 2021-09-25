@@ -17,8 +17,13 @@ func _ready():
 
 
 func _on_StartButton_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://DevMap.tscn")
 
+func _on_OptionsButton_pressed():
+	pass # Replace with function body.
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
+
+
+
