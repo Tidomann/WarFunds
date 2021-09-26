@@ -10,6 +10,8 @@ extends Node2D
 func _ready():
 	var devMap = Array()
 	devMap.resize(150)
+	for a in 150:
+		devMap.append(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
