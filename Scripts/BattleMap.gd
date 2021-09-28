@@ -4,7 +4,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 # this is a useless comment
-var cursor = preload("res://Scenes/Cursor.tscn")
+var cursorLoad = preload("res://Scenes/Cursor.tscn")
 var cursorSprite
 
 # Called when the node enters the scene tree for the first time.
@@ -24,11 +24,10 @@ func setup_tiles():
 			
 
 func setup_cursor():
-	cursorSprite = cursor.instance()
+	cursorSprite = cursorLoad.instance()
 	add_child((cursorSprite))
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	cursorSprite.position = get_global_mouse_position().snapped(Vector2(16,16))
-	#print($Devtiles.world_to_map((get_global_mouse_position())))
+	cursorSprite.updateOnMap($Devtiles)
