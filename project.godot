@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "Constants",
 "language": "GDScript",
 "path": "res://Scripts/Constants.gd"
+}, {
+"base": "Resource",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://Scripts/Grid.gd"
+}, {
+"base": "Path2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://Scripts/Unit.gd"
 } ]
 _global_script_class_icons={
-"Constants": ""
+"Constants": "",
+"Grid": "",
+"Unit": ""
 }
 
 [application]

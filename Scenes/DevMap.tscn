@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=1]
 [ext_resource path="res://assets/Sprites/Tile/normal_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://Objects/Unit.tscn" type="PackedScene" id=4]
 
 [node name="DevMap" type="Node2D"]
 script = ExtResource( 1 )
@@ -30,7 +31,5 @@ visible = false
 cell_size = Vector2( 16, 16 )
 format = 1
 
-[node name="UnitTiles" type="TileMap" parent="."]
-visible = false
-cell_size = Vector2( 16, 16 )
-format = 1
+[node name="Unit" parent="." instance=ExtResource( 4 )]
+position = Vector2( 181.884, 86.8695 )

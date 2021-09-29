@@ -4,7 +4,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 # this is a useless comment
-var cursorLoad = preload("res://Scenes/Cursor.tscn")
+var cursorLoad = preload("res://Objects/Cursor.tscn")
 var cursorSprite
 
 # Called when the node enters the scene tree for the first time.
