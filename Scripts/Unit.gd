@@ -14,10 +14,15 @@ export var grid: Resource
 export var skin: Texture setget set_skin
 ## Distance to which the unit can walk in cells.
 export var move_range := 6
+## The unit's combat attack range.
+export var atk_range := 1
+## The unit's combat attack minimum range.
+export var min_atk_range := 0
 ## Offset to apply to the `skin` sprite in pixels.
 export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
 export var move_speed := 600.0
+
 
 ## Coordinates of the current cell the cursor moved to.
 var cell := Vector2.ZERO setget set_cell
@@ -42,16 +47,16 @@ func _ready() -> void:
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
 		
-	""""
+	
 	#Path Testing
 	var points := [
-		Vector2(7, 3),
-		Vector2(7, 12),
-		Vector2(21, 12),
+		Vector2(0, 0),
+		Vector2(29, 7),
+		Vector2(21, 16),
 		Vector2(7, 3),
 	]
 	walk_along(PoolVector2Array(points))
-	"""
+	
 
 func _process(delta: float) -> void:
 	_path_follow.offset += move_speed * delta
