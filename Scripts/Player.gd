@@ -2,6 +2,7 @@ extends Node2D
 
 
 export(int) var team = 1
+export var commander = "res://Objects/Commander.tscn"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"

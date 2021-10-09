@@ -8,6 +8,7 @@ extends Path2D
 ## Emitted when the unit reached the end of a path along which it was walking.
 signal walk_finished
 
+export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
 ## Texture representing the unit.
@@ -23,6 +24,7 @@ export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
 export var move_speed := 600.0
 
+export(bool) var ready = true
 
 ## Coordinates of the current cell the cursor moved to.
 var cell := Vector2.ZERO setget set_cell
