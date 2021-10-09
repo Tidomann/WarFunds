@@ -13,9 +13,39 @@ _global_script_classes=[ {
 "class": "Constants",
 "language": "GDScript",
 "path": "res://Scripts/Constants.gd"
+}, {
+"base": "Node2D",
+"class": "Cursor",
+"language": "GDScript",
+"path": "res://Scripts/Cursor.gd"
+}, {
+"base": "Resource",
+"class": "Grid",
+"language": "GDScript",
+"path": "res://Scripts/Grid.gd"
+}, {
+"base": "Reference",
+"class": "PathFinder",
+"language": "GDScript",
+"path": "res://Scripts/Pathfinder.gd"
+}, {
+"base": "Path2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://Scripts/Unit.gd"
+}, {
+"base": "TileMap",
+"class": "UnitPath",
+"language": "GDScript",
+"path": "res://Scripts/UnitPath.gd"
 } ]
 _global_script_class_icons={
-"Constants": ""
+"Constants": "",
+"Cursor": "",
+"Grid": "",
+"PathFinder": "",
+"Unit": "",
+"UnitPath": ""
 }
 
 [application]
