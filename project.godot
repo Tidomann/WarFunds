@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "TileMap",
 "class": "UnitPath",
 "language": "GDScript",
-"path": "res://Objects/UnitPath.gd"
+"path": "res://Scripts/UnitPath.gd"
 } ]
 _global_script_class_icons={
 "Constants": "",
