@@ -4,6 +4,8 @@ export(String) var playerName
 export(int) var team = 1
 export var commander = "res://Objects/Commander.tscn"
 
+export(int) var funds
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
