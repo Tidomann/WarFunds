@@ -1,5 +1,6 @@
 extends Node2D
 
+# Member Variables
 export(String) var playerName
 export(int) var team = 1
 export var commander = "res://Objects/Commander.tscn"

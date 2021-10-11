@@ -1,7 +1,7 @@
 extends Node2D
 class_name Cursor
 
-# Declare member variables here. Examples:
+# Member Variables
 var mousePosition : Vector2
 var gridPosition := Vector2.ZERO setget set_gridPosition
 #TileMap resource, giving the node access to the underlying DevTile tilemap

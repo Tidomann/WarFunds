@@ -1,6 +1,6 @@
 extends Control
 
-# Declare member variables here. Examples:
+# Member variables. Examples:
 # var a = 2
 # var b = "text"
 # this an example comment

@@ -9,6 +9,10 @@
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
+xMin = 7
+xMax = 21
+yMin = 3
+yMax = 12
 
 [node name="Devtiles" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
