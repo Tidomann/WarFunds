@@ -16,9 +16,13 @@ func _ready():
 func getCommander() -> Node2D:
 	return commander
 
+#Returns the name of the player
 func getName() -> String:
 	return playerName
 
+#access commander addpower function through player
+func addPower(amount : float) -> void:
+	commander.addPower(amount)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

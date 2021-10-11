@@ -11,6 +11,9 @@ signal walk_finished
 export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
+## Unit storing it's current position relative to the grid resource
+export(int) var x
+export(int) var y
 ## Texture representing the unit.
 export var skin: Texture setget set_skin
 ## Distance to which the unit can walk in cells.

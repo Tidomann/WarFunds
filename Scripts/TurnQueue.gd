@@ -2,7 +2,7 @@ extends Node2D
 
 class_name TurnQueue
 
-var activeCharacter
+var activePlayer
 
 
 
@@ -12,12 +12,13 @@ func _ready():
 
 func initialize():
 	var players = getPlayers()
-	activeCharacter = get_child(0)
+	activePlayer = get_child(0)
 
 func nextTurn():
 	#yield(active_character.endTurn(), "completed")
-	var newIndex : int = (activeCharacter.get_index() + 1) % get_child_count()
-	activeCharacter = get_child(newIndex)
+	var newIndex : int = (activePlayer.get_index() + 1) % get_child_count()
+	activePlayer = get_child(newIndex)
+	startTurn(activePlayer)
 
 func getPlayers():
 	return get_children()
@@ -27,6 +28,12 @@ func printOrder():
 	for player in get_children():
 		output += player.name + ", "
 	print(output)
+
+func startTurn(player : Node2D):
+	#iterate through units and set them to ready
+	#generate income per property owned
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
