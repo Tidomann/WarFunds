@@ -6,13 +6,17 @@ export(int) var xMin
 export(int) var xMax
 export(int) var yMin
 export(int) var yMax
-export var grid_data: Resource
+export var gamegrid: Resource
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gamegrid.load_grid(self)
+	gamegrid.load_data()
 	setup_tiles()
 	setup_cursor()
-	grid_data.start(self)
-	
+	for unit in $GameBoard.get_children():
+		if unit.get_class() == "Path2D":
+			unit.update_position()
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
@@ -29,7 +33,7 @@ func setup_tiles():
 # Initializes the cursor using the cursor.init function so the cursor knows
 # what tiles exist in the map
 func setup_cursor():
-	$YSort/Cursor.init($Devtiles)
+	$GameBoard/Cursor.init($Devtiles)
 		
 
 func Xmin() -> int:

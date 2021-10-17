@@ -4,63 +4,85 @@
 class_name Grid
 extends Resource
 
-## The grid's rows and columns.
+## The the grid size
 export (int) var size
+## The grid's rows and columns.
+export (Vector2) var size2d
 ## The size of a cell in pixels.
 export var cell_size := Vector2(16, 16)
-
+## array of GridData objects
 var array = [GridData]
+## stored referance to the current battlemap
+var battlemap : Node2D
+var devtiles : TileMap
+var gameBoard : YSort
 
-func start(battlemap: Node2D):
+## Setup the grid object with a passed battlemap
+func load_grid(inbattlemap: Node2D):
+	battlemap = inbattlemap
+	devtiles = battlemap.find_node("Devtiles", false, false)
+	gameBoard = battlemap.find_node("GameBoard", false, false)
 	var row = battlemap.Xmax() - battlemap.Xmin() + 1
 	var col = battlemap.Ymax() - battlemap.Ymin() + 1
+	size2d = Vector2(row, col)
 	size = row * col
 	array.resize(size)
-	print(array.size())
-	var devtiles : TileMap = battlemap.find_node("Devtiles", false, false)
-	
-	
-	
+
+func load_data():
+	# TileType Load
 	for cell in devtiles.get_used_cells():
-		var array_index = (cell.x- battlemap.Xmin()) +(cell.y- battlemap.Ymin())*15
+		var array_index = as_index(cell)
 		array[array_index] = GridData.new()
 		array[array_index].setTileType(devtiles.get_cellv(cell))
 		array[array_index].setCoordinatesV2(cell)
-		# Todo add property and unit iteration
-
-		
-"""
-
-
+	# Unit Load
+	for unit in gameBoard.get_children():
+		if unit.get_class() != "Path2D":
+			continue
+		var tempIndex = as_index(unit.get_cell())
+		if array[tempIndex].getUnit() == null:
+			array[tempIndex].setUnit(unit)
+	# TODO: Property Load
 
 ## Half of ``cell_size``
 var _half_cell_size = cell_size / 2
 
+## Returns true if the `grid_position` are within the map
+func is_gridcoordinate_within_map(grid_coordinate : Vector2) -> bool:
+	if (grid_coordinate.x < battlemap.Xmin() || grid_coordinate.x > battlemap.Xmax()
+	|| grid_coordinate.y < battlemap.Ymin() || grid_coordinate.y > battlemap.Ymax()):
+		return false
+	return true
+
 ## Returns the position of a cell's center in pixels.
 func calculate_map_position(grid_position: Vector2) -> Vector2:
-	return grid_position * cell_size + _half_cell_size
-
+	if(is_gridcoordinate_within_map(grid_position)):
+		return grid_position * cell_size + _half_cell_size
+	else:
+		return Vector2(-1,-1)
 
 ## Returns the coordinates of the cell on the grid given a position on the map.
 func calculate_grid_coordinates(map_position: Vector2) -> Vector2:
-	return (map_position / cell_size).floor()
+	var temp_grid_coordinates = (map_position / cell_size).floor()
+	if is_gridcoordinate_within_map(temp_grid_coordinates):
+		return temp_grid_coordinates
+	else:
+		return Vector2(-1,-1)
 
+## Calculates the array index
+func as_index(cell : Vector2) -> int:
+	return int((cell.x- battlemap.Xmin()) +(cell.y- battlemap.Ymin())*15)
 
-## Returns true if the `cell_coordinates` are within the grid.
-func is_within_bounds(cell_coordinates: Vector2) -> bool:
-	var out := cell_coordinates.x >= 0 and cell_coordinates.x < size.x
-	return out and cell_coordinates.y >= 0 and cell_coordinates.y < size.y
-
+## Return the array object at the passed index
+func get_CellData(index :int) -> GridData:
+	return array[index]
 
 ## Makes the `grid_position` fit within the grid's bounds.
 func clamp(grid_position: Vector2) -> Vector2:
 	var out := grid_position
-	out.x = clamp(out.x, 0, size.x - 1.0)
-	out.y = clamp(out.y, 0, size.y - 1.0)
+	out.x = clamp(out.x, 0, size2d.x - 1.0)
+	out.y = clamp(out.y, 0, size2d.y - 1.0)
 	return out
 
-
-# Returns the coordinates as an integer, to convert 2D coordinates to a 1D array
-func as_index(cell: Vector2) -> int:
-	return int(cell.x + size.x * cell.y)
-"""
+func is_occupied(cell: Vector2) -> bool:
+	return true if array[as_index(cell)].getUnit() != null else false

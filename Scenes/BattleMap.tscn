@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://Objects/Units/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/normal_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
@@ -13,7 +14,7 @@ xMin = 7
 xMax = 21
 yMin = 3
 yMax = 12
-grid_data = ExtResource( 7 )
+gamegrid = ExtResource( 7 )
 
 [node name="Devtiles" type="TileMap" parent="."]
 position = Vector2( 0, -1 )
@@ -39,9 +40,15 @@ visible = false
 cell_size = Vector2( 16, 16 )
 format = 1
 
-[node name="YSort" type="YSort" parent="."]
+[node name="GameBoard" type="YSort" parent="."]
 
-[node name="Cursor" parent="YSort" instance=ExtResource( 5 )]
+[node name="Unit" parent="GameBoard" instance=ExtResource( 1 )]
+cell = Vector2( 7, 3 )
+
+[node name="Unit2" parent="GameBoard" instance=ExtResource( 1 )]
+cell = Vector2( 7, 4 )
+
+[node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
 position = Vector2( 239.604, 134.819 )

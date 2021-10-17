@@ -46,6 +46,10 @@ func set_gridPosition(gridcoordinates: Vector2) -> void:
 	emit_signal("moved", gridPosition)
 	_timer.start()
 
+# Failsafe if we are dumb
+func update_position() -> void:
+	pass
+	
 # Sets the position of the cursor based on the global position parameter
 func set_Position(globalposition: Vector2) -> void:
 	set_gridPosition(devTileMap.world_to_map(globalposition))

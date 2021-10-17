@@ -13,9 +13,8 @@ signal walk_finished
 export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
-## Unit storing it's current position relative to the grid resource
-export(int) var x
-export(int) var y
+## Coordinates of the current cell the unit moved to.
+export var cell : Vector2
 ## Texture representing the unit.
 export var skin: Texture setget set_skin
 ## Distance to which the unit can walk in cells.
@@ -31,8 +30,6 @@ export var move_speed := 600.0
 
 export(bool) var ready = true
 
-## Coordinates of the current cell the cursor moved to.
-var cell := Vector2.ZERO setget set_cell
 ## Toggles the "selected" animation on the unit.
 var is_selected := false setget set_is_selected
 
@@ -44,21 +41,16 @@ onready var _path_follow: PathFollow2D = $PathFollow2D
 
 
 func _ready() -> void:
-	pass
 	set_process(false)
-
-	self.cell = grid.calculate_grid_coordinates(position)
-	position = grid.calculate_map_position(cell)
-
 	# We create the curve resource here because creating it in the editor prevents us from
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
-		
 
+func update_position() -> void:
+	#self.cell = grid.calculate_grid_coordinates(position)
+	position = grid.calculate_map_position(cell)
 	
-	
-
 func _process(delta: float) -> void:
 	_path_follow.offset += move_speed * delta
 
@@ -85,6 +77,9 @@ func walk_along(path: PoolVector2Array) -> void:
 
 func set_cell(value: Vector2) -> void:
 	cell = grid.clamp(value)
+
+func get_cell() -> Vector2:
+	return cell
 
 
 func set_is_selected(value: bool) -> void:

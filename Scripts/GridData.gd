@@ -5,7 +5,7 @@ class_name GridData
 # Object Variables
 var coordinates:Vector2
 var tileType:int
-var unit:Node2D
+var unit:Path2D
 var property:Node2D
 
 # Called when the node enters the scene tree for the first time.
@@ -31,17 +31,15 @@ func getTileType() -> int:
 	return tileType
 
 # accessor method for unit
-func getUnit() -> Node2D:
+func getUnit() -> Path2D:
 	if unit != null:
 		return unit
-	print("null unit returned")
 	return null
 
 # accessor method for property
 func getProperty() -> Node2D:
 	if property != null:
 		return property
-	print("null property returned")
 	return null
 
 # mutator method for coordinates (vector2)
@@ -57,7 +55,7 @@ func setTileType(inTile:int) -> void:
 	tileType = inTile
 
 # mutator method for unit
-func setUnit(inUnit:Node2D) -> void:
+func setUnit(inUnit:Path2D) -> void:
 	if inUnit == null:
 		print("Null unit argument")
 		return
@@ -70,6 +68,17 @@ func setProperty(inProperty:Node2D) -> void:
 		return
 	property = inProperty
 
+# TRACERCODE FUNCTION TO MAKE SURE GRID WORKING LOL
+func print() -> String:
+	var out = String(coordinates)
+	out += " Tiletype:" + String(tileType)
+	if unit != null:
+		out += " Unit: Exists"
+	else:
+		out += " Unit no existo"
+	if property != null:
+		out += " Property: Exists"
+	return out
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
