@@ -5,6 +5,8 @@ tool
 class_name Unit
 extends Path2D
 
+
+
 ## Emitted when the unit reached the end of a path along which it was walking.
 signal walk_finished
 
@@ -42,6 +44,7 @@ onready var _path_follow: PathFollow2D = $PathFollow2D
 
 
 func _ready() -> void:
+	pass
 	set_process(false)
 
 	self.cell = grid.calculate_grid_coordinates(position)
@@ -52,15 +55,8 @@ func _ready() -> void:
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
 		
+
 	
-	#Path Testing
-	var points := [
-		Vector2(0, 0),
-		Vector2(29, 7),
-		Vector2(21, 16),
-		Vector2(7, 3),
-	]
-	walk_along(PoolVector2Array(points))
 	
 
 func _process(delta: float) -> void:

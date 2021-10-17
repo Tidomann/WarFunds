@@ -5,9 +5,33 @@ class_name Grid
 extends Resource
 
 ## The grid's rows and columns.
-export var size := Vector2(15, 10)
+export (int) var size
 ## The size of a cell in pixels.
 export var cell_size := Vector2(16, 16)
+
+var array = [GridData]
+
+func start(battlemap: Node2D):
+	var row = battlemap.Xmax() - battlemap.Xmin() + 1
+	var col = battlemap.Ymax() - battlemap.Ymin() + 1
+	size = row * col
+	array.resize(size)
+	print(array.size())
+	var devtiles : TileMap = battlemap.find_node("Devtiles", false, false)
+	
+	
+	
+	for cell in devtiles.get_used_cells():
+		var array_index = (cell.x- battlemap.Xmin()) +(cell.y- battlemap.Ymin())*15
+		array[array_index] = GridData.new()
+		array[array_index].setTileType(devtiles.get_cellv(cell))
+		array[array_index].setCoordinatesV2(cell)
+		# Todo add property and unit iteration
+
+		
+"""
+
+
 
 ## Half of ``cell_size``
 var _half_cell_size = cell_size / 2
@@ -39,3 +63,4 @@ func clamp(grid_position: Vector2) -> Vector2:
 # Returns the coordinates as an integer, to convert 2D coordinates to a 1D array
 func as_index(cell: Vector2) -> int:
 	return int(cell.x + size.x * cell.y)
+"""

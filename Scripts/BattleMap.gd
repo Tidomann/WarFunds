@@ -6,11 +6,12 @@ export(int) var xMin
 export(int) var xMax
 export(int) var yMin
 export(int) var yMax
-
+export var grid_data: Resource
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setup_tiles()
 	setup_cursor()
+	grid_data.start(self)
 	
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
@@ -30,6 +31,20 @@ func setup_tiles():
 func setup_cursor():
 	$YSort/Cursor.init($Devtiles)
 		
+
+func Xmin() -> int:
+	return xMin
+	
+func Xmax() -> int:
+	return xMax
+	
+func Ymin() -> int:
+	return yMin
+	
+func Ymax() -> int:
+	return yMax
+
+ 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
