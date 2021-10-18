@@ -183,7 +183,7 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 						Constants.TILE.MOUNTAIN:
 							movecost = Constants.INFANTRY_MOVEMENT.MOUNTAIN
 						Constants.TILE.SEA:
-							continue
+							skip = true
 						Constants.TILE.ROAD:
 							movecost = Constants.INFANTRY_MOVEMENT.ROAD
 						Constants.TILE.RIVER:
@@ -191,7 +191,7 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 						Constants.TILE.SHOAL:
 							movecost = Constants.INFANTRY_MOVEMENT.SHOAL
 						Constants.TILE.REEF:
-							continue
+							skip = true
 				Constants.MOVEMENT_TYPE.MECH:
 					continue
 				Constants.MOVEMENT_TYPE.TIRES:
@@ -204,6 +204,8 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 					continue
 				Constants.MOVEMENT_TYPE.TRANS:
 					continue
+			if skip:
+				continue
 			if current.get_movement() - movecost < 0:
 				continue
 			# This is where we extend the stack.

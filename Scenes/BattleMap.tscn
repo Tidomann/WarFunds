@@ -46,8 +46,8 @@ format = 1
 [node name="UnitOverlay" parent="GameBoard" instance=ExtResource( 8 )]
 
 [node name="Unit" parent="GameBoard" instance=ExtResource( 1 )]
-position = Vector2( 118.42, 182.961 )
-cell = Vector2( 7, 11 )
+position = Vector2( 132.106, 134.352 )
+cell = Vector2( 8, 8 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 1 )]
 position = Vector2( 149.849, 135.818 )
