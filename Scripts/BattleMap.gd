@@ -7,16 +7,21 @@ export(int) var xMax
 export(int) var yMin
 export(int) var yMax
 export var gamegrid: Resource
+onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	gamegrid.load_grid(self)
-	gamegrid.load_data()
+	gamegrid.initialize(self)
 	setup_tiles()
 	setup_cursor()
-	for unit in $GameBoard.get_children():
-		if unit.get_class() == "Path2D":
-			unit.update_position()
+	for child in $GameBoard.get_children():
+		var unit := child as Unit
+		if not unit:
+			continue
+		unit.update_position()
+	#unit_overlay test
+	_unit_overlay.draw(gamegrid.get_walkable_cells($GameBoard/Unit))
+
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap

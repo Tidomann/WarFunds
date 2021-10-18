@@ -5,8 +5,6 @@ tool
 class_name Unit
 extends Path2D
 
-
-
 ## Emitted when the unit reached the end of a path along which it was walking.
 signal walk_finished
 
@@ -19,6 +17,8 @@ export var cell : Vector2
 export var skin: Texture setget set_skin
 ## Distance to which the unit can walk in cells.
 export var move_range := 6
+## Type of movement for the unit
+export(Constants.MOVEMENT_TYPE) var movement_type
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.

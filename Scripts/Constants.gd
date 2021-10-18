@@ -1,8 +1,5 @@
 extends Node2D
 
-var tileSet = preload("res://assets/Sprites/Tile/dev_tileset.tres")
-
-class_name Constants
 #Map Constants
 enum TILE{
 	PLAINS = 0,
@@ -11,10 +8,9 @@ enum TILE{
 	SEA = 3,
 	ROAD = 4,
 	RIVER = 5,
-	BEACH = 6,
-	SHOAL = 7,
+	SHOAL = 6,
+	REEF = 7,
 }
-
 
 #Unit Constants
 enum UNIT{
@@ -44,6 +40,31 @@ enum PROPERTY{
 	LAB
 }
 
+enum MOVEMENT_TYPE{
+	INFANTRY,
+	MECH,
+	TIRES,
+	TREAD,
+	AIR,
+	SHIP,
+	TRANS
+}
+
+enum INFANTRY_MOVEMENT{
+	PLAINS = 1,
+	FOREST = 1,
+	MOUNTAIN = 2,
+	ROAD = 1,
+	RIVER = 2,
+	SHOAL = 1
+}
+
+enum TIRE_MOVEMENT{
+	PLAINS = 2,
+	FOREST = 3,
+	ROAD = 1,
+	SHOAL = 1
+}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

@@ -16,6 +16,16 @@ var array = [GridData]
 var battlemap : Node2D
 var devtiles : TileMap
 var gameBoard : YSort
+const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+## Prepare the grid and load the data
+func initialize(inbattlemap: Node2D)->void:
+	load_grid(inbattlemap)
+	load_data()
 
 ## Setup the grid object with a passed battlemap
 func load_grid(inbattlemap: Node2D):
@@ -28,6 +38,7 @@ func load_grid(inbattlemap: Node2D):
 	size = row * col
 	array.resize(size)
 
+## Initialize the grid data from the tilemap
 func load_data():
 	# TileType Load
 	for cell in devtiles.get_used_cells():
@@ -36,13 +47,18 @@ func load_data():
 		array[array_index].setTileType(devtiles.get_cellv(cell))
 		array[array_index].setCoordinatesV2(cell)
 	# Unit Load
-	for unit in gameBoard.get_children():
-		if unit.get_class() != "Path2D":
+	for child in gameBoard.get_children():
+		var unit := child as Unit
+		if not unit:
 			continue
 		var tempIndex = as_index(unit.get_cell())
 		if array[tempIndex].getUnit() == null:
 			array[tempIndex].setUnit(unit)
 	# TODO: Property Load
+	# Testing Array Print
+	for cell in array:
+		if cell.getUnit() != null:
+			print(cell.print())
 
 ## Half of ``cell_size``
 var _half_cell_size = cell_size / 2
@@ -84,5 +100,118 @@ func clamp(grid_position: Vector2) -> Vector2:
 	out.y = clamp(out.y, 0, size2d.y - 1.0)
 	return out
 
+## Returns true if the grid_position is occupied by another unit
 func is_occupied(cell: Vector2) -> bool:
 	return true if array[as_index(cell)].getUnit() != null else false
+
+## Find what tiles a unit can move to
+func get_walkable_cells(unit: Unit) -> Array:
+	return _flood_fill(unit.cell, unit.move_range, unit.movement_type)
+
+# Returns an array with all the coordinates of walkable cells
+# based on the `max_distance` and unit movement type
+func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
+	# This is the array of walkable cells the algorithm outputs.
+	var flood_array := []
+	
+	# The way we implemented the flood fill here is by using a queue. In that queue, we store every
+	# cell we want to apply the flood fill algorithm to.
+	var queue = [MovementNode]
+	queue[0] = MovementNode.new()
+	queue[0].setNode(cell, max_distance)
+	# temp array must also hold distance as it counts down
+	# we will use it to store movement nodes with less movement
+	var temp_array = []
+	
+	# We loop over cells in the queue, popping one cell on every loop iteration.
+	while not queue.empty():
+		var skip = false
+		var current = queue.pop_front()
+		# For each cell, we ensure that we can fill further.
+		#
+		# The conditions are:
+		# 1. We didn't go past the maps's limits.
+		# 2. We haven't already visited and filled this cell
+		# 3. We are within the `max_distance`, a number of cells.
+		# 1. We didn't go past the maps's limits.
+		if not is_gridcoordinate_within_map(current.get_cell()):
+			continue
+		# 2. We haven't already visited and filled this cell
+		# if current already checked, and less effecient, skip
+		if not temp_array.empty():
+			for item in temp_array:
+				if skip == false:
+					# if the temp_array has that position
+					if item.has(current.get_cell()):
+						# and the previous finding was more effecient then skip
+						# (more movement remaining = more effecient)
+						if item.get_movement() >= current.get_movement() :
+							skip = true
+			# outside for iterator of temp_array
+			if skip:
+				continue
+		# 3. We are within the `max_distance`, a number of cells.
+		# This is where we check for the distance between the starting `cell` and the `current` one.
+		var differance: Vector2 = (current.get_cell() - cell).abs()
+		var distance := int(differance.x+differance.y)
+		if distance > max_distance:
+			continue
+		# If we meet all the conditions, we "fill" the `current` cell. To be more accurate, we store
+		# it in our output `array` to later use them with the UnitPath and UnitOverlay classes.
+		temp_array.append(current)
+		# We then look at the `current` cell's neighbors and, if they're not occupied and we haven't
+		# visited them already, we add them to the queue for the next iteration.
+		# This mechanism keeps the loop running until we found all cells the unit can walk.
+		for direction in DIRECTIONS:
+			var coordinates: Vector2 = current.get_cell() + direction
+			# Skip if Neighbour is outside of the map
+			if not is_gridcoordinate_within_map(coordinates):
+				continue
+			# Skip if Neighbour is occupied
+			if is_occupied(coordinates):
+				continue
+			# Skip if Neighbour is outside the allowed movement
+			var tileType = get_CellData(as_index(coordinates)).getTileType()
+			var movecost
+			match movement_type:
+				Constants.MOVEMENT_TYPE.INFANTRY:
+					match tileType:
+						Constants.TILE.PLAINS:
+							movecost = Constants.INFANTRY_MOVEMENT.PLAINS
+						Constants.TILE.FOREST:
+							movecost = Constants.INFANTRY_MOVEMENT.FOREST
+						Constants.TILE.MOUNTAIN:
+							movecost = Constants.INFANTRY_MOVEMENT.MOUNTAIN
+						Constants.TILE.SEA:
+							continue
+						Constants.TILE.ROAD:
+							movecost = Constants.INFANTRY_MOVEMENT.ROAD
+						Constants.TILE.RIVER:
+							movecost = Constants.INFANTRY_MOVEMENT.RIVER
+						Constants.TILE.SHOAL:
+							movecost = Constants.INFANTRY_MOVEMENT.SHOAL
+						Constants.TILE.REEF:
+							continue
+				Constants.MOVEMENT_TYPE.MECH:
+					continue
+				Constants.MOVEMENT_TYPE.TIRES:
+					continue
+				Constants.MOVEMENT_TYPE.TREAD:
+					continue
+				Constants.MOVEMENT_TYPE.AIR:
+					continue
+				Constants.MOVEMENT_TYPE.SHIP:
+					continue
+				Constants.MOVEMENT_TYPE.TRANS:
+					continue
+			if current.get_movement() - movecost < 0:
+				continue
+			# This is where we extend the stack.
+			var temp = MovementNode.new()
+			temp.setNode(coordinates, current.get_movement() - movecost)
+			queue.push_back(temp)
+	# prepare the flood_array for return
+	if not temp_array.empty():
+		for item in temp_array:
+			flood_array.append(item.get_cell())
+	return flood_array

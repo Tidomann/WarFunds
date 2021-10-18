@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Objects/Units/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/Cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=6]
 [ext_resource path="res://Objects/BattleMap Objects/Grid.tres" type="Resource" id=7]
+[ext_resource path="res://Objects/BattleMap Objects/UnitOverlay.tscn" type="PackedScene" id=8]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -42,11 +43,15 @@ format = 1
 
 [node name="GameBoard" type="YSort" parent="."]
 
+[node name="UnitOverlay" parent="GameBoard" instance=ExtResource( 8 )]
+
 [node name="Unit" parent="GameBoard" instance=ExtResource( 1 )]
-cell = Vector2( 7, 3 )
+position = Vector2( 118.42, 182.961 )
+cell = Vector2( 7, 11 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 1 )]
-cell = Vector2( 7, 4 )
+position = Vector2( 149.849, 135.818 )
+cell = Vector2( 9, 8 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
@@ -55,8 +60,8 @@ position = Vector2( 239.604, 134.819 )
 current = true
 limit_left = 0
 limit_top = 0
-limit_right = 800
-limit_bottom = 600
+limit_right = 480
+limit_bottom = 270
 smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource( 6 )
