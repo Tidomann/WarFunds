@@ -46,7 +46,7 @@ format = 1
 [node name="UnitOverlay" parent="GameBoard" instance=ExtResource( 8 )]
 
 [node name="Unit" parent="GameBoard" instance=ExtResource( 1 )]
-position = Vector2( 132.106, 134.352 )
+position = Vector2( 132.749, 133.709 )
 cell = Vector2( 8, 8 )
 move_range = 12
 

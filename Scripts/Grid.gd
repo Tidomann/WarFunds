@@ -201,16 +201,83 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 						Constants.TILE.REEF:
 							skip = true
 				Constants.MOVEMENT_TYPE.MECH:
-					continue
+					match tileType:
+						Constants.TILE.PLAINS:
+							movecost = Constants.MECH_MOVEMENT.PLAINS
+						Constants.TILE.FOREST:
+							movecost = Constants.MECH_MOVEMENT.FOREST
+						Constants.TILE.MOUNTAIN:
+							movecost = Constants.MECH_MOVEMENT.MOUNTAIN
+						Constants.TILE.SEA:
+							skip = true
+						Constants.TILE.ROAD:
+							movecost = Constants.MECH_MOVEMENT.ROAD
+						Constants.TILE.RIVER:
+							movecost = Constants.MECH_MOVEMENT.RIVER
+						Constants.TILE.SHOAL:
+							movecost = Constants.MECH_MOVEMENT.SHOAL
+						Constants.TILE.REEF:
+							skip = true
 				Constants.MOVEMENT_TYPE.TIRES:
-					continue
+					match tileType:
+						Constants.TILE.PLAINS:
+							movecost = Constants.TIRE_MOVEMENT.PLAINS
+						Constants.TILE.FOREST:
+							movecost = Constants.TIRE_MOVEMENT.FOREST
+						Constants.TILE.MOUNTAIN:
+							skip = true
+						Constants.TILE.SEA:
+							skip = true
+						Constants.TILE.ROAD:
+							movecost = Constants.TIRE_MOVEMENT.ROAD
+						Constants.TILE.RIVER:
+							skip = true
+						Constants.TILE.SHOAL:
+							movecost = Constants.TIRE_MOVEMENT.SHOAL
+						Constants.TILE.REEF:
+							skip = true
 				Constants.MOVEMENT_TYPE.TREAD:
-					continue
+					match tileType:
+						Constants.TILE.PLAINS:
+							movecost = Constants.TREAD_MOVEMENT.PLAINS
+						Constants.TILE.FOREST:
+							movecost = Constants.TREAD_MOVEMENT.FOREST
+						Constants.TILE.MOUNTAIN:
+							skip = true
+						Constants.TILE.SEA:
+							skip = true
+						Constants.TILE.ROAD:
+							movecost = Constants.TREAD_MOVEMENT.ROAD
+						Constants.TILE.RIVER:
+							skip = true
+						Constants.TILE.SHOAL:
+							movecost = Constants.TREAD_MOVEMENT.SHOAL
+						Constants.TILE.REEF:
+							skip = true
 				Constants.MOVEMENT_TYPE.AIR:
-					continue
+					match tileType:
+						Constants.TILE.PLAINS:
+							movecost = Constants.AIR_MOVEMENT.PLAINS
+						Constants.TILE.FOREST:
+							movecost = Constants.AIR_MOVEMENT.FOREST
+						Constants.TILE.MOUNTAIN:
+							movecost = Constants.AIR_MOVEMENT.MOUNTAIN
+						Constants.TILE.SEA:
+							movecost = Constants.AIR_MOVEMENT.SEA
+						Constants.TILE.ROAD:
+							movecost = Constants.AIR_MOVEMENT.ROAD
+						Constants.TILE.RIVER:
+							movecost = Constants.AIR_MOVEMENT.RIVER
+						Constants.TILE.SHOAL:
+							movecost = Constants.AIR_MOVEMENT.SHOAL
+						Constants.TILE.REEF:
+							movecost = Constants.AIR_MOVEMENT.REEF
 				Constants.MOVEMENT_TYPE.SHIP:
+					#TODO: Do we want to add ship movement...
 					continue
 				Constants.MOVEMENT_TYPE.TRANS:
+					#TODO: This is a movement type for ships that should be able
+					#to land on beaches + properties
 					continue
 			if skip:
 				continue
