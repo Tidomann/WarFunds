@@ -179,6 +179,8 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 			#!= get_CellData(as_index(coordinates)).getUnit().getPlayerOwner()):
 			#	continue
 			# Skip if Neighbour is outside the allowed movement
+			#TODO: Move all this match code to a function with skip as a
+			#boolean pointer paramater
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
 			var movecost
 			match movement_type:
