@@ -147,6 +147,9 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 						# (more movement remaining = more effecient)
 						if item.get_movement() >= current.get_movement() :
 							skip = true
+							# Tile found and is more effecient, no need to
+							# keep iterating
+							break
 			# outside for iterator of temp_array
 			if skip:
 				continue
