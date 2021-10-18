@@ -111,18 +111,14 @@ func get_walkable_cells(unit: Unit) -> Array:
 # Returns an array with all the coordinates of walkable cells
 # based on the `max_distance` and unit movement type
 func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
-	# This is the array of walkable cells the algorithm outputs.
-	var flood_array := []
-	
 	# The way we implemented the flood fill here is by using a queue. In that queue, we store every
 	# cell we want to apply the flood fill algorithm to.
 	var queue = [MovementNode]
 	queue[0] = MovementNode.new()
 	queue[0].setNode(cell, max_distance)
-	# temp array must also hold distance as it counts down
-	# we will use it to store movement nodes with less movement
-	var temp_array = []
-	
+	# Our array of discovered tiles must also hold distance to find the most
+	# efficient path. Use the same movement node for this purpose
+	var discovered_array = []
 	# We loop over cells in the queue, popping one cell on every loop iteration.
 	while not queue.empty():
 		var skip = false
@@ -133,37 +129,41 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 		# 1. We didn't go past the maps's limits.
 		# 2. We haven't already visited and filled this cell
 		# 3. We are within the `max_distance`, a number of cells.
+		#
 		# 1. We didn't go past the maps's limits.
 		if not is_gridcoordinate_within_map(current.get_cell()):
 			continue
 		# 2. We haven't already visited and filled this cell
-		# if current already checked, and less effecient, skip
-		if not temp_array.empty():
-			for item in temp_array:
+		# if current already discovered AND less effecient, skip
+		if not discovered_array.empty():
+			for item in discovered_array:
 				if skip == false:
-					# if the temp_array has that position
+					# if the discovered_array has that position
 					if item.has(current.get_cell()):
-						# and the previous finding was more effecient then skip
+						# chevk if the previous discovery was more effecient
+						# otherwise we skip
 						# (more movement remaining = more effecient)
 						if item.get_movement() >= current.get_movement() :
 							skip = true
-							# Tile found and is more effecient, no need to
+							# Previous discovery is more effecient, no need to
 							# keep iterating
 							break
-			# outside for iterator of temp_array
+			# outside for iterator of discovered_array
 			if skip:
 				continue
 		# 3. We are within the `max_distance`, a number of cells.
 		# This is where we check for the distance between the starting `cell` and the `current` one.
+		# A unit should never be able to travel more than it's movement range
 		var differance: Vector2 = (current.get_cell() - cell).abs()
 		var distance := int(differance.x+differance.y)
 		if distance > max_distance:
 			continue
 		# If we meet all the conditions, we "fill" the `current` cell. To be more accurate, we store
-		# it in our output `array` to later use them with the UnitPath and UnitOverlay classes.
-		temp_array.append(current)
-		# We then look at the `current` cell's neighbors and, if they're not occupied and we haven't
-		# visited them already, we add them to the queue for the next iteration.
+		# it in our discovered_array, to later use them with the UnitPath and UnitOverlay classes.
+		discovered_array.append(current)
+		# We then look at the `current` cell's neighbors and, if they're not outside the 
+		# map or occupied, we add them to the queue for the next iteration.
+		# We must attempt tiles we previously discovered to check for the most effecient route
 		# This mechanism keeps the loop running until we found all cells the unit can walk.
 		for direction in DIRECTIONS:
 			var coordinates: Vector2 = current.get_cell() + direction
@@ -171,8 +171,13 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 			if not is_gridcoordinate_within_map(coordinates):
 				continue
 			# Skip if Neighbour is occupied
+			# TODO: Add ally (same player or team) check, can pass through allies
 			if is_occupied(coordinates):
 				continue
+			#if (is_occupied(coordinates) && 
+			#get_CellData(as_index(cell)).getUnit().getPlayerOwner()
+			#!= get_CellData(as_index(coordinates)).getUnit().getPlayerOwner()):
+			#	continue
 			# Skip if Neighbour is outside the allowed movement
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
 			var movecost
@@ -215,8 +220,9 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 			var temp = MovementNode.new()
 			temp.setNode(coordinates, current.get_movement() - movecost)
 			queue.push_back(temp)
-	# prepare the flood_array for return
-	if not temp_array.empty():
-		for item in temp_array:
+	# prepare and initialize the flood_array for return
+	var flood_array := []
+	if not discovered_array.empty():
+		for item in discovered_array:
 			flood_array.append(item.get_cell())
 	return flood_array

@@ -48,6 +48,7 @@ format = 1
 [node name="Unit" parent="GameBoard" instance=ExtResource( 1 )]
 position = Vector2( 132.106, 134.352 )
 cell = Vector2( 8, 8 )
+move_range = 12
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 1 )]
 position = Vector2( 149.849, 135.818 )
