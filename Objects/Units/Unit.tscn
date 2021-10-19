@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/Sprites/Unit/infantry.png" type="Texture" id=1]
+[ext_resource path="res://assets/Sprites/Unit/smallman.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Unit.gd" type="Script" id=3]
 [ext_resource path="res://Objects/BattleMap Objects/Grid.tres" type="Resource" id=4]
 
