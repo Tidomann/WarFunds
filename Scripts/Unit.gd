@@ -120,3 +120,13 @@ func is_turnReady() -> bool:
 
 func flip_turnReady() -> void:
 	turnReady = !turnReady
+	if not turnReady:
+		_sprite.modulate = Color(0.44, 0.44, 0.44)
+	else:
+		_sprite.modulate = Color(1, 1, 1)
+	
+
+
+func turn_grey() -> void:
+	_sprite.modulate = Color(0.44, 0.44, 0.44)
+	
