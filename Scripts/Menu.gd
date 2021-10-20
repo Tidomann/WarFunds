@@ -1,6 +1,6 @@
 extends Control
 
-# Declare member variables here. Examples:
+# Member variables. Examples:
 # var a = 2
 # var b = "text"
 # this an example comment
@@ -16,7 +16,7 @@ func _ready():
 
 
 func _on_StartButton_pressed():
-	get_tree().change_scene("res://Scenes/DevMap.tscn")
+	get_tree().change_scene("res://Scenes/BattleMap.tscn")
 
 func _on_OptionsButton_pressed():
 	pass # Replace with function body.

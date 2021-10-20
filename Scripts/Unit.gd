@@ -8,12 +8,19 @@ extends Path2D
 ## Emitted when the unit reached the end of a path along which it was walking.
 signal walk_finished
 
+export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
+## Coordinates of the current cell the unit moved to.
+export var cell : Vector2
 ## Texture representing the unit.
 export var skin: Texture setget set_skin
 ## Distance to which the unit can walk in cells.
 export var move_range := 6
+## Type of movement for the unit
+export(Constants.MOVEMENT_TYPE) var movement_type
+## Type of attack for the unit
+export(Constants.ATTACK_TYPE) var attack_type
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.
@@ -22,10 +29,11 @@ export var min_atk_range := 0
 export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
 export var move_speed := 600.0
+## The unit's combat attack range.
+export var vision_range := 2
 
+export(bool) var turnReady = true
 
-## Coordinates of the current cell the cursor moved to.
-var cell := Vector2.ZERO setget set_cell
 ## Toggles the "selected" animation on the unit.
 var is_selected := false setget set_is_selected
 
@@ -38,26 +46,14 @@ onready var _path_follow: PathFollow2D = $PathFollow2D
 
 func _ready() -> void:
 	set_process(false)
-
-	self.cell = grid.calculate_grid_coordinates(position)
-	position = grid.calculate_map_position(cell)
-
 	# We create the curve resource here because creating it in the editor prevents us from
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
-		
-	
-	#Path Testing
-	var points := [
-		Vector2(0, 0),
-		Vector2(29, 7),
-		Vector2(21, 16),
-		Vector2(7, 3),
-	]
-	walk_along(PoolVector2Array(points))
-	
 
+func update_position() -> void:
+	position = grid.calculate_map_position(cell)
+	
 func _process(delta: float) -> void:
 	_path_follow.offset += move_speed * delta
 
@@ -85,6 +81,9 @@ func walk_along(path: PoolVector2Array) -> void:
 func set_cell(value: Vector2) -> void:
 	cell = grid.clamp(value)
 
+func get_cell() -> Vector2:
+	return cell
+
 
 func set_is_selected(value: bool) -> void:
 	is_selected = value
@@ -111,3 +110,22 @@ func set_skin_offset(value: Vector2) -> void:
 func _set_is_walking(value: bool) -> void:
 	_is_walking = value
 	set_process(_is_walking)
+
+func getPlayerOwner() -> Node2D:
+	return playerOwner
+
+func is_turnReady() -> bool:
+	return turnReady
+
+func flip_turnReady() -> void:
+	turnReady = !turnReady
+	if not turnReady:
+		_sprite.modulate = Color(0.44, 0.44, 0.44)
+	else:
+		_sprite.modulate = Color(1, 1, 1)
+	
+
+
+func turn_grey() -> void:
+	_sprite.modulate = Color(0.44, 0.44, 0.44)
+	

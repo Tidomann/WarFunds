@@ -1,7 +1,7 @@
 extends Node2D
 class_name Cursor
 
-# Declare member variables here. Examples:
+# Member Variables
 var mousePosition : Vector2
 var gridPosition := Vector2.ZERO setget set_gridPosition
 #TileMap resource, giving the node access to the underlying DevTile tilemap
@@ -13,9 +13,14 @@ export var ui_cooldown := 0.05
 onready var _timer: Timer = $Timer
 
 # Emitted when clicking on the currently hovered cell or when pressing "ui_accept".
-signal accept_pressed(coordinates)
+signal select_pressed(coordinates)
 # Emitted when the cursor moved to a new cell.
 signal moved(new_coordinates)
+# Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
+signal cancel_pressed(coordinates)
+# Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
+signal cancel_released(coordinates)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,6 +51,10 @@ func set_gridPosition(gridcoordinates: Vector2) -> void:
 	emit_signal("moved", gridPosition)
 	_timer.start()
 
+# Failsafe if we are dumb
+func update_position() -> void:
+	pass
+	
 # Sets the position of the cursor based on the global position parameter
 func set_Position(globalposition: Vector2) -> void:
 	set_gridPosition(devTileMap.world_to_map(globalposition))
@@ -57,8 +66,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		self.set_Position(get_global_mouse_position())
 	# if user left clicks or presses enter
-	elif event.is_action_pressed("click") or event.is_action_pressed("ui_accept"):
-		emit_signal("accept_pressed", gridPosition)
+	elif event.is_action_pressed("click") or event.is_action_pressed("ui_select"):
+		emit_signal("select_pressed", gridPosition)
+		get_tree().set_input_as_handled()
+	elif event.is_action_pressed("ui_cancel"):
+		emit_signal("cancel_pressed", gridPosition)
+		get_tree().set_input_as_handled()
+	elif event.is_action_released("ui_cancel"):
+		emit_signal("cancel_released", gridPosition)
 		get_tree().set_input_as_handled()
 	
 	# if the user presses an arrow key.
