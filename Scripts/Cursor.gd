@@ -13,7 +13,7 @@ export var ui_cooldown := 0.05
 onready var _timer: Timer = $Timer
 
 # Emitted when clicking on the currently hovered cell or when pressing "ui_accept".
-signal accept_pressed(coordinates)
+signal select_pressed(coordinates)
 # Emitted when the cursor moved to a new cell.
 signal moved(new_coordinates)
 
@@ -61,8 +61,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		self.set_Position(get_global_mouse_position())
 	# if user left clicks or presses enter
-	elif event.is_action_pressed("click") or event.is_action_pressed("ui_accept"):
-		emit_signal("accept_pressed", gridPosition)
+	elif event.is_action_pressed("click") or event.is_action_pressed("ui_select"):
+		emit_signal("select_pressed", gridPosition)
 		get_tree().set_input_as_handled()
 	
 	# if the user presses an arrow key.

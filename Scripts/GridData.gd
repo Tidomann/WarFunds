@@ -61,6 +61,9 @@ func setUnit(inUnit:Path2D) -> void:
 		return
 	unit = inUnit
 
+func clear_unit() -> void:
+	unit = null
+
 # mutator method for property
 func setProperty(inProperty:Node2D) -> void:
 	if inProperty == null:

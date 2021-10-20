@@ -14,13 +14,14 @@ func _ready():
 	gamegrid.initialize(self)
 	setup_tiles()
 	setup_cursor()
+	$GameBoard._reinitialize()
 	for child in $GameBoard.get_children():
 		var unit := child as Unit
 		if not unit:
 			continue
 		unit.update_position()
 	#unit_overlay test
-	_unit_overlay.draw(gamegrid.get_walkable_cells($GameBoard/Unit))
+	#_unit_overlay.draw(gamegrid.get_walkable_cells($GameBoard/Unit))
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles

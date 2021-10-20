@@ -28,7 +28,7 @@ export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
 export var move_speed := 600.0
 
-export(bool) var ready = true
+export(bool) var turnReady = true
 
 ## Toggles the "selected" animation on the unit.
 var is_selected := false setget set_is_selected
@@ -110,3 +110,9 @@ func _set_is_walking(value: bool) -> void:
 
 func getPlayerOwner() -> Node2D:
 	return playerOwner
+
+func is_turnReady() -> bool:
+	return turnReady
+
+func flip_turnReady() -> void:
+	turnReady = !turnReady

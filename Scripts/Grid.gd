@@ -172,117 +172,20 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 				continue
 			# Skip if Neighbour is occupied
 			# TODO: Add ally (same player or team) check, can pass through allies
-			if is_occupied(coordinates):
-				continue
-			#if (is_occupied(coordinates) && 
-			#get_CellData(as_index(cell)).getUnit().getPlayerOwner()
-			#!= get_CellData(as_index(coordinates)).getUnit().getPlayerOwner()):
+			#if is_occupied(coordinates):
 			#	continue
+			var current_unit = get_CellData(as_index(cell)).getUnit()
+			if is_occupied(coordinates):
+				if (current_unit.getPlayerOwner()
+				!= get_CellData(as_index(coordinates)).getUnit().getPlayerOwner()):
+					continue
 			# Skip if Neighbour is outside the allowed movement
 			#TODO: Move all this match code to a function with skip as a
 			#boolean pointer paramater
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
-			var movecost
-			match movement_type:
-				Constants.MOVEMENT_TYPE.INFANTRY:
-					match tileType:
-						Constants.TILE.PLAINS:
-							movecost = Constants.INFANTRY_MOVEMENT.PLAINS
-						Constants.TILE.FOREST:
-							movecost = Constants.INFANTRY_MOVEMENT.FOREST
-						Constants.TILE.MOUNTAIN:
-							movecost = Constants.INFANTRY_MOVEMENT.MOUNTAIN
-						Constants.TILE.SEA:
-							skip = true
-						Constants.TILE.ROAD:
-							movecost = Constants.INFANTRY_MOVEMENT.ROAD
-						Constants.TILE.RIVER:
-							movecost = Constants.INFANTRY_MOVEMENT.RIVER
-						Constants.TILE.SHOAL:
-							movecost = Constants.INFANTRY_MOVEMENT.SHOAL
-						Constants.TILE.REEF:
-							skip = true
-				Constants.MOVEMENT_TYPE.MECH:
-					match tileType:
-						Constants.TILE.PLAINS:
-							movecost = Constants.MECH_MOVEMENT.PLAINS
-						Constants.TILE.FOREST:
-							movecost = Constants.MECH_MOVEMENT.FOREST
-						Constants.TILE.MOUNTAIN:
-							movecost = Constants.MECH_MOVEMENT.MOUNTAIN
-						Constants.TILE.SEA:
-							skip = true
-						Constants.TILE.ROAD:
-							movecost = Constants.MECH_MOVEMENT.ROAD
-						Constants.TILE.RIVER:
-							movecost = Constants.MECH_MOVEMENT.RIVER
-						Constants.TILE.SHOAL:
-							movecost = Constants.MECH_MOVEMENT.SHOAL
-						Constants.TILE.REEF:
-							skip = true
-				Constants.MOVEMENT_TYPE.TIRES:
-					match tileType:
-						Constants.TILE.PLAINS:
-							movecost = Constants.TIRE_MOVEMENT.PLAINS
-						Constants.TILE.FOREST:
-							movecost = Constants.TIRE_MOVEMENT.FOREST
-						Constants.TILE.MOUNTAIN:
-							skip = true
-						Constants.TILE.SEA:
-							skip = true
-						Constants.TILE.ROAD:
-							movecost = Constants.TIRE_MOVEMENT.ROAD
-						Constants.TILE.RIVER:
-							skip = true
-						Constants.TILE.SHOAL:
-							movecost = Constants.TIRE_MOVEMENT.SHOAL
-						Constants.TILE.REEF:
-							skip = true
-				Constants.MOVEMENT_TYPE.TREAD:
-					match tileType:
-						Constants.TILE.PLAINS:
-							movecost = Constants.TREAD_MOVEMENT.PLAINS
-						Constants.TILE.FOREST:
-							movecost = Constants.TREAD_MOVEMENT.FOREST
-						Constants.TILE.MOUNTAIN:
-							skip = true
-						Constants.TILE.SEA:
-							skip = true
-						Constants.TILE.ROAD:
-							movecost = Constants.TREAD_MOVEMENT.ROAD
-						Constants.TILE.RIVER:
-							skip = true
-						Constants.TILE.SHOAL:
-							movecost = Constants.TREAD_MOVEMENT.SHOAL
-						Constants.TILE.REEF:
-							skip = true
-				Constants.MOVEMENT_TYPE.AIR:
-					match tileType:
-						Constants.TILE.PLAINS:
-							movecost = Constants.AIR_MOVEMENT.PLAINS
-						Constants.TILE.FOREST:
-							movecost = Constants.AIR_MOVEMENT.FOREST
-						Constants.TILE.MOUNTAIN:
-							movecost = Constants.AIR_MOVEMENT.MOUNTAIN
-						Constants.TILE.SEA:
-							movecost = Constants.AIR_MOVEMENT.SEA
-						Constants.TILE.ROAD:
-							movecost = Constants.AIR_MOVEMENT.ROAD
-						Constants.TILE.RIVER:
-							movecost = Constants.AIR_MOVEMENT.RIVER
-						Constants.TILE.SHOAL:
-							movecost = Constants.AIR_MOVEMENT.SHOAL
-						Constants.TILE.REEF:
-							movecost = Constants.AIR_MOVEMENT.REEF
-				Constants.MOVEMENT_TYPE.SHIP:
-					#TODO: Do we want to add ship movement...
-					continue
-				Constants.MOVEMENT_TYPE.TRANS:
-					#TODO: This is a movement type for ships that should be able
-					#to land on beaches + properties
-					continue
-			if skip:
+			if not is_valid_move(current_unit, tileType):
 				continue
+			var movecost = get_movecost(current_unit, tileType)
 			if current.get_movement() - movecost < 0:
 				continue
 			# This is where we extend the stack.
@@ -295,3 +198,123 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 		for item in discovered_array:
 			flood_array.append(item.get_cell())
 	return flood_array
+
+func is_valid_move(unit: Unit, tiletype: int) -> bool:
+	match unit.movement_type:
+		Constants.MOVEMENT_TYPE.INFANTRY:
+			match tiletype:
+				Constants.TILE.SEA:
+					return false
+				Constants.TILE.REEF:
+					return false
+		Constants.MOVEMENT_TYPE.MECH:
+			match tiletype:
+				Constants.TILE.SEA:
+					return false
+				Constants.TILE.REEF:
+					return false
+		Constants.MOVEMENT_TYPE.TIRES:
+			match tiletype:
+				Constants.TILE.MOUNTAIN:
+					return false
+				Constants.TILE.SEA:
+					return false
+				Constants.TILE.RIVER:
+					return false
+				Constants.TILE.REEF:
+					return false
+		Constants.MOVEMENT_TYPE.TREAD:
+			match tiletype:
+				Constants.TILE.MOUNTAIN:
+					return false
+				Constants.TILE.SEA:
+					return false
+				Constants.TILE.RIVER:
+					return false
+				Constants.TILE.REEF:
+					return false
+		Constants.MOVEMENT_TYPE.SHIP:
+			continue
+		Constants.MOVEMENT_TYPE.TRANS:
+			continue
+	return true
+
+func get_movecost(unit: Unit, tiletype: int) -> int:
+	match unit.movement_type:
+		Constants.MOVEMENT_TYPE.INFANTRY:
+			match tiletype:
+				Constants.TILE.PLAINS:
+					return Constants.INFANTRY_MOVEMENT.PLAINS
+				Constants.TILE.FOREST:
+					return Constants.INFANTRY_MOVEMENT.FOREST
+				Constants.TILE.MOUNTAIN:
+					return Constants.INFANTRY_MOVEMENT.MOUNTAIN
+				Constants.TILE.SEA:
+					return 9999
+				Constants.TILE.ROAD:
+					return Constants.INFANTRY_MOVEMENT.ROAD
+				Constants.TILE.RIVER:
+					return Constants.INFANTRY_MOVEMENT.RIVER
+				Constants.TILE.SHOAL:
+					return Constants.INFANTRY_MOVEMENT.SHOAL
+				Constants.TILE.REEF:
+					return 9999
+		Constants.MOVEMENT_TYPE.MECH:
+			match tiletype:
+				Constants.TILE.PLAINS:
+					return Constants.MECH_MOVEMENT.PLAINS
+				Constants.TILE.FOREST:
+					return Constants.MECH_MOVEMENT.FOREST
+				Constants.TILE.MOUNTAIN:
+					return Constants.MECH_MOVEMENT.MOUNTAIN
+				Constants.TILE.SEA:
+					return 9999
+				Constants.TILE.ROAD:
+					return Constants.MECH_MOVEMENT.ROAD
+				Constants.TILE.RIVER:
+					return Constants.MECH_MOVEMENT.RIVER
+				Constants.TILE.SHOAL:
+					return Constants.MECH_MOVEMENT.SHOAL
+				Constants.TILE.REEF:
+					return 9999
+		Constants.MOVEMENT_TYPE.TIRES:
+			match tiletype:
+				Constants.TILE.PLAINS:
+					return Constants.TIRE_MOVEMENT.PLAINS
+				Constants.TILE.FOREST:
+					return Constants.TIRE_MOVEMENT.FOREST
+				Constants.TILE.MOUNTAIN:
+					return 9999
+				Constants.TILE.SEA:
+					return 9999
+				Constants.TILE.ROAD:
+					return Constants.TIRE_MOVEMENT.ROAD
+				Constants.TILE.RIVER:
+					return 9999
+				Constants.TILE.SHOAL:
+					return Constants.TIRE_MOVEMENT.SHOAL
+				Constants.TILE.REEF:
+					return 9999
+		Constants.MOVEMENT_TYPE.TREAD:
+			match tiletype:
+				Constants.TILE.PLAINS:
+					return Constants.TREAD_MOVEMENT.PLAINS
+				Constants.TILE.FOREST:
+					return Constants.TREAD_MOVEMENT.FOREST
+				Constants.TILE.MOUNTAIN:
+					return 9999
+				Constants.TILE.SEA:
+					return 9999
+				Constants.TILE.ROAD:
+					return Constants.TREAD_MOVEMENT.ROAD
+				Constants.TILE.RIVER:
+					return 9999
+				Constants.TILE.SHOAL:
+					return Constants.TREAD_MOVEMENT.SHOAL
+				Constants.TILE.REEF:
+					return 9999
+		Constants.MOVEMENT_TYPE.SHIP:
+			return 9999
+		Constants.MOVEMENT_TYPE.TRANS:
+			return 9999
+	return 9999

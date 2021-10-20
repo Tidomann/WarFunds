@@ -17,10 +17,13 @@ func draw(cells: Array) -> void:
 	# We loop over the cells and assign them the only tile available in the tileset, tile 0.
 	for cell in cells:
 		$OverlayFill.set_cellv(cell, 1)
-		set_cellv(cell, 0)
+		self.set_cellv(cell, 0)
 	
 	update_bitmask_region()
 
+func totalclear() -> void:
+	clear()
+	$OverlayFill.clear()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
