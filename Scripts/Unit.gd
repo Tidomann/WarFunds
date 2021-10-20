@@ -52,7 +52,6 @@ func _ready() -> void:
 		curve = Curve2D.new()
 
 func update_position() -> void:
-	#self.cell = grid.calculate_grid_coordinates(position)
 	position = grid.calculate_map_position(cell)
 	
 func _process(delta: float) -> void:

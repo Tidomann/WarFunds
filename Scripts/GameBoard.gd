@@ -115,14 +115,14 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	_units[new_cell] = _active_unit
 	_active_unit.set_cell(new_cell)
 	
-	#_active_unit.flip_turnReady()
-	
 	# We also deselect it, clearing up the overlay and path.
 	_deselect_active_unit()
 	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
 	# finished.
 	_active_unit.walk_along(_unit_path.current_path)
 	yield(_active_unit, "walk_finished")
+	#TODO: More unit turn functionality HERE
+	_active_unit.flip_turnReady()
 	# Finally, we clear the `_active_unit`, which also clears the `_walkable_cells` array.
 	_clear_active_unit()
 

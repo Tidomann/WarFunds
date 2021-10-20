@@ -20,8 +20,6 @@ func _ready():
 		if not unit:
 			continue
 		unit.update_position()
-	#unit_overlay test
-	#_unit_overlay.draw(gamegrid.get_walkable_cells($GameBoard/Unit))
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
