@@ -19,6 +19,8 @@ export var skin: Texture setget set_skin
 export var move_range := 6
 ## Type of movement for the unit
 export(Constants.MOVEMENT_TYPE) var movement_type
+## Type of attack for the unit
+export(Constants.ATTACK_TYPE) var attack_type
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.
@@ -27,6 +29,8 @@ export var min_atk_range := 0
 export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
 export var move_speed := 600.0
+## The unit's combat attack range.
+export var vision_range := 2
 
 export(bool) var turnReady = true
 

@@ -111,19 +111,41 @@ func get_walkable_cells(unit: Unit) -> Array:
 ## Find what tiles a unit can attack
 ## TODO: change calculation for units that can't move and shoot
 func get_attackable_cells(unit: Unit) -> Array:
-	var compare_array = _flood_fill(unit.cell, unit.move_range+unit.atk_range, unit.movement_type)
-	var attack_array = _flood_fill(unit.cell, unit.move_range+unit.atk_range, unit.movement_type)
-	for cell in compare_array:
-		for direction in DIRECTIONS:
-			var coordinates: Vector2 = cell
-			for n in unit.atk_range:
-				coordinates += direction
-				if not is_gridcoordinate_within_map(coordinates):
-					continue
-				if not compare_array.has(coordinates):
-					if not attack_array.has(coordinates):
-						attack_array.append(coordinates)
+	var attack_array := []
+	match unit.attack_type:
+		Constants.ATTACK_TYPE.DIRECT:
+			var compare_array = _flood_fill(unit.cell, unit.move_range+1, unit.movement_type)
+			attack_array = compare_array.duplicate()
+			for cell in compare_array:
+				for direction in DIRECTIONS:
+					var coordinates: Vector2 = cell + direction
+					if not is_gridcoordinate_within_map(coordinates):
+						continue
+					if not compare_array.has(coordinates):
+						if not attack_array.has(coordinates):
+							attack_array.append(coordinates)
+		Constants.ATTACK_TYPE.INDIRECT:
+			attack_array = _flood_fill(unit.cell, unit.atk_range, Constants.MOVEMENT_TYPE.AIR)
+			print(attack_array)
+			var min_range_array = _flood_fill(unit.cell, unit.min_atk_range, Constants.MOVEMENT_TYPE.AIR)
+			print(min_range_array)
+			for cell in min_range_array:
+				attack_array.erase(cell)
+		Constants.ATTACK_TYPE.OTHER:
+			var compare_array = _flood_fill(unit.cell, unit.move_range+unit.atk_range, unit.movement_type)
+			attack_array = compare_array.duplicate()
+			for cell in compare_array:
+				for direction in DIRECTIONS:
+					var coordinates: Vector2 = cell
+					for n in unit.atk_range:
+						coordinates += direction
+						if not is_gridcoordinate_within_map(coordinates):
+							continue
+						if not compare_array.has(coordinates):
+							if not attack_array.has(coordinates):
+								attack_array.append(coordinates)
 	return attack_array
+	
 
 # Returns an array with all the coordinates of walkable cells
 # based on the `max_distance` and unit movement type
@@ -198,9 +220,9 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 					continue
 			# Skip if Neighbour is outside the allowed movement
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
-			if not is_valid_move(current_unit, tileType):
+			if not is_valid_move(movement_type, tileType):
 				continue
-			var movecost = get_movecost(current_unit, tileType)
+			var movecost = get_movecost(movement_type, tileType)
 			if current.get_movement() - movecost < 0:
 				continue
 			# This is where we extend the stack.
@@ -214,8 +236,8 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 			flood_array.append(item.get_cell())
 	return flood_array
 
-func is_valid_move(unit: Unit, tiletype: int) -> bool:
-	match unit.movement_type:
+func is_valid_move(movement_type: int, tiletype: int) -> bool:
+	match movement_type:
 		Constants.MOVEMENT_TYPE.INFANTRY:
 			match tiletype:
 				Constants.TILE.SEA:
@@ -254,8 +276,8 @@ func is_valid_move(unit: Unit, tiletype: int) -> bool:
 			continue
 	return true
 
-func get_movecost(unit: Unit, tiletype: int) -> int:
-	match unit.movement_type:
+func get_movecost(movement_type: int, tiletype: int) -> int:
+	match movement_type:
 		Constants.MOVEMENT_TYPE.INFANTRY:
 			match tiletype:
 				Constants.TILE.PLAINS:
@@ -328,6 +350,8 @@ func get_movecost(unit: Unit, tiletype: int) -> int:
 					return Constants.TREAD_MOVEMENT.SHOAL
 				Constants.TILE.REEF:
 					return 9999
+		Constants.MOVEMENT_TYPE.AIR:
+			return 1
 		Constants.MOVEMENT_TYPE.SHIP:
 			return 9999
 		Constants.MOVEMENT_TYPE.TRANS:
