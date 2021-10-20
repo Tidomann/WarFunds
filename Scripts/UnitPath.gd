@@ -45,7 +45,7 @@ func draw(unit: Unit, cell_end: Vector2) -> void:
 		redraw(unit.get_cell(), cell_end)
 		return
 	# if cell_end is not a valid move use pathfinder
-	if not gamegrid.is_valid_move(unit, gamegrid.get_CellData(gamegrid.as_index(cell_end)).getTileType()):
+	if not gamegrid.is_valid_move(unit.movement_type, gamegrid.get_CellData(gamegrid.as_index(cell_end)).getTileType()):
 			redraw(unit.get_cell(), cell_end)
 			return
 	# if the path already contains the cell_end use pathfinder
@@ -54,9 +54,9 @@ func draw(unit: Unit, cell_end: Vector2) -> void:
 			redraw(unit.get_cell(), cell_end)
 			return
 	#if the cost of the current path exceeds the move range use pathfinder
-	var move_cost = -(gamegrid.get_movecost(unit, gamegrid.get_CellData(gamegrid.as_index(unit.get_cell())).getTileType()))
+	var move_cost = -(gamegrid.get_movecost(unit.movement_type, gamegrid.get_CellData(gamegrid.as_index(unit.get_cell())).getTileType()))
 	for cell in current_path:
-		var tilecost = gamegrid.get_movecost(unit, gamegrid.get_CellData(gamegrid.as_index(cell)).getTileType())
+		var tilecost = gamegrid.get_movecost(unit.movement_type, gamegrid.get_CellData(gamegrid.as_index(cell)).getTileType())
 		#current path exceeds the move range use pathfinder
 		if move_cost + tilecost > unit.move_range:
 			redraw(unit.get_cell(), cell_end)
@@ -64,7 +64,7 @@ func draw(unit: Unit, cell_end: Vector2) -> void:
 		move_cost += tilecost
 	# if the cost of the current path plus the cost of the final cell exceed the move range
 	# use pathfinder
-	if (move_cost + gamegrid.get_movecost(unit, gamegrid.get_CellData(gamegrid.as_index(cell_end)).getTileType())
+	if (move_cost + gamegrid.get_movecost(unit.movement_type, gamegrid.get_CellData(gamegrid.as_index(cell_end)).getTileType())
 	> unit.move_range):
 		redraw(unit.get_cell(), cell_end)
 		return
