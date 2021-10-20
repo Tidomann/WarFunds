@@ -24,6 +24,9 @@ var _active_unit: Unit
 # This is an array of all the cells the `_active_unit` can move to. We will populate the array when
 # selecting a unit and use it in the `_move_active_unit()` function below.
 var _walkable_cells := []
+# This is an array of all the cells the `_active_unit` can move to. We will populate the array when
+# selecting a unit and use it in the `_move_active_unit()` function below.
+var _attackable_cells := []
 
 onready var _unit_path: UnitPath = $UnitPath
 onready var _unit_overlay: UnitOverlay = $UnitOverlay
@@ -72,6 +75,18 @@ func _select_unit(cell: Vector2) -> void:
 	_unit_overlay.draw(_walkable_cells)
 	_unit_path.initialize(_walkable_cells, _active_unit)
 
+# Selects the unit in the `cell` if there's one there.
+# Draws its attackable cells.
+# The board reacts to the signals emitted by the cursor. And it does so by calling functions that
+# select and move a unit.
+func _show_range(cell: Vector2) -> void:
+	# Here's some optional defensive code: we return early from the function if the unit's not
+	# registered in the `cell`.
+	if not _units.has(cell):
+		return
+	_attackable_cells = gamegrid.get_attackable_cells(_units[cell])
+	_unit_overlay.draw_red(_attackable_cells)
+
 # Deselects the active unit, clearing the cells overlay and interactive path drawing.
 # We need it for the `_move_active_unit()` function below, and we'll use it again in a moment.
 func _deselect_active_unit() -> void:
@@ -99,7 +114,8 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	gamegrid.get_CellData(gamegrid.as_index(new_cell)).setUnit(_active_unit)
 	_units[new_cell] = _active_unit
 	_active_unit.set_cell(new_cell)
-	_active_unit.flip_turnReady()
+	
+	#_active_unit.flip_turnReady()
 	
 	# We also deselect it, clearing up the overlay and path.
 	_deselect_active_unit()
@@ -127,6 +143,20 @@ func _on_Cursor_moved(new_cell: Vector2) -> void:
 	if _active_unit and _active_unit.is_selected:
 		_unit_path.draw(_active_unit, new_cell)
 
+# Deselects or shows the range of a unit
+func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
+	if _active_unit:
+		_deselect_active_unit()
+		_clear_active_unit()
+	else:
+		_show_range(cell)
+
+# Stops displaying the range on release
+func _on_Cursor_cancel_released(cell: Vector2) -> void:
+	if _active_unit:
+		return
+	_unit_overlay.totalclear()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if _active_unit and event.is_action_pressed("ui_cancel"):
 		_deselect_active_unit()
@@ -135,3 +165,9 @@ func _unhandled_input(event: InputEvent) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+
+
+
+

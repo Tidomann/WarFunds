@@ -108,6 +108,23 @@ func is_occupied(cell: Vector2) -> bool:
 func get_walkable_cells(unit: Unit) -> Array:
 	return _flood_fill(unit.cell, unit.move_range, unit.movement_type)
 
+## Find what tiles a unit can attack
+## TODO: change calculation for units that can't move and shoot
+func get_attackable_cells(unit: Unit) -> Array:
+	var compare_array = _flood_fill(unit.cell, unit.move_range+unit.atk_range, unit.movement_type)
+	var attack_array = _flood_fill(unit.cell, unit.move_range+unit.atk_range, unit.movement_type)
+	for cell in compare_array:
+		for direction in DIRECTIONS:
+			var coordinates: Vector2 = cell
+			for n in unit.atk_range:
+				coordinates += direction
+				if not is_gridcoordinate_within_map(coordinates):
+					continue
+				if not compare_array.has(coordinates):
+					if not attack_array.has(coordinates):
+						attack_array.append(coordinates)
+	return attack_array
+
 # Returns an array with all the coordinates of walkable cells
 # based on the `max_distance` and unit movement type
 func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
@@ -180,8 +197,6 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 				!= get_CellData(as_index(coordinates)).getUnit().getPlayerOwner()):
 					continue
 			# Skip if Neighbour is outside the allowed movement
-			#TODO: Move all this match code to a function with skip as a
-			#boolean pointer paramater
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
 			if not is_valid_move(current_unit, tileType):
 				continue

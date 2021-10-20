@@ -70,7 +70,6 @@ func draw(unit: Unit, cell_end: Vector2) -> void:
 		return
 
 	current_path.append(cell_end)
-	print(current_path)
 	clear()
 	# And we draw a tile for every cell in the path.
 	for cell in current_path:
@@ -85,11 +84,9 @@ func redraw(cell_start: Vector2, cell_end: Vector2) -> void:
 	# path for us.
 	clear()
 	current_path = pathfinder.calculate_point_path(cell_start, cell_end)
-	print("Redraw: " + String(current_path))
 	# And we draw a tile for every cell in the path.
 	for cell in current_path:
 		set_cellv(cell, 0)
-	#print(current_path)
 	# The function below updates the auto-tiling. Without it, you wouldn't get the nice path with curves
 	# and the arrows on either end.
 	update_bitmask_region()

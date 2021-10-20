@@ -16,6 +16,11 @@ onready var _timer: Timer = $Timer
 signal select_pressed(coordinates)
 # Emitted when the cursor moved to a new cell.
 signal moved(new_coordinates)
+# Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
+signal cancel_pressed(coordinates)
+# Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
+signal cancel_released(coordinates)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -63,6 +68,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	# if user left clicks or presses enter
 	elif event.is_action_pressed("click") or event.is_action_pressed("ui_select"):
 		emit_signal("select_pressed", gridPosition)
+		get_tree().set_input_as_handled()
+	elif event.is_action_pressed("ui_cancel"):
+		emit_signal("cancel_pressed", gridPosition)
+		get_tree().set_input_as_handled()
+	elif event.is_action_released("ui_cancel"):
+		emit_signal("cancel_released", gridPosition)
 		get_tree().set_input_as_handled()
 	
 	# if the user presses an arrow key.
