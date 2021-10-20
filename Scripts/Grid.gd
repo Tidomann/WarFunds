@@ -126,9 +126,7 @@ func get_attackable_cells(unit: Unit) -> Array:
 							attack_array.append(coordinates)
 		Constants.ATTACK_TYPE.INDIRECT:
 			attack_array = _flood_fill(unit.cell, unit.atk_range, Constants.MOVEMENT_TYPE.AIR)
-			print(attack_array)
 			var min_range_array = _flood_fill(unit.cell, unit.min_atk_range, Constants.MOVEMENT_TYPE.AIR)
-			print(min_range_array)
 			for cell in min_range_array:
 				attack_array.erase(cell)
 		Constants.ATTACK_TYPE.OTHER:
