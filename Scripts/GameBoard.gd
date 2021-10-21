@@ -66,6 +66,7 @@ func _select_unit(cell: Vector2) -> void:
 	# Here's some optional defensive code: we return early from the function if the unit's not
 	# registered in the `cell`.
 	if not _units.has(cell):
+		_pop_up.popup_menu($Cursor.position,false,false,true)
 		return
 	_active_unit = _units[cell]
 	if not _active_unit.is_turnReady():
@@ -124,22 +125,18 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	_active_unit.walk_along(_unit_path.current_path)
 	yield(_active_unit, "walk_finished")
 	#TODO: More unit turn functionality HERE
-	#_active_unit.flip_turnReady()
-	_pop_up.popup_menu($Cursor.position,false,false,false)
-	#yield(_pop_up,'Wait')
-	# Finally, we clear the `_active_unit`, which also clears the `_walkable_cells` array.
-	#_clear_active_unit()
+	_pop_up.popup_menu($Cursor.position,false,true,false)
+	yield(_pop_up, "selection")
 
 # Selects or moves a unit based on where the cursor is.
 func _on_Cursor_select_pressed(cell: Vector2) -> void:
 	# The cursor's "select_pressed" means that the player wants to interact with a cell. Depending
 	# on the board's current state, this interaction means either that we want to select a unit or
 	# that we want to give it a move order.
-	if not _pop_up.is_visible_in_tree():
-		if not _active_unit:
-			_select_unit(cell)
-		elif _active_unit.is_selected:
-			_move_active_unit(cell)
+	if not _active_unit:
+		_select_unit(cell)
+	elif _active_unit.is_selected:
+		_move_active_unit(cell)
 
 
 
@@ -156,6 +153,7 @@ func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 		_deselect_active_unit()
 		_clear_active_unit()
 	else:
+		_pop_up.close()
 		_show_range(cell)
 
 # Stops displaying the range on release
@@ -168,21 +166,21 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _active_unit and event.is_action_pressed("ui_cancel"):
 		_deselect_active_unit()
 		_clear_active_unit()
-		
-		
-func wait_selected() -> void:
-	_active_unit.flip_turnReady()
-	_clear_active_unit()
-	$Cursor.active = true
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 
-
-func popup_menu_selection(selection: String)-> void:
+func _on_PopupMenu_selection(selection : String):
 	print(selection)
-
-func _on_PopupMenu_id_selection():
-	pass
+	match selection:
+		"Wait":
+			_active_unit.flip_turnReady()
+			_clear_active_unit()
+			$Cursor.active = true
+		"Attack":
+			pass
+		"End Turn":
+			pass
