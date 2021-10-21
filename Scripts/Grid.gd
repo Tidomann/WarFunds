@@ -99,6 +99,12 @@ func get_unit(cell: Vector2) -> Unit:
 		return array[as_index(cell)].getUnit()
 	return null
 
+func get_unit_position(unit: Unit) -> Vector2:
+	for cell in array:
+		if unit == cell.getUnit():
+			return cell.getCoordinates()
+	return Vector2.ZERO
+
 ## Makes the `grid_position` fit within the grid's bounds.
 func clamp(grid_position: Vector2) -> Vector2:
 	var out := grid_position
@@ -130,8 +136,8 @@ func get_attackable_cells(unit: Unit) -> Array:
 						if not attack_array.has(coordinates):
 							attack_array.append(coordinates)
 		Constants.ATTACK_TYPE.INDIRECT:
-			attack_array = _flood_fill(unit.cell, unit.atk_range, Constants.MOVEMENT_TYPE.AIR)
-			var min_range_array = _flood_fill(unit.cell, unit.min_atk_range, Constants.MOVEMENT_TYPE.AIR)
+			attack_array = _flood_fill(unit.cell, unit.atk_range, Constants.MOVEMENT_TYPE.AIR, true)
+			var min_range_array = _flood_fill(unit.cell, unit.min_atk_range, Constants.MOVEMENT_TYPE.AIR, true)
 			for cell in min_range_array:
 				attack_array.erase(cell)
 		Constants.ATTACK_TYPE.OTHER:
@@ -152,7 +158,7 @@ func get_attackable_cells(unit: Unit) -> Array:
 
 # Returns an array with all the coordinates of walkable cells
 # based on the `max_distance` and unit movement type
-func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
+func _flood_fill(cell: Vector2, max_distance: int, movement_type: int, attackcheck: bool = false) -> Array:
 	# The way we implemented the flood fill here is by using a queue. In that queue, we store every
 	# cell we want to apply the flood fill algorithm to.
 	var queue = [MovementNode]
@@ -212,13 +218,15 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 			# Skip if Neighbour is outside of the map
 			if not is_gridcoordinate_within_map(coordinates):
 				continue
-			# Skip if Neighbour is occupied
-			if not battlemap.fog_map:
-				if is_occupied(coordinates):
-					if is_enemy(get_unit(cell), get_unit(coordinates)):
-						continue
-			else:
-				pass
+			# Skip if we are checking attack cells
+			if not attackcheck:
+				# Skip if Neighbour is occupied
+				if not battlemap.fog_map:
+					if is_occupied(coordinates):
+						if is_enemy(get_unit(cell), get_unit(coordinates)):
+							continue
+				else:
+					pass
 				# TODO: need to implement vision and what cells show visibile for movement check
 			# Skip if Neighbour is outside the allowed movement
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
@@ -369,7 +377,13 @@ func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) 
 					if is_enemy(unit, get_unit(coordinates)):
 						return true
 		Constants.ATTACK_TYPE.INDIRECT:
-			pass
+			if start_position != end_position:
+				return false
+			var attackable_cells = get_attackable_cells(unit)
+			for cell in attackable_cells:
+				if is_occupied(cell):
+					if is_enemy(unit, get_unit(cell)):
+						return true
 		Constants.ATTACK_TYPE.OTHER:
 			pass
 	return false

@@ -71,6 +71,7 @@ func _select_unit(cell: Vector2) -> void:
 	_active_unit = _units[cell]
 	if not _active_unit.is_turnReady():
 		_clear_active_unit()
+		_pop_up.popup_menu($Cursor.position,false,false,true)
 		return
 	_active_unit.is_selected = true
 	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
@@ -106,8 +107,9 @@ func _clear_active_unit() -> void:
 # walk to it.
 func _move_active_unit(new_cell: Vector2) -> void:
 	# Security chek that the selected cell is invalid
-	if is_occupied(new_cell) or not new_cell in _walkable_cells:
-		return
+	if _active_unit.cell != new_cell:
+		if is_occupied(new_cell) or not new_cell in _walkable_cells:
+			return
 	# We also deselect it, clearing up the overlay and path.
 	_deselect_active_unit()
 	# Disable the Cursor to stop moving
@@ -134,19 +136,19 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		_active_unit.flip_turnReady()
 	if not trapped:
 		#TODO: More unit move functionality HERE
-		_pop_up.popup_menu($Cursor.position,gamegrid.enemy_in_range(_active_unit, _active_unit.get_cell(), new_cell),true,false)
+		_pop_up.popup_menu($Cursor.position,gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit), new_cell),true,false)
 		# Wait until the player makes a selection
 		yield(_pop_up, "selection")
 		# When moving a unit, we need to update our `_units` dictionary. We instantly save it in the
 		# target cell even if the unit itself will take time to walk there.
 		# While it's walking, the player won't be able to issue new commands.
-
-	gamegrid.get_CellData(gamegrid.as_index(_active_unit.cell)).clear_unit()
-	_units.erase(_active_unit.cell)
-	gamegrid.get_CellData(gamegrid.as_index(new_cell)).setUnit(_active_unit)
-	_units[new_cell] = _active_unit
-	_active_unit.set_cell(new_cell)
-	_clear_active_unit()
+	if _active_unit:
+		gamegrid.get_CellData(gamegrid.as_index(_active_unit.cell)).clear_unit()
+		_units.erase(_active_unit.cell)
+		gamegrid.get_CellData(gamegrid.as_index(new_cell)).setUnit(_active_unit)
+		_units[new_cell] = _active_unit
+		_active_unit.set_cell(new_cell)
+		_clear_active_unit()
 	$Cursor.active = true
 
 # Selects or moves a unit based on where the cursor is.
@@ -173,6 +175,7 @@ func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 	if _active_unit:
 		_deselect_active_unit()
 		_clear_active_unit()
+		_unit_path.clear_path()
 	else:
 		_pop_up.close()
 		_show_range(cell)
@@ -187,6 +190,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _active_unit and event.is_action_pressed("ui_cancel"):
 		_deselect_active_unit()
 		_clear_active_unit()
+		_unit_path.clear_path()
+		get_tree().set_input_as_handled()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -195,14 +200,28 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_PopupMenu_selection(selection : String):
-	print(selection)
 	match selection:
 		"Wait":
+			print(selection)
+			_pop_up.close()
 			_active_unit.flip_turnReady()
 		"Attack":
+			print(selection)
+			_pop_up.close()
 			pass
 		"End Turn":
+			print(selection)
+			_pop_up.close()
 			pass
+		"Cancel":
+			print(selection)
+			_pop_up.close()
+			if _active_unit:
+				_deselect_active_unit()
+				_active_unit.cell = gamegrid.get_unit_position(_active_unit)
+				_active_unit.update_position()
+				_clear_active_unit()
+				_unit_path.clear_path()
 
 
 func _on_PopupMenu_popup_hide():

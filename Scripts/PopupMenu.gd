@@ -15,7 +15,9 @@ func _ready():
 func close() -> void:
 	clear()
 	hide()
-
+	margin_bottom = margin_top + 7
+	margin_right = margin_left + 10
+	
 func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -> void:
 	clear()
 	if fight:
@@ -43,3 +45,13 @@ func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -
 func _on_PopupMenu_id_pressed(id):
 	emit_signal("selection", self.get_item_text(id))
 	clear()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if self.visible:
+		if event is InputEventMouseButton:
+			if event.button_index == BUTTON_RIGHT:
+				emit_signal("selection", "Cancel")
+				get_tree().set_input_as_handled()
+		elif event.is_action_pressed("ui_cancel"):
+			emit_signal("selection", "Cancel")
+			get_tree().set_input_as_handled()

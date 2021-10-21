@@ -96,6 +96,8 @@ func stop() -> void:
 	pathfinder = null
 	clear()
 
+func clear_path() -> void:
+	current_path = PoolVector2Array()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
