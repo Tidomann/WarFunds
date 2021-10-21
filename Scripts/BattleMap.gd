@@ -2,6 +2,7 @@ extends Node2D
 
 # Member Variables
 # Variables that represent the map boundaries
+export var fog_map := false
 export(int) var xMin
 export(int) var xMax
 export(int) var yMin
@@ -11,7 +12,6 @@ onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var menu = $PopupMenu.add_item("ddsdsd")
 	gamegrid.initialize(self)
 	setup_tiles()
 	setup_cursor()

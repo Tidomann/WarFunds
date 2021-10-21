@@ -105,28 +105,49 @@ func _clear_active_unit() -> void:
 # Updates the _units dictionary with the target position for the unit and asks the _active_unit to
 # walk to it.
 func _move_active_unit(new_cell: Vector2) -> void:
+	# Security chek that the selected cell is invalid
 	if is_occupied(new_cell) or not new_cell in _walkable_cells:
 		return
+	# We also deselect it, clearing up the overlay and path.
+	_deselect_active_unit()
+	# Disable the Cursor to stop moving
+	$Cursor.active = false
 
-	# When moving a unit, we need to update our `_units` dictionary. We instantly save it in the
-	# target cell even if the unit itself will take time to walk there.
-	# While it's walking, the player won't be able to issue new commands.
+	# Check to see if the unit gets trapped by enemy unit
+	var trapped := false
+	var trapped_cell := 0
+	for cell in _unit_path.current_path:
+		if gamegrid.is_occupied(cell) && gamegrid.get_unit(cell) != _active_unit:
+			trapped = true
+			break
+		trapped_cell += 1
+	if trapped:
+		var new_array := []
+		for cell in range(0, trapped_cell):
+			new_array.append(_unit_path.current_path[cell])
+		_unit_path.current_path = PoolVector2Array(new_array)
+	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
+	# finished.
+	_active_unit.walk_along(_unit_path.current_path)
+	yield(_active_unit, "walk_finished")
+	if trapped:
+		_active_unit.flip_turnReady()
+	if not trapped:
+		#TODO: More unit move functionality HERE
+		_pop_up.popup_menu($Cursor.position,gamegrid.enemy_in_range(_active_unit, _active_unit.get_cell(), new_cell),true,false)
+		# Wait until the player makes a selection
+		yield(_pop_up, "selection")
+		# When moving a unit, we need to update our `_units` dictionary. We instantly save it in the
+		# target cell even if the unit itself will take time to walk there.
+		# While it's walking, the player won't be able to issue new commands.
+
 	gamegrid.get_CellData(gamegrid.as_index(_active_unit.cell)).clear_unit()
 	_units.erase(_active_unit.cell)
 	gamegrid.get_CellData(gamegrid.as_index(new_cell)).setUnit(_active_unit)
 	_units[new_cell] = _active_unit
 	_active_unit.set_cell(new_cell)
-	
-	# We also deselect it, clearing up the overlay and path.
-	_deselect_active_unit()
-	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
-	# finished.
-	$Cursor.active = false
-	_active_unit.walk_along(_unit_path.current_path)
-	yield(_active_unit, "walk_finished")
-	#TODO: More unit turn functionality HERE
-	_pop_up.popup_menu($Cursor.position,false,true,false)
-	yield(_pop_up, "selection")
+	_clear_active_unit()
+	$Cursor.active = true
 
 # Selects or moves a unit based on where the cursor is.
 func _on_Cursor_select_pressed(cell: Vector2) -> void:
@@ -178,9 +199,11 @@ func _on_PopupMenu_selection(selection : String):
 	match selection:
 		"Wait":
 			_active_unit.flip_turnReady()
-			_clear_active_unit()
-			$Cursor.active = true
 		"Attack":
 			pass
 		"End Turn":
 			pass
+
+
+func _on_PopupMenu_popup_hide():
+	pass # Replace with function body.

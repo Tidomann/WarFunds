@@ -56,9 +56,9 @@ func load_data():
 			array[tempIndex].setUnit(unit)
 	# TODO: Property Load
 	# Testing Array Print
-	for cell in array:
-		if cell.getUnit() != null:
-			print(cell.print())
+	#for cell in array:
+	#	if cell.getUnit() != null:
+	#		print(cell.print())
 
 ## Half of ``cell_size``
 var _half_cell_size = cell_size / 2
@@ -93,6 +93,12 @@ func as_index(cell : Vector2) -> int:
 func get_CellData(index :int) -> GridData:
 	return array[index]
 
+## Return the unit at the passed coordinates
+func get_unit(cell: Vector2) -> Unit:
+	if is_occupied(cell):
+		return array[as_index(cell)].getUnit()
+	return null
+
 ## Makes the `grid_position` fit within the grid's bounds.
 func clamp(grid_position: Vector2) -> Vector2:
 	var out := grid_position
@@ -109,7 +115,6 @@ func get_walkable_cells(unit: Unit) -> Array:
 	return _flood_fill(unit.cell, unit.move_range, unit.movement_type)
 
 ## Find what tiles a unit can attack
-## TODO: change calculation for units that can't move and shoot
 func get_attackable_cells(unit: Unit) -> Array:
 	var attack_array := []
 	match unit.attack_type:
@@ -208,14 +213,13 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int) -> Array:
 			if not is_gridcoordinate_within_map(coordinates):
 				continue
 			# Skip if Neighbour is occupied
-			# TODO: Add ally (same player or team) check, can pass through allies
-			#if is_occupied(coordinates):
-			#	continue
-			var current_unit = get_CellData(as_index(cell)).getUnit()
-			if is_occupied(coordinates):
-				if (current_unit.getPlayerOwner()
-				!= get_CellData(as_index(coordinates)).getUnit().getPlayerOwner()):
-					continue
+			if not battlemap.fog_map:
+				if is_occupied(coordinates):
+					if is_enemy(get_unit(cell), get_unit(coordinates)):
+						continue
+			else:
+				pass
+				# TODO: need to implement vision and what cells show visibile for movement check
 			# Skip if Neighbour is outside the allowed movement
 			var tileType = get_CellData(as_index(coordinates)).getTileType()
 			if not is_valid_move(movement_type, tileType):
@@ -355,3 +359,20 @@ func get_movecost(movement_type: int, tiletype: int) -> int:
 		Constants.MOVEMENT_TYPE.TRANS:
 			return 9999
 	return 9999
+
+func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) -> bool:
+	match unit.attack_type:
+		Constants.ATTACK_TYPE.DIRECT:
+			for direction in DIRECTIONS:
+				var coordinates: Vector2 = start_position + direction
+				if is_occupied(coordinates):
+					if is_enemy(unit, get_unit(coordinates)):
+						return true
+		Constants.ATTACK_TYPE.INDIRECT:
+			pass
+		Constants.ATTACK_TYPE.OTHER:
+			pass
+	return false
+
+func is_enemy(unit: Unit, compareUnit: Unit) -> bool:
+	return unit.getPlayerOwner().team != compareUnit.getPlayerOwner().team

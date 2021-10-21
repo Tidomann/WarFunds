@@ -8,7 +8,9 @@ extends Path2D
 ## Emitted when the unit reached the end of a path along which it was walking.
 signal walk_finished
 
-export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
+
+export var player_path := @""
+onready var playerOwner : Node2D = self.get_node(player_path)
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
 ## Coordinates of the current cell the unit moved to.
@@ -50,6 +52,9 @@ func _ready() -> void:
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
+	if playerOwner.facing == "Left":
+		$PathFollow2D/Sprite.set_flip_h(true)
+
 
 func update_position() -> void:
 	position = grid.calculate_map_position(cell)

@@ -3,10 +3,11 @@ extends Node2D
 # Member Variables
 export(String) var playerName
 export(int) var team = 1
-export var commander = "res://Objects/Commander.tscn"
-
+export var commander_path := @""
 export(int) var funds
-
+onready var commander : Node2D = self.get_node(commander_path)
+onready var _sprite: Sprite = $PathFollow2D/Sprite
+export(String, "Right", "Left") var facing
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -14,7 +15,7 @@ export(int) var funds
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	commander = get_node(commander_path)
 
 func getCommander() -> Node2D:
 	return commander
