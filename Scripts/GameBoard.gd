@@ -7,6 +7,7 @@ extends Node2D
 # Once again, we use our grid resource that we explicitly define in the class.
 export var gamegrid: Resource
 onready var _pop_up: PopupMenu = get_parent().get_node("PopupMenu")
+onready var _turn_queue: TurnQueue = get_parent().get_node("TurnQueue")
 
 # This constant represents the directions in which a unit can move on the board. We will reference
 # the constant later in the script.
@@ -143,9 +144,10 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		# target cell even if the unit itself will take time to walk there.
 		# While it's walking, the player won't be able to issue new commands.
 	if _active_unit:
-		gamegrid.get_CellData(gamegrid.as_index(_active_unit.cell)).clear_unit()
-		_units.erase(_active_unit.cell)
-		gamegrid.get_CellData(gamegrid.as_index(new_cell)).setUnit(_active_unit)
+		var previous_data = gamegrid.find_unit(_active_unit)
+		previous_data.clear_unit()
+		_units.erase(previous_data.getCoordinates())
+		gamegrid.get_CellData_by_position(new_cell).setUnit(_active_unit)
 		_units[new_cell] = _active_unit
 		_active_unit.set_cell(new_cell)
 		_clear_active_unit()
@@ -158,7 +160,7 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 	# that we want to give it a move order.
 	if not _active_unit:
 		_select_unit(cell)
-	elif _active_unit.is_selected:
+	elif _active_unit.is_selected && _active_unit.playerOwner == _turn_queue.activePlayer:
 		_move_active_unit(cell)
 
 
@@ -210,9 +212,16 @@ func _on_PopupMenu_selection(selection : String):
 			_pop_up.close()
 			pass
 		"End Turn":
-			print(selection)
+			var temp_units = gamegrid.get_players_units(_turn_queue.activePlayer)
+			if not temp_units.empty():
+				for unit in temp_units:
+					if not unit.is_turnReady():
+						unit.flip_turnReady()
 			_pop_up.close()
-			pass
+			_turn_queue.nextTurn()
+			for cell in gamegrid.array:
+				if cell.getUnit() != null:
+					print (cell.getUnit().cell)
 		"Cancel":
 			print(selection)
 			_pop_up.close()

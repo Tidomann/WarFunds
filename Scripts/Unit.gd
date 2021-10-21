@@ -15,24 +15,30 @@ onready var playerOwner : Node2D = self.get_node(player_path)
 export var grid: Resource
 ## Coordinates of the current cell the unit moved to.
 export var cell : Vector2
-## Texture representing the unit.
-export var skin: Texture setget set_skin
-## Distance to which the unit can walk in cells.
-export var move_range := 6
+## Referance to the unit constant
+export(Constants.UNIT) var unit_referance
+## Referance to the unit type
+export(Constants.UNIT_TYPE) var unit_type
+## Cost of the unit
+export var cost := 1000
 ## Type of movement for the unit
 export(Constants.MOVEMENT_TYPE) var movement_type
+## Distance to which the unit can walk in cells.
+export var move_range := 3
 ## Type of attack for the unit
 export(Constants.ATTACK_TYPE) var attack_type
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.
 export var min_atk_range := 0
-## Offset to apply to the `skin` sprite in pixels.
-export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
-export var move_speed := 600.0
+export var move_speed := 100.0
 ## The unit's combat attack range.
 export var vision_range := 2
+## Texture representing the unit.
+export var skin: Texture setget set_skin
+## Offset to apply to the `skin` sprite in pixels.
+export var skin_offset := Vector2.ZERO setget set_skin_offset
 
 export(bool) var turnReady = true
 
@@ -133,4 +139,4 @@ func flip_turnReady() -> void:
 
 func turn_grey() -> void:
 	_sprite.modulate = Color(0.44, 0.44, 0.44)
-	
+

@@ -17,7 +17,7 @@ func close() -> void:
 	hide()
 	margin_bottom = margin_top + 7
 	margin_right = margin_left + 10
-	
+
 func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -> void:
 	clear()
 	if fight:

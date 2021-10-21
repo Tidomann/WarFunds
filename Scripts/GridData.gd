@@ -36,6 +36,11 @@ func getUnit() -> Path2D:
 		return unit
 	return null
 
+func has_Unit() -> bool:
+	if unit != null:
+		return true
+	return false
+
 # accessor method for property
 func getProperty() -> Node2D:
 	if property != null:

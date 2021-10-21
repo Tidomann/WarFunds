@@ -93,10 +93,20 @@ func as_index(cell : Vector2) -> int:
 func get_CellData(index :int) -> GridData:
 	return array[index]
 
+## Return the array object at the equivalent position
+func get_CellData_by_position(cell : Vector2) -> GridData:
+	return array[as_index(cell)]
+
 ## Return the unit at the passed coordinates
 func get_unit(cell: Vector2) -> Unit:
 	if is_occupied(cell):
 		return array[as_index(cell)].getUnit()
+	return null
+
+func find_unit(unit: Unit) -> GridData:
+	for cell in array:
+		if unit == cell.getUnit():
+			return cell
 	return null
 
 func get_unit_position(unit: Unit) -> Vector2:
@@ -154,7 +164,6 @@ func get_attackable_cells(unit: Unit) -> Array:
 							if not attack_array.has(coordinates):
 								attack_array.append(coordinates)
 	return attack_array
-	
 
 # Returns an array with all the coordinates of walkable cells
 # based on the `max_distance` and unit movement type
@@ -390,3 +399,12 @@ func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) 
 
 func is_enemy(unit: Unit, compareUnit: Unit) -> bool:
 	return unit.getPlayerOwner().team != compareUnit.getPlayerOwner().team
+
+func get_players_units(player : Node2D):
+	var units = []
+	for cell in array:
+		if cell.has_Unit():
+			var tempunit = cell.getUnit()
+			if tempunit.playerOwner == player:
+				units.append(tempunit)
+	return units

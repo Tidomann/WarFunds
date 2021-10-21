@@ -6,7 +6,7 @@ export(int) var team = 1
 export var commander_path := @""
 export(int) var funds
 onready var commander : Node2D = self.get_node(commander_path)
-onready var _sprite: Sprite = $PathFollow2D/Sprite
+#onready var _sprite: Sprite = $PathFollow2D/Sprite
 export(String, "Right", "Left") var facing
 # Declare member variables here. Examples:
 # var a = 2

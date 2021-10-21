@@ -68,7 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion:
 			self.set_Position(get_global_mouse_position())
 		# if user left clicks or presses enter
-		elif event.is_action_pressed("click") or event.is_action_pressed("ui_select"):
+		elif event.is_action_pressed("ui_select"):
 			emit_signal("select_pressed", gridPosition)
 			get_tree().set_input_as_handled()
 		elif event.is_action_pressed("ui_cancel"):
