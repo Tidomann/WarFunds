@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Objects/Units/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/UnitOverlay.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Objects/BattleMap Objects/UnitPath.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/GameBoard.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/PopupMenu.tscn" type="PackedScene" id=11]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -55,7 +56,7 @@ position = Vector2( 132.749, 133.709 )
 cell = Vector2( 8, 8 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 1 )]
-position = Vector2( 149.849, 135.818 )
+position = Vector2( 165.563, 60.613 )
 cell = Vector2( 9, 8 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
@@ -76,7 +77,14 @@ edge = true
 wheel = false
 camera_margin = 40
 
+[node name="PopupMenu" parent="." instance=ExtResource( 11 )]
+margin_left = 18.0
+margin_top = 43.0
+margin_right = 34.0
+margin_bottom = 63.0
+
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
 [connection signal="select_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_select_pressed"]
+[connection signal="id_pressed" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_id_pressed"]

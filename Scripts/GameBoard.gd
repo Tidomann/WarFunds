@@ -6,6 +6,7 @@ extends Node2D
 
 # Once again, we use our grid resource that we explicitly define in the class.
 export var gamegrid: Resource
+onready var _pop_up: PopupMenu = get_parent().get_node("PopupMenu")
 
 # This constant represents the directions in which a unit can move on the board. We will reference
 # the constant later in the script.
@@ -119,22 +120,28 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	_deselect_active_unit()
 	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
 	# finished.
+	$Cursor.active = false
 	_active_unit.walk_along(_unit_path.current_path)
 	yield(_active_unit, "walk_finished")
 	#TODO: More unit turn functionality HERE
-	_active_unit.flip_turnReady()
+	#_active_unit.flip_turnReady()
+	_pop_up.popup_menu($Cursor.position,false,false,false)
+	#yield(_pop_up,'Wait')
 	# Finally, we clear the `_active_unit`, which also clears the `_walkable_cells` array.
-	_clear_active_unit()
+	#_clear_active_unit()
 
 # Selects or moves a unit based on where the cursor is.
 func _on_Cursor_select_pressed(cell: Vector2) -> void:
 	# The cursor's "select_pressed" means that the player wants to interact with a cell. Depending
 	# on the board's current state, this interaction means either that we want to select a unit or
 	# that we want to give it a move order.
-	if not _active_unit:
-		_select_unit(cell)
-	elif _active_unit.is_selected:
-		_move_active_unit(cell)
+	if not _pop_up.is_visible_in_tree():
+		if not _active_unit:
+			_select_unit(cell)
+		elif _active_unit.is_selected:
+			_move_active_unit(cell)
+
+
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -161,6 +168,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _active_unit and event.is_action_pressed("ui_cancel"):
 		_deselect_active_unit()
 		_clear_active_unit()
+		
+		
+func wait_selected() -> void:
+	_active_unit.flip_turnReady()
+	_clear_active_unit()
+	$Cursor.active = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -168,6 +181,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
+func popup_menu_selection(selection: String)-> void:
+	print(selection)
 
-
-
+func _on_PopupMenu_id_selection():
+	pass

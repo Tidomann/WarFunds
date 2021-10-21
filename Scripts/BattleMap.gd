@@ -11,6 +11,7 @@ onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var menu = $PopupMenu.add_item("ddsdsd")
 	gamegrid.initialize(self)
 	setup_tiles()
 	setup_cursor()

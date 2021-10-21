@@ -21,9 +21,10 @@ signal cancel_pressed(coordinates)
 # Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
 signal cancel_released(coordinates)
 
-
+var active:= true
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	_timer.wait_time = ui_cooldown
 
 # Call after adding node to scene tree
@@ -63,41 +64,43 @@ func set_Position(globalposition: Vector2) -> void:
 # uses signals when left click/enter is pressed
 func _unhandled_input(event: InputEvent) -> void:
 	# If mouse in moved
-	if event is InputEventMouseMotion:
-		self.set_Position(get_global_mouse_position())
-	# if user left clicks or presses enter
-	elif event.is_action_pressed("click") or event.is_action_pressed("ui_select"):
-		emit_signal("select_pressed", gridPosition)
-		get_tree().set_input_as_handled()
-	elif event.is_action_pressed("ui_cancel"):
-		emit_signal("cancel_pressed", gridPosition)
-		get_tree().set_input_as_handled()
-	elif event.is_action_released("ui_cancel"):
-		emit_signal("cancel_released", gridPosition)
-		get_tree().set_input_as_handled()
+	if active:
+		if event is InputEventMouseMotion:
+			self.set_Position(get_global_mouse_position())
+		# if user left clicks or presses enter
+		elif event.is_action_pressed("click") or event.is_action_pressed("ui_select"):
+			emit_signal("select_pressed", gridPosition)
+			get_tree().set_input_as_handled()
+		elif event.is_action_pressed("ui_cancel"):
+			emit_signal("cancel_pressed", gridPosition)
+			get_tree().set_input_as_handled()
+		elif event.is_action_released("ui_cancel"):
+			emit_signal("cancel_released", gridPosition)
+			get_tree().set_input_as_handled()
 	
-	# if the user presses an arrow key.
-	var should_move := event.is_pressed()
-	# If the player is pressing the key in this frame, we allow the cursor to move. If they keep the
-	# keypress down, we only want to move after the cooldown timer stops.
-	if event.is_echo():
-		should_move = should_move and _timer.is_stopped()
-	# And if the cursor shouldn't move, we prevent it from doing so.
-	if not should_move:
-		return
-	# Here, we update the cursor's current cell based on the input direction.
-	if event.is_action("ui_right"):
-		self.gridPosition += Vector2.RIGHT
-	elif event.is_action("ui_up"):
-		self.gridPosition += Vector2.UP
-	elif event.is_action("ui_left"):
-		self.gridPosition += Vector2.LEFT
-	elif event.is_action("ui_down"):
-		self.gridPosition += Vector2.DOWN
+		# if the user presses an arrow key.
+		var should_move := event.is_pressed()
+		# If the player is pressing the key in this frame, we allow the cursor to move. If they keep the
+		# keypress down, we only want to move after the cooldown timer stops.
+		if event.is_echo():
+			should_move = should_move and _timer.is_stopped()
+		# And if the cursor shouldn't move, we prevent it from doing so.
+		if not should_move:
+			return
+		# Here, we update the cursor's current cell based on the input direction.
+		if event.is_action("ui_right"):
+			self.gridPosition += Vector2.RIGHT
+		elif event.is_action("ui_up"):
+			self.gridPosition += Vector2.UP
+		elif event.is_action("ui_left"):
+			self.gridPosition += Vector2.LEFT
+		elif event.is_action("ui_down"):
+			self.gridPosition += Vector2.DOWN
 
 # Setter Function for devTileMap
 func setTileMap(inputTileMap : TileMap) -> void:
 	self.devTileMap = inputTileMap
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
