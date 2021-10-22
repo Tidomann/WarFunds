@@ -75,6 +75,8 @@ func _select_unit(cell: Vector2) -> void:
 		_pop_up.popup_menu($Cursor.position,false,false,true)
 		return
 	_active_unit.is_selected = true
+	print(_active_unit)
+	print("Is at: " + String(_active_unit.cell))
 	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
 	_unit_overlay.draw(_walkable_cells)
 	_unit_path.initialize(_walkable_cells, _active_unit)
@@ -120,7 +122,8 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	var trapped := false
 	var trapped_cell := 0
 	for cell in _unit_path.current_path:
-		if gamegrid.is_occupied(cell) && gamegrid.get_unit(cell) != _active_unit:
+		if (gamegrid.is_occupied(cell)
+		&& gamegrid.get_unit(cell).get_unit_team() != _active_unit.get_unit_team()):
 			trapped = true
 			break
 		trapped_cell += 1
@@ -149,6 +152,8 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		_units.erase(previous_data.getCoordinates())
 		gamegrid.get_CellData_by_position(new_cell).setUnit(_active_unit)
 		_units[new_cell] = _active_unit
+		print(_active_unit)
+		print(" moving to: " + String(new_cell))
 		_active_unit.set_cell(new_cell)
 		_clear_active_unit()
 	$Cursor.active = true

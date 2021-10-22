@@ -90,7 +90,7 @@ func walk_along(path: PoolVector2Array) -> void:
 
 
 func set_cell(value: Vector2) -> void:
-	cell = grid.clamp(value)
+	cell = value
 
 func get_cell() -> Vector2:
 	return cell
@@ -136,6 +136,8 @@ func flip_turnReady() -> void:
 		_sprite.modulate = Color(1, 1, 1)
 	
 
+func get_unit_team() -> int:
+	return playerOwner.team
 
 func turn_grey() -> void:
 	_sprite.modulate = Color(0.44, 0.44, 0.44)
