@@ -224,9 +224,10 @@ func _on_PopupMenu_selection(selection : String):
 						unit.flip_turnReady()
 			_pop_up.close()
 			_turn_queue.nextTurn()
-			for cell in gamegrid.array:
-				if cell.getUnit() != null:
-					print (cell.getUnit().cell)
+			for data in gamegrid.array:
+				if data != null:
+					if data.getUnit() != null:
+						print (data.getUnit().cell)
 		"Cancel":
 			print(selection)
 			_pop_up.close()

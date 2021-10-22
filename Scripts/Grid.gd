@@ -432,11 +432,12 @@ func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) 
 
 func get_players_units(player : Node2D):
 	var units = []
-	for cell in array:
-		if cell.has_Unit():
-			var tempunit = cell.getUnit()
-			if tempunit.playerOwner == player:
-				units.append(tempunit)
+	for data in array:
+		if data != null:
+			if data.has_Unit():
+				var tempunit = data.getUnit()
+				if tempunit.playerOwner == player:
+					units.append(tempunit)
 	return units
 
 ## Makes the `grid_position` fit within the grid's bounds.
