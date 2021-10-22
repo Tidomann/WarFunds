@@ -17,6 +17,8 @@ export var grid: Resource
 export var cell : Vector2
 ## Referance to the unit constant
 export(Constants.UNIT) var unit_referance
+## The Units Health
+export var health := 100.00
 ## Referance to the unit type
 export(Constants.UNIT_TYPE) var unit_type
 ## Cost of the unit
@@ -58,6 +60,7 @@ func _ready() -> void:
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
+	# Set the facing of the unit according to the player
 	if playerOwner.facing == "Left":
 		$PathFollow2D/Sprite.set_flip_h(true)
 

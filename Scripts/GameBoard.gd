@@ -150,7 +150,7 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		var previous_data = gamegrid.find_unit(_active_unit)
 		previous_data.clear_unit()
 		_units.erase(previous_data.getCoordinates())
-		gamegrid.get_CellData_by_position(new_cell).setUnit(_active_unit)
+		gamegrid.get_GridData_by_position(new_cell).setUnit(_active_unit)
 		_units[new_cell] = _active_unit
 		print(_active_unit)
 		print(" moving to: " + String(new_cell))
