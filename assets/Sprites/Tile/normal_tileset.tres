@@ -33,7 +33,7 @@
 1/z_index = 0
 2/name = "Mountain"
 2/texture = ExtResource( 1 )
-2/tex_offset = Vector2( 0, -15 )
+2/tex_offset = Vector2( 0, -17 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 35, 1, 16, 33 )
 2/tile_mode = 0
