@@ -156,6 +156,7 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		print(" moving to: " + String(new_cell))
 		_active_unit.set_cell(new_cell)
 		_clear_active_unit()
+		_unit_path.clear_path()
 	$Cursor.active = true
 
 # Selects or moves a unit based on where the cursor is.

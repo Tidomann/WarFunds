@@ -414,7 +414,7 @@ func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) 
 	match unit.attack_type:
 		Constants.ATTACK_TYPE.DIRECT:
 			for direction in DIRECTIONS:
-				var coordinates: Vector2 = start_position + direction
+				var coordinates: Vector2 = end_position + direction
 				if is_occupied(coordinates):
 					if is_enemy(unit, get_unit(coordinates)):
 						return true
