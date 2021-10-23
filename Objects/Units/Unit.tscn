@@ -41,8 +41,6 @@ tracks/0/keys = {
 curve = null
 script = ExtResource( 3 )
 grid = ExtResource( 4 )
-move_range = 3
-move_speed = 100.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotate = false

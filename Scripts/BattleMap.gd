@@ -2,6 +2,7 @@ extends Node2D
 
 # Member Variables
 # Variables that represent the map boundaries
+export var fog_map := false
 export(int) var xMin
 export(int) var xMax
 export(int) var yMin

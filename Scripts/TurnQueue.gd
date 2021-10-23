@@ -8,8 +8,7 @@ var activePlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	printOrder()
-	pass # Replace with function body.
+	initialize()
 
 func initialize():
 	var players = getPlayers()
@@ -25,7 +24,7 @@ func getPlayers():
 	return get_children()
 
 func printOrder():
-	var output: String
+	var output := ""
 	for player in get_children():
 		output += player.name + ", "
 	print(output)

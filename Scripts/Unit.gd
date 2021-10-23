@@ -8,29 +8,39 @@ extends Path2D
 ## Emitted when the unit reached the end of a path along which it was walking.
 signal walk_finished
 
-export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
+
+export var player_path := @""
+onready var playerOwner : Node2D = self.get_node(player_path)
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
 ## Coordinates of the current cell the unit moved to.
 export var cell : Vector2
-## Texture representing the unit.
-export var skin: Texture setget set_skin
-## Distance to which the unit can walk in cells.
-export var move_range := 6
+## Referance to the unit constant
+export(Constants.UNIT) var unit_referance
+## The Units Health
+export var health := 100.00
+## Referance to the unit type
+export(Constants.UNIT_TYPE) var unit_type
+## Cost of the unit
+export var cost := 1000
 ## Type of movement for the unit
 export(Constants.MOVEMENT_TYPE) var movement_type
+## Distance to which the unit can walk in cells.
+export var move_range := 3
 ## Type of attack for the unit
 export(Constants.ATTACK_TYPE) var attack_type
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.
 export var min_atk_range := 0
-## Offset to apply to the `skin` sprite in pixels.
-export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## The unit's move speed when it's moving along a path.
-export var move_speed := 600.0
+export var move_speed := 100.0
 ## The unit's combat attack range.
 export var vision_range := 2
+## Texture representing the unit.
+export var skin: Texture setget set_skin
+## Offset to apply to the `skin` sprite in pixels.
+export var skin_offset := Vector2.ZERO setget set_skin_offset
 
 export(bool) var turnReady = true
 
@@ -50,6 +60,10 @@ func _ready() -> void:
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
+	# Set the facing of the unit according to the player
+	if playerOwner.facing == "Left":
+		$PathFollow2D/Sprite.set_flip_h(true)
+
 
 func update_position() -> void:
 	position = grid.calculate_map_position(cell)
@@ -79,7 +93,7 @@ func walk_along(path: PoolVector2Array) -> void:
 
 
 func set_cell(value: Vector2) -> void:
-	cell = grid.clamp(value)
+	cell = value
 
 func get_cell() -> Vector2:
 	return cell
@@ -125,7 +139,9 @@ func flip_turnReady() -> void:
 		_sprite.modulate = Color(1, 1, 1)
 	
 
+func get_unit_team() -> int:
+	return playerOwner.team
 
 func turn_grey() -> void:
 	_sprite.modulate = Color(0.44, 0.44, 0.44)
-	
+

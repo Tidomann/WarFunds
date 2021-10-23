@@ -10,7 +10,8 @@ export(String) var commanderName
 # The name of the commander's power
 export(String) var powerName
 # referance to the player that is using this commander
-export var playerOwner = "res://Objects/BattleMap Objects/Player.tscn"
+export var player_path := @""
+onready var playerOwner : Node2D = self.get_node(player_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

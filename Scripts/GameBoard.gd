@@ -6,6 +6,8 @@ extends Node2D
 
 # Once again, we use our grid resource that we explicitly define in the class.
 export var gamegrid: Resource
+onready var _pop_up: PopupMenu = get_parent().get_node("PopupMenu")
+onready var _turn_queue: TurnQueue = get_parent().get_node("TurnQueue")
 
 # This constant represents the directions in which a unit can move on the board. We will reference
 # the constant later in the script.
@@ -65,12 +67,16 @@ func _select_unit(cell: Vector2) -> void:
 	# Here's some optional defensive code: we return early from the function if the unit's not
 	# registered in the `cell`.
 	if not _units.has(cell):
+		_pop_up.popup_menu($Cursor.position,false,false,true)
 		return
 	_active_unit = _units[cell]
 	if not _active_unit.is_turnReady():
 		_clear_active_unit()
+		_pop_up.popup_menu($Cursor.position,false,false,true)
 		return
 	_active_unit.is_selected = true
+	print(_active_unit)
+	print("Is at: " + String(_active_unit.cell))
 	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
 	_unit_overlay.draw(_walkable_cells)
 	_unit_path.initialize(_walkable_cells, _active_unit)
@@ -103,28 +109,55 @@ func _clear_active_unit() -> void:
 # Updates the _units dictionary with the target position for the unit and asks the _active_unit to
 # walk to it.
 func _move_active_unit(new_cell: Vector2) -> void:
-	if is_occupied(new_cell) or not new_cell in _walkable_cells:
-		return
-
-	# When moving a unit, we need to update our `_units` dictionary. We instantly save it in the
-	# target cell even if the unit itself will take time to walk there.
-	# While it's walking, the player won't be able to issue new commands.
-	gamegrid.get_CellData(gamegrid.as_index(_active_unit.cell)).clear_unit()
-	_units.erase(_active_unit.cell)
-	gamegrid.get_CellData(gamegrid.as_index(new_cell)).setUnit(_active_unit)
-	_units[new_cell] = _active_unit
-	_active_unit.set_cell(new_cell)
-	
+	# Security chek that the selected cell is invalid
+	if _active_unit.cell != new_cell:
+		if is_occupied(new_cell) or not new_cell in _walkable_cells:
+			return
 	# We also deselect it, clearing up the overlay and path.
 	_deselect_active_unit()
+	# Disable the Cursor to stop moving
+	$Cursor.active = false
+
+	# Check to see if the unit gets trapped by enemy unit
+	var trapped := false
+	var trapped_cell := 0
+	for cell in _unit_path.current_path:
+		if (gamegrid.is_occupied(cell)
+		&& gamegrid.get_unit(cell).get_unit_team() != _active_unit.get_unit_team()):
+			trapped = true
+			break
+		trapped_cell += 1
+	if trapped:
+		var new_array := []
+		for cell in range(0, trapped_cell):
+			new_array.append(_unit_path.current_path[cell])
+		_unit_path.current_path = PoolVector2Array(new_array)
 	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
 	# finished.
 	_active_unit.walk_along(_unit_path.current_path)
 	yield(_active_unit, "walk_finished")
-	#TODO: More unit turn functionality HERE
-	_active_unit.flip_turnReady()
-	# Finally, we clear the `_active_unit`, which also clears the `_walkable_cells` array.
-	_clear_active_unit()
+	if trapped:
+		_active_unit.flip_turnReady()
+	if not trapped:
+		#TODO: More unit move functionality HERE
+		_pop_up.popup_menu($Cursor.position,gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit), new_cell),true,false)
+		# Wait until the player makes a selection
+		yield(_pop_up, "selection")
+		# When moving a unit, we need to update our `_units` dictionary. We instantly save it in the
+		# target cell even if the unit itself will take time to walk there.
+		# While it's walking, the player won't be able to issue new commands.
+	if _active_unit:
+		var previous_data = gamegrid.find_unit(_active_unit)
+		previous_data.clear_unit()
+		_units.erase(previous_data.getCoordinates())
+		gamegrid.get_GridData_by_position(new_cell).setUnit(_active_unit)
+		_units[new_cell] = _active_unit
+		print(_active_unit)
+		print(" moving to: " + String(new_cell))
+		_active_unit.set_cell(new_cell)
+		_clear_active_unit()
+		_unit_path.clear_path()
+	$Cursor.active = true
 
 # Selects or moves a unit based on where the cursor is.
 func _on_Cursor_select_pressed(cell: Vector2) -> void:
@@ -133,8 +166,10 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 	# that we want to give it a move order.
 	if not _active_unit:
 		_select_unit(cell)
-	elif _active_unit.is_selected:
+	elif _active_unit.is_selected && _active_unit.playerOwner == _turn_queue.activePlayer:
 		_move_active_unit(cell)
+
+
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -148,7 +183,9 @@ func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 	if _active_unit:
 		_deselect_active_unit()
 		_clear_active_unit()
+		_unit_path.clear_path()
 	else:
+		_pop_up.close()
 		_show_range(cell)
 
 # Stops displaying the range on release
@@ -161,13 +198,47 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _active_unit and event.is_action_pressed("ui_cancel"):
 		_deselect_active_unit()
 		_clear_active_unit()
+		_unit_path.clear_path()
+		get_tree().set_input_as_handled()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 
+func _on_PopupMenu_selection(selection : String):
+	match selection:
+		"Wait":
+			print(selection)
+			_pop_up.close()
+			_active_unit.flip_turnReady()
+		"Attack":
+			print(selection)
+			_pop_up.close()
+			pass
+		"End Turn":
+			var temp_units = gamegrid.get_players_units(_turn_queue.activePlayer)
+			if not temp_units.empty():
+				for unit in temp_units:
+					if not unit.is_turnReady():
+						unit.flip_turnReady()
+			_pop_up.close()
+			_turn_queue.nextTurn()
+			for data in gamegrid.array:
+				if data != null:
+					if data.getUnit() != null:
+						print (data.getUnit().cell)
+		"Cancel":
+			print(selection)
+			_pop_up.close()
+			if _active_unit:
+				_deselect_active_unit()
+				_active_unit.cell = gamegrid.get_unit_position(_active_unit)
+				_active_unit.update_position()
+				_clear_active_unit()
+				_unit_path.clear_path()
 
 
-
-
+func _on_PopupMenu_popup_hide():
+	pass # Replace with function body.
