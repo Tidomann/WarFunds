@@ -1,0 +1,27 @@
+[
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Welcome to University!"},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Thank you!"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"We wish we could say you are in good hands, but these days we don't know."},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Oh no, what's going on?"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Banktania is invading our regions claiming they own it."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"We need your help in defending our land and defeating Banktania."},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"How can I help?"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"I will guide you along the different levels."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"You will need to complete certain objectives before Banktania does."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"As you free more regions we will start to become stronger."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Eventually, when everyone is freed, we can fight off Banktania once and for all!"},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"I'm in."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Great."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"The first region we will go to is the Finance region."},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Lead the way."},
+	
+	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"HA! You brought students to defeat me?"},
+	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"You'll never have what it takes! We're too strong!"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"We'll see about that! These are our finest students!"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"They are Game Designers that will defeat Banktania once and for all!"},
+	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"That day will never come!"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Okay LU Student, you're up."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"I'll be guiding you throughout the level to help you."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Good luck!"},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Thank you! I'll do my best."}
+]
