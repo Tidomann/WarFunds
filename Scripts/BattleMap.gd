@@ -22,8 +22,8 @@ func _ready():
 			continue
 		unit.update_position()
 	
-	$Dialog.get_node("DialogBox").dialogPath = "res://Dialog/Dialog0.json"
-	$Dialog/DialogBox.start_dialog()
+	$DialogBox.dialogPath = "res://Dialog/Dialog0.json"
+	#$DialogBox.start_dialog()
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles

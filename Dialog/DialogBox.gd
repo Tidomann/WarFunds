@@ -11,6 +11,7 @@ var finished = false
 func start_dialog():
 	dialog = getDialog()
 	assert(dialog, "Dialog not found")
+	self.visible = true
 	nextPhrase()
 
 func _ready():

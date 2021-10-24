@@ -142,11 +142,12 @@ position = Vector2( 0.529724, 0 )
 commanderName = "Beep Boop"
 player_path = NodePath("..")
 
-[node name="Dialog" parent="." instance=ExtResource( 16 )]
-margin_left = 236.0
-margin_top = 269.0
-margin_right = 236.0
-margin_bottom = 269.0
+[node name="DialogBox" parent="." instance=ExtResource( 16 )]
+visible = false
+margin_left = 29.7393
+margin_top = 145.168
+margin_right = 460.739
+margin_bottom = 260.168
 
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
