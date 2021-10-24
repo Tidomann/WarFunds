@@ -153,4 +153,5 @@ margin_bottom = 269.0
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
 [connection signal="select_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_select_pressed"]
 [connection signal="id_pressed" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_id_pressed"]
+[connection signal="popup_hide" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_popup_hide"]
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]

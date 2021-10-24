@@ -154,6 +154,7 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		# While it's walking, the player won't be able to issue new commands.
 	if _active_unit:
 		set_new_position(_active_unit, new_cell)
+	_pop_up.close()
 	$Cursor.active = true
 
 # Selects or moves a unit based on where the cursor is.
@@ -208,7 +209,6 @@ func _on_PopupMenu_selection(selection : String):
 	match selection:
 		"Wait":
 			print(selection)
-			_pop_up.close()
 			_active_unit.flip_turnReady()
 		"Attack":
 			print(selection)
@@ -222,7 +222,6 @@ func _on_PopupMenu_selection(selection : String):
 			_unit_overlay.draw_red(target_positions)
 			# TODO: ATTACK STUFF
 			#_unit_overlay.totalclear()
-			_pop_up.close()
 			_active_unit.flip_turnReady()
 		"End Turn":
 			print(selection)
@@ -236,7 +235,6 @@ func _on_PopupMenu_selection(selection : String):
 			print(_turn_queue.activePlayer.playerName + "'s turn.")
 		"Cancel":
 			print(selection)
-			_pop_up.close()
 			if _active_unit:
 				_deselect_active_unit()
 				_active_unit.cell = gamegrid.get_unit_position(_active_unit)

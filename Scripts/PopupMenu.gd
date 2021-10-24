@@ -58,3 +58,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("ui_cancel"):
 			emit_signal("selection", "Cancel")
 			get_tree().set_input_as_handled()
+
+
+func _on_PopupMenu_popup_hide():
+	emit_signal("selection", "Cancel")
+	clear()
