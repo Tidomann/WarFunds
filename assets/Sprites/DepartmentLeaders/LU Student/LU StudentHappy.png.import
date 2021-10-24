@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Evil BankmanHappy1.png-fc8177a879bcbe04f370b338dec8e6f3.stex"
+path="res://.import/LU StudentHappy.png-26fae324040b77a67da768cf3ebc3fa1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Dialog/Evil BankmanHappy1.png"
-dest_files=[ "res://.import/Evil BankmanHappy1.png-fc8177a879bcbe04f370b338dec8e6f3.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/LU Student/LU StudentHappy.png"
+dest_files=[ "res://.import/LU StudentHappy.png-26fae324040b77a67da768cf3ebc3fa1.stex" ]
 
 [params]
 
