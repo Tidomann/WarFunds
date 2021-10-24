@@ -427,7 +427,14 @@ func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) 
 					if is_enemy(unit, get_unit(cell)):
 						return true
 		Constants.ATTACK_TYPE.OTHER:
-			pass
+			unit.attack_type = Constants.ATTACK_TYPE.INDIRECT
+			var attackable_cells = get_attackable_cells(unit)
+			for cell in attackable_cells:
+				if is_occupied(cell):
+					if is_enemy(unit, get_unit(cell)):
+						unit.attack_type = Constants.ATTACK_TYPE.OTHER
+						return true
+			unit.attack_type = Constants.ATTACK_TYPE.OTHER
 	return false
 
 func get_players_units(player : Node2D):
@@ -439,6 +446,39 @@ func get_players_units(player : Node2D):
 				if tempunit.playerOwner == player:
 					units.append(tempunit)
 	return units
+
+func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
+	var targets_array = []
+	match attacker.attack_type:
+		Constants.ATTACK_TYPE.DIRECT:
+			for direction in DIRECTIONS:
+				var coordinates: Vector2 = expected_position + direction
+				if is_occupied(coordinates):
+					if is_enemy(attacker, get_unit(coordinates)):
+						targets_array.append(get_unit(coordinates))
+		Constants.ATTACK_TYPE.INDIRECT:
+			if attacker.cell != expected_position:
+				return targets_array
+			var attackable_cells = get_attackable_cells(attacker)
+			for cell in attackable_cells:
+				if is_occupied(cell):
+					if is_enemy(attacker, get_unit(cell)):
+						targets_array.append(get_unit(cell))
+		Constants.ATTACK_TYPE.OTHER:
+			attacker.attack_type = Constants.ATTACK_TYPE.INDIRECT
+			var position_store = attacker.cell
+			attacker.cell = expected_position
+			var attackable_cells = get_attackable_cells(attacker)
+			for cell in attackable_cells:
+				if is_occupied(cell):
+					if is_enemy(attacker, get_unit(cell)):
+						targets_array.append(get_unit(cell))
+			attacker.attack_type = Constants.ATTACK_TYPE.OTHER
+			attacker.cell = position_store
+	return targets_array
+
+func unit_attack(attacker : Unit, Defender : Unit):
+	pass
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

@@ -60,6 +60,9 @@ func update_position() -> void:
 func set_Position(globalposition: Vector2) -> void:
 	set_gridPosition(devTileMap.world_to_map(globalposition))
 
+func get_Position_on_grid() -> Vector2:
+	return devTileMap.world_to_map(position)
+
 # Function that handles mouse and keyboard movement
 # uses signals when left click/enter is pressed
 func _unhandled_input(event: InputEvent) -> void:
