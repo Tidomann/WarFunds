@@ -163,7 +163,7 @@ func get_attackable_cells(unit: Unit) -> Array:
 			for cell in min_range_array:
 				attack_array.erase(cell)
 		Constants.ATTACK_TYPE.OTHER:
-			var compare_array = _flood_fill(unit.cell, unit.move_range+unit.atk_range, unit.movement_type)
+			var compare_array = _flood_fill(unit.cell, unit.move_range, unit.movement_type)
 			attack_array = compare_array.duplicate()
 			for cell in compare_array:
 				for direction in DIRECTIONS:
