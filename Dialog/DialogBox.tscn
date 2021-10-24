@@ -42,7 +42,6 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
-dialogPath = "res://Dialog/Dialog0.json"
 
 [node name="Box" type="TextureRect" parent="DialogBox"]
 anchor_right = 1.0

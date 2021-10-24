@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Units/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/TurnQueue.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Objects/Commander.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Objects/Units/UnitBad.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -133,6 +134,12 @@ facing = "Left"
 position = Vector2( 0.529724, 0 )
 commanderName = "Beep Boop"
 player_path = NodePath("..")
+
+[node name="Dialog" parent="." instance=ExtResource( 16 )]
+margin_left = 236.0
+margin_top = 269.0
+margin_right = 236.0
+margin_bottom = 269.0
 
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
