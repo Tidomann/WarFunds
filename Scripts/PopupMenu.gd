@@ -8,6 +8,7 @@ var fight_icon = load("res://assets/Sprites/UI/smallfistboy.svg")
 var wait_icon = load("res://assets/Sprites/UI/down_arrow.png")
 var end_turn_icon = load("res://assets/Sprites/UI/endturn.png")
 signal selection
+signal hidden
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -15,8 +16,9 @@ func _ready():
 func close() -> void:
 	clear()
 	hide()
-	margin_bottom = margin_top + 7
-	margin_right = margin_left + 15
+	self.set_as_minsize()
+	#margin_bottom = margin_top + 7
+	#margin_right = margin_left + 15
 
 func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -> void:
 	clear()
@@ -30,6 +32,7 @@ func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -
 		add_icon_item(end_turn_icon,"End Turn")
 		popup_exclusive = false
 	self.rect_global_position = new_positon+Vector2(16,-16)
+	self.set_as_minsize()
 	popup()
 	#self.grab_focus()
 	var a = InputEventKey.new()

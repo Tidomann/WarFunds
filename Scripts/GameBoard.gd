@@ -75,8 +75,6 @@ func _select_unit(cell: Vector2) -> void:
 		_pop_up.popup_menu($Cursor.position,false,false,true)
 		return
 	_active_unit.is_selected = true
-	print(_active_unit)
-	print("Is at: " + String(_active_unit.cell))
 	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
 	_unit_overlay.draw(_walkable_cells)
 	_unit_path.initialize(_walkable_cells, _active_unit)
@@ -90,7 +88,15 @@ func _show_range(cell: Vector2) -> void:
 	# registered in the `cell`.
 	if not _units.has(cell):
 		return
-	_attackable_cells = gamegrid.get_attackable_cells(_units[cell])
+	var unit = _units[cell]
+	_attackable_cells = gamegrid.get_attackable_cells(unit)
+	if unit.attack_type != Constants.ATTACK_TYPE.DIRECT:
+		if unit.playerOwner == _turn_queue.activePlayer:
+			print("true")
+			for coordinate in gamegrid._flood_fill(cell, unit.min_atk_range,
+			Constants.MOVEMENT_TYPE.AIR, true):
+				if _attackable_cells.has(coordinate):
+					_attackable_cells.erase(coordinate)
 	_unit_overlay.draw_red(_attackable_cells)
 
 # Deselects the active unit, clearing the cells overlay and interactive path drawing.
@@ -147,16 +153,7 @@ func _move_active_unit(new_cell: Vector2) -> void:
 		# target cell even if the unit itself will take time to walk there.
 		# While it's walking, the player won't be able to issue new commands.
 	if _active_unit:
-		var previous_data = gamegrid.find_unit(_active_unit)
-		previous_data.clear_unit()
-		_units.erase(previous_data.getCoordinates())
-		gamegrid.get_GridData_by_position(new_cell).setUnit(_active_unit)
-		_units[new_cell] = _active_unit
-		print(_active_unit)
-		print(" moving to: " + String(new_cell))
-		_active_unit.set_cell(new_cell)
-		_clear_active_unit()
-		_unit_path.clear_path()
+		set_new_position(_active_unit, new_cell)
 	$Cursor.active = true
 
 # Selects or moves a unit based on where the cursor is.
@@ -215,9 +212,20 @@ func _on_PopupMenu_selection(selection : String):
 			_active_unit.flip_turnReady()
 		"Attack":
 			print(selection)
+			var targets = gamegrid.get_targets(_active_unit, $Cursor.get_Position_on_grid())
+			var target_positions = []
+			if targets.size() > 1:
+				for defender in targets:
+					target_positions.append(defender.cell)
+			else:
+				target_positions.append(targets[0].cell)
+			_unit_overlay.draw_red(target_positions)
+			# TODO: ATTACK STUFF
+			#_unit_overlay.totalclear()
 			_pop_up.close()
-			pass
+			_active_unit.flip_turnReady()
 		"End Turn":
+			print(selection)
 			var temp_units = gamegrid.get_players_units(_turn_queue.activePlayer)
 			if not temp_units.empty():
 				for unit in temp_units:
@@ -225,10 +233,7 @@ func _on_PopupMenu_selection(selection : String):
 						unit.flip_turnReady()
 			_pop_up.close()
 			_turn_queue.nextTurn()
-			for data in gamegrid.array:
-				if data != null:
-					if data.getUnit() != null:
-						print (data.getUnit().cell)
+			print(_turn_queue.activePlayer.playerName + "'s turn.")
 		"Cancel":
 			print(selection)
 			_pop_up.close()
@@ -239,6 +244,12 @@ func _on_PopupMenu_selection(selection : String):
 				_clear_active_unit()
 				_unit_path.clear_path()
 
-
-func _on_PopupMenu_popup_hide():
-	pass # Replace with function body.
+func set_new_position(unit : Unit, new_cell : Vector2) -> void:
+	var previous_data = gamegrid.find_unit(unit)
+	previous_data.clear_unit()
+	_units.erase(previous_data.getCoordinates())
+	gamegrid.get_GridData_by_position(new_cell).setUnit(unit)
+	_units[new_cell] = unit
+	_active_unit.set_cell(new_cell)
+	_clear_active_unit()
+	_unit_path.clear_path()
