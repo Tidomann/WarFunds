@@ -125,19 +125,19 @@ func _unhandled_input( event ):
 				camera_zoom += camera_zoom_speed
 				set_zoom(camera_zoom)
 	# Control by keyboard handled by InpuMap.
-	if event.is_action_pressed("ui_left"):
+	if event.is_action_pressed("camera_left"):
 		__keys[0] = true
-	if event.is_action_pressed("ui_up"):
+	if event.is_action_pressed("camera_up"):
 		__keys[1] = true
-	if event.is_action_pressed("ui_right"):
+	if event.is_action_pressed("camera_right"):
 		__keys[2] = true
-	if event.is_action_pressed("ui_down"):
+	if event.is_action_pressed("camera_down"):
 		__keys[3] = true
-	if event.is_action_released("ui_left"):
+	if event.is_action_released("camera_left"):
 		__keys[0] = false
-	if event.is_action_released("ui_up"):
+	if event.is_action_released("camera_up"):
 		__keys[1] = false
-	if event.is_action_released("ui_right"):
+	if event.is_action_released("camera_right"):
 		__keys[2] = false
-	if event.is_action_released("ui_down"):
+	if event.is_action_released("camera_down"):
 		__keys[3] = false
