@@ -147,7 +147,7 @@ func get_attackable_cells(unit: Unit) -> Array:
 	var attack_array := []
 	match unit.attack_type:
 		Constants.ATTACK_TYPE.DIRECT:
-			var compare_array = _flood_fill(unit.cell, unit.move_range+1, unit.movement_type)
+			var compare_array = _flood_fill(unit.cell, unit.move_range, unit.movement_type)
 			attack_array = compare_array.duplicate()
 			for cell in compare_array:
 				for direction in DIRECTIONS:
@@ -415,9 +415,10 @@ func enemy_in_range(unit: Unit, start_position: Vector2, end_position: Vector2) 
 		Constants.ATTACK_TYPE.DIRECT:
 			for direction in DIRECTIONS:
 				var coordinates: Vector2 = end_position + direction
-				if is_occupied(coordinates):
-					if is_enemy(unit, get_unit(coordinates)):
-						return true
+				if is_gridcoordinate_within_map(coordinates):
+					if is_occupied(coordinates):
+						if is_enemy(unit, get_unit(coordinates)):
+							return true
 		Constants.ATTACK_TYPE.INDIRECT:
 			if start_position != end_position:
 				return false

@@ -87,17 +87,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		# keypress down, we only want to move after the cooldown timer stops.
 		if event.is_echo():
 			should_move = should_move and _timer.is_stopped()
+		if event.get_class() == "InputEventJoypadMotion":
+			var strength = event.axis_value
+			should_move = abs(strength) == 1 and _timer.is_stopped()
 		# And if the cursor shouldn't move, we prevent it from doing so.
 		if not should_move:
 			return
 		# Here, we update the cursor's current cell based on the input direction.
-		if event.is_action("ui_right"):
+		if event.is_action_pressed("ui_right"):
 			self.gridPosition += Vector2.RIGHT
-		elif event.is_action("ui_up"):
+		elif event.is_action_pressed("ui_up"):
 			self.gridPosition += Vector2.UP
-		elif event.is_action("ui_left"):
+		elif event.is_action_pressed("ui_left"):
 			self.gridPosition += Vector2.LEFT
-		elif event.is_action("ui_down"):
+		elif event.is_action_pressed("ui_down"):
 			self.gridPosition += Vector2.DOWN
 
 # Setter Function for devTileMap
