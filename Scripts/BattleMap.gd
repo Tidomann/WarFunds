@@ -22,7 +22,7 @@ func _ready():
 			continue
 		unit.update_position()
 	
-	$DialogBox.dialogPath = "res://Dialog/Dialog0.json"
+	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()
 
 

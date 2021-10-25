@@ -92,7 +92,6 @@ func _show_range(cell: Vector2) -> void:
 	_attackable_cells = gamegrid.get_attackable_cells(unit)
 	if unit.attack_type != Constants.ATTACK_TYPE.DIRECT:
 		if unit.playerOwner == _turn_queue.activePlayer:
-			print("true")
 			for coordinate in gamegrid._flood_fill(cell, unit.min_atk_range,
 			Constants.MOVEMENT_TYPE.AIR, true):
 				if _attackable_cells.has(coordinate):

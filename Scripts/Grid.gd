@@ -175,6 +175,7 @@ func get_attackable_cells(unit: Unit) -> Array:
 						if not compare_array.has(coordinates):
 							if not attack_array.has(coordinates):
 								attack_array.append(coordinates)
+			attack_array.append(unit.cell)
 	return attack_array
 
 ## Returns an array with all the coordinates of walkable cells
