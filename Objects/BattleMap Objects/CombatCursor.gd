@@ -1,5 +1,5 @@
 extends Node2D
-class_name Cursor
+class_name CombatCursor
 
 # Member Variables
 var mousePosition : Vector2
@@ -11,6 +11,11 @@ export var ui_cooldown := 0.05
 
 #Script instantiates variable based on value in Timer child node
 onready var _timer: Timer = $Timer
+
+var _targets : Array
+var _targets_positions : Array
+var _target_index : int
+var _targeted_unit : Unit
 
 # Emitted when clicking on the currently hovered cell or when pressing "ui_accept".
 signal select_pressed(coordinates)
@@ -67,9 +72,13 @@ func get_Position_on_grid() -> Vector2:
 # uses signals when left click/enter is pressed
 func _unhandled_input(event: InputEvent) -> void:
 	# If mouse in moved
-	if active:
+	if active && not _targets.empty():
 		if event is InputEventMouseMotion:
-			self.set_Position(get_global_mouse_position())
+			for unit in _targets:
+				if devTileMap.world_to_map(get_global_mouse_position()) == unit.cell:
+					_targeted_unit = unit
+					_target_index = _targets.find(unit)
+					self.set_gridPosition(unit.cell)
 		# if user left clicks or presses enter
 		elif event.is_action_pressed("ui_select"):
 			emit_signal("select_pressed", gridPosition)
@@ -94,22 +103,41 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not should_move:
 			return
 		# Here, we update the cursor's current cell based on the input direction.
-		if event.is_action_pressed("ui_right") or \
+		if event.is_action_pressed("ui_right")or \
 		(event.is_action("ui_right") && event is InputEventKey):
-			self.gridPosition += Vector2.RIGHT
+			_targeted_unit = _targets[(_target_index + 1) % _targets.size()]
+			self.gridPosition = _targeted_unit.cell
 		elif event.is_action_pressed("ui_up") or \
 		(event.is_action("ui_up") && event is InputEventKey):
-			self.gridPosition += Vector2.UP
+			_targeted_unit = _targets[(_target_index + 1) % _targets.size()]
+			self.gridPosition = _targeted_unit.cell
 		elif event.is_action_pressed("ui_left") or \
 		(event.is_action("ui_left") && event is InputEventKey):
-			self.gridPosition += Vector2.LEFT
+			_targeted_unit = _targets[(_target_index - 1) % _targets.size()]
+			self.gridPosition = _targeted_unit.cell
 		elif event.is_action_pressed("ui_down") or \
 		(event.is_action("ui_down") && event is InputEventKey):
-			self.gridPosition += Vector2.DOWN
+			_targeted_unit = _targets[(_target_index - 1) % _targets.size()]
+			self.gridPosition = _targeted_unit.cell
 
 # Setter Function for devTileMap
 func setTileMap(inputTileMap : TileMap) -> void:
 	self.devTileMap = inputTileMap
+
+func activate(target_array : Array) -> void:
+	_targets = target_array
+	_targets_positions.clear()
+	for unit in _targets:
+		_targets_positions.append(unit.cell)
+	active = true
+
+func deactivate() -> void:
+	_targets.clear()
+	_targets_positions.clear()
+	_targeted_unit = null
+	_target_index = 0
+	self.visible = false
+	active = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
