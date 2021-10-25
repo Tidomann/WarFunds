@@ -8,7 +8,6 @@ var fight_icon = load("res://assets/Sprites/UI/smallfistboy.svg")
 var wait_icon = load("res://assets/Sprites/UI/down_arrow.png")
 var end_turn_icon = load("res://assets/Sprites/UI/endturn.png")
 signal selection
-signal hidden
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

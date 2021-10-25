@@ -11,7 +11,6 @@ func _ready():
 	initialize()
 
 func initialize():
-	var players = getPlayers()
 	activePlayer = get_child(0)
 
 func nextTurn():

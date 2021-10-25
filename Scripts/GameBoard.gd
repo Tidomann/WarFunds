@@ -186,7 +186,7 @@ func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 		_show_range(cell)
 
 # Stops displaying the range on release
-func _on_Cursor_cancel_released(cell: Vector2) -> void:
+func _on_Cursor_cancel_released(_cell: Vector2) -> void:
 	if _active_unit:
 		return
 	_unit_overlay.totalclear()
