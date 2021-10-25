@@ -234,13 +234,13 @@ func _on_PopupMenu_selection(selection : String):
 			_turn_queue.nextTurn()
 			print(_turn_queue.activePlayer.playerName + "'s turn.")
 		"Cancel":
-			print(selection)
 			if _active_unit:
 				_deselect_active_unit()
 				_active_unit.cell = gamegrid.get_unit_position(_active_unit)
 				_active_unit.update_position()
 				_clear_active_unit()
 				_unit_path.clear_path()
+				print(selection)
 
 func set_new_position(unit : Unit, new_cell : Vector2) -> void:
 	var previous_data = gamegrid.find_unit(unit)
