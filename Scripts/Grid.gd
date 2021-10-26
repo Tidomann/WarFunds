@@ -175,7 +175,6 @@ func get_attackable_cells(unit: Unit) -> Array:
 						if not compare_array.has(coordinates):
 							if not attack_array.has(coordinates):
 								attack_array.append(coordinates)
-			attack_array.append(unit.cell)
 	return attack_array
 
 ## Returns an array with all the coordinates of walkable cells
@@ -479,7 +478,39 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 			attacker.cell = position_store
 	return targets_array
 
-func unit_attack(attacker : Unit, Defender : Unit):
+func calculate_min_damage(attacker : Unit, defender : Unit) -> int:
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
+	var full_damage = ((damage_lookup * commander_attack_bonus / 100.0) * (attacker.health / 10.0))
+	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
+	var result = full_damage * reduction_modifier
+	return int(floor(result))
+
+func calculate_max_damage(attacker : Unit, defender : Unit) -> int:
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
+	var commander_luck_modifier = (attacker.get_commander().luck_modifier() - 1) * 0.1
+	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * (attacker.health / 10.0))
+	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
+	var result = full_damage * reduction_modifier
+	return int(floor(result))
+
+func calculate_damage(attacker : Unit, defender : Unit) -> int:
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
+	var commander_luck_modifier = randi()%attacker.get_commander().luck_modifier()*0.1
+	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * (attacker.health / 10.0))
+	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
+	var result = full_damage * reduction_modifier
+	return int(floor(result))
+
+func unit_attack(attacker : Unit, defender : Unit):
 	pass
 
 ## Makes the `grid_position` fit within the grid's bounds.

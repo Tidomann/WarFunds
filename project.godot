@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "CombatCursor",
 "language": "GDScript",
-"path": "res://Objects/BattleMap Objects/CombatCursor.gd"
+"path": "res://Scripts/CombatCursor.gd"
 }, {
 "base": "Node2D",
 "class": "Cursor",
@@ -23,6 +23,11 @@ _global_script_classes=[ {
 "class": "GameBoard",
 "language": "GDScript",
 "path": "res://Scripts/GameBoard.gd"
+}, {
+"base": "Node2D",
+"class": "GameBoard2",
+"language": "GDScript",
+"path": "res://Scripts/GameBoard2.gd"
 }, {
 "base": "Resource",
 "class": "Grid",
@@ -68,6 +73,7 @@ _global_script_class_icons={
 "CombatCursor": "",
 "Cursor": "",
 "GameBoard": "",
+"GameBoard2": "",
 "Grid": "",
 "GridData": "",
 "MovementNode": "",

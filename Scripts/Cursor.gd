@@ -111,6 +111,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func setTileMap(inputTileMap : TileMap) -> void:
 	self.devTileMap = inputTileMap
 
+func activate() -> void:
+	active = true
+	self.visible = true
+	
+func deactivate(and_hide : bool) -> void:
+	active = false
+	if and_hide:
+		self.visible = false
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

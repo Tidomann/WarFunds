@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Objects/Units/Unit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Objects/Commander.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Objects/Units/UnitBad.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -60,6 +61,9 @@ gamegrid = ExtResource( 7 )
 position = Vector2( 152.051, 164.859 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 9, 10 )
+attack_type = 1
+atk_range = 4
+min_atk_range = 2
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 1 )]
 position = Vector2( 136.158, 182.584 )
@@ -72,26 +76,35 @@ player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 8 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 280.519, 70.7268 )
+position = Vector2( 167.725, 182.186 )
 player_path = NodePath("../../TurnQueue/Computer 1")
-cell = Vector2( 17, 4 )
+cell = Vector2( 10, 11 )
 
 [node name="Unit3" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 310.666, 85.0364 )
 player_path = NodePath("../../TurnQueue/Computer 1")
 cell = Vector2( 19, 5 )
+attack_type = 2
+atk_range = 3
+min_atk_range = 1
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 294.051, 84.9784 )
+position = Vector2( 182.592, 166.404 )
 player_path = NodePath("../../TurnQueue/Computer 1")
-cell = Vector2( 18, 5 )
+cell = Vector2( 11, 10 )
 
 [node name="Unit7" parent="GameBoard" instance=ExtResource( 1 )]
 position = Vector2( 152.908, 198.214 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 9, 12 )
+attack_type = 2
+atk_range = 4
+min_atk_range = 2
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
+
+[node name="CombatCursor" parent="GameBoard" instance=ExtResource( 17 )]
+visible = false
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
 position = Vector2( 239.604, 134.819 )
@@ -148,6 +161,8 @@ margin_bottom = 260.168
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
 [connection signal="select_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_select_pressed"]
+[connection signal="combat_selection" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_combat_selection"]
+[connection signal="moved" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_moved"]
 [connection signal="id_pressed" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_id_pressed"]
 [connection signal="popup_hide" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_popup_hide"]
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]

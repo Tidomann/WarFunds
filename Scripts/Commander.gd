@@ -13,6 +13,8 @@ export(String) var powerName
 export var player_path := @""
 onready var playerOwner : Node2D = self.get_node(player_path)
 
+var used_power := false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -70,6 +72,27 @@ func getOwner():
 # mutator function to set the commander's player
 func setOwner(newPlayer : Node2D):
 	playerOwner = newPlayer
+
+func strength_modifier(_attacker : Unit, _defender : Unit) -> float:
+	var strength = 100.0
+	if used_power:
+		return strength*1.1
+	return strength
+
+func defense_modifier(_attacker : Unit, _defender : Unit) -> float:
+	var defense = 100.0
+	if used_power:
+		return defense*1.1
+	return defense
+
+func use_power() -> void:
+	if canUsePower():
+		removePower(maxPower)
+	used_power = true
+	#Do Power Stuff
+
+func luck_modifier() -> int:
+	return 10
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

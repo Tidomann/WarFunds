@@ -18,7 +18,7 @@ var _target_index : int
 var _targeted_unit : Unit
 
 # Emitted when clicking on the currently hovered cell or when pressing "ui_accept".
-signal select_pressed(coordinates)
+signal combat_selection
 # Emitted when the cursor moved to a new cell.
 signal moved(new_coordinates)
 # Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
@@ -26,7 +26,7 @@ signal cancel_pressed(coordinates)
 # Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
 signal cancel_released(coordinates)
 
-var active:= true
+var active:= false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -37,8 +37,7 @@ func _ready():
 # curose to the first used cell
 func init(inputTileMap : TileMap):
 	setTileMap(inputTileMap)
-	var usedArray = devTileMap.get_used_cells()
-	set_gridPosition(usedArray[0])
+	active = false
 
 # Controls the cursors current position on the grid
 # sets the position of the cursor based on coordinates parameter corresponding to the tilemap
@@ -81,13 +80,13 @@ func _unhandled_input(event: InputEvent) -> void:
 					self.set_gridPosition(unit.cell)
 		# if user left clicks or presses enter
 		elif event.is_action_pressed("ui_select"):
-			emit_signal("select_pressed", gridPosition)
+			emit_signal("combat_selection", _targeted_unit)
 			get_tree().set_input_as_handled()
 		elif event.is_action_pressed("ui_cancel"):
-			emit_signal("cancel_pressed", gridPosition)
+			emit_signal("combat_selection", "Cancel")
 			get_tree().set_input_as_handled()
 		elif event.is_action_released("ui_cancel"):
-			emit_signal("cancel_released", gridPosition)
+			emit_signal("cancel_released")
 			get_tree().set_input_as_handled()
 	
 		# if the user presses an arrow key.
@@ -105,19 +104,23 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Here, we update the cursor's current cell based on the input direction.
 		if event.is_action_pressed("ui_right")or \
 		(event.is_action("ui_right") && event is InputEventKey):
-			_targeted_unit = _targets[(_target_index + 1) % _targets.size()]
+			_target_index = (_target_index + 1) % _targets.size()
+			_targeted_unit = _targets[_target_index]
 			self.gridPosition = _targeted_unit.cell
 		elif event.is_action_pressed("ui_up") or \
 		(event.is_action("ui_up") && event is InputEventKey):
-			_targeted_unit = _targets[(_target_index + 1) % _targets.size()]
+			_target_index = (_target_index + 1) % _targets.size()
+			_targeted_unit = _targets[_target_index]
 			self.gridPosition = _targeted_unit.cell
 		elif event.is_action_pressed("ui_left") or \
 		(event.is_action("ui_left") && event is InputEventKey):
-			_targeted_unit = _targets[(_target_index - 1) % _targets.size()]
+			_target_index = (_target_index - 1) % _targets.size()
+			_targeted_unit = _targets[_target_index]
 			self.gridPosition = _targeted_unit.cell
 		elif event.is_action_pressed("ui_down") or \
 		(event.is_action("ui_down") && event is InputEventKey):
-			_targeted_unit = _targets[(_target_index - 1) % _targets.size()]
+			_target_index = (_target_index - 1) % _targets.size()
+			_targeted_unit = _targets[_target_index]
 			self.gridPosition = _targeted_unit.cell
 
 # Setter Function for devTileMap
@@ -129,6 +132,8 @@ func activate(target_array : Array) -> void:
 	_targets_positions.clear()
 	for unit in _targets:
 		_targets_positions.append(unit.cell)
+	set_gridPosition(_targets[0].cell)
+	self.visible = true
 	active = true
 
 func deactivate() -> void:

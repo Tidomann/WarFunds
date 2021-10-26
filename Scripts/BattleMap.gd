@@ -42,6 +42,7 @@ func setup_tiles():
 # what tiles exist in the map
 func setup_cursor():
 	$GameBoard/Cursor.init($Devtiles)
+	$GameBoard/CombatCursor.init($Devtiles)
 		
 
 func Xmin() -> int:

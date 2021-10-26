@@ -21,7 +21,7 @@ func _ready():
 # Creates a new PathFinder that uses the AStar algorithm we use to find a path between two cells 
 # among the `walkable_cells`.
 # We'll call this function every time the player selects a unit.
-func initialize(walkable_cells: Array, unit : Path2D) -> void:
+func initialize(walkable_cells: Array, unit : Unit) -> void:
 	pathfinder = PathFinder.new(gamegrid, walkable_cells)
 	valid_cells = walkable_cells
 	current_path.append(unit.get_cell())

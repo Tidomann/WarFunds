@@ -145,3 +145,5 @@ func get_unit_team() -> int:
 func turn_grey() -> void:
 	_sprite.modulate = Color(0.44, 0.44, 0.44)
 
+func get_commander() -> Node2D:
+	return playerOwner.commander

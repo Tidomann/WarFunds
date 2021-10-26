@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/Sprites/Environment/cursor.png" type="Texture" id=1]
-[ext_resource path="res://Objects/BattleMap Objects/CombatCursor.gd" type="Script" id=2]
+[ext_resource path="res://assets/Sprites/Environment/combatcursor.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/CombatCursor.gd" type="Script" id=2]
 
 [node name="CombatCursor" type="Node2D"]
 script = ExtResource( 2 )
