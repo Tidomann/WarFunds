@@ -15,7 +15,6 @@ func _ready():
 	gamegrid.initialize(self)
 	setup_tiles()
 	setup_cursor()
-	$GameBoard._reinitialize()
 	for child in $GameBoard.get_children():
 		var unit := child as Unit
 		if not unit:

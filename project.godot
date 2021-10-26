@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/GameBoard.gd"
 }, {
-"base": "Node2D",
-"class": "GameBoard2",
-"language": "GDScript",
-"path": "res://Scripts/GameBoard2.gd"
-}, {
 "base": "Resource",
 "class": "Grid",
 "language": "GDScript",
@@ -73,7 +68,6 @@ _global_script_class_icons={
 "CombatCursor": "",
 "Cursor": "",
 "GameBoard": "",
-"GameBoard2": "",
 "Grid": "",
 "GridData": "",
 "MovementNode": "",
