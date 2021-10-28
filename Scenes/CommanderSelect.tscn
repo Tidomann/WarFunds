@@ -1,0 +1,156 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Professor Hewel/Professor HewelHappy.png" type="Texture" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.396851
+margin_right = 0.396851
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+color = Color( 0.72549, 1, 0.72549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect5"]
+margin_left = 17.2535
+margin_top = 18.5716
+margin_right = 124.254
+margin_bottom = 252.572
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Professor HewelHappy" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 52.7507, 32.0453 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy2" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 101.508, 33.8291 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy3" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 53.3454, 90.911 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy4" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 102.103, 91.5056 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy5" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 50.3723, 147.993 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy6" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 99.7244, 146.804 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy7" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 49.7777, 203.291 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="Professor HewelHappy8" type="Sprite" parent="ColorRect5/ColorRect"]
+position = Vector2( 100.319, 203.886 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -49.5, 0 )
+
+[node name="ColorRect2" type="ColorRect" parent="ColorRect5"]
+margin_left = 127.0
+margin_top = 19.0
+margin_right = 241.0
+margin_bottom = 253.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5/ColorRect2"]
+margin_left = 20.1091
+margin_top = 106.254
+margin_right = 94.1091
+margin_bottom = 122.254
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "level select"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="ColorRect5"]
+margin_left = 243.937
+margin_top = 18.5716
+margin_right = 461.937
+margin_bottom = 168.572
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect5" type="ColorRect" parent="ColorRect5/ColorRect3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5/ColorRect3/ColorRect5"]
+margin_left = 78.0331
+margin_top = 64.4216
+margin_right = 133.033
+margin_bottom = 80.4216
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "preview"
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect5"]
+margin_left = 244.42
+margin_top = 172.0
+margin_right = 462.42
+margin_bottom = 253.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect5" type="ColorRect" parent="ColorRect5/ColorRect4"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 215.0
+margin_bottom = 78.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5/ColorRect4/ColorRect5"]
+margin_left = 66.2016
+margin_top = 19.4719
+margin_right = 163.202
+margin_bottom = 59.4719
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "commander abilities"
+__meta__ = {
+"_edit_use_anchors_": false
+}
