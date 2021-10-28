@@ -248,6 +248,7 @@ func _on_CombatCursor_combat_selection(selection):
 			_unit_overlay.totalclear()
 			gamegrid.unit_combat(_active_unit, selection)
 			_attacking = false
+			set_new_position(_active_unit, _stored_new_position)
 			_active_unit.flip_turnReady()
 			_clear_active_unit()
 			_cursor.activate()
