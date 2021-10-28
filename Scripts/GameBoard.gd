@@ -160,6 +160,7 @@ func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 	# if the unit is only selected
 	if _active_unit:
 		_active_unit.is_selected = false
+		print("wtf")
 		_clear_active_unit()
 	else:
 		_pop_up.close()
@@ -172,7 +173,7 @@ func _on_Cursor_cancel_released(_cell: Vector2) -> void:
 	_unit_overlay.totalclear()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _active_unit and event.is_action_pressed("ui_cancel"):
+	if _active_unit and event.is_action_pressed("ui_cancel") and not _active_unit._is_walking:
 		_clear_path_overlay()
 		_clear_active_unit()
 		get_tree().set_input_as_handled()

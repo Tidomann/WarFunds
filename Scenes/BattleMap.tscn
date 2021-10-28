@@ -84,22 +84,21 @@ cell = Vector2( 7, 11 )
 skin = ExtResource( 1 )
 
 [node name="Unit5" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 329.135, 55.7874 )
+position = Vector2( 168.495, 148.262 )
 player_path = NodePath("../../TurnQueue/Computer 1")
-cell = Vector2( 20, 3 )
+cell = Vector2( 10, 9 )
 skin = ExtResource( 19 )
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )
 player_path = NodePath("../../TurnQueue/Computer 1")
 cell = Vector2( 10, 10 )
-health = 55
 skin = ExtResource( 19 )
 
 [node name="Unit7" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 345.257, 86.3875 )
+position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer 1")
-cell = Vector2( 21, 5 )
+cell = Vector2( 10, 11 )
 skin = ExtResource( 19 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
