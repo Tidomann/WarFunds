@@ -144,7 +144,9 @@ func _move_active_unit(new_position: Vector2) -> void:
 		_cursor.activate()
 	else:
 		_stored_new_position = new_position
-		_pop_up.popup_menu(_cursor.position,gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit), new_position),true,false)
+		_pop_up.popup_menu(_cursor.position,\
+			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
+			true,false)
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -171,7 +173,6 @@ func _on_Cursor_cancel_released(_cell: Vector2) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _active_unit and event.is_action_pressed("ui_cancel"):
-		print("test")
 		_clear_path_overlay()
 		_clear_active_unit()
 		get_tree().set_input_as_handled()
@@ -186,10 +187,8 @@ func _on_PopupMenu_selection(selection : String):
 			_pop_up.close()
 			_cursor.activate()
 		"Attack":
-			
 			print(selection)
-			"""
-			_pop_up.close()
+			_cursor.deactivate(true)
 			_attacking = true
 			var targets = gamegrid.get_targets(_active_unit, $Cursor.get_Position_on_grid())
 			var target_positions = []
@@ -199,13 +198,7 @@ func _on_PopupMenu_selection(selection : String):
 			else:
 				target_positions.append(targets[0].cell)
 			_unit_overlay.draw_red(target_positions)
-			# TODO: ATTACK STUFF
-			$Cursor.deactivate(true)
 			_combat_cursor.activate(targets)
-			yield(_combat_cursor, "combat_selection")
-			_combat_cursor.deactivate()
-			_attacking = false
-			"""
 		"End Turn":
 			print(selection)
 			_clear_active_unit()
@@ -227,7 +220,8 @@ func _on_PopupMenu_popup_hide():
 		_active_unit.update_position()
 		_clear_active_unit()
 	_pop_up.close()
-	_cursor.activate()
+	if not _attacking:
+		_cursor.activate()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -236,19 +230,33 @@ func _on_PopupMenu_popup_hide():
 
 func _on_CombatCursor_combat_selection(selection):
 	if not _active_unit:
-		print("Ruh oh")
+		# should not get in here
+		pass
 	else:
 		if selection is String:
 			if selection == "Cancel":
-				print("test")
+				_combat_cursor.deactivate()
+				_pop_up.popup_menu(_cursor.position,\
+					gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
+					true,false)
+				_unit_overlay.totalclear()
+				_attacking = false
+				# Show the cursor but do not reactivate
+				_cursor.visible = true
 		elif selection is Unit:
-			gamegrid.unit_attack(_active_unit, selection)
+			_combat_cursor.deactivate()
+			_unit_overlay.totalclear()
+			gamegrid.unit_combat(_active_unit, selection)
+			_attacking = false
 			_active_unit.flip_turnReady()
+			_clear_active_unit()
+			_cursor.activate()
 
 
 func _on_CombatCursor_moved(new_coordinates):
 	if not _active_unit:
-		print("Uh oh #2")
+		# should not get in here
+		pass
 	else:
 		print("Min Damage: " + String(gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))))
 		print("Max Damage: " + String(gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))))

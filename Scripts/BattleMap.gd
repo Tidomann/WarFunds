@@ -56,8 +56,6 @@ func Ymin() -> int:
 func Ymax() -> int:
 	return yMax
 
- 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass

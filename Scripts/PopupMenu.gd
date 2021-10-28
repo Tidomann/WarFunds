@@ -23,13 +23,13 @@ func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -
 	clear()
 	if fight:
 		add_icon_item(fight_icon,"Attack")
-		popup_exclusive = true
+		#popup_exclusive = true
 	if wait:
 		add_icon_item(wait_icon,"Wait")
-		popup_exclusive = true
+		#popup_exclusive = true
 	if end_turn:
 		add_icon_item(end_turn_icon,"End Turn")
-		popup_exclusive = true
+		#popup_exclusive = true
 	self.rect_global_position = new_positon+Vector2(16,-16)
 	self.set_as_minsize()
 	popup()
@@ -46,12 +46,25 @@ func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -
 
 func _on_PopupMenu_id_pressed(id):
 	emit_signal("selection", self.get_item_text(id))
-	clear()
+	close()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if self.visible:
-		if event is InputEventMouseButton:
-			if event.button_index == BUTTON_RIGHT:
-				close()
-		elif event.is_action_pressed("ui_cancel"):
+		#if event is InputEventMouseButton && not get_rect().has_point(get_global_mouse_position()):
+			#if event.is_action_released("ui_cancel"):
+			#	close()
+			#	get_tree().set_input_as_handled()
+		if event.is_action_pressed("ui_cancel"):
 			close()
+			get_tree().set_input_as_handled()
+			#if event.button_index == BUTTON_RIGHT:
+			#	close()
+		#elif event.is_action_pressed("ui_cancel"):
+		#	close()
+
+
+func _on_PopupMenu_gui_input(event):
+	if self.visible:
+		if event.is_action_pressed("ui_cancel"):
+			close()
+			#get_tree().set_input_as_handled()

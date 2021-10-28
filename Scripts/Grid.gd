@@ -454,9 +454,10 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 		Constants.ATTACK_TYPE.DIRECT:
 			for direction in DIRECTIONS:
 				var coordinates: Vector2 = expected_position + direction
-				if is_occupied(coordinates):
-					if is_enemy(attacker, get_unit(coordinates)):
-						targets_array.append(get_unit(coordinates))
+				if is_gridcoordinate_within_map(coordinates):
+					if is_occupied(coordinates):
+						if is_enemy(attacker, get_unit(coordinates)):
+							targets_array.append(get_unit(coordinates))
 		Constants.ATTACK_TYPE.INDIRECT:
 			if attacker.cell != expected_position:
 				return targets_array
@@ -510,8 +511,21 @@ func calculate_damage(attacker : Unit, defender : Unit) -> int:
 	var result = full_damage * reduction_modifier
 	return int(floor(result))
 
-func unit_attack(attacker : Unit, defender : Unit):
-	pass
+func unit_combat(attacker : Unit, defender : Unit):
+	var damage_to_be_dealt = calculate_damage(attacker, defender)
+	if (damage_to_be_dealt >= defender.health):
+		defender.take_damage(damage_to_be_dealt)
+	else:
+		defender.take_damage(damage_to_be_dealt)
+		attacker.take_damage(calculate_damage(defender, attacker))
+		print(attacker.health)
+		print(defender.health)
+	if attacker.is_dead():
+		find_unit(attacker).unit = null
+		attacker.queue_free()
+	if defender.is_dead():
+		find_unit(defender).unit = null
+		defender.queue_free()
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

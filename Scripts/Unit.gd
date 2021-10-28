@@ -18,7 +18,7 @@ export var cell : Vector2
 ## Referance to the unit constant
 export(Constants.UNIT) var unit_referance
 ## The Units Health
-export var health := 100.00
+export var health := 100
 ## Referance to the unit type
 export(Constants.UNIT_TYPE) var unit_type
 ## Cost of the unit
@@ -29,6 +29,8 @@ export(Constants.MOVEMENT_TYPE) var movement_type
 export var move_range := 3
 ## Type of attack for the unit
 export(Constants.ATTACK_TYPE) var attack_type
+## The Units Ammo
+export var ammo : int
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.
@@ -147,3 +149,21 @@ func turn_grey() -> void:
 
 func get_commander() -> Node2D:
 	return playerOwner.commander
+
+func take_damage(damage_recieved : int) -> void:
+	health -= damage_recieved
+	update_health()
+
+func use_ammo(defender : Unit) -> bool:
+	return false
+
+func is_dead() -> bool:
+	return health <= 0
+
+func update_health() -> void:
+	if health < 91:
+		$PathFollow2D/Health.visible = true
+		$PathFollow2D/Health.frame = int(health*0.1)
+	else:
+		$PathFollow2D/Health.visible = false
+	

@@ -85,9 +85,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("ui_cancel"):
 			emit_signal("combat_selection", "Cancel")
 			get_tree().set_input_as_handled()
-		elif event.is_action_released("ui_cancel"):
-			emit_signal("cancel_released")
-			get_tree().set_input_as_handled()
+		#elif event.is_action_released("ui_cancel"):
+		#	emit_signal("cancel_released")
+		#	get_tree().set_input_as_handled()
 	
 		# if the user presses an arrow key.
 		var should_move := event.is_pressed()
