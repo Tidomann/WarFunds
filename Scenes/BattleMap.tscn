@@ -93,6 +93,7 @@ skin = ExtResource( 19 )
 position = Vector2( 168.232, 166.563 )
 player_path = NodePath("../../TurnQueue/Computer 1")
 cell = Vector2( 10, 10 )
+health = 55
 skin = ExtResource( 19 )
 
 [node name="Unit7" parent="GameBoard" instance=ExtResource( 15 )]

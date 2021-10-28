@@ -246,9 +246,9 @@ func _on_CombatCursor_combat_selection(selection):
 		elif selection is Unit:
 			_combat_cursor.deactivate()
 			_unit_overlay.totalclear()
+			set_new_position(_active_unit, _stored_new_position)
 			gamegrid.unit_combat(_active_unit, selection)
 			_attacking = false
-			set_new_position(_active_unit, _stored_new_position)
 			_active_unit.flip_turnReady()
 			_clear_active_unit()
 			_cursor.activate()
@@ -265,6 +265,8 @@ func _on_CombatCursor_moved(new_coordinates):
 		if not min_damage > gamegrid.get_unit(new_coordinates).health:
 			var min_damage_taken = gamegrid.calculate_min_damage(gamegrid.get_unit(new_coordinates), _active_unit, max_damage)
 			var max_damage_taken = gamegrid.calculate_min_damage(gamegrid.get_unit(new_coordinates), _active_unit, min_damage)
+			if min_damage_taken < 0:
+				min_damage_taken = 0
 			print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
 		else:
 			print("Damage Received: 0%")
