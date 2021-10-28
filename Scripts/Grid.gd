@@ -479,21 +479,21 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 			attacker.cell = position_store
 	return targets_array
 
-func calculate_min_damage(attacker : Unit, defender : Unit) -> int:
+func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
-	var full_damage = ((damage_lookup * commander_attack_bonus / 100.0) * (attacker.health / 10.0))
+	var full_damage = ((damage_lookup * commander_attack_bonus / 100.0) * ((attacker.health-damagedealt) / 10.0))
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
 	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
 	var result = full_damage * reduction_modifier
 	return int(floor(result))
 
-func calculate_max_damage(attacker : Unit, defender : Unit) -> int:
+func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_luck_modifier = (attacker.get_commander().luck_modifier() - 1) * 0.1
-	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * (attacker.health / 10.0))
+	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * ((attacker.health-damagedealt) / 10.0))
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
 	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
@@ -518,8 +518,6 @@ func unit_combat(attacker : Unit, defender : Unit):
 	else:
 		defender.take_damage(damage_to_be_dealt)
 		attacker.take_damage(calculate_damage(defender, attacker))
-		print(attacker.health)
-		print(defender.health)
 	if attacker.is_dead():
 		find_unit(attacker).unit = null
 		attacker.queue_free()

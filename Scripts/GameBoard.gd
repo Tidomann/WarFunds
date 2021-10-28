@@ -259,5 +259,12 @@ func _on_CombatCursor_moved(new_coordinates):
 		# should not get in here
 		pass
 	else:
-		print("Min Damage: " + String(gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))))
-		print("Max Damage: " + String(gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))))
+		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
+		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
+		print("Damage Done: " + String(min_damage) + "%-" + String(max_damage) + "%")
+		if not min_damage > gamegrid.get_unit(new_coordinates).health:
+			var min_damage_taken = gamegrid.calculate_min_damage(gamegrid.get_unit(new_coordinates), _active_unit, max_damage)
+			var max_damage_taken = gamegrid.calculate_min_damage(gamegrid.get_unit(new_coordinates), _active_unit, min_damage)
+			print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
+		else:
+			print("Damage Received: 0%")

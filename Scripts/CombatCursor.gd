@@ -44,6 +44,7 @@ func init(inputTileMap : TileMap):
 func set_gridPosition(gridcoordinates: Vector2) -> void:
 	# Skip the work if the coordinates are the same
 	if gridcoordinates == gridPosition:
+		emit_signal("moved", gridPosition)
 		return
 	# Do not move if the tilemap is null
 	if devTileMap.get_cellv(gridcoordinates) == -1:
@@ -83,6 +84,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			emit_signal("combat_selection", _targeted_unit)
 			get_tree().set_input_as_handled()
 		elif event.is_action_pressed("ui_cancel"):
+			_targeted_unit = null
+			_targets.clear()
 			emit_signal("combat_selection", "Cancel")
 			get_tree().set_input_as_handled()
 		#elif event.is_action_released("ui_cancel"):
@@ -133,6 +136,7 @@ func activate(target_array : Array) -> void:
 	for unit in _targets:
 		_targets_positions.append(unit.cell)
 	set_gridPosition(_targets[0].cell)
+	_targeted_unit = _targets[0]
 	self.visible = true
 	active = true
 

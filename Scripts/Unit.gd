@@ -52,6 +52,7 @@ var is_selected := false setget set_is_selected
 var _is_walking := false setget _set_is_walking
 
 onready var _sprite: Sprite = $PathFollow2D/Sprite
+onready var _hp : Sprite = $PathFollow2D/Health
 onready var _anim_player: AnimationPlayer = $AnimationPlayer
 onready var _path_follow: PathFollow2D = $PathFollow2D
 
@@ -137,15 +138,13 @@ func flip_turnReady() -> void:
 	turnReady = !turnReady
 	if not turnReady:
 		_sprite.modulate = Color(0.44, 0.44, 0.44)
+		_hp.modulate = Color(0.44, 0.44, 0.44)
 	else:
 		_sprite.modulate = Color(1, 1, 1)
-	
+		_hp.modulate = Color(1, 1, 1)
 
 func get_unit_team() -> int:
 	return playerOwner.team
-
-func turn_grey() -> void:
-	_sprite.modulate = Color(0.44, 0.44, 0.44)
 
 func get_commander() -> Node2D:
 	return playerOwner.commander
@@ -162,8 +161,8 @@ func is_dead() -> bool:
 
 func update_health() -> void:
 	if health < 91:
-		$PathFollow2D/Health.visible = true
-		$PathFollow2D/Health.frame = int(health*0.1)
+		_hp.visible = true
+		_hp.frame = int(health*0.1)
 	else:
-		$PathFollow2D/Health.visible = false
+		_hp.visible = false
 	
