@@ -29,7 +29,7 @@ func printOrder():
 	print(output)
 
 func start_turn(player : Node2D):
-	activePlayer.commander.used_power = false
+	player.commander.used_power = false
 	#generate income per property owned
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

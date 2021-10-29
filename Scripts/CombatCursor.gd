@@ -22,9 +22,9 @@ signal combat_selection
 # Emitted when the cursor moved to a new cell.
 signal moved(new_coordinates)
 # Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
-signal cancel_pressed(coordinates)
+#signal cancel_pressed(coordinates)
 # Emitted when clicking on the currently hovered cell or when pressing "ui_cancel".
-signal cancel_released(coordinates)
+#signal cancel_released(coordinates)
 
 var active:= false
 # Called when the node enters the scene tree for the first time.

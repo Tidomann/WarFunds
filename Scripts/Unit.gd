@@ -153,14 +153,14 @@ func take_damage(damage_recieved : int) -> void:
 	health -= damage_recieved
 	update_health()
 
-func use_ammo(defender : Unit) -> bool:
+func use_ammo(_defender : Unit) -> bool:
 	return false
 
 func is_dead() -> bool:
 	return health <= 0
 
 func update_health() -> void:
-	if health < 91:
+	if health < 91 && health > 0:
 		_hp.visible = true
 		_hp.frame = int(health*0.1)
 	else:
