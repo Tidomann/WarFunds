@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/Sprites/Unit/OldSprite/Junior-22.png" type="Texture" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
 [ext_resource path="res://assets/Sprites/Unit/Army 1/Team 2/Junior.png" type="Texture" id=18]
 [ext_resource path="res://assets/Sprites/Unit/Army 6/Team 6/Junior.png" type="Texture" id=19]
+[ext_resource path="res://assets/Sprites/Unit/Army 2/Team 2/Junior.png" type="Texture" id=20]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -63,13 +64,13 @@ gamegrid = ExtResource( 7 )
 position = Vector2( 120.588, 133.741 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 8 )
-skin = ExtResource( 18 )
+skin = ExtResource( 20 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 137.571, 151.292 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 8, 9 )
-skin = ExtResource( 18 )
+skin = ExtResource( 20 )
 
 [node name="Unit3" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.146, 166.843 )
