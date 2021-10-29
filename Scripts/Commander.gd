@@ -12,7 +12,7 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 onready var playerOwner : Node2D = self.get_node(player_path)
-
+export(Constants.ARMY) var army_type
 var used_power := false
 
 # Called when the node enters the scene tree for the first time.

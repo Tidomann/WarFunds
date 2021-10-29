@@ -1,5 +1,25 @@
 extends Node2D
 
+#Army Sprite Constants
+enum ARMY{
+	ENGINEERING = 0,
+	COSC = 1,
+	BIOLOGY = 2,
+	FINANCE = 3,
+	NURSING = 4,
+	BANKTANIA = 5
+}
+
+enum COLOUR{
+	RED = 0,
+	BLUE = 1,
+	GREEN = 2,
+	YELLOW = 3,
+	CYAN = 4,
+	PURPLE = 5
+}
+
+
 #Map Constants
 enum TILE{
 	PLAINS = 0,

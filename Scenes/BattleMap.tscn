@@ -135,22 +135,26 @@ hide_on_item_selection = false
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Human"
 commander_path = NodePath("Fake Commander")
+player_colour = 1
 
 [node name="Fake Commander" parent="TurnQueue/Human" instance=ExtResource( 14 )]
 commanderName = "Bob Joe"
 player_path = NodePath("..")
+army_type = 1
 
 [node name="Computer 1" parent="TurnQueue" instance=ExtResource( 12 )]
 position = Vector2( -0.529724, 0 )
 playerName = "Computer 1"
 team = 2
 commander_path = NodePath("Computer Commander")
+player_colour = 5
 facing = "Left"
 
 [node name="Computer Commander" parent="TurnQueue/Computer 1" instance=ExtResource( 14 )]
 position = Vector2( 0.529724, 0 )
 commanderName = "Beep Boop"
 player_path = NodePath("..")
+army_type = 5
 
 [node name="DialogBox" parent="." instance=ExtResource( 16 )]
 visible = false
