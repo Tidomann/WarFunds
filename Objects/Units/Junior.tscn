@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/Sprites/Unit/OldSprite/Junior-L.png" type="Texture" id=1]
+[ext_resource path="res://assets/Sprites/Unit/Junior.png" type="Texture" id=1]
 [ext_resource path="res://assets/Sprites/Unit/Health/health.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Unit.gd" type="Script" id=3]
 [ext_resource path="res://Objects/BattleMap Objects/Grid.tres" type="Resource" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 72, 8 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("PathFollow2D/Sprite:modulate")
@@ -24,7 +28,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 1.4
 loop = true
 tracks/0/type = "value"
@@ -44,21 +48,24 @@ tracks/0/keys = {
 curve = null
 script = ExtResource( 3 )
 grid = ExtResource( 4 )
+army_sprite = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotate = false
 loop = false
 
 [node name="Sprite" type="Sprite" parent="PathFollow2D"]
-texture = ExtResource( 1 )
+texture = SubResource( 1 )
+hframes = 6
+vframes = 6
 
 [node name="Health" type="Sprite" parent="PathFollow2D"]
 visible = false
 position = Vector2( 3, 4 )
-texture = SubResource( 1 )
+texture = SubResource( 2 )
 hframes = 9
 frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 2 )
-anims/selected = SubResource( 3 )
+anims/idle = SubResource( 3 )
+anims/selected = SubResource( 4 )

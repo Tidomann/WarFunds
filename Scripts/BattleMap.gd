@@ -20,6 +20,10 @@ func _ready():
 		if not unit:
 			continue
 		unit.update_position()
+		if unit.army_sprite:
+			unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
+		else:
+			unit._sprite.frame = unit.playerOwner.player_colour
 	
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()

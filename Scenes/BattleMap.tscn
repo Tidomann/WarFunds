@@ -1,6 +1,5 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://assets/Sprites/Unit/OldSprite/Junior-22.png" type="Texture" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/normal_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
@@ -17,9 +16,6 @@
 [ext_resource path="res://Objects/Units/Junior.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
-[ext_resource path="res://assets/Sprites/Unit/Army 1/Team 2/Junior.png" type="Texture" id=18]
-[ext_resource path="res://assets/Sprites/Unit/Army 6/Team 6/Junior.png" type="Texture" id=19]
-[ext_resource path="res://assets/Sprites/Unit/Army 2/Team 2/Junior.png" type="Texture" id=20]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -64,43 +60,36 @@ gamegrid = ExtResource( 7 )
 position = Vector2( 120.588, 133.741 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 8 )
-skin = ExtResource( 20 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 137.571, 151.292 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 8, 9 )
-skin = ExtResource( 20 )
 
 [node name="Unit3" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.146, 166.843 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
-skin = ExtResource( 18 )
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.033, 183.128 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 11 )
-skin = ExtResource( 1 )
 
 [node name="Unit5" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.495, 148.262 )
 player_path = NodePath("../../TurnQueue/Computer 1")
 cell = Vector2( 10, 9 )
-skin = ExtResource( 19 )
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )
 player_path = NodePath("../../TurnQueue/Computer 1")
 cell = Vector2( 10, 10 )
-skin = ExtResource( 19 )
 
 [node name="Unit7" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer 1")
 cell = Vector2( 10, 11 )
-skin = ExtResource( 19 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
@@ -145,7 +134,7 @@ army_type = 1
 [node name="Computer 1" parent="TurnQueue" instance=ExtResource( 12 )]
 position = Vector2( -0.529724, 0 )
 playerName = "Computer 1"
-team = 2
+team = 6
 commander_path = NodePath("Computer Commander")
 player_colour = 5
 facing = "Left"

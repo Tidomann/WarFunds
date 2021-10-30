@@ -75,7 +75,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if active && not _targets.empty():
 		if event is InputEventMouseMotion:
 			for unit in _targets:
-				if devTileMap.world_to_map(get_global_mouse_position()) == unit.cell:
+				if devTileMap.world_to_map(get_global_mouse_position()) == unit.cell\
+				 && gridPosition != unit.cell:
 					_targeted_unit = unit
 					_target_index = _targets.find(unit)
 					self.set_gridPosition(unit.cell)

@@ -263,11 +263,14 @@ func _on_CombatCursor_moved(new_coordinates):
 		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		print("Damage Done: " + String(min_damage) + "%-" + String(max_damage) + "%")
-		if not min_damage > gamegrid.get_unit(new_coordinates).health:
-			var min_damage_taken = gamegrid.calculate_min_damage(gamegrid.get_unit(new_coordinates), _active_unit, max_damage)
-			var max_damage_taken = gamegrid.calculate_min_damage(gamegrid.get_unit(new_coordinates), _active_unit, min_damage)
-			if min_damage_taken < 0:
-				min_damage_taken = 0
-			print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
-		else:
-			print("Damage Received: 0%")
+		var target = gamegrid.get_unit(new_coordinates)
+		if _active_unit.attack_type == Constants.ATTACK_TYPE.DIRECT && \
+		target.attack_type == Constants.ATTACK_TYPE.DIRECT:
+			if not min_damage > target.health:
+				var min_damage_taken = gamegrid.calculate_min_damage(target, _active_unit, max_damage)
+				var max_damage_taken = gamegrid.calculate_min_damage(target, _active_unit, min_damage)
+				if min_damage_taken < 0:
+					min_damage_taken = 0
+				print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
+			else:
+				print("Damage Received: 0%")

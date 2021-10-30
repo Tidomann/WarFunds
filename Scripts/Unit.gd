@@ -43,6 +43,8 @@ export var vision_range := 2
 export var skin: Texture setget set_skin
 ## Offset to apply to the `skin` sprite in pixels.
 export var skin_offset := Vector2.ZERO setget set_skin_offset
+## Variable if there is an army specific sprite
+export var army_sprite : bool
 
 export(bool) var turnReady = true
 
@@ -65,7 +67,7 @@ func _ready() -> void:
 		curve = Curve2D.new()
 	# Set the facing of the unit according to the player
 	if playerOwner.facing == "Left":
-		$PathFollow2D/Sprite.set_flip_h(true)
+		_sprite.set_flip_h(true)
 
 
 func update_position() -> void:
@@ -149,9 +151,20 @@ func get_unit_team() -> int:
 func get_commander() -> Node2D:
 	return playerOwner.commander
 
-func take_damage(damage_recieved : int) -> void:
-	health -= damage_recieved
-	update_health()
+func take_damage(damage_recieved : int) -> int:
+	var damage
+	if damage_recieved > health:
+		damage = health
+		health = 0
+		update_health()
+		damage = ceil(damage * 0.1)
+	else:
+		damage = damage_recieved
+		health -= damage_recieved
+		update_health()
+		damage = floor(damage*0.1)
+	return int(damage)
+	
 
 func use_ammo(_defender : Unit) -> bool:
 	return false
