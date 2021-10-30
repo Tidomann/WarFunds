@@ -87,25 +87,38 @@ func _unhandled_input(event: InputEvent) -> void:
 		# keypress down, we only want to move after the cooldown timer stops.
 		if event.is_echo():
 			should_move = should_move and _timer.is_stopped()
-		if event.get_class() == "InputEventJoypadMotion":
+		if event is InputEventJoypadMotion:
 			var strength = event.axis_value
 			should_move = abs(strength) == 1 and _timer.is_stopped()
 		# And if the cursor shouldn't move, we prevent it from doing so.
 		if not should_move:
 			return
 		# Here, we update the cursor's current cell based on the input direction.
-		if event.is_action_pressed("ui_right"):
+		if event.is_action_pressed("ui_right") or \
+		(event.is_action("ui_right") && event is InputEventKey):
 			self.gridPosition += Vector2.RIGHT
-		elif event.is_action_pressed("ui_up"):
+		elif event.is_action_pressed("ui_up") or \
+		(event.is_action("ui_up") && event is InputEventKey):
 			self.gridPosition += Vector2.UP
-		elif event.is_action_pressed("ui_left"):
+		elif event.is_action_pressed("ui_left") or \
+		(event.is_action("ui_left") && event is InputEventKey):
 			self.gridPosition += Vector2.LEFT
-		elif event.is_action_pressed("ui_down"):
+		elif event.is_action_pressed("ui_down") or \
+		(event.is_action("ui_down") && event is InputEventKey):
 			self.gridPosition += Vector2.DOWN
 
 # Setter Function for devTileMap
 func setTileMap(inputTileMap : TileMap) -> void:
 	self.devTileMap = inputTileMap
+
+func activate() -> void:
+	active = true
+	self.visible = true
+	
+func deactivate(and_hide : bool) -> void:
+	active = false
+	if and_hide:
+		self.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

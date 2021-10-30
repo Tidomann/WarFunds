@@ -8,89 +8,45 @@ extends Node2D
 export var gamegrid: Resource
 onready var _pop_up: PopupMenu = get_parent().get_node("PopupMenu")
 onready var _turn_queue: TurnQueue = get_parent().get_node("TurnQueue")
-
-# This constant represents the directions in which a unit can move on the board. We will reference
-# the constant later in the script.
-const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
-
-# We use a dictionary to keep track of the units that are on the board. Each key-value pair in the
-# dictionary represents a unit. The key is the position in grid coordinates, while the value is a
-# reference to the unit.
-# Mapping of coordinates of a cell to a reference to the unit it contains.
-var _units := {}
-
-# The board is going to move one unit at a time. When we select a unit, we will save it as our
-# `_active_unit` and populate the walkable cells below. This allows us to clear the unit, the
-# overlay, and the interactive path drawing later on when the player decides to deselect it.
-var _active_unit: Unit
-# This is an array of all the cells the `_active_unit` can move to. We will populate the array when
-# selecting a unit and use it in the `_move_active_unit()` function below.
-var _walkable_cells := []
-# This is an array of all the cells the `_active_unit` can move to. We will populate the array when
-# selecting a unit and use it in the `_move_active_unit()` function below.
-var _attackable_cells := []
-
+onready var _cursor: Cursor = $Cursor
+onready var _combat_cursor: CombatCursor = $CombatCursor
 onready var _unit_path: UnitPath = $UnitPath
 onready var _unit_overlay: UnitOverlay = $UnitOverlay
+
+# Represents the directions which can neighbour a cell
+const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+
+# The unit currently selected
+var _active_unit: Unit
+# Storing the array of cells a unit can move to
+var _walkable_cells := []
+# Storing the array of cell a unit can attack
+var _attackable_cells := []
+# Storing the new position of a unit
+var _stored_new_position : Vector2
+
+
+var _attacking : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Returns `true` if the cell is occupied by a unit.
 func is_occupied(cell: Vector2) -> bool:
-	return true if _units.has(cell) else false
-
-# Clears, and refills the `_units` dictionary with game objects that are on the board.
-func _reinitialize() -> void:
-	_units.clear()
-	# In this demo, we loop over the node's children and filter them to find the units. As your game
-	# becomes more complex, you may want to use the node group feature instead to place your units
-	# anywhere in the scene tree.
-	for child in get_children():
-		# We can use the "as" keyword to cast the child to a given type. If the child is not of type
-		# Unit, the variable will be null.
-		var unit := child as Unit
-		if not unit:
-			continue
-		# As mentioned when introducing the units variable, we use the grid coordinates for the key
-		# and a reference to the unit for the value. This allows us to access a unit given its grid
-		# coordinates.
-		_units[unit.cell] = unit
+	return gamegrid.is_occupied(cell)
 
 # Selects the unit in the `cell` if there's one there.
-# Sets it as the `_active_unit` and draws its walkable cells and interactive move path.
-# The board reacts to the signals emitted by the cursor. And it does so by calling functions that
-# select and move a unit.
-func _select_unit(cell: Vector2) -> void:
-	# Here's some optional defensive code: we return early from the function if the unit's not
-	# registered in the `cell`.
-	if not _units.has(cell):
-		_pop_up.popup_menu($Cursor.position,false,false,true)
-		return
-	_active_unit = _units[cell]
-	if not _active_unit.is_turnReady():
-		_clear_active_unit()
-		_pop_up.popup_menu($Cursor.position,false,false,true)
-		return
-	_active_unit.is_selected = true
-	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
-	_unit_overlay.draw(_walkable_cells)
-	_unit_path.initialize(_walkable_cells, _active_unit)
-
-# Selects the unit in the `cell` if there's one there.
-# Draws its attackable cells.
-# The board reacts to the signals emitted by the cursor. And it does so by calling functions that
-# select and move a unit.
+# and draws its attackable cells.
 func _show_range(cell: Vector2) -> void:
 	# Here's some optional defensive code: we return early from the function if the unit's not
 	# registered in the `cell`.
-	if not _units.has(cell):
+	if not is_occupied(cell):
 		return
-	var unit = _units[cell]
+	var unit = gamegrid.get_unit(cell)
 	_attackable_cells = gamegrid.get_attackable_cells(unit)
-	if unit.attack_type != Constants.ATTACK_TYPE.DIRECT:
+	# If the unit is attack type other- show minimum range
+	if unit.attack_type == Constants.ATTACK_TYPE.OTHER:
 		if unit.playerOwner == _turn_queue.activePlayer:
 			for coordinate in gamegrid._flood_fill(cell, unit.min_atk_range,
 			Constants.MOVEMENT_TYPE.AIR, true):
@@ -98,40 +54,79 @@ func _show_range(cell: Vector2) -> void:
 					_attackable_cells.erase(coordinate)
 	_unit_overlay.draw_red(_attackable_cells)
 
-# Deselects the active unit, clearing the cells overlay and interactive path drawing.
-# We need it for the `_move_active_unit()` function below, and we'll use it again in a moment.
-func _deselect_active_unit() -> void:
-	_active_unit.is_selected = false
+# Deselects the active unit, clear overlay and path drawing.
+func _clear_path_overlay() -> void:
 	_unit_overlay.totalclear()
 	_unit_path.stop()
 
-# Clears the reference to the _active_unit and the corresponding walkable cells.
-# We need it for the `_move_active_unit()` function below.
+# Clears the _active_unit and each cell array.
 func _clear_active_unit() -> void:
+	_clear_path_overlay()
+	_unit_path.clear_path()
 	_active_unit = null
 	_walkable_cells.clear()
+	_attackable_cells.clear()
 
-# Updates the _units dictionary with the target position for the unit and asks the _active_unit to
-# walk to it.
-func _move_active_unit(new_cell: Vector2) -> void:
+func set_new_position(unit : Unit, new_cell : Vector2) -> void:
+	var previous_data = gamegrid.find_unit(unit)
+	previous_data.clear_unit()
+	gamegrid.get_GridData_by_position(new_cell).setUnit(unit)
+	_active_unit.set_cell(new_cell)
+
+# Selects or moves a unit based on where the cursor is.
+func _on_Cursor_select_pressed(cell: Vector2) -> void:
+	# Dependingon the board's current state,
+	# select a unit or that we want to give it a move order.
+	if not _active_unit && is_occupied(cell):
+		if gamegrid.get_unit(cell).is_turnReady():
+			_select_unit(cell)
+		else:
+			_cursor.deactivate(true)
+			_pop_up.popup_menu(_cursor.position,false,false,true)
+	elif _active_unit:
+		if _active_unit.playerOwner == _turn_queue.activePlayer:
+			_move_active_unit(cell)
+	else:
+		_cursor.deactivate(true)
+		_pop_up.popup_menu(_cursor.position,false,false,true)
+
+# Selects the unit in the `cell` if there's one there.
+# Sets it as the `_active_unit` and draws its walkable cells and interactive move path.
+func _select_unit(cell: Vector2) -> void:
+	# Here's some optional defensive code: we return early from the function if the unit's not
+	# registered in the `cell`.
+	if not is_occupied(cell):
+		return
+	_active_unit = gamegrid.get_unit(cell)
+	_active_unit.is_selected = true
+	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
+	_unit_overlay.draw(_walkable_cells)
+	_unit_path.initialize(_walkable_cells, _active_unit)
+
+# Visually moves the active unit to the location
+# then presents the correct context menu
+func _move_active_unit(new_position: Vector2) -> void:
+	_active_unit.is_selected = false
 	# Security chek that the selected cell is invalid
-	if _active_unit.cell != new_cell:
-		if is_occupied(new_cell) or not new_cell in _walkable_cells:
+	if _active_unit.cell != new_position:
+		if is_occupied(new_position) or not new_position in _walkable_cells:
 			return
-	# We also deselect it, clearing up the overlay and path.
-	_deselect_active_unit()
+	# Clear up the UnitOverlay and UnitPath
+	_clear_path_overlay()
 	# Disable the Cursor to stop moving
-	$Cursor.active = false
-
+	_cursor.deactivate(false)
 	# Check to see if the unit gets trapped by enemy unit
 	var trapped := false
 	var trapped_cell := 0
+	# Iterate through the currently stored path
 	for cell in _unit_path.current_path:
-		if (gamegrid.is_occupied(cell)
-		&& gamegrid.get_unit(cell).get_unit_team() != _active_unit.get_unit_team()):
-			trapped = true
-			break
+		# If the cell in the path is occupied by an enemy calculate the indexed cell
+		if gamegrid.is_occupied(cell):
+			if gamegrid.get_unit(cell).get_unit_team() != _active_unit.get_unit_team():
+				trapped = true
+				break
 		trapped_cell += 1
+	# If the unit is trapped update the path up until trapped
 	if trapped:
 		var new_array := []
 		for cell in range(0, trapped_cell):
@@ -142,31 +137,16 @@ func _move_active_unit(new_cell: Vector2) -> void:
 	_active_unit.walk_along(_unit_path.current_path)
 	yield(_active_unit, "walk_finished")
 	if trapped:
+		#TODO: Play trapped effect
+		set_new_position(_active_unit, new_position)
 		_active_unit.flip_turnReady()
-	if not trapped:
-		#TODO: More unit move functionality HERE
-		_pop_up.popup_menu($Cursor.position,gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit), new_cell),true,false)
-		# Wait until the player makes a selection
-		yield(_pop_up, "selection")
-		# When moving a unit, we need to update our `_units` dictionary. We instantly save it in the
-		# target cell even if the unit itself will take time to walk there.
-		# While it's walking, the player won't be able to issue new commands.
-	if _active_unit:
-		set_new_position(_active_unit, new_cell)
-	_pop_up.close()
-	$Cursor.active = true
-
-# Selects or moves a unit based on where the cursor is.
-func _on_Cursor_select_pressed(cell: Vector2) -> void:
-	# The cursor's "select_pressed" means that the player wants to interact with a cell. Depending
-	# on the board's current state, this interaction means either that we want to select a unit or
-	# that we want to give it a move order.
-	if not _active_unit:
-		_select_unit(cell)
-	elif _active_unit.is_selected && _active_unit.playerOwner == _turn_queue.activePlayer:
-		_move_active_unit(cell)
-
-
+		_clear_active_unit()
+		_cursor.activate()
+	else:
+		_stored_new_position = new_position
+		_pop_up.popup_menu(_cursor.position,\
+			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
+			true,false)
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -177,10 +157,11 @@ func _on_Cursor_moved(new_cell: Vector2) -> void:
 
 # Deselects or shows the range of a unit
 func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
+	# if the unit is only selected
 	if _active_unit:
-		_deselect_active_unit()
+		_active_unit.is_selected = false
+		print("wtf")
 		_clear_active_unit()
-		_unit_path.clear_path()
 	else:
 		_pop_up.close()
 		_show_range(cell)
@@ -192,25 +173,24 @@ func _on_Cursor_cancel_released(_cell: Vector2) -> void:
 	_unit_overlay.totalclear()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _active_unit and event.is_action_pressed("ui_cancel"):
-		_deselect_active_unit()
+	if _active_unit and event.is_action_pressed("ui_cancel") and not _active_unit._is_walking:
+		_clear_path_overlay()
 		_clear_active_unit()
-		_unit_path.clear_path()
 		get_tree().set_input_as_handled()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 
 func _on_PopupMenu_selection(selection : String):
 	match selection:
 		"Wait":
 			print(selection)
+			set_new_position(_active_unit, _stored_new_position)
 			_active_unit.flip_turnReady()
+			_clear_active_unit()
+			_pop_up.close()
+			_cursor.activate()
 		"Attack":
 			print(selection)
+			_cursor.deactivate(true)
+			_attacking = true
 			var targets = gamegrid.get_targets(_active_unit, $Cursor.get_Position_on_grid())
 			var target_positions = []
 			if targets.size() > 1:
@@ -219,34 +199,78 @@ func _on_PopupMenu_selection(selection : String):
 			else:
 				target_positions.append(targets[0].cell)
 			_unit_overlay.draw_red(target_positions)
-			# TODO: ATTACK STUFF
-			#_unit_overlay.totalclear()
-			_active_unit.flip_turnReady()
+			_combat_cursor.activate(targets)
 		"End Turn":
 			print(selection)
+			_clear_active_unit()
 			var temp_units = gamegrid.get_players_units(_turn_queue.activePlayer)
 			if not temp_units.empty():
 				for unit in temp_units:
 					if not unit.is_turnReady():
 						unit.flip_turnReady()
-			_pop_up.close()
 			_turn_queue.nextTurn()
 			print(_turn_queue.activePlayer.playerName + "'s turn.")
-		"Cancel":
-			if _active_unit:
-				_deselect_active_unit()
-				_active_unit.cell = gamegrid.get_unit_position(_active_unit)
-				_active_unit.update_position()
-				_clear_active_unit()
-				_unit_path.clear_path()
-				print(selection)
+			_pop_up.close()
+			_cursor.activate()
 
-func set_new_position(unit : Unit, new_cell : Vector2) -> void:
-	var previous_data = gamegrid.find_unit(unit)
-	previous_data.clear_unit()
-	_units.erase(previous_data.getCoordinates())
-	gamegrid.get_GridData_by_position(new_cell).setUnit(unit)
-	_units[new_cell] = unit
-	_active_unit.set_cell(new_cell)
-	_clear_active_unit()
-	_unit_path.clear_path()
+
+func _on_PopupMenu_popup_hide():
+	if _active_unit && not _attacking:
+		# Reset the position of the active unit
+		_active_unit.cell = gamegrid.get_unit_position(_active_unit)
+		_active_unit.update_position()
+		_clear_active_unit()
+	_pop_up.close()
+	if not _attacking:
+		_cursor.activate()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_CombatCursor_combat_selection(selection):
+	if not _active_unit:
+		# should not get in here
+		pass
+	else:
+		if selection is String:
+			if selection == "Cancel":
+				_combat_cursor.deactivate()
+				_pop_up.popup_menu(_cursor.position,\
+					gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
+					true,false)
+				_unit_overlay.totalclear()
+				_attacking = false
+				# Show the cursor but do not reactivate
+				_cursor.visible = true
+		elif selection is Unit:
+			_combat_cursor.deactivate()
+			_unit_overlay.totalclear()
+			set_new_position(_active_unit, _stored_new_position)
+			gamegrid.unit_combat(_active_unit, selection)
+			_attacking = false
+			_active_unit.flip_turnReady()
+			_clear_active_unit()
+			_cursor.activate()
+
+
+func _on_CombatCursor_moved(new_coordinates):
+	if not _active_unit:
+		# should not get in here
+		pass
+	else:
+		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
+		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
+		print("Damage Done: " + String(min_damage) + "%-" + String(max_damage) + "%")
+		var target = gamegrid.get_unit(new_coordinates)
+		if _active_unit.attack_type == Constants.ATTACK_TYPE.DIRECT && \
+		target.attack_type == Constants.ATTACK_TYPE.DIRECT:
+			if not min_damage > target.health:
+				var min_damage_taken = gamegrid.calculate_min_damage(target, _active_unit, max_damage)
+				var max_damage_taken = gamegrid.calculate_min_damage(target, _active_unit, min_damage)
+				if min_damage_taken < 0:
+					min_damage_taken = 0
+				print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
+			else:
+				print("Damage Received: 0%")

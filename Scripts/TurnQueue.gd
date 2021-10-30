@@ -17,7 +17,7 @@ func nextTurn():
 	#yield(active_character.endTurn(), "completed")
 	var newIndex : int = (activePlayer.get_index() + 1) % get_child_count()
 	activePlayer = get_child(newIndex)
-	startTurn(activePlayer)
+	start_turn(activePlayer)
 
 func getPlayers():
 	return get_children()
@@ -28,10 +28,9 @@ func printOrder():
 		output += player.name + ", "
 	print(output)
 
-func startTurn(player : Node2D):
-	#iterate through units and set them to ready
+func start_turn(player : Node2D):
+	player.commander.used_power = false
 	#generate income per property owned
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

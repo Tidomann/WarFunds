@@ -175,7 +175,6 @@ func get_attackable_cells(unit: Unit) -> Array:
 						if not compare_array.has(coordinates):
 							if not attack_array.has(coordinates):
 								attack_array.append(coordinates)
-			attack_array.append(unit.cell)
 	return attack_array
 
 ## Returns an array with all the coordinates of walkable cells
@@ -455,9 +454,10 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 		Constants.ATTACK_TYPE.DIRECT:
 			for direction in DIRECTIONS:
 				var coordinates: Vector2 = expected_position + direction
-				if is_occupied(coordinates):
-					if is_enemy(attacker, get_unit(coordinates)):
-						targets_array.append(get_unit(coordinates))
+				if is_gridcoordinate_within_map(coordinates):
+					if is_occupied(coordinates):
+						if is_enemy(attacker, get_unit(coordinates)):
+							targets_array.append(get_unit(coordinates))
 		Constants.ATTACK_TYPE.INDIRECT:
 			if attacker.cell != expected_position:
 				return targets_array
@@ -479,8 +479,68 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 			attacker.cell = position_store
 	return targets_array
 
-func unit_attack(attacker : Unit, Defender : Unit):
-	pass
+func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
+	var full_damage = ((damage_lookup * commander_attack_bonus / 100.0) * ((attacker.health-damagedealt) / 10.0))
+	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
+	var result = full_damage * reduction_modifier
+	return int(floor(result))
+
+func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
+	var commander_luck_modifier = (attacker.get_commander().luck_modifier() - 1) * 0.1
+	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * ((attacker.health-damagedealt) / 10.0))
+	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
+	var result = full_damage * reduction_modifier
+	return int(floor(result))
+
+func calculate_damage(attacker : Unit, defender : Unit) -> int:
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
+	var commander_luck_modifier = randi()%attacker.get_commander().luck_modifier()*0.1
+	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * (attacker.health / 10.0))
+	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
+	var result = full_damage * reduction_modifier
+	return int(floor(result))
+
+func unit_combat(attacker : Unit, defender : Unit):
+	var damage_to_be_dealt = calculate_damage(attacker, defender)
+	var defender_damage_taken = 0
+	var attacker_damage_taken = 0
+	# If both units are not direct, can skip retaliation attack
+	if not attacker.attack_type == Constants.ATTACK_TYPE.DIRECT\
+	&& not defender.attack_type == Constants.ATTACK_TYPE.DIRECT:
+		defender_damage_taken = defender.take_damage(damage_to_be_dealt)
+	# Direct combat units, will take retaliation damage
+	else:
+		if (damage_to_be_dealt >= defender.health):
+			defender_damage_taken = defender.take_damage(damage_to_be_dealt)
+		else:
+			defender_damage_taken = defender.take_damage(damage_to_be_dealt)
+			attacker_damage_taken = attacker.take_damage(calculate_damage(defender, attacker))
+	# attacker gets 50% of the damage dealt in power
+	# defender gets 100% of the damage recieved in power
+	# Calculate the cost of funds dealth/lost in terms of the unit health displayed
+	# IE the unit losses 5 displayed life, 50% of the cost given to defender 50% of the 50% to attacker
+	attacker.get_commander().addPower((int(defender_damage_taken)*defender.cost*0.1)*0.5)
+	defender.get_commander().addPower(int(defender_damage_taken)*defender.cost*0.1)
+	if attacker_damage_taken > 0:
+		defender.get_commander().addPower((int(attacker_damage_taken)*attacker.cost*0.1)*0.5)
+		attacker.get_commander().addPower(int(attacker_damage_taken)*attacker.cost*0.1)
+	if attacker.is_dead():
+		find_unit(attacker).unit = null
+		attacker.queue_free()
+	if defender.is_dead():
+		find_unit(defender).unit = null
+		defender.queue_free()
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

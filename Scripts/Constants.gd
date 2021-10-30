@@ -1,5 +1,25 @@
 extends Node2D
 
+#Army Sprite Constants
+enum ARMY{
+	ENGINEERING = 0,
+	COSC = 1,
+	BIOLOGY = 2,
+	FINANCE = 3,
+	NURSING = 4,
+	BANKTANIA = 5
+}
+
+enum COLOUR{
+	RED = 0,
+	BLUE = 1,
+	GREEN = 2,
+	YELLOW = 3,
+	CYAN = 4,
+	PURPLE = 5
+}
+
+
 #Map Constants
 enum TILE{
 	PLAINS = 0,
@@ -11,6 +31,18 @@ enum TILE{
 	SHOAL = 6,
 	REEF = 7
 }
+
+# Terrain Defense Bonus
+var TILE_DEFENSE = {
+	TILE.PLAINS : 1,
+	TILE.FOREST : 2,
+	TILE.MOUNTAIN : 3,
+	TILE.SEA : 0,
+	TILE.ROAD : 0,
+	TILE.RIVER : 0,
+	TILE.SHOAL : 0,
+	TILE.REEF : 1
+	}
 
 #Unit Constants
 enum UNIT{
@@ -116,6 +148,10 @@ enum AIR_MOVEMENT{
 	REEF = 1
 }
 
+var movement_dict ={
+	
+}
+
 var junior_dict = {
 	UNIT.JUNIOR : 55, 
 	UNIT.SENIOR : 45,
@@ -130,7 +166,7 @@ var senior_dict = {
 	UNIT.RECON : 18
 	}
 
-# if Bazooka_senior doesn't have ammy, just use senior_dict
+# if Bazooka_senior doesn't have ammo, just use senior_dict
 var bazooka_senior_dict = {
 	UNIT.JUNIOR : 65, 
 	UNIT.SENIOR : 55,
@@ -150,6 +186,8 @@ func _ready():
 
 func get_damage(attacker: int, defender: int) -> int:
 	return damage_dict[attacker][defender]
+
+#func get_terrain_bonus
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

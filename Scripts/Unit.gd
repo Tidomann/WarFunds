@@ -18,7 +18,7 @@ export var cell : Vector2
 ## Referance to the unit constant
 export(Constants.UNIT) var unit_referance
 ## The Units Health
-export var health := 100.00
+export var health := 100
 ## Referance to the unit type
 export(Constants.UNIT_TYPE) var unit_type
 ## Cost of the unit
@@ -29,6 +29,8 @@ export(Constants.MOVEMENT_TYPE) var movement_type
 export var move_range := 3
 ## Type of attack for the unit
 export(Constants.ATTACK_TYPE) var attack_type
+## The Units Ammo
+export var ammo : int
 ## The unit's combat attack range.
 export var atk_range := 1
 ## The unit's combat attack minimum range.
@@ -41,6 +43,8 @@ export var vision_range := 2
 export var skin: Texture setget set_skin
 ## Offset to apply to the `skin` sprite in pixels.
 export var skin_offset := Vector2.ZERO setget set_skin_offset
+## Variable if there is an army specific sprite
+export var army_sprite : bool
 
 export(bool) var turnReady = true
 
@@ -50,6 +54,7 @@ var is_selected := false setget set_is_selected
 var _is_walking := false setget _set_is_walking
 
 onready var _sprite: Sprite = $PathFollow2D/Sprite
+onready var _hp : Sprite = $PathFollow2D/Health
 onready var _anim_player: AnimationPlayer = $AnimationPlayer
 onready var _path_follow: PathFollow2D = $PathFollow2D
 
@@ -62,7 +67,7 @@ func _ready() -> void:
 		curve = Curve2D.new()
 	# Set the facing of the unit according to the player
 	if playerOwner.facing == "Left":
-		$PathFollow2D/Sprite.set_flip_h(true)
+		_sprite.set_flip_h(true)
 
 
 func update_position() -> void:
@@ -135,13 +140,42 @@ func flip_turnReady() -> void:
 	turnReady = !turnReady
 	if not turnReady:
 		_sprite.modulate = Color(0.44, 0.44, 0.44)
+		_hp.modulate = Color(0.44, 0.44, 0.44)
 	else:
 		_sprite.modulate = Color(1, 1, 1)
-	
+		_hp.modulate = Color(1, 1, 1)
 
 func get_unit_team() -> int:
 	return playerOwner.team
 
-func turn_grey() -> void:
-	_sprite.modulate = Color(0.44, 0.44, 0.44)
+func get_commander() -> Node2D:
+	return playerOwner.commander
 
+func take_damage(damage_recieved : int) -> int:
+	var damage
+	if damage_recieved > health:
+		damage = health
+		health = 0
+		update_health()
+		damage = ceil(damage * 0.1)
+	else:
+		damage = damage_recieved
+		health -= damage_recieved
+		update_health()
+		damage = floor(damage*0.1)
+	return int(damage)
+	
+
+func use_ammo(_defender : Unit) -> bool:
+	return false
+
+func is_dead() -> bool:
+	return health <= 0
+
+func update_health() -> void:
+	if health < 91 && health > 0:
+		_hp.visible = true
+		_hp.frame = int(health*0.1)
+	else:
+		_hp.visible = false
+	

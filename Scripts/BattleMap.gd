@@ -15,12 +15,15 @@ func _ready():
 	gamegrid.initialize(self)
 	setup_tiles()
 	setup_cursor()
-	$GameBoard._reinitialize()
 	for child in $GameBoard.get_children():
 		var unit := child as Unit
 		if not unit:
 			continue
 		unit.update_position()
+		if unit.army_sprite:
+			unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
+		else:
+			unit._sprite.frame = unit.playerOwner.player_colour
 	
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()
@@ -42,6 +45,7 @@ func setup_tiles():
 # what tiles exist in the map
 func setup_cursor():
 	$GameBoard/Cursor.init($Devtiles)
+	$GameBoard/CombatCursor.init($Devtiles)
 		
 
 func Xmin() -> int:
@@ -55,8 +59,6 @@ func Ymin() -> int:
 	
 func Ymax() -> int:
 	return yMax
-
- 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
