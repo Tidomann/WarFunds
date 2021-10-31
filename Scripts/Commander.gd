@@ -1,5 +1,8 @@
 extends Node2D
 
+## Emitted when the commander's power changes
+signal power_changed(playerOwner, power)
+
 # Member Variables
 # the current power meter value
 export(float) var power = 0.0
@@ -31,6 +34,7 @@ func addPower(iPower : float) -> void:
 		power = 0.0
 	else:
 		power += iPower
+	emit_signal("power_changed", playerOwner, power)
 
 # decrease the commanders current power meter by the passed parameter
 func removePower(iPower : float) -> void:
@@ -40,10 +44,12 @@ func removePower(iPower : float) -> void:
 		power = maxPower
 	else:
 		power -= iPower
+	emit_signal("power_changed", playerOwner, power)
 
 # set the power meter to it's maximum value
 func setPowerFilled() -> void:
 		power = maxPower
+		emit_signal("power_changed", playerOwner, power)
 
 # function that returns the current value of the commanders power
 func currentPower() -> float:
@@ -95,8 +101,8 @@ func use_power() -> void:
 		if power_used <= 5:
 			maxPower *= 1.2
 			power_used += 1
-	used_power = true
-	#Do Power Stuff
+		used_power = true
+		#Do Power Stuff
 
 func luck_modifier() -> int:
 	return 9

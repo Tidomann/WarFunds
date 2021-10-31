@@ -21,3 +21,17 @@ func add_player(player : Node2D):
 	uiplayer.init(player)
 	uiplayer.set_name(player.playerName)
 	add_child(uiplayer)
+
+
+func _on_Kronk_power_changed(playerOwner, power):
+	for uiPlayerData in self.get_children():
+		if uiPlayerData.player == playerOwner:
+			uiPlayerData.power_progress_bar.value = power
+
+
+func _on_TurnQueue_turn_changed(activePlayer):
+	for uiPlayerData in self.get_children():
+		if uiPlayerData.player == activePlayer:
+			uiPlayerData.player_turn_arrow.visible = true
+		else:
+			uiPlayerData.player_turn_arrow.visible = false

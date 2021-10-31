@@ -26,6 +26,7 @@ func _ready():
 			unit._sprite.frame = unit.playerOwner.player_colour
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
+	$TurnQueue.initialize()
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()
 
