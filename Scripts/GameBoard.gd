@@ -268,7 +268,7 @@ func _on_CombatCursor_moved(new_coordinates):
 		target.attack_type == Constants.ATTACK_TYPE.DIRECT:
 			if not min_damage > target.health:
 				var min_damage_taken = gamegrid.calculate_min_damage(target, _active_unit, max_damage)
-				var max_damage_taken = gamegrid.calculate_min_damage(target, _active_unit, min_damage)
+				var max_damage_taken = gamegrid.calculate_max_damage(target, _active_unit, min_damage)
 				if min_damage_taken < 0:
 					min_damage_taken = 0
 				print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")

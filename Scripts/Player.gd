@@ -5,7 +5,7 @@ export(String) var playerName
 export(int) var team = 1
 export var commander_path := @""
 export(Constants.COLOUR) var player_colour
-export(int) var funds
+export(int) var funds = 0
 onready var commander : Node2D = self.get_node(commander_path)
 #onready var _sprite: Sprite = $PathFollow2D/Sprite
 export(String, "Right", "Left") var facing

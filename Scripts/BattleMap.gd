@@ -27,6 +27,7 @@ func _ready():
 	
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()
+	$CanvasLayer/UIPlayerData.init($TurnQueue/Computer1)
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles

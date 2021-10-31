@@ -480,35 +480,41 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 	return targets_array
 
 func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
-	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
-	var full_damage = ((damage_lookup * commander_attack_bonus / 100.0) * ((attacker.health-damagedealt) / 10.0))
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var bad_luck = attacker.get_commander().bad_luck_modifier()
 	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
-	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
-	var result = full_damage * reduction_modifier
+	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + bad_luck
+	var health_modifier = (ceil((attacker.health-damagedealt)/10.0) / 10.0)
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
+	var result = full_damage * health_modifier * reduction_modifier
 	return int(floor(result))
 
 func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
-	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
-	var commander_luck_modifier = (attacker.get_commander().luck_modifier() - 1) * 0.1
-	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * ((attacker.health-damagedealt) / 10.0))
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var good_luck = attacker.get_commander().luck_modifier()
 	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
-	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
-	var result = full_damage * reduction_modifier
+	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + good_luck
+	var health_modifier = (ceil((attacker.health-damagedealt)/10.0) / 10.0)
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
+	var result = full_damage * health_modifier * reduction_modifier
 	return int(floor(result))
 
 func calculate_damage(attacker : Unit, defender : Unit) -> int:
-	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance) * 0.1
+	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
-	var commander_luck_modifier = randi()%attacker.get_commander().luck_modifier()*0.1
-	var full_damage = (((damage_lookup * commander_attack_bonus / 100.0) + commander_luck_modifier) * (attacker.health / 10.0))
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
+	var bad_luck = attacker.get_commander().bad_luck_modifier()
+	var good_luck = attacker.get_commander().luck_modifier()
+	var luck_modifier = bad_luck + randi()%(good_luck - bad_luck +1)
 	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
-	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*defender.health/10.0))/100)
-	var result = full_damage * reduction_modifier
+	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + luck_modifier
+	var health_modifier = (ceil(attacker.health/10.0) / 10.0)
+	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
+	var result = full_damage * health_modifier * reduction_modifier
 	return int(floor(result))
 
 func unit_combat(attacker : Unit, defender : Unit):

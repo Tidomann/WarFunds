@@ -12,7 +12,7 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 onready var playerOwner : Node2D = self.get_node(player_path)
-export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/6stars.png"
+export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/3stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type
 var used_power := false
@@ -99,10 +99,14 @@ func use_power() -> void:
 	#Do Power Stuff
 
 func luck_modifier() -> int:
-	return 9
+	if used_power:
+		return 49
+	return 24
 
 func bad_luck_modifier() -> int:
-	return 0
+	if used_power:
+		return -19
+	return -9
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

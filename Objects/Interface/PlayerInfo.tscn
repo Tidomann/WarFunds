@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/Kornksad.png" type="Texture" id=1]
+[ext_resource path="res://Objects/BattleMap Objects/PixelFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/Sprites/UI/funds.png" type="Texture" id=3]
+[ext_resource path="res://assets/Sprites/UI/pincome.png" type="Texture" id=4]
+[ext_resource path="res://assets/Sprites/UI/uibackground.png" type="Texture" id=5]
+
+[node name="PlayerInfo" type="Control"]
+margin_right = 130.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 130, 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 130.0
+margin_bottom = 32.0
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 0.25
+margin_right = 70.25
+margin_bottom = 40.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Leader" type="Control" parent="HBoxContainer"]
+margin_right = 32.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="LeaderPortrait" type="TextureRect" parent="HBoxContainer/Leader"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColourBox" type="ColorRect" parent="HBoxContainer/Leader"]
+margin_right = 8.0
+margin_bottom = 8.0
+color = Color( 0.27451, 0.196078, 0.298039, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 32.0
+margin_right = 128.0
+margin_bottom = 40.0
+custom_constants/separation = 0
+
+[node name="Funds" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_right = 96.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="FundsIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/Funds"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 14, 14 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FundsText" type="Label" parent="HBoxContainer/VBoxContainer/Funds"]
+margin_left = 20.0
+margin_top = 2.0
+margin_right = 96.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 76, 12 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "1000"
+valign = 1
+clip_text = true
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Income" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 16.0
+margin_right = 96.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="IncomeIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/Income"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 14, 14 )
+texture = ExtResource( 4 )
+
+[node name="IncomeText" type="Label" parent="HBoxContainer/VBoxContainer/Income"]
+margin_left = 20.0
+margin_top = 2.0
+margin_right = 96.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 76, 12 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "1000"
+clip_text = true
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

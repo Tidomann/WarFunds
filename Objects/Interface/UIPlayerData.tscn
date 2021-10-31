@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Interface/PlayerInfo.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Interface/Powerbar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Interface/PlayerNameBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Interface/UIPlayerData.gd" type="Script" id=4]
+
+[node name="UIPlayerData" type="VBoxContainer"]
+rect_scale = Vector2( 0.5, 0.5 )
+custom_constants/separation = 0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerNameBar" parent="." instance=ExtResource( 3 )]
+margin_right = 151.0
+
+[node name="PlayerInfo" parent="." instance=ExtResource( 1 )]
+margin_top = 20.0
+margin_right = 151.0
+margin_bottom = 52.0
+
+[node name="PowerProgressBar" parent="." instance=ExtResource( 2 )]
+margin_top = 52.0
+margin_bottom = 62.0

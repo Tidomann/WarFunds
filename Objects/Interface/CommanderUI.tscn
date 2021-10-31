@@ -1,0 +1,16 @@
+[gd_scene format=2]
+
+[node name="CommanderUI" type="Control"]
+margin_right = 480.0
+margin_bottom = 270.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Commanders" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
