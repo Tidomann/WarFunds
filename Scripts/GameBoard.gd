@@ -160,7 +160,6 @@ func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 	# if the unit is only selected
 	if _active_unit:
 		_active_unit.is_selected = false
-		print("wtf")
 		_clear_active_unit()
 	else:
 		_pop_up.close()

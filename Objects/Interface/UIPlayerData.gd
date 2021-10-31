@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+class_name UIPlayerData
+
 
 var player : Node2D
 
@@ -23,15 +25,3 @@ func init(initplayer : Node2D):
 	$PlayerInfo/HBoxContainer/VBoxContainer/Income/IncomeText.text = "0"
 	$PowerProgressBar.max_value = player.commander.maxPower
 	$PowerProgressBar.texture_over = load(player.commander.stars_path)
-	print(player.commander.maxPower)
-
-func test():
-	$PlayerNameBar/NameText.text = "Test name"
-	print($PlayerNameBar/ColouredGradient.modulate)
-	$PlayerNameBar/ColouredGradient.modulate = Constants.get_colour((Constants.COLOUR.RED))
-	$PlayerInfo/HBoxContainer/Leader/ColourBox.color = Constants.get_colour((Constants.COLOUR.RED))
-	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.texture = load("res://assets/Sprites/DepartmentLeaders/Kronk/Konkneutral.png")
-	$PlayerInfo/HBoxContainer/VBoxContainer/Funds/FundsText.text = "1234"
-	$PlayerInfo/HBoxContainer/VBoxContainer/Income/IncomeText.text = "4321"
-	$PowerProgressBar.max_value = 2700
-	$PowerProgressBar.texture_over = load("res://assets/Sprites/UI/UICommander/PowerBar/3stars.png")
