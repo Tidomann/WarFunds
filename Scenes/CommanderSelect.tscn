@@ -1,123 +1,91 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/Sprites/DepartmentLeaders/Professor Hewel/Professor HewelHappy.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/CommanderSelect.gd" type="Script" id=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 0.396851
 margin_right = 0.396851
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect5" type="ColorRect" parent="."]
-margin_right = 480.0
-margin_bottom = 270.0
-color = Color( 0.72549, 1, 0.72549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="ColorRect5"]
-margin_left = 17.2535
-margin_top = 18.5716
-margin_right = 124.254
-margin_bottom = 252.572
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Professor HewelHappy" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 52.7507, 32.0453 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy2" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 101.508, 33.8291 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy3" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 53.3454, 90.911 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy4" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 102.103, 91.5056 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy5" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 50.3723, 147.993 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy6" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 99.7244, 146.804 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy7" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 49.7777, 203.291 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="Professor HewelHappy8" type="Sprite" parent="ColorRect5/ColorRect"]
-position = Vector2( 100.319, 203.886 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
-offset = Vector2( -49.5, 0 )
-
-[node name="ColorRect2" type="ColorRect" parent="ColorRect5"]
-margin_left = 127.0
-margin_top = 19.0
-margin_right = 241.0
-margin_bottom = 253.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5/ColorRect2"]
-margin_left = 20.1091
-margin_top = 106.254
-margin_right = 94.1091
-margin_bottom = 122.254
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "level select"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect3" type="ColorRect" parent="ColorRect5"]
-margin_left = 243.937
-margin_top = 18.5716
-margin_right = 461.937
-margin_bottom = 168.572
+[node name="CommandersBackground" type="ColorRect" parent="."]
+margin_left = 16.9583
+margin_top = 18.9532
+margin_right = 123.959
+margin_bottom = 252.954
 color = Color( 0.470588, 0.470588, 0.470588, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect5" type="ColorRect" parent="ColorRect5/ColorRect3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
+[node name="ButtonBackground" type="ColorRect" parent="."]
+margin_left = 126.625
+margin_top = 19.0
+margin_right = 240.625
+margin_bottom = 253.0
+rect_pivot_offset = Vector2( -186.967, 56.5776 )
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5/ColorRect3/ColorRect5"]
+[node name="PreviewBackground" type="ColorRect" parent="."]
+margin_left = 244.0
+margin_top = 19.0
+margin_right = 462.0
+margin_bottom = 169.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CommanderInfoBackground" type="ColorRect" parent="."]
+margin_left = 243.672
+margin_top = 171.953
+margin_right = 461.672
+margin_bottom = 252.953
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Commanders" type="GridContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.004
+margin_left = 20.0
+margin_top = 22.0
+margin_right = -359.0
+margin_bottom = -21.08
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonList" type="ItemList" parent="."]
+margin_left = 130.0
+margin_top = 22.0
+margin_right = 238.0
+margin_bottom = 250.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Preview" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 247.0
+margin_top = 22.0
+margin_right = -21.0
+margin_bottom = -104.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Preview"]
 margin_left = 78.0331
 margin_top = 64.4216
 margin_right = 133.033
@@ -125,26 +93,16 @@ margin_bottom = 80.4216
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 text = "preview"
 
-[node name="ColorRect4" type="ColorRect" parent="ColorRect5"]
-margin_left = 244.42
-margin_top = 172.0
-margin_right = 462.42
-margin_bottom = 253.0
-color = Color( 0.470588, 0.470588, 0.470588, 1 )
+[node name="ColorRect6" type="ColorRect" parent="."]
+margin_left = 246.672
+margin_top = 174.953
+margin_right = 458.672
+margin_bottom = 249.953
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect5" type="ColorRect" parent="ColorRect5/ColorRect4"]
-margin_left = 3.0
-margin_top = 3.0
-margin_right = 215.0
-margin_bottom = 78.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5/ColorRect4/ColorRect5"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect6"]
 margin_left = 66.2016
 margin_top = 19.4719
 margin_right = 163.202
