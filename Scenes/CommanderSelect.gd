@@ -47,14 +47,14 @@ func _on_Button_pressed(id):
 	
 	match id:
 		1:
-			var texture = ImageTexture.new()
-			var image = Image.new()
-			image.load("res://assets/Sprites/CommanderScreen/preview1.png")
-			texture.create_from_image(image)
+			var texture = load("res://assets/Sprites/CommanderScreen/preview1.png")
+			
 			var sprite = Sprite.new()
 			sprite.texture = texture
-			sprite.position = Vector2(106, 77-5)
-			$Preview.add_child(sprite)
+			
+			print(sprite.get_rect())
+			sprite.position = Vector2(245+106, 23+72)
+			add_child(sprite)
 			pass
 	print(id)
 
