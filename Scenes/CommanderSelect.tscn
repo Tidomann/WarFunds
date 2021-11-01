@@ -12,103 +12,90 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CommandersBackground" type="ColorRect" parent="."]
-margin_left = 16.9583
-margin_top = 18.9532
-margin_right = 123.959
-margin_bottom = 252.954
-color = Color( 0.470588, 0.470588, 0.470588, 1 )
+[node name="Backgrounds" type="Control" parent="."]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonBackground" type="ColorRect" parent="."]
-margin_left = 126.625
-margin_top = 19.0
-margin_right = 240.625
-margin_bottom = 253.0
-rect_pivot_offset = Vector2( -186.967, 56.5776 )
-color = Color( 0.470588, 0.470588, 0.470588, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PreviewBackground" type="ColorRect" parent="."]
-margin_left = 244.0
-margin_top = 19.0
-margin_right = 462.0
-margin_bottom = 169.0
-color = Color( 0.470588, 0.470588, 0.470588, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CommanderInfoBackground" type="ColorRect" parent="."]
-margin_left = 243.672
-margin_top = 171.953
-margin_right = 461.672
-margin_bottom = 252.953
-color = Color( 0.470588, 0.470588, 0.470588, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Commanders" type="GridContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.004
+[node name="CommandersBackground" type="ColorRect" parent="Backgrounds"]
 margin_left = 20.0
-margin_top = 22.0
-margin_right = -359.0
-margin_bottom = -21.08
-columns = 2
+margin_top = 20.0
+margin_right = 127.0
+margin_bottom = 250.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 131.0
+margin_top = 20.0
+margin_right = 238.0
+margin_bottom = 250.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 242.0
+margin_top = 20.0
+margin_right = 460.0
+margin_bottom = 165.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CommanderInfoBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 242.0
+margin_top = 169.0
+margin_right = 460.0
+margin_bottom = 214.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CommanderInfoBackground2" type="ColorRect" parent="Backgrounds"]
+margin_left = 242.0
+margin_top = 218.0
+margin_right = 460.0
+margin_bottom = 250.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Commanders" type="ItemList" parent="."]
+margin_left = 23.0
+margin_top = 23.0
+margin_right = 124.0
+margin_bottom = 247.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ButtonList" type="ItemList" parent="."]
-margin_left = 130.0
-margin_top = 22.0
-margin_right = 238.0
-margin_bottom = 250.0
+margin_left = 134.0
+margin_top = 23.0
+margin_right = 235.0
+margin_bottom = 247.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Preview" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 247.0
-margin_top = 22.0
-margin_right = -21.0
-margin_bottom = -104.0
+[node name="Button" type="Button" parent="."]
+margin_left = 246.977
+margin_top = 224.573
+margin_right = 453.977
+margin_bottom = 244.573
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 0, 0, 1 )
+text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Preview"]
-margin_left = 78.0331
-margin_top = 64.4216
-margin_right = 133.033
-margin_bottom = 80.4216
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "preview"
-
-[node name="ColorRect6" type="ColorRect" parent="."]
-margin_left = 246.672
-margin_top = 174.953
-margin_right = 458.672
-margin_bottom = 249.953
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect6"]
-margin_left = 66.2016
-margin_top = 19.4719
-margin_right = 163.202
-margin_bottom = 59.4719
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-text = "commander abilities"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[connection signal="pressed" from="Button" to="." method="_on_Start_pressed"]
