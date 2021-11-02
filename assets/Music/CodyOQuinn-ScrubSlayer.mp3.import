@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CodyOQuinn-ScrubSlayer.mp3-49586074a7768c33e27dfcd40910f6c9.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/CodyOQuinn-ScrubSlayer.mp3"
+dest_files=[ "res://.import/CodyOQuinn-ScrubSlayer.mp3-49586074a7768c33e27dfcd40910f6c9.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
