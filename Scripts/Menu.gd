@@ -7,6 +7,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$SceneTransitionRect/AnimationPlayer.play_backwards("Fade")
 	randomize()
 	$VBoxContainer/StartButton.grab_focus()
 
@@ -17,6 +18,8 @@ func _ready():
 
 
 func _on_StartButton_pressed():
+	$SceneTransitionRect/AnimationPlayer.play("Fade")
+	yield($SceneTransitionRect/AnimationPlayer, "animation_finished")
 	get_tree().change_scene("res://Scenes/BattleMap.tscn")
 
 func _on_OptionsButton_pressed():

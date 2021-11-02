@@ -187,6 +187,22 @@ func _ready():
 func get_damage(attacker: int, defender: int) -> int:
 	return damage_dict[attacker][defender]
 
+func get_colour(colour : int) -> Color:
+	match colour:
+		Constants.COLOUR.RED:
+			return Color("aa003f")
+		Constants.COLOUR.BLUE:
+			return Color("335eb0")
+		Constants.COLOUR.GREEN:
+			return Color("30f830")
+		Constants.COLOUR.YELLOW:
+			return Color("d39c36")
+		Constants.COLOUR.CYAN:
+			return Color("20918b")
+		Constants.COLOUR.PURPLE:
+			return Color("46324c")
+	return Color( 1, 1, 1, 1 )
+
 #func get_terrain_bonus
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
+[ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/normal_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
@@ -12,10 +13,11 @@
 [ext_resource path="res://Objects/BattleMap Objects/PopupMenu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Objects/BattleMap Objects/Player.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/BattleMap Objects/TurnQueue.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Objects/Commander.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Objects/Commanders/Commander.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Objects/Units/Junior.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Objects/Interface/CommanderUI.tscn" type="PackedScene" id=18]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -78,17 +80,17 @@ cell = Vector2( 7, 11 )
 
 [node name="Unit5" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.495, 148.262 )
-player_path = NodePath("../../TurnQueue/Computer 1")
+player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 9 )
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )
-player_path = NodePath("../../TurnQueue/Computer 1")
+player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 10 )
 
 [node name="Unit7" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 167.923, 183.086 )
-player_path = NodePath("../../TurnQueue/Computer 1")
+player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 11 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
@@ -101,8 +103,8 @@ position = Vector2( 239.604, 134.819 )
 current = true
 limit_left = 0
 limit_top = 0
-limit_right = 480
-limit_bottom = 270
+limit_right = 660
+limit_bottom = 501
 smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource( 6 )
@@ -123,27 +125,24 @@ hide_on_item_selection = false
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Human"
-commander_path = NodePath("Fake Commander")
+commander_path = NodePath("FakeCommander")
 player_colour = 1
 
-[node name="Fake Commander" parent="TurnQueue/Human" instance=ExtResource( 14 )]
+[node name="FakeCommander" parent="TurnQueue/Human" instance=ExtResource( 14 )]
 commanderName = "Bob Joe"
 player_path = NodePath("..")
 army_type = 1
 
-[node name="Computer 1" parent="TurnQueue" instance=ExtResource( 12 )]
+[node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
 position = Vector2( -0.529724, 0 )
 playerName = "Computer 1"
 team = 6
-commander_path = NodePath("Computer Commander")
+commander_path = NodePath("Kronk")
 player_colour = 5
 facing = "Left"
 
-[node name="Computer Commander" parent="TurnQueue/Computer 1" instance=ExtResource( 14 )]
-position = Vector2( 0.529724, 0 )
-commanderName = "Beep Boop"
+[node name="Kronk" parent="TurnQueue/Computer1" instance=ExtResource( 1 )]
 player_path = NodePath("..")
-army_type = 5
 
 [node name="DialogBox" parent="." instance=ExtResource( 16 )]
 visible = false
@@ -151,6 +150,10 @@ margin_left = 29.7393
 margin_top = 145.168
 margin_right = 460.739
 margin_bottom = 260.168
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
@@ -162,3 +165,5 @@ margin_bottom = 260.168
 [connection signal="id_pressed" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_id_pressed"]
 [connection signal="popup_hide" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_popup_hide"]
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]
+[connection signal="turn_changed" from="TurnQueue" to="CanvasLayer/CommanderUI" method="_on_TurnQueue_turn_changed"]
+[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="_on_Kronk_power_changed"]

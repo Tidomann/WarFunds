@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Commanders/Kronk.gd" type="Script" id=1]
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/Konkneutral.png" type="Texture" id=2]
+
+[node name="Kronk" type="Node2D"]
+script = ExtResource( 1 )
+commanderName = "Kronk"
+powerName = "Hapless Hero"
+army_type = 5
+
+[node name="commanderPortrait" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 2 )

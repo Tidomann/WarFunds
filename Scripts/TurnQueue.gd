@@ -4,20 +4,23 @@ class_name TurnQueue
 
 var activePlayer
 
+signal turn_changed(activePlayer)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	initialize()
+	pass
 
 func initialize():
 	activePlayer = get_child(0)
+	emit_signal("turn_changed", activePlayer)
 
 func nextTurn():
 	#yield(active_character.endTurn(), "completed")
 	var newIndex : int = (activePlayer.get_index() + 1) % get_child_count()
 	activePlayer = get_child(newIndex)
 	start_turn(activePlayer)
+	emit_signal("turn_changed", activePlayer)
 
 func getPlayers():
 	return get_children()

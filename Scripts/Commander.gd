@@ -1,10 +1,13 @@
 extends Node2D
 
+## Emitted when the commander's power changes
+signal power_changed(playerOwner, power)
+
 # Member Variables
 # the current power meter value
 export(float) var power = 0.0
 # the maximum power meter value
-export(float) var maxPower = 5000.0
+export(float) var maxPower = 27000.0
 # The name of the commander
 export(String) var commanderName
 # The name of the commander's power
@@ -12,8 +15,12 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 onready var playerOwner : Node2D = self.get_node(player_path)
+export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/6stars.png"
+#onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type
 var used_power := false
+var power_used := 0
+onready var commander_portrait = $commanderPortrait
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +34,7 @@ func addPower(iPower : float) -> void:
 		power = 0.0
 	else:
 		power += iPower
+	emit_signal("power_changed", playerOwner, power)
 
 # decrease the commanders current power meter by the passed parameter
 func removePower(iPower : float) -> void:
@@ -36,10 +44,12 @@ func removePower(iPower : float) -> void:
 		power = maxPower
 	else:
 		power -= iPower
+	emit_signal("power_changed", playerOwner, power)
 
 # set the power meter to it's maximum value
 func setPowerFilled() -> void:
 		power = maxPower
+		emit_signal("power_changed", playerOwner, power)
 
 # function that returns the current value of the commanders power
 func currentPower() -> float:
@@ -88,11 +98,17 @@ func defense_modifier(_attacker : Unit, _defender : Unit) -> float:
 func use_power() -> void:
 	if canUsePower():
 		removePower(maxPower)
-	used_power = true
-	#Do Power Stuff
+		if power_used <= 5:
+			maxPower *= 1.2
+			power_used += 1
+		used_power = true
+		#Do Power Stuff
 
 func luck_modifier() -> int:
-	return 10
+	return 9
+
+func bad_luck_modifier() -> int:
+	return 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
