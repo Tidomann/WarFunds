@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/scrubslayer.mp3-cdc18926aa69110981c30c3ae143a260.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/scrubslayer.mp3"
+dest_files=[ "res://.import/scrubslayer.mp3-cdc18926aa69110981c30c3ae143a260.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
