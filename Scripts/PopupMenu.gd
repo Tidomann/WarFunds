@@ -6,6 +6,8 @@ extends PopupMenu
 # var b = "text"
 var fight_icon = load("res://assets/Sprites/UI/smallfistboy.svg")
 var wait_icon = load("res://assets/Sprites/UI/down_arrow.png")
+var cancel_icon = load("res://assets/Sprites/UI/cancel.png")
+var power_icon = load("res://assets/Sprites/UI/power.png")
 var end_turn_icon = load("res://assets/Sprites/UI/endturn.png")
 signal selection
 # Called when the node enters the scene tree for the first time.
@@ -19,13 +21,19 @@ func close() -> void:
 	#margin_bottom = margin_top + 7
 	#margin_right = margin_left + 15
 
-func popup_menu(new_positon: Vector2, fight: bool, wait: bool, end_turn: bool) -> void:
+func popup_menu(new_positon: Vector2, fight: bool, wait: bool, cancel : bool, power : bool, end_turn: bool) -> void:
 	clear()
 	if fight:
 		add_icon_item(fight_icon,"Attack")
 		#popup_exclusive = true
 	if wait:
 		add_icon_item(wait_icon,"Wait")
+		#popup_exclusive = true
+	if cancel:
+		add_icon_item(cancel_icon,"Cancel")
+		#popup_exclusive = true
+	if power:
+		add_icon_item(power_icon,"Power")
 		#popup_exclusive = true
 	if end_turn:
 		add_icon_item(end_turn_icon,"End Turn")

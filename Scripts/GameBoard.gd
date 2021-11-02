@@ -82,13 +82,13 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 			_select_unit(cell)
 		else:
 			_cursor.deactivate(true)
-			_pop_up.popup_menu(_cursor.position,false,false,true)
+			_pop_up.popup_menu(_cursor.position,false,false,true,_turn_queue.activePlayer.commander.canUsePower(), true)
 	elif _active_unit:
 		if _active_unit.playerOwner == _turn_queue.activePlayer:
 			_move_active_unit(cell)
 	else:
 		_cursor.deactivate(true)
-		_pop_up.popup_menu(_cursor.position,false,false,true)
+		_pop_up.popup_menu(_cursor.position,false,false,true,_turn_queue.activePlayer.commander.canUsePower(), true)
 
 # Selects the unit in the `cell` if there's one there.
 # Sets it as the `_active_unit` and draws its walkable cells and interactive move path.
@@ -146,7 +146,7 @@ func _move_active_unit(new_position: Vector2) -> void:
 		_stored_new_position = new_position
 		_pop_up.popup_menu(_cursor.position,\
 			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
-			true,false)
+			true,false, false, false)
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -211,6 +211,12 @@ func _on_PopupMenu_selection(selection : String):
 			print(_turn_queue.activePlayer.playerName + "'s turn.")
 			_pop_up.close()
 			_cursor.activate()
+		"Power":
+			print(selection)
+			_clear_active_unit()
+			_turn_queue.activePlayer.commander.use_power()
+			#TODO: YIELD commander power?
+			_pop_up.close()
 
 
 func _on_PopupMenu_popup_hide():
@@ -238,7 +244,7 @@ func _on_CombatCursor_combat_selection(selection):
 				_combat_cursor.deactivate()
 				_pop_up.popup_menu(_cursor.position,\
 					gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
-					true,false)
+					true, false, false, false)
 				_unit_overlay.totalclear()
 				_attacking = false
 				# Show the cursor but do not reactivate
