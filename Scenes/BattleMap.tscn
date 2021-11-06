@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Interface/CommanderUI.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=19]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -64,9 +65,9 @@ player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 8 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 137.571, 151.292 )
+position = Vector2( 328.82, 117.587 )
 player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 8, 9 )
+cell = Vector2( 20, 7 )
 
 [node name="Unit3" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.146, 166.843 )
@@ -92,6 +93,17 @@ cell = Vector2( 10, 10 )
 position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 11 )
+
+[node name="Tower" parent="GameBoard" instance=ExtResource( 19 )]
+position = Vector2( 342.996, 118.044 )
+player_path = NodePath("../../TurnQueue/Computer1")
+cell = Vector2( 21, 7 )
+unit_referance = 4
+unit_type = 1
+cost = 0
+move_range = 0
+attack_type = 1
+atk_range = 3
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 

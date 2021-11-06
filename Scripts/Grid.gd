@@ -480,6 +480,8 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 	return targets_array
 
 func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
+	if attacker.unit_referance == Constants.UNIT.TOWER:
+		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
@@ -492,6 +494,8 @@ func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	return int(floor(result))
 
 func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
+	if attacker.unit_referance == Constants.UNIT.TOWER:
+		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
@@ -504,6 +508,8 @@ func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	return int(floor(result))
 
 func calculate_damage(attacker : Unit, defender : Unit) -> int:
+	if attacker.unit_referance == Constants.UNIT.TOWER:
+		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
@@ -524,7 +530,7 @@ func unit_combat(attacker : Unit, defender : Unit):
 	var attacker_damage_taken = 0
 	# If both units are not direct, can skip retaliation attack
 	if not attacker.attack_type == Constants.ATTACK_TYPE.DIRECT\
-	&& not defender.attack_type == Constants.ATTACK_TYPE.DIRECT:
+	|| not defender.attack_type == Constants.ATTACK_TYPE.DIRECT:
 		defender_damage_taken = defender.take_damage(damage_to_be_dealt)
 	# Direct combat units, will take retaliation damage
 	else:

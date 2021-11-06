@@ -2,7 +2,7 @@
 ## The board manages its position inside the game grid.
 ## The unit itself holds stats and a visual representation that moves smoothly in the game world.
 tool
-class_name Unit
+class_name Tower
 extends Path2D
 
 ## Emitted when the unit reached the end of a path along which it was walking.
