@@ -94,10 +94,21 @@ position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 11 )
 
-[node name="Tower" parent="GameBoard" instance=ExtResource( 19 )]
-position = Vector2( 342.996, 118.044 )
+[node name="Tower - Banktania" parent="GameBoard" instance=ExtResource( 19 )]
+position = Vector2( 345, 54 )
 player_path = NodePath("../../TurnQueue/Computer1")
-cell = Vector2( 21, 7 )
+cell = Vector2( 21, 3 )
+unit_referance = 4
+unit_type = 1
+cost = 0
+move_range = 0
+attack_type = 1
+atk_range = 3
+
+[node name="Tower - Player" parent="GameBoard" instance=ExtResource( 19 )]
+position = Vector2( 120, 198 )
+player_path = NodePath("../../TurnQueue/Human")
+cell = Vector2( 7, 12 )
 unit_referance = 4
 unit_type = 1
 cost = 0
@@ -115,8 +126,8 @@ position = Vector2( 239.604, 134.819 )
 current = true
 limit_left = 0
 limit_top = 0
-limit_right = 660
-limit_bottom = 501
+limit_right = 480
+limit_bottom = 270
 smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource( 6 )

@@ -4,9 +4,9 @@ export var dialogPath = @""
 export(float) var textSpeed = 0.05
  
 var dialog
- 
 var phraseNum = 0
 var finished = false
+var isfinished = false
  
 func start_dialog():
 	dialog = getDialog()
@@ -31,7 +31,6 @@ func getDialog() -> Array:
 	
 	f.open(dialogPath, File.READ)
 	var json = f.get_as_text()
-	
 	var output = parse_json(json)
 	
 	if typeof(output) == TYPE_ARRAY:
@@ -68,3 +67,8 @@ func nextPhrase() -> void:
 	finished = true
 	phraseNum += 1
 	return
+
+func finished() -> bool:
+	if phraseNum >= len(dialog):
+		return true
+	return false

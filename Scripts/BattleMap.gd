@@ -28,7 +28,7 @@ func _ready():
 		$CanvasLayer/CommanderUI.add_player(child)
 	$TurnQueue.initialize()
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
-	#$DialogBox.start_dialog()
+	$DialogBox.start_dialog()
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles

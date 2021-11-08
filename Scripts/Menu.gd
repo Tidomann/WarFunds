@@ -20,7 +20,7 @@ func _ready():
 func _on_StartButton_pressed():
 	$SceneTransitionRect/AnimationPlayer.play("Fade")
 	yield($SceneTransitionRect/AnimationPlayer, "animation_finished")
-	get_tree().change_scene("res://Scenes/BattleMap.tscn")
+	get_tree().change_scene("res://Scenes/Intro Dialog.tscn")
 
 func _on_OptionsButton_pressed():
 	pass # Replace with function body.
