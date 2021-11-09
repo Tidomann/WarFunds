@@ -6,7 +6,10 @@ export(float) var textSpeed = 0.05
 var dialog
 var phraseNum = 0
 var finished = false
-var isfinished = false
+
+#signal stuff
+var isfinished := false
+signal dialog_finished(isfinished)
  
 func start_dialog():
 	dialog = getDialog()
@@ -40,6 +43,8 @@ func getDialog() -> Array:
  
 func nextPhrase() -> void:
 	if phraseNum >= len(dialog):
+		isfinished = true
+		emit_signal("dialog_finished",isfinished)
 		queue_free()
 		return
 	
@@ -69,6 +74,4 @@ func nextPhrase() -> void:
 	return
 
 func finished() -> bool:
-	if phraseNum >= len(dialog):
-		return true
 	return false
