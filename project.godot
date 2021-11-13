@@ -45,6 +45,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Pathfinder.gd"
 }, {
 "base": "Node2D",
+"class": "Property",
+"language": "GDScript",
+"path": "res://Objects/Property/Property.gd"
+}, {
+"base": "Node2D",
 "class": "TurnQueue",
 "language": "GDScript",
 "path": "res://Scripts/TurnQueue.gd"
@@ -77,6 +82,7 @@ _global_script_class_icons={
 "GridData": "",
 "MovementNode": "",
 "PathFinder": "",
+"Property": "",
 "TurnQueue": "",
 "UIPlayerData": "",
 "Unit": "",
