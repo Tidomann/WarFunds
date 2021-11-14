@@ -7,6 +7,7 @@
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 782, 215 )
+modulate_color = Color( 0.835294, 0.835294, 0.835294, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 10
