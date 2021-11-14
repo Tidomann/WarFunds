@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Interface/CommanderUI.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=20]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -73,6 +74,8 @@ cell = Vector2( 20, 7 )
 position = Vector2( 120.146, 166.843 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
+attack_type = 1
+atk_range = 4
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.033, 183.128 )
@@ -119,6 +122,12 @@ atk_range = 3
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
 [node name="CombatCursor" parent="GameBoard" instance=ExtResource( 17 )]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GameBoard"]
+layer = 2
+
+[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 20 )]
 visible = false
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
