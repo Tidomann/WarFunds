@@ -255,7 +255,9 @@ func _on_CombatCursor_combat_selection(selection):
 			set_new_position(_active_unit, _stored_new_position)
 			gamegrid.unit_combat(_active_unit, selection)
 			_attacking = false
-			_active_unit.flip_turnReady()
+			
+			if _active_unit.is_turnReady():
+				_active_unit.flip_turnReady()
 			_clear_active_unit()
 			_cursor.activate()
 

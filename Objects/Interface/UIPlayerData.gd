@@ -26,7 +26,10 @@ func init(initplayer : Node2D):
 	$PlayerNameBar/ColouredGradient.modulate = Constants.get_colour(player.player_colour)
 	$PlayerInfo/HBoxContainer/Leader/ColourBox.color = Constants.get_colour(player.player_colour)
 	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.texture = player.commander.commander_portrait.get_texture()
+	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.rect_scale.x = player.commander.commander_portrait.scale.x * 0.25
+	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.rect_scale.y = player.commander.commander_portrait.scale.y * 0.25
 	$PlayerInfo/HBoxContainer/VBoxContainer/Funds/FundsText.text = String(player.funds)
 	$PlayerInfo/HBoxContainer/VBoxContainer/Income/IncomeText.text = "0"
 	power_progress_bar.max_value = player.commander.maxPower
 	power_progress_bar.texture_over = load(player.commander.stars_path)
+	
