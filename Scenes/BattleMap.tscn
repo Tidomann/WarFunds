@@ -13,7 +13,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/PopupMenu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Objects/BattleMap Objects/Player.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/BattleMap Objects/TurnQueue.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Objects/Commanders/Commander.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Objects/Commanders/William.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Objects/Units/Junior.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
@@ -82,6 +82,7 @@ cell = Vector2( 7, 11 )
 position = Vector2( 168.495, 148.262 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 9 )
+cost = 10000000
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )
@@ -125,13 +126,13 @@ hide_on_item_selection = false
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Human"
-commander_path = NodePath("FakeCommander")
+commander_path = NodePath("William")
 player_colour = 1
 
-[node name="FakeCommander" parent="TurnQueue/Human" instance=ExtResource( 14 )]
-commanderName = "Bob Joe"
+[node name="William" parent="TurnQueue/Human" instance=ExtResource( 14 )]
+maxPower = 36000.0
+powerName = "William"
 player_path = NodePath("..")
-army_type = 1
 
 [node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
 position = Vector2( -0.529724, 0 )

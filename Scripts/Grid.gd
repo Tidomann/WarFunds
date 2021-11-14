@@ -503,7 +503,10 @@ func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	var result = full_damage * health_modifier * reduction_modifier
 	return int(floor(result))
 
+
+#This is where real damage happens
 func calculate_damage(attacker : Unit, defender : Unit) -> int:
+	attacker.get_commander().special_attack(attacker, defender)
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
