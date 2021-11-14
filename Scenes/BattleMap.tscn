@@ -177,8 +177,6 @@ margin_bottom = 260.168
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]
 [connection signal="turn_changed" from="TurnQueue" to="CanvasLayer/CommanderUI" method="_on_TurnQueue_turn_changed"]
 [connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
-[connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="_on_Human_funds_changed"]
 [connection signal="power_changed" from="TurnQueue/Human/FakeCommander" to="CanvasLayer/CommanderUI" method="power_changed"]
 [connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
 [connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="power_changed"]
-[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="_on_Kronk_power_changed"]

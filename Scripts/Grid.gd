@@ -586,7 +586,6 @@ func calculate_income(player : Node2D) -> int:
 		var array_index = as_index(cell)
 		if array[array_index].property.playerOwner == player:
 			income += 1000
-	print("calculated income is " + String(income))
 	return income
 
 ## Makes the `grid_position` fit within the grid's bounds.
