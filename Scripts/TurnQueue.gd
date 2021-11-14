@@ -3,7 +3,8 @@ extends Node2D
 class_name TurnQueue
 
 var activePlayer
-
+export var gamegrid: Resource
+var property_tilemap : TileMap
 signal turn_changed(activePlayer)
 
 
@@ -11,9 +12,12 @@ signal turn_changed(activePlayer)
 func _ready():
 	pass
 
-func initialize():
+func initialize(battlemap):
+	gamegrid = battlemap.gamegrid
+	property_tilemap = battlemap.get_node("PropertyTiles")
 	activePlayer = get_child(0)
 	emit_signal("turn_changed", activePlayer)
+	start_turn(activePlayer)
 
 func nextTurn():
 	#yield(active_character.endTurn(), "completed")
@@ -34,6 +38,10 @@ func printOrder():
 func start_turn(player : Node2D):
 	player.commander.used_power = false
 	#generate income per property owned
+	var income = gamegrid.calculate_income(player)
+	player.addFunds(income)
+	player.addPower(income*0.2)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

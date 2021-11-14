@@ -74,14 +74,14 @@ func load_data():
 		else:
 			tempplayer -= 1
 		var property_type = temptilevalue % 6
-		var property_referance = array[array_index].property
-		property_referance = Property.new()
-		property_referance.cell = cell
+		var griddata_referance = array[array_index] 
+		griddata_referance.property = Property.new()
+		griddata_referance.property.cell = cell
+		griddata_referance.property.property_referance = property_type
 		if tempplayer != null:
-			property_referance.playerOwner = players[tempplayer]
+			griddata_referance.property.playerOwner = players[tempplayer]
 		else:
-			property_referance.playerOwner = null
-		
+			griddata_referance.property.playerOwner = null
 
 ## Returns true if the `grid_position` are within the map
 func is_gridcoordinate_within_map(grid_coordinate : Vector2) -> bool:
@@ -504,7 +504,8 @@ func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
 	var bad_luck = attacker.get_commander().bad_luck_modifier()
-	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	#var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var terrain_bonus = get_terrain_bonus(get_GridData_by_position(defender.cell))
 	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + bad_luck
 	var health_modifier = (ceil((attacker.health-damagedealt)/10.0) / 10.0)
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
@@ -516,7 +517,8 @@ func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
 	var good_luck = attacker.get_commander().luck_modifier()
-	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	#var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var terrain_bonus = get_terrain_bonus(get_GridData_by_position(defender.cell))
 	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + good_luck
 	var health_modifier = (ceil((attacker.health-damagedealt)/10.0) / 10.0)
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
@@ -530,7 +532,8 @@ func calculate_damage(attacker : Unit, defender : Unit) -> int:
 	var bad_luck = attacker.get_commander().bad_luck_modifier()
 	var good_luck = attacker.get_commander().luck_modifier()
 	var luck_modifier = bad_luck + randi()%(good_luck - bad_luck +1)
-	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	#var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var terrain_bonus = get_terrain_bonus(get_GridData_by_position(defender.cell))
 	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + luck_modifier
 	var health_modifier = (ceil(attacker.health/10.0) / 10.0)
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
@@ -568,6 +571,23 @@ func unit_combat(attacker : Unit, defender : Unit):
 	if defender.is_dead():
 		find_unit(defender).unit = null
 		defender.queue_free()
+
+func get_terrain_bonus(grid_data : GridData) -> int:
+	if grid_data.property !=null:
+		if grid_data.property.property_referance == Constants.PROPERTY.HQ:
+			return 4
+		return 3
+	else:
+		return Constants.TILE_DEFENSE[grid_data.getTileType()]
+
+func calculate_income(player : Node2D) -> int:
+	var income = 0
+	for cell in propertytiles.get_used_cells():
+		var array_index = as_index(cell)
+		if array[array_index].property.playerOwner == player:
+			income += 1000
+	print("calculated income is " + String(income))
+	return income
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

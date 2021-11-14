@@ -52,7 +52,7 @@ visible = false
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 262161, 13, 0, 327699, 12, 0, 393234, 13, 0, 458761, 7, 0, 458766, 2, 0, 524296, 6, 0, 655375, 1, 0, 655378, 1, 0 )
+tile_data = PoolIntArray( 589833, 13, 0, 655369, 6, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 19 )
@@ -131,6 +131,7 @@ popup_exclusive = true
 hide_on_item_selection = false
 
 [node name="TurnQueue" parent="." instance=ExtResource( 13 )]
+gamegrid = ExtResource( 7 )
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Human"
@@ -175,4 +176,9 @@ margin_bottom = 260.168
 [connection signal="popup_hide" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_popup_hide"]
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]
 [connection signal="turn_changed" from="TurnQueue" to="CanvasLayer/CommanderUI" method="_on_TurnQueue_turn_changed"]
+[connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="_on_Human_funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Human/FakeCommander" to="CanvasLayer/CommanderUI" method="power_changed"]
+[connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="power_changed"]
 [connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="_on_Kronk_power_changed"]

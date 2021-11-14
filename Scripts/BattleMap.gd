@@ -13,7 +13,7 @@ onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	gamegrid.initialize(self)
-	$TurnQueue.initialize()
+	$TurnQueue.initialize(self)
 	setup_tiles()
 	setup_cursor()
 	for child in $GameBoard.get_children():
@@ -27,6 +27,9 @@ func _ready():
 			unit._sprite.frame = unit.playerOwner.player_colour
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
+	for child in $TurnQueue.get_children():
+		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
+	
 
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()

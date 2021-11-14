@@ -22,8 +22,13 @@ func add_player(player : Node2D):
 	uiplayer.set_name(player.playerName)
 	add_child(uiplayer)
 
+func income_changed(player : Node2D, income : int) -> void:
+	for uiPlayerData in self.get_children():
+		if uiPlayerData.player == player:
+			uiPlayerData.income_label.text = String(income)
 
-func _on_Kronk_power_changed(playerOwner, power):
+
+func power_changed(playerOwner, power):
 	for uiPlayerData in self.get_children():
 		if uiPlayerData.player == playerOwner:
 			uiPlayerData.power_progress_bar.value = power
@@ -35,3 +40,9 @@ func _on_TurnQueue_turn_changed(activePlayer):
 			uiPlayerData.player_turn_arrow.visible = true
 		else:
 			uiPlayerData.player_turn_arrow.visible = false
+
+
+func funds_changed(self_referance, funds):
+	for uiPlayerData in self.get_children():
+		if uiPlayerData.player == self_referance:
+			uiPlayerData.funds_label.text = String(funds)
