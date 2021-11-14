@@ -12,6 +12,7 @@ onready var _cursor: Cursor = $Cursor
 onready var _combat_cursor: CombatCursor = $CombatCursor
 onready var _unit_path: UnitPath = $UnitPath
 onready var _unit_overlay: UnitOverlay = $UnitOverlay
+onready var _property_tiles: TileMap = get_parent().get_node("PropertyTiles")
 
 # Represents the directions which can neighbour a cell
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]

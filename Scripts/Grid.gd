@@ -16,6 +16,7 @@ var array = [GridData]
 var battlemap : Node2D
 var devtiles : TileMap
 var gameBoard : YSort
+var propertytiles : TileMap
 
 ## Half of ``cell_size``
 var _half_cell_size = cell_size / 2
@@ -35,6 +36,7 @@ func load_grid(inbattlemap: Node2D):
 	# Setup variable referances
 	battlemap = inbattlemap
 	devtiles = battlemap.find_node("Devtiles", false, false)
+	propertytiles = battlemap.find_node("Devproperty", false, false)
 	gameBoard = battlemap.find_node("GameBoard", false, false)
 	# Calculate space needed for the array
 	var row = battlemap.Xmax() - battlemap.Xmin() + 1
@@ -61,7 +63,25 @@ func load_data():
 		var tempIndex = as_index(unit.get_cell())
 		if array[tempIndex].getUnit() == null:
 			array[tempIndex].setUnit(unit)
+	var players = gameBoard._turn_queue.get_children()
 	# TODO: Property Load
+	for cell in propertytiles.get_used_cells():
+		var array_index = as_index(cell)
+		var temptilevalue = propertytiles.get_cellv(cell)
+		var tempplayer = int(temptilevalue / 6.0)
+		if tempplayer == 0:
+			tempplayer = null
+		else:
+			tempplayer -= 1
+		var property_type = temptilevalue % 6
+		var property_referance = array[array_index].property
+		property_referance = Property.new()
+		property_referance.cell = cell
+		if tempplayer != null:
+			property_referance.playerOwner = players[tempplayer]
+		else:
+			property_referance.playerOwner = null
+		
 
 ## Returns true if the `grid_position` are within the map
 func is_gridcoordinate_within_map(grid_coordinate : Vector2) -> bool:

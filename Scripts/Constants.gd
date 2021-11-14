@@ -73,13 +73,12 @@ enum UNIT_TYPE{
 }
 
 enum PROPERTY{
-	HQ,
-	AIRPORT,
-	BASE,
-	CITY,
-	PORT,
-	COMM_TOWER,
-	LAB
+	HQ = 0,
+	CITY = 1,
+	BASE = 2,
+	AIRPORT = 3,
+	PORT = 4,
+	TOWER = 5
 }
 
 # Movement Types
