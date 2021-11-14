@@ -274,7 +274,7 @@ func _on_CombatCursor_moved(new_coordinates):
 		var combatcursor = get_node("CombatCursor").position
 		
 		print("Damage Done: " + String(min_damage) + "%-" + String(max_damage) + "%")
-		dmgdone       = "  -> " + String(min_damage) + "%-" + String(max_damage) + "%"
+		dmgdone       = " ->  " + String(min_damage) + " %- " + String(max_damage) + " %"
 		var target = gamegrid.get_unit(new_coordinates)
 		$CanvasLayer/FCTManager.rect_position.x = combatcursor.x + 16
 		$CanvasLayer/FCTManager.rect_position.y = combatcursor.y
@@ -286,10 +286,10 @@ func _on_CombatCursor_moved(new_coordinates):
 				if min_damage_taken < 0:
 					min_damage_taken = 0
 				print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
-				dmgtaken = "  <- " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%"
+				dmgtaken = " <-  " + String(min_damage_taken) + " %- " + String(max_damage_taken) + " %"
 			else:
 				print("Damage Received: 0%")
-				dmgtaken = "  <- 0%"
+				dmgtaken = " <-  0 %"
 			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, dmgtaken)
 		else:
 			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, "0")
