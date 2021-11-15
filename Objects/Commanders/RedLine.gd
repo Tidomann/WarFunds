@@ -7,7 +7,7 @@ signal power_changed(playerOwner, power)
 # the current power meter value
 export(float) var power = 0.0
 # the maximum power meter value
-export(float) var maxPower = 27000.0
+export(float) var maxPower = 18000.0
 # The name of the commander
 export(String) var commanderName
 # The name of the commander's power
@@ -15,7 +15,7 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 onready var playerOwner : Node2D = self.get_node(player_path)
-export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/3stars.png"
+export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/2stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type := Constants.ARMY.BANKTANIA
 var used_power := false
@@ -24,6 +24,12 @@ onready var commander_portrait = $commanderPortrait
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var tmp = commander_portrait.texture.get_size()
+	print(tmp.x)
+	tmp.x = 128 / tmp.x
+	tmp.y = 128 / tmp.y
+	print(tmp)
+	commander_portrait.scale = tmp
 	pass # Replace with function body.
 
 # increase the commanders current power meter by the passed parameter
@@ -101,24 +107,24 @@ func use_power() -> void:
 		if power_used <= 5:
 			maxPower *= 1.2
 			power_used += 1
-	used_power = true
-	#Do Power Stuff
+		used_power = true
+		#Do Power Stuff
 
-func move_bonus() -> int:
-	return 0
 
 func special_attack(_attacker, _defender) -> void:
-	pass	
+	pass
+			
+func move_bonus() -> int:
+	if used_power:
+		return 2
+	else:
+		return 0
 
 func luck_modifier() -> int:
-	if used_power:
-		return 49
-	return 24
+	return 9
 
 func bad_luck_modifier() -> int:
-	if used_power:
-		return -19
-	return -9
+	return 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
