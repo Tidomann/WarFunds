@@ -1,8 +1,8 @@
 extends Panel
 
 var FCT = preload("res://Objects/BattleMap Objects/DamageDisplay.tscn")
-onready var fct = $FCT
-onready var fct2 = $FCT2
+onready var fct  = $VBoxContainer/FCT
+onready var fct2 = $VBoxContainer/FCT2
 
 func show_value(attacker, dmgdone, target, dmgtaken):
 	var colour1 = Constants.get_colour(attacker.playerOwner.player_colour)
@@ -24,4 +24,5 @@ func show_value(attacker, dmgdone, target, dmgtaken):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.SIZE_EXPAND_FILL
 	pass # Replace with function body.

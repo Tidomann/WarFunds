@@ -66,8 +66,8 @@ func _ready() -> void:
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
 	# Set the facing of the unit according to the player
-#	if playerOwner.facing == "Left":
-#		_sprite.set_flip_h(true)
+	if playerOwner.facing == "Left":
+		_sprite.set_flip_h(true)
 
 
 func update_position() -> void:
