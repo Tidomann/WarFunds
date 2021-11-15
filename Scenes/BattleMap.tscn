@@ -66,9 +66,9 @@ player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 8 )
 
 [node name="Unit2" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 328.82, 117.587 )
+position = Vector2( 328, 69 )
 player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 20, 7 )
+cell = Vector2( 20, 4 )
 
 [node name="Unit3" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.146, 166.843 )
