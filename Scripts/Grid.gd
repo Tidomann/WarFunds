@@ -510,7 +510,7 @@ func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 
 #This is where real damage happens
 func calculate_damage(attacker : Unit, defender : Unit) -> int:
-	#attacker.get_commander().special_attack(attacker, defender)
+	attacker.get_commander().special_attack(attacker, defender)
 	if attacker.unit_referance == Constants.UNIT.TOWER:
 		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
