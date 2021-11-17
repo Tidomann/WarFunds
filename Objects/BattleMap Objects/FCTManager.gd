@@ -13,10 +13,14 @@ func show_value(attacker, dmgdone, target, dmgtaken):
 	fct.bbcode_text = ""
 	fct2.bbcode_text = ""
 	fct.push_color(colour1)
+	fct.push_align(RichTextLabel.ALIGN_CENTER)
 	fct.add_text(dmgdone)
 	fct.pop()
+	fct.pop()
 	fct2.push_color(colour2)
+	fct2.push_align(RichTextLabel.ALIGN_CENTER)
 	fct2.add_text(dmgtaken)
+	fct2.pop()
 	fct2.pop()
 
 	if dmgtaken == "0":
