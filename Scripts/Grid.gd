@@ -75,7 +75,7 @@ func load_data():
 			tempplayer -= 1
 		var property_type = temptilevalue % 6
 		var griddata_referance = array[array_index] 
-		griddata_referance.property = Property.new()
+		griddata_referance.property = load("res://Scripts/Property.gd").new()
 		griddata_referance.property.cell = cell
 		griddata_referance.property.property_referance = property_type
 		if tempplayer != null:
@@ -587,6 +587,20 @@ func calculate_income(player : Node2D) -> int:
 		if array[array_index].property.playerOwner == player:
 			income += 1000
 	return income
+
+func has_property(cell : Vector2) -> bool:
+	if array[as_index(cell)].property != null:
+		return true
+	return false
+
+func can_capture(cell: Vector2, unit : Unit) -> bool:
+	if not has_property(cell):
+		return false
+	else:
+		if unit.unit_type == Constants.UNIT_TYPE.INFANTRY && \
+		array[as_index(cell)].property.playerOwner.team != unit.playerOwner.team:
+			return true
+		return false
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

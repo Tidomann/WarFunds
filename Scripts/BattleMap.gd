@@ -104,6 +104,38 @@ func Ymin() -> int:
 func Ymax() -> int:
 	return yMax
 
+func set_property(cell : Vector2, player : Node2D):
+	var temptilevalue = $PropertyTiles.get_cellv(cell)
+	var property_type = temptilevalue % 10
+	if player == null:
+		$PropertyTiles.set_cellv(cell, 60+property_type)
+	else:
+		if property_type >= 0 && property_type <= 4:
+			#Find the right HQ building
+			var army_array_value
+			match player.commander.army_type:
+				Constants.ARMY.ENGINEERING:
+					army_array_value = 3
+				Constants.ARMY.COSC:
+					army_array_value = 1
+				Constants.ARMY.BIOLOGY:
+					army_array_value = 4
+				Constants.ARMY.FINANCE:
+					army_array_value = 2
+				Constants.ARMY.NURSING:
+					army_array_value = 4
+				Constants.ARMY.BANKTANIA:
+					army_array_value = 0
+			var property_tile_index = 10*player.player_colour
+			#print(property_tile_index)
+			property_tile_index += army_array_value
+			#print(property_tile_index)
+			$PropertyTiles.set_cellv(cell, property_tile_index)
+		else:
+			#Find the right property building
+			var property_tile_index = 10*player.player_colour
+			property_tile_index += property_type
+			$PropertyTiles.set_cellv(cell, property_tile_index)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass

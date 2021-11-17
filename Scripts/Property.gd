@@ -1,17 +1,16 @@
 ## Represents a property on the game board.
 tool
-class_name Property
-extends Node2D
+class_name PropertyWF
+extends Reference
+var playerOwner : Node2D
 
-onready var playerOwner : Node2D
-
-export(bool) var turnReady = true
+var turnReady := true
 ## Coordinates of the property
-export var cell : Vector2
+var cell : Vector2
 ## Referance to the property constant
-export(Constants.PROPERTY) var property_referance
+var property_referance
 ## The Properties Health
-export var health := 20
+var health := 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +21,15 @@ func set_turnReady(ready : bool) -> void:
 
 func get_team() -> int:
 	return playerOwner.team
+
+func capture(unit : Unit) -> bool:
+	var damage = int(unit.health*0.1)
+	health -= damage
+	if health <= 0:
+		playerOwner = unit.playerOwner
+		health = 20
+		return true
+	return false
 
 
 

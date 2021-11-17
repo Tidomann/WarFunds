@@ -165,6 +165,7 @@ margin_bottom = 260.168
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
+[connection signal="income_changed" from="GameBoard" to="CanvasLayer/CommanderUI" method="income_changed"]
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
