@@ -81,6 +81,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Constants="*res://Scripts/Constants.gd"
+Global="*res://Scenes/Global.gd"
 
 [display]
 

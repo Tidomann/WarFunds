@@ -9,7 +9,6 @@ export(int) var yMin
 export(int) var yMax
 export var gamegrid: Resource
 onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
-var department_leader
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,7 +25,7 @@ func _ready():
 	
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()
-
+	$"TurnQueue/Human/Fake Commander" = load(Global.path)
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
@@ -45,7 +44,6 @@ func setup_tiles():
 func setup_cursor():
 	$GameBoard/Cursor.init($Devtiles)
 		
-
 func Xmin() -> int:
 	return xMin
 	
@@ -57,11 +55,6 @@ func Ymin() -> int:
 	
 func Ymax() -> int:
 	return yMax
-
-func set_leader(s: String):
-	department_leader = load(s)
-	
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass
