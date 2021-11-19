@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Select.gd" type="Script" id=1]
+
+[node name="Select" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.396851
+margin_right = 0.396851
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Backgrounds" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CommandersBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 127.0
+margin_bottom = 250.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 131.0
+margin_top = 20.0
+margin_right = 238.0
+margin_bottom = 250.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 242.0
+margin_top = 20.0
+margin_right = 460.0
+margin_bottom = 165.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CommanderInfoBackground" type="ColorRect" parent="Backgrounds"]
+margin_left = 242.0
+margin_top = 169.0
+margin_right = 460.0
+margin_bottom = 214.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CommanderInfoBackground2" type="ColorRect" parent="Backgrounds"]
+margin_left = 242.0
+margin_top = 218.0
+margin_right = 460.0
+margin_bottom = 250.0
+color = Color( 0.470588, 0.470588, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Commanders" type="ItemList" parent="."]
+margin_left = 23.0
+margin_top = 23.0
+margin_right = 124.0
+margin_bottom = 247.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonList" type="ItemList" parent="."]
+margin_left = 134.0
+margin_top = 23.0
+margin_right = 235.0
+margin_bottom = 247.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 245.0
+margin_top = 221.0
+margin_right = 457.0
+margin_bottom = 247.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 0, 0, 1 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_Start_pressed"]
