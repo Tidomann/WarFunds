@@ -3,7 +3,7 @@ extends Node2D
 class_name TurnQueue
 
 var activePlayer
-onready var audioStream = get_parent().get_node("AudioStreamPlayer")
+onready var audioStream = get_parent().get_node("Music Player")
 signal turn_changed(activePlayer)
 
 

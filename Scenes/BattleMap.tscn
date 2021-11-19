@@ -189,7 +189,7 @@ margin_bottom = 260.168
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -32.259
 script = ExtResource( 21 )
 
