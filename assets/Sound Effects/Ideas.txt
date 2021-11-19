@@ -1,0 +1,37 @@
+Button Clicks
+- Menu (Start, Options, Quit)
+- Department Leader Select
+- Level Select
+- PopUpMenu (Cancel, End Turn, Power, Wait, Attack)
+
+Building
+- Units
+- Properties
+
+Attack
+- Infantry
+- Photocopier
+- Fax
+- Tower
+
+Hurt
+- Infantry
+- Photocopier
+- Fax
+- Tower
+
+Gain Money
+- Property
+
+Win
+- BattleMap
+Lose
+- BattleMap
+
+Moving
+- Infantry
+- Photocopier
+- Fax
+
+Power
+- TurnQueue
