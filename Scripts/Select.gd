@@ -5,6 +5,9 @@ onready var buttons = get_node("ButtonList")
 var _current_choice
 
 func _ready():
+	
+	get_node(".").show()
+	
 	var m = 0
 	for n in 8:
 		var texture = load("res://assets/Sprites/DepartmentLeaders/emptycommander.png")
@@ -37,27 +40,23 @@ func _ready():
 		button.rect_min_size = Vector2(95, 20)
 		button.connect("pressed", self, "_on_Button_pressed", [n+1])
 		$ButtonList.add_child(button)
-
-		
 	pass # Replace with function body.
-
 
 func _on_Button_pressed(id):
 	_current_choice = id
-	
 	match id:
 		1:
+			# Shows the preview
 			var texture = load("res://assets/Sprites/CommanderScreen/preview1.png")
-			
 			var sprite = Sprite.new()
-			sprite.texture = texture
-			
-			print(sprite.get_rect())
+			sprite.texture = texture			
 			sprite.position = Vector2(245+106, 23+72)
 			add_child(sprite)
 			pass
-	print(id)
 
 func _on_Start_pressed():
-	get_tree().change_scene("res://Scenes/BattleMap.tscn")
-	#get_tree().change_scene("res://Scenes/BattleMap"+str(_current_choice)+".tscn")
+	# Preload the level so we can move the commander into the next screen
+	var scene = preload("res://Scenes/BattleMap.tscn").instance()
+	scene.set_leader("res://Objects/Commander.tscn")
+	get_node(".").hide()
+	get_tree().get_root().add_child(scene)

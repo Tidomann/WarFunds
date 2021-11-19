@@ -9,6 +9,8 @@ export(int) var yMin
 export(int) var yMax
 export var gamegrid: Resource
 onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
+var department_leader
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,7 +58,9 @@ func Ymin() -> int:
 func Ymax() -> int:
 	return yMax
 
- 
+func set_leader(s: String):
+	department_leader = load(s)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

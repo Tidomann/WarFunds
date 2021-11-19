@@ -16,7 +16,7 @@ func _ready():
 
 
 func _on_StartButton_pressed():
-	get_tree().change_scene("res://Scenes/BattleMap.tscn")
+	get_tree().change_scene("res://Scenes/Select.tscn")
 
 func _on_OptionsButton_pressed():
 	pass # Replace with function body.
