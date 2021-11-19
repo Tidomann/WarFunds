@@ -3,12 +3,13 @@ extends Node2D
 class_name TurnQueue
 
 var activePlayer
-
+onready var audioStream = get_parent().get_node("AudioStreamPlayer")
 signal turn_changed(activePlayer)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	pass
 
 func initialize():
@@ -21,6 +22,7 @@ func nextTurn():
 	activePlayer = get_child(newIndex)
 	start_turn(activePlayer)
 	emit_signal("turn_changed", activePlayer)
+	audioStream.set_music(activePlayer.commander.commanderName)
 
 func getPlayers():
 	return get_children()
