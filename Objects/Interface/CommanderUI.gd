@@ -23,7 +23,7 @@ func add_player(player : Node2D):
 	add_child(uiplayer)
 
 
-func _on_Kronk_power_changed(playerOwner, power):
+func power_changed(playerOwner, power):
 	for uiPlayerData in self.get_children():
 		if uiPlayerData.player == playerOwner:
 			uiPlayerData.power_progress_bar.value = power

@@ -17,4 +17,4 @@ func _ready():
 
 
 func _on_Intro_dialog_finished(isfinished):
-	get_tree().change_scene("res://Scenes/BattleMap.tscn")
+	get_tree().change_scene("res://Scenes/Select.tscn")

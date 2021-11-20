@@ -85,7 +85,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="."]
+[node name="Start" type="Button" parent="."]
 margin_left = 245.0
 margin_top = 221.0
 margin_right = 457.0
@@ -98,4 +98,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Button" to="." method="_on_Start_pressed"]
+[node name="CommanderDetails" type="RichTextLabel" parent="."]
+margin_left = 244.257
+margin_top = 171.554
+margin_right = 456.257
+margin_bottom = 210.554
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]
