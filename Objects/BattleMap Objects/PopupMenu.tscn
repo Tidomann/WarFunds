@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/Kenney Pixel.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/Sprites/UI/PopUpPanel.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/PopupMenu.gd" type="Script" id=3]
+[ext_resource path="res://assets/Sound Effects/kenney_uiaudio/Audio/click3.ogg" type="AudioStream" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.117647, 0.654902, 0.882353, 1 )
@@ -64,3 +65,7 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SoundMenuButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0

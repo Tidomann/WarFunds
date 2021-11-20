@@ -54,6 +54,7 @@ func popup_menu(new_positon: Vector2, fight: bool, wait: bool, cancel : bool, po
 
 func _on_PopupMenu_id_pressed(id):
 	emit_signal("selection", self.get_item_text(id))
+	$SoundMenuButtonClick.play()
 	close()
 
 func _unhandled_input(event: InputEvent) -> void:

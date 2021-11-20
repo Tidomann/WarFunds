@@ -2,7 +2,6 @@ Button Clicks
 - Menu (Start, Options, Quit)
 - Department Leader Select
 - Level Select
-- PopUpMenu (Cancel, End Turn, Power, Wait, Attack)
 
 Building
 - Units

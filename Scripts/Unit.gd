@@ -89,7 +89,6 @@ func _process(delta: float) -> void:
 func walk_along(path: PoolVector2Array) -> void:
 	if path.empty():
 		return
-
 	curve.add_point(Vector2.ZERO)
 	for point in path:
 		curve.add_point(grid.calculate_map_position(point) - position)

@@ -152,6 +152,7 @@ func _move_active_unit(new_position: Vector2) -> void:
 func _on_Cursor_moved(new_cell: Vector2) -> void:
 	# When the cursor moves, and we already have an active unit selected, we want to update the
 	# interactive path drawing.
+	$Cursor/SoundMoveCursor.play()
 	if _active_unit and _active_unit.is_selected:
 		_unit_path.draw(_active_unit, new_cell)
 
@@ -268,6 +269,7 @@ func _on_CombatCursor_moved(new_coordinates):
 		# should not get in here
 		pass
 	else:
+		$SoundMoveAttackCursor.play()
 		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		
