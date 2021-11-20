@@ -135,7 +135,26 @@ func _move_active_unit(new_position: Vector2) -> void:
 	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
 	# finished.
 	_active_unit.walk_along(_unit_path.current_path)
+	match _active_unit.movement_type:
+		Constants.MOVEMENT_TYPE.INFANTRY:
+			$SoundInfantryMove.play()
+		Constants.MOVEMENT_TYPE.MECH:
+			$SoundInfantryMove.play()
+		Constants.MOVEMENT_TYPE.TREAD:
+			pass
+		Constants.MOVEMENT_TYPE.TIRES:
+			pass
 	yield(_active_unit, "walk_finished")
+	#TODO: Instead of matching active unit, just call all audio to stop playing?
+	match _active_unit.movement_type:
+		Constants.MOVEMENT_TYPE.INFANTRY:
+			$SoundInfantryMove.stop()
+		Constants.MOVEMENT_TYPE.MECH:
+			$SoundInfantryMove.stop()
+		Constants.MOVEMENT_TYPE.TREAD:
+			pass
+		Constants.MOVEMENT_TYPE.TIRES:
+			pass
 	if trapped:
 		#TODO: Play trapped effect
 		set_new_position(_active_unit, new_position)
