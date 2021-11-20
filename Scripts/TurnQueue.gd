@@ -38,7 +38,7 @@ func printOrder():
 func start_turn(player : Node2D):
 	player.commander.used_power = false
 	#generate income per property owned
-	var income = gamegrid.calculate_income(player)
+	var income = gamegrid.start_turn_income(player)
 	player.addFunds(income)
 	player.addPower(income*0.2)
 	
