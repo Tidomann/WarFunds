@@ -1,16 +1,13 @@
 extends Control
 
-onready var buttons = get_node("ButtonList")
-
 var _current_choice
-var _current_leader
 
+var emptycommander = load("res://assets/Sprites/DepartmentLeaders/emptycommander.png")
 var disabledCommander = load("res://assets/Sprites/DepartmentLeaders/disabledcommander.png")
 
 func _ready():
 	$Start.disabled = true
-	
-	#Generate the Leader Portraits 
+	# Generate the Leader Portraits 
 	var m = 0
 	for n in 8:
 		var texture
@@ -18,15 +15,13 @@ func _ready():
 		if(n < Global.leaders.size()):
 			texture = load(Global.leaders[n])
 		else:
-			texture = load("res://assets/Sprites/DepartmentLeaders/emptycommander.png")
+			texture = emptycommander
 		#Connects the textures and resizes it
 		var leaderButton = TextureButton.new()
 		leaderButton.texture_normal = texture
 		leaderButton.texture_disabled = disabledCommander
 		var scale = 50.5/texture.get_size().x
 		leaderButton.rect_scale = Vector2(scale, scale)
-		#Makes buttons do the thing
-		leaderButton.connect("pressed", self, "_on_LeaderButton_pressed", [n+1])
 		if n%2 == 0:
 			leaderButton.rect_position = Vector2(0,5+m*55)
 		else: 
@@ -34,9 +29,9 @@ func _ready():
 			m = m + 1
 		if(Global.unlockedLeaders[n] == false):
 			leaderButton.disabled = true
-		$Commanders.add_child(leaderButton)
-	
-	# Creates the Level Select Buttons
+		leaderButton.connect("pressed", self, "_on_LeaderButton_pressed", [n+1])
+		$Leaders.add_child(leaderButton)
+	# Generate the Level Select Buttons
 	for n in 8:
 		var button = Button.new()
 		button.text = "Level " + str(n+1)
@@ -55,28 +50,26 @@ func _ready():
 		if(Global.unlockedLevels[n] == false):
 			button.disabled = true
 		$ButtonList.add_child(button)
-	pass # Replace with function body.
 
 func _on_Button_pressed(id):
 	_current_choice = id
-	match id:
-		1:
-			# Shows the preview
-			var texture = load("res://assets/Sprites/CommanderScreen/preview1.png")
-			var sprite = Sprite.new()
-			sprite.texture = texture			
-			sprite.position = Vector2(245+106, 23+72)
-			add_child(sprite)
-			pass
+	var path = "res://assets/Sprites/LeaderScreen/preview"+str(id)+".png"
+	var texture = load(path)
+	var sprite = Sprite.new()
+	sprite.texture = texture			
+	sprite.position = Vector2(245+106, 20+72)
+	add_child(sprite)
+			
 func _on_LeaderButton_pressed(id):
-	print(id)
 	if(id < Global.leaders.size()+1):
 		Global.path = Global.leaderPath[id-1]
+		for child in $Leaders.get_children():
+			child.modulate = Color(1,1,1)
+		$Leaders.get_child(id).modulate = Color(1.0,5.0,1.0)
 		$Start.disabled = false
-		$CommanderDetails.text = Global.leadersDesc[id-1]
-	else:
-		$Start.disabled = true
-		$CommanderDetails.text = "Select a Commander"
+		$LeaderDetails.text = Global.leadersDesc[id-1]
 		
 func _on_Start_pressed():
-	get_tree().change_scene("res://Scenes/BattleMap.tscn")
+	if(!(_current_choice == null)):
+# warning-ignore:return_value_discarded
+		get_tree().change_scene(Global.levels[_current_choice-1])

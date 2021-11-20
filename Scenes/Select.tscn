@@ -17,7 +17,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CommandersBackground" type="ColorRect" parent="Backgrounds"]
+[node name="LeaderBackground" type="ColorRect" parent="Backgrounds"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 127.0
@@ -47,7 +47,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CommanderInfoBackground" type="ColorRect" parent="Backgrounds"]
+[node name="LeaderInfoBackground" type="ColorRect" parent="Backgrounds"]
 margin_left = 242.0
 margin_top = 169.0
 margin_right = 460.0
@@ -57,7 +57,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CommanderInfoBackground2" type="ColorRect" parent="Backgrounds"]
+[node name="StartBackground" type="ColorRect" parent="Backgrounds"]
 margin_left = 242.0
 margin_top = 218.0
 margin_right = 460.0
@@ -67,7 +67,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Commanders" type="ItemList" parent="."]
+[node name="Leaders" type="ItemList" parent="."]
 margin_left = 23.0
 margin_top = 23.0
 margin_right = 124.0
@@ -98,7 +98,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CommanderDetails" type="RichTextLabel" parent="."]
+[node name="LeaderDetails" type="RichTextLabel" parent="."]
 margin_left = 244.257
 margin_top = 171.554
 margin_right = 456.257

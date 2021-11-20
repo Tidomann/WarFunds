@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/preview1.png-172c4f174ee3c0ea1748950d4d82047c.stex"
+path="res://.import/preview1.png-441dc9856a5ae0a9307f5dc822c1f3dd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/CommanderScreen/preview1.png"
-dest_files=[ "res://.import/preview1.png-172c4f174ee3c0ea1748950d4d82047c.stex" ]
+source_file="res://assets/Sprites/LeaderScreen/preview1.png"
+dest_files=[ "res://.import/preview1.png-441dc9856a5ae0a9307f5dc822c1f3dd.stex" ]
 
 [params]
 
