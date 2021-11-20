@@ -52,7 +52,7 @@ visible = false
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 589833, 13, 0, 655369, 6, 0 )
+tile_data = PoolIntArray( 589833, 13, 0, 589835, 8, 0, 655369, 6, 0, 655371, 9, 0, 655372, 7, 0, 655373, 6, 0, 655374, 10, 0, 655375, 11, 0, 720905, 2, 0, 720907, 3, 0, 720908, 1, 0, 720909, 0, 0, 720910, 4, 0, 720911, 5, 0, 786443, 15, 0, 786444, 13, 0, 786445, 12, 0, 786446, 16, 0, 786447, 17, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 19 )

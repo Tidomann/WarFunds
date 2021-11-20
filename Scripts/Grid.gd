@@ -610,9 +610,11 @@ func can_capture(cell: Vector2, unit : Unit) -> bool:
 	if not has_property(cell):
 		return false
 	else:
-		if unit.unit_type == Constants.UNIT_TYPE.INFANTRY && \
-		array[as_index(cell)].property.playerOwner.team != unit.playerOwner.team:
-			return true
+		if unit.unit_type == Constants.UNIT_TYPE.INFANTRY:
+			if array[as_index(cell)].property.playerOwner == null:
+				return true
+			elif array[as_index(cell)].property.playerOwner.team != unit.playerOwner.team:
+				return true
 		return false
 
 ## Makes the `grid_position` fit within the grid's bounds.
