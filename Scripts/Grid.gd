@@ -588,6 +588,17 @@ func calculate_income(player : Node2D) -> int:
 			income += 1000
 	return income
 
+func start_turn_grid(player : Node2D) -> int:
+	var income = 0
+	for cell in propertytiles.get_used_cells():
+		var game_data = array[as_index(cell)]
+		if game_data.property.playerOwner == player:
+			income += 1000
+		if game_data.has_Unit():
+			if game_data.unit.playerOwner == player:
+				pass
+	return income
+
 func has_property(cell : Vector2) -> bool:
 	if array[as_index(cell)].property != null:
 		return true

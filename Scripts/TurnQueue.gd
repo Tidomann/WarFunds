@@ -42,6 +42,7 @@ func start_turn(player : Node2D):
 	player.addFunds(income)
 	player.addPower(income*0.2)
 	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
