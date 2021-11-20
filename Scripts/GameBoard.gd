@@ -90,7 +90,8 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 			_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 	elif _active_unit:
 		if _active_unit.playerOwner == _turn_queue.activePlayer:
-			_move_active_unit(cell)
+			if not gamegrid.is_occupied(cell):
+				_move_active_unit(cell)
 	else:
 		_cursor.deactivate(true)
 		_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
@@ -262,6 +263,7 @@ func _on_CombatCursor_combat_selection(selection):
 		# should not get in here
 		pass
 	else:
+		$CanvasLayer/FCTManager.visible = false
 		if selection is String:
 			if selection == "Cancel":
 				_combat_cursor.deactivate()
@@ -278,7 +280,9 @@ func _on_CombatCursor_combat_selection(selection):
 			set_new_position(_active_unit, _stored_new_position)
 			gamegrid.unit_combat(_active_unit, selection)
 			_attacking = false
-			_active_unit.flip_turnReady()
+			
+			if _active_unit.is_turnReady():
+				_active_unit.flip_turnReady()
 			_clear_active_unit()
 			_cursor.activate()
 
@@ -290,8 +294,16 @@ func _on_CombatCursor_moved(new_coordinates):
 	else:
 		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
+		
+		var dmgdone
+		var dmgtaken
+		var combatcursor = get_node("CombatCursor").position
+		
 		print("Damage Done: " + String(min_damage) + "%-" + String(max_damage) + "%")
+		dmgdone       = " ->  " + String(min_damage) + " %- " + String(max_damage) + " %"
 		var target = gamegrid.get_unit(new_coordinates)
+		$CanvasLayer/FCTManager.rect_position.x = combatcursor.x + 16
+		$CanvasLayer/FCTManager.rect_position.y = combatcursor.y
 		if _active_unit.attack_type == Constants.ATTACK_TYPE.DIRECT && \
 		target.attack_type == Constants.ATTACK_TYPE.DIRECT:
 			if not min_damage > target.health:
@@ -300,5 +312,11 @@ func _on_CombatCursor_moved(new_coordinates):
 				if min_damage_taken < 0:
 					min_damage_taken = 0
 				print("Damage Received: " + String(min_damage_taken) + "%-" + String(max_damage_taken) + "%")
+				dmgtaken = " <-  " + String(min_damage_taken) + " %- " + String(max_damage_taken) + " %"
 			else:
 				print("Damage Received: 0%")
+				dmgtaken = " <-  0 %"
+			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, dmgtaken)
+		else:
+			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, "0")
+

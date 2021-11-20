@@ -32,5 +32,8 @@ func init(initplayer : Node2D):
 	funds_label.text = String(player.funds)
 	income_label = $PlayerInfo/HBoxContainer/VBoxContainer/Income/IncomeText
 	income_label.text = "0"
+	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.rect_scale.x = player.commander.commander_portrait.scale.x * 0.25
+	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.rect_scale.y = player.commander.commander_portrait.scale.y * 0.25
 	power_progress_bar.max_value = player.commander.maxPower
 	power_progress_bar.texture_over = load(player.commander.stars_path)
+	

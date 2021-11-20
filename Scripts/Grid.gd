@@ -160,14 +160,14 @@ func is_enemy(unit: Unit, compareUnit: Unit) -> bool:
 
 ## Find what tiles a unit can move to
 func get_walkable_cells(unit: Unit) -> Array:
-	return _flood_fill(unit.cell, unit.move_range, unit.movement_type)
+	return _flood_fill(unit.cell, unit.get_move_range(), unit.movement_type)
 
 ## Find what tiles a unit can attack
 func get_attackable_cells(unit: Unit) -> Array:
 	var attack_array := []
 	match unit.attack_type:
 		Constants.ATTACK_TYPE.DIRECT:
-			var compare_array = _flood_fill(unit.cell, unit.move_range, unit.movement_type)
+			var compare_array = _flood_fill(unit.cell, unit.get_move_range(), unit.movement_type)
 			attack_array = compare_array.duplicate()
 			for cell in compare_array:
 				for direction in DIRECTIONS:
@@ -183,7 +183,7 @@ func get_attackable_cells(unit: Unit) -> Array:
 			for cell in min_range_array:
 				attack_array.erase(cell)
 		Constants.ATTACK_TYPE.OTHER:
-			var compare_array = _flood_fill(unit.cell, unit.move_range, unit.movement_type)
+			var compare_array = _flood_fill(unit.cell, unit.get_move_range(), unit.movement_type)
 			attack_array = compare_array.duplicate()
 			for cell in compare_array:
 				for direction in DIRECTIONS:
@@ -500,6 +500,8 @@ func get_targets(attacker: Unit, expected_position : Vector2) -> Array:
 	return targets_array
 
 func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
+	if attacker.unit_referance == Constants.UNIT.TOWER:
+		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
@@ -513,6 +515,8 @@ func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	return int(floor(result))
 
 func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> int:
+	if attacker.unit_referance == Constants.UNIT.TOWER:
+		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
@@ -525,7 +529,12 @@ func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	var result = full_damage * health_modifier * reduction_modifier
 	return int(floor(result))
 
+
+#This is where real damage happens
 func calculate_damage(attacker : Unit, defender : Unit) -> int:
+	attacker.get_commander().special_attack(attacker, defender)
+	if attacker.unit_referance == Constants.UNIT.TOWER:
+		return 30
 	var damage_lookup = Constants.get_damage(attacker.unit_referance, defender.unit_referance)
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
@@ -547,7 +556,7 @@ func unit_combat(attacker : Unit, defender : Unit):
 	var attacker_damage_taken = 0
 	# If both units are not direct, can skip retaliation attack
 	if not attacker.attack_type == Constants.ATTACK_TYPE.DIRECT\
-	&& not defender.attack_type == Constants.ATTACK_TYPE.DIRECT:
+	|| not defender.attack_type == Constants.ATTACK_TYPE.DIRECT:
 		defender_damage_taken = defender.take_damage(damage_to_be_dealt)
 	# Direct combat units, will take retaliation damage
 	else:

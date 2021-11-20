@@ -5,11 +5,13 @@ class_name TurnQueue
 var activePlayer
 export var gamegrid: Resource
 var property_tilemap : TileMap
+onready var audioStream = get_parent().get_node("Music Player")
 signal turn_changed(activePlayer)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	pass
 
 func initialize(battlemap):
@@ -25,6 +27,7 @@ func nextTurn():
 	activePlayer = get_child(newIndex)
 	start_turn(activePlayer)
 	emit_signal("turn_changed", activePlayer)
+	audioStream.set_music(activePlayer.commander.commanderName)
 
 func getPlayers():
 	return get_children()

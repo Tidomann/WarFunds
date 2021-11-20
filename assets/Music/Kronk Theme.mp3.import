@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Kronk Theme.mp3-52e159d67eb2e82c7bcc0ca36a5cd78a.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/Kronk Theme.mp3"
+dest_files=[ "res://.import/Kronk Theme.mp3-52e159d67eb2e82c7bcc0ca36a5cd78a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -201,4 +201,6 @@ func update_health() -> void:
 		_hp.frame = int(health*0.1)
 	else:
 		_hp.visible = false
-	
+
+func get_move_range() -> int:
+	return move_range + playerOwner.commander.move_bonus()
