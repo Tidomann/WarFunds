@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Sprites/UI/uibackground.png" type="Texture" id=1]
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/Konkneutral.png" type="Texture" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -105.96
+margin_top = -27.5001
+margin_right = 105.96
+margin_bottom = 27.5001
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Commander" type="TextureRect" parent="Background"]
+margin_left = 0.127029
+margin_top = 4.55328
+margin_right = 50.127
+margin_bottom = 54.5533
+focus_neighbour_top = NodePath("../Background")
+focus_neighbour_right = NodePath("../Background")
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background"]
+margin_left = 58.4055
+margin_top = 1.67556
+margin_right = 206.405
+margin_bottom = 41.6756
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "Power Activated"
