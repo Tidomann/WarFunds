@@ -78,7 +78,7 @@ func load_data():
 		griddata_referance.property = load("res://Scripts/Property.gd").new()
 		griddata_referance.property.cell = cell
 		griddata_referance.property.property_referance = property_type
-		if tempplayer != null:
+		if tempplayer != null && tempplayer < players.size():
 			griddata_referance.property.playerOwner = players[tempplayer]
 		else:
 			griddata_referance.property.playerOwner = null
