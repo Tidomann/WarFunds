@@ -603,11 +603,11 @@ func start_turn_income(player : Node2D) -> int:
 		var game_data = array[as_index(cell)]
 		if game_data.property.playerOwner == player:
 			income += 1000
-		if game_data.has_Unit():
-			if game_data.unit.playerOwner == player:
-				if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds:
-					var heal_cost = game_data.unit.get_healing(20)
-					player.addFunds(-heal_cost)
+			if game_data.has_Unit():
+				if game_data.unit.playerOwner == player:
+					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds:
+						var heal_cost = game_data.unit.get_healing(20)
+						player.addFunds(-heal_cost)
 	return income
 
 func has_property(cell : Vector2) -> bool:

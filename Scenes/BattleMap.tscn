@@ -83,8 +83,6 @@ cell = Vector2( 20, 4 )
 position = Vector2( 120.146, 166.843 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
-attack_type = 1
-atk_range = 4
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.033, 183.128 )
