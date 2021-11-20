@@ -20,9 +20,9 @@
 [ext_resource path="res://Objects/Interface/CommanderUI.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/Sprites/Property/propertytileset.tres" type="TileSet" id=19]
 [ext_resource path="res://assets/Sprites/Property/devproperty.tres" type="TileSet" id=20]
-[ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scripts/AudioStreamPlayer.gd" type="Script" id=21]
+[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=23]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -107,7 +107,7 @@ position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 11 )
 
-[node name="Tower - Banktania" parent="GameBoard" instance=ExtResource( 19 )]
+[node name="Tower - Banktania" parent="GameBoard" instance=ExtResource( 23 )]
 position = Vector2( 345, 54 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 21, 3 )
@@ -118,7 +118,7 @@ move_range = 0
 attack_type = 1
 atk_range = 3
 
-[node name="Tower - Player" parent="GameBoard" instance=ExtResource( 19 )]
+[node name="Tower - Player" parent="GameBoard" instance=ExtResource( 23 )]
 position = Vector2( 120, 198 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 12 )
@@ -137,7 +137,7 @@ visible = false
 [node name="CanvasLayer" type="CanvasLayer" parent="GameBoard"]
 layer = 2
 
-[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 20 )]
+[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 22 )]
 visible = false
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
@@ -215,6 +215,5 @@ script = ExtResource( 21 )
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]
 [connection signal="turn_changed" from="TurnQueue" to="CanvasLayer/CommanderUI" method="_on_TurnQueue_turn_changed"]
 [connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
-[connection signal="power_changed" from="TurnQueue/Human/FakeCommander" to="CanvasLayer/CommanderUI" method="power_changed"]
 [connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
 [connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="power_changed"]

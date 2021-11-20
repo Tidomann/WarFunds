@@ -90,7 +90,7 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 			_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 	elif _active_unit:
 		if _active_unit.playerOwner == _turn_queue.activePlayer:
-			if not gamegrid.is_occupied(cell):
+			if not gamegrid.is_occupied(cell) || gamegrid.get_unit(cell) == _active_unit:
 				_move_active_unit(cell)
 	else:
 		_cursor.deactivate(true)
