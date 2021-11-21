@@ -21,7 +21,7 @@ export(Constants.ARMY) var army_type := Constants.ARMY.COSC
 var used_power := false
 var power_used := 0
 onready var commander_portrait = $commanderPortrait
-onready var power_activated = get_parent().get_parent().get_parent().get_node("CanvasLayer").get_node("Control")
+onready var power_activated = get_parent().get_parent().get_parent().get_node("CanvasLayer").get_node("PowerActivated")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

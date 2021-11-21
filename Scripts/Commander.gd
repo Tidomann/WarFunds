@@ -21,10 +21,16 @@ export(Constants.ARMY) var army_type
 var used_power := false
 var power_used := 0
 onready var commander_portrait = $commanderPortrait
+onready var power_activated = get_parent().get_parent().get_parent().get_node("CanvasLayer").get_node("PowerActivated")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var tmp = commander_portrait.texture.get_size()
+	print(tmp.x)
+	tmp.x = 128 / tmp.x
+	tmp.y = 128 / tmp.y
+	print(tmp)
+	commander_portrait.scale = tmp
 
 # increase the commanders current power meter by the passed parameter
 func addPower(iPower : float) -> void:
@@ -98,11 +104,16 @@ func defense_modifier(_attacker : Unit, _defender : Unit) -> float:
 func use_power() -> void:
 	if canUsePower():
 		removePower(maxPower)
+		power_activated.power_activated(commander_portrait.texture, powerName)
 		if power_used <= 5:
 			maxPower *= 1.2
 			power_used += 1
 		used_power = true
 		#Do Power Stuff
+
+func special_attack(_attacker, _defender) -> void:
+	if used_power:
+		pass
 
 func luck_modifier() -> int:
 	return 9

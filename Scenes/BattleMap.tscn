@@ -195,7 +195,7 @@ margin_bottom = 260.168
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="Power Activated" parent="CanvasLayer" instance=ExtResource( 24 )]
+[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -32.259
