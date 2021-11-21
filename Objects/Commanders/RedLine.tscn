@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/Sprites/DepartmentLeaders/Redline/Redlinesmile.png" type="Texture" id=1]
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Redline/Redlineneutral.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Commanders/RedLine.gd" type="Script" id=2]
 
 [node name="RedLine" type="Node2D"]
