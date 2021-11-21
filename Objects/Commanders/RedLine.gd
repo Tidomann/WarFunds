@@ -27,10 +27,8 @@ onready var power_activated = get_parent().get_parent().get_parent().get_node("C
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var tmp = commander_portrait.texture.get_size()
-	print(tmp.x)
 	tmp.x = 128 / tmp.x
 	tmp.y = 128 / tmp.y
-	print(tmp)
 	commander_portrait.scale = tmp
 	pass # Replace with function body.
 

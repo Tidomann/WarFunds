@@ -27,6 +27,7 @@
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
+victory_hq = true
 xMin = 7
 xMax = 21
 yMin = 3
@@ -86,9 +87,9 @@ player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 120.033, 183.128 )
+position = Vector2( 216.565, 197.72 )
 player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 7, 11 )
+cell = Vector2( 13, 12 )
 
 [node name="Unit5" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.495, 148.262 )
@@ -144,8 +145,8 @@ position = Vector2( 239.604, 134.819 )
 current = true
 limit_left = 0
 limit_top = 0
-limit_right = 480
-limit_bottom = 270
+limit_right = 704
+limit_bottom = 400
 smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource( 6 )
@@ -184,18 +185,18 @@ facing = "Left"
 [node name="Kronk" parent="TurnQueue/Computer1" instance=ExtResource( 1 )]
 player_path = NodePath("..")
 
-[node name="DialogBox" parent="." instance=ExtResource( 16 )]
-visible = false
-margin_left = 29.7393
-margin_top = 145.168
-margin_right = 460.739
-margin_bottom = 260.168
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
 [node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+
+[node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
+visible = false
+margin_left = -210.261
+margin_top = -124.832
+margin_right = 220.739
+margin_bottom = -9.83203
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -32.259

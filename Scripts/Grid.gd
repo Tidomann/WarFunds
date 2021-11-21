@@ -626,6 +626,12 @@ func can_capture(cell: Vector2, unit : Unit) -> bool:
 				return true
 		return false
 
+func get_properties() -> Array:
+	var property_array := []
+	for cell in propertytiles.get_used_cells():
+		property_array.append(array[as_index(cell)].property)
+	return property_array
+
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code
 func clamp(grid_position: Vector2) -> Vector2:
