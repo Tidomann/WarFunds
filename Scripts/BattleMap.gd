@@ -16,6 +16,21 @@ func _ready():
 	$TurnQueue.initialize(self)
 	setup_tiles()
 	setup_cursor()
+	
+	for child in $TurnQueue/Human.get_children():
+		$TurnQueue/Human.remove_child(child)
+		child.free()
+		
+	var leader = load(Global.path)
+	
+	var player = $TurnQueue/Human
+	player.add_child(leader.instance())	
+	var commander = $TurnQueue/Human.get_child(0)
+	player.commander = commander
+	commander.playerOwner = player
+	commander.connect("power_changed", $CanvasLayer/CommanderUI, "power_changed")
+	
+	
 	for child in $GameBoard.get_children():
 		var unit := child as Unit
 		if not unit:
@@ -24,7 +39,7 @@ func _ready():
 		if unit.army_sprite:
 			unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
 		else:
-			unit._sprite.frame = unit.playerOwner.player_colour
+			unit._sprite.frame = unit.playerOwner.player_colour	
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
 	for child in $TurnQueue.get_children():
@@ -33,7 +48,10 @@ func _ready():
 
 	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
 	#$DialogBox.start_dialog()
-
+	
+	
+	
+	
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
