@@ -170,8 +170,6 @@ commander_path = NodePath("RedLine")
 player_colour = 1
 
 [node name="RedLine" parent="TurnQueue/Human" instance=ExtResource( 14 )]
-commanderName = "Red Line"
-powerName = "SONIC SPEED"
 player_path = NodePath("..")
 
 [node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
@@ -215,3 +213,4 @@ script = ExtResource( 21 )
 [connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
 [connection signal="power_changed" from="TurnQueue/Human/RedLine" to="CanvasLayer/CommanderUI" method="power_changed"]
 [connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="power_changed"]
