@@ -21,6 +21,7 @@ export(Constants.ARMY) var army_type := Constants.ARMY.COSC
 var used_power := false
 var power_used := 0
 onready var commander_portrait = $commanderPortrait
+onready var power_activated = get_parent().get_parent().get_parent().get_node("CanvasLayer").get_node("Control")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -104,6 +105,7 @@ func defense_modifier(_attacker : Unit, _defender : Unit) -> float:
 func use_power() -> void:
 	if canUsePower():
 		removePower(maxPower)
+		power_activated.power_activated(commander_portrait.texture, powerName)
 		if power_used <= 5:
 			maxPower *= 1.2
 			power_used += 1
