@@ -12,9 +12,11 @@ onready var _cursor: Cursor = $Cursor
 onready var _combat_cursor: CombatCursor = $CombatCursor
 onready var _unit_path: UnitPath = $UnitPath
 onready var _unit_overlay: UnitOverlay = $UnitOverlay
+onready var _property_tiles: TileMap = get_parent().get_node("PropertyTiles")
 
 # Represents the directions which can neighbour a cell
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+
 
 # The unit currently selected
 var _active_unit: Unit
@@ -25,6 +27,9 @@ var _attackable_cells := []
 # Storing the new position of a unit
 var _stored_new_position : Vector2
 
+var signaled_player
+var signaled_income
+signal income_changed(signaled_player, signaled_income)
 
 var _attacking : bool
 
@@ -82,14 +87,14 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 			_select_unit(cell)
 		else:
 			_cursor.deactivate(true)
-			_pop_up.popup_menu(_cursor.position,false,false,true,_turn_queue.activePlayer.commander.canUsePower(), true)
+			_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 	elif _active_unit:
 		if _active_unit.playerOwner == _turn_queue.activePlayer:
-			if not gamegrid.is_occupied(cell):
+			if not gamegrid.is_occupied(cell) || gamegrid.get_unit(cell) == _active_unit:
 				_move_active_unit(cell)
 	else:
 		_cursor.deactivate(true)
-		_pop_up.popup_menu(_cursor.position,false,false,true,_turn_queue.activePlayer.commander.canUsePower(), true)
+		_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 
 # Selects the unit in the `cell` if there's one there.
 # Sets it as the `_active_unit` and draws its walkable cells and interactive move path.
@@ -147,7 +152,7 @@ func _move_active_unit(new_position: Vector2) -> void:
 		_stored_new_position = new_position
 		_pop_up.popup_menu(_cursor.position,\
 			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
-			true,false, false, false)
+			gamegrid.can_capture(new_position, _active_unit), true,false, false, false)
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -216,8 +221,26 @@ func _on_PopupMenu_selection(selection : String):
 			print(selection)
 			_clear_active_unit()
 			_turn_queue.activePlayer.commander.use_power()
-			#TODO: YIELD commander power?
+			#TODO: YIELD to commander power?
 			_pop_up.close()
+		"Capture":
+			print(selection)
+			set_new_position(_active_unit, _stored_new_position)
+			_active_unit.flip_turnReady()
+			var game_data = gamegrid.array[gamegrid.as_index(_stored_new_position)]
+			var previous_owner = game_data.property.playerOwner
+			if game_data.property.capture(_active_unit):
+				get_parent().set_property(_stored_new_position, _active_unit.playerOwner)
+				signaled_player = previous_owner
+				signaled_income = gamegrid.calculate_income(signaled_player)
+				emit_signal("income_changed", signaled_player, signaled_income)
+				signaled_player = game_data.property.playerOwner
+				signaled_income = gamegrid.calculate_income(signaled_player)
+				emit_signal("income_changed", signaled_player, signaled_income)
+			_clear_active_unit()
+			_pop_up.close()
+			_cursor.activate()
+			
 
 
 func _on_PopupMenu_popup_hide():
@@ -246,7 +269,7 @@ func _on_CombatCursor_combat_selection(selection):
 				_combat_cursor.deactivate()
 				_pop_up.popup_menu(_cursor.position,\
 					gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
-					true, false, false, false)
+					gamegrid.can_capture(_stored_new_position, _active_unit),true, false, false, false)
 				_unit_overlay.totalclear()
 				_attacking = false
 				# Show the cursor but do not reactivate

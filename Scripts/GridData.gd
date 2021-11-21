@@ -6,7 +6,7 @@ class_name GridData
 var coordinates:Vector2
 var tileType:int
 var unit:Path2D
-var property:Node2D
+var property:Reference
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,7 +42,7 @@ func has_Unit() -> bool:
 	return false
 
 # accessor method for property
-func getProperty() -> Node2D:
+func getProperty() -> Reference:
 	if property != null:
 		return property
 	return null
@@ -70,7 +70,7 @@ func clear_unit() -> void:
 	unit = null
 
 # mutator method for property
-func setProperty(inProperty:Node2D) -> void:
+func setProperty(inProperty:Reference) -> void:
 	if inProperty == null:
 		print("Null Property argument")
 		return

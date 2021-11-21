@@ -35,7 +35,7 @@ func addPower(amount : float) -> void:
 	commander.addPower(amount)
 
 func addFunds(amount: int) -> void:
-	commander.funds += amount
+	funds += amount
 	emit_signal("funds_changed", self, funds)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
