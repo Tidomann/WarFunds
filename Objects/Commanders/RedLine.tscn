@@ -6,7 +6,7 @@
 [node name="RedLine" type="Node2D"]
 script = ExtResource( 2 )
 commanderName = "Red Line"
-powerName = "Home Stretch"
+powerName = "Homestretch"
 
 [node name="commanderPortrait" type="Sprite" parent="."]
 visible = false

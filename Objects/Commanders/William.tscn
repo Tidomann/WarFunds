@@ -6,7 +6,7 @@
 [node name="William" type="Node2D"]
 script = ExtResource( 2 )
 commanderName = "William"
-powerName = "I am a Game Designer"
+powerName = "Hackathon"
 
 [node name="commanderPortrait" type="Sprite" parent="."]
 visible = false

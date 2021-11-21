@@ -8,7 +8,7 @@ extends AudioStreamPlayer
 var commanderMusic = {
 	"Red Line" : "res://assets/Music/WinningtheRace.ogg",
 	"Kronk" : "res://assets/Music/Kronk Theme.mp3",
-	"William" : "res://assets/Music/William Theme.mp3"
+	"William" : "res://assets/Music/William theme.mp3"
 }
 
 # Called when the node enters the scene tree for the first time.
