@@ -28,5 +28,4 @@ func show_value(attacker, dmgdone, target, dmgtaken):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.SIZE_EXPAND_FILL
-	pass # Replace with function body.
+	pass

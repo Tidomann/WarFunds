@@ -7,6 +7,8 @@ var player : Node2D
 var power_progress_bar
 var player_name_bar
 var player_turn_arrow
+var funds_label
+var income_label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,10 +28,12 @@ func init(initplayer : Node2D):
 	$PlayerNameBar/ColouredGradient.modulate = Constants.get_colour(player.player_colour)
 	$PlayerInfo/HBoxContainer/Leader/ColourBox.color = Constants.get_colour(player.player_colour)
 	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.texture = player.commander.commander_portrait.get_texture()
+	funds_label = $PlayerInfo/HBoxContainer/VBoxContainer/Funds/FundsText
+	funds_label.text = String(player.funds)
+	income_label = $PlayerInfo/HBoxContainer/VBoxContainer/Income/IncomeText
+	income_label.text = "0"
 	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.rect_scale.x = player.commander.commander_portrait.scale.x * 0.25
 	$PlayerInfo/HBoxContainer/Leader/LeaderPortrait.rect_scale.y = player.commander.commander_portrait.scale.y * 0.25
-	$PlayerInfo/HBoxContainer/VBoxContainer/Funds/FundsText.text = String(player.funds)
-	$PlayerInfo/HBoxContainer/VBoxContainer/Income/IncomeText.text = "0"
 	power_progress_bar.max_value = player.commander.maxPower
 	power_progress_bar.texture_over = load(player.commander.stars_path)
 	
