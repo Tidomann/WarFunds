@@ -72,6 +72,3 @@ func nextPhrase() -> void:
 	finished = true
 	phraseNum += 1
 	return
-
-func finished() -> bool:
-	return false

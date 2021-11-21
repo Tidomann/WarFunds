@@ -164,7 +164,30 @@ func take_damage(damage_recieved : int) -> int:
 		update_health()
 		damage = floor(damage*0.1)
 	return int(damage)
+
+func heal_differance(healing_recieved : int) -> int:
+	var amount_healed
+	if healing_recieved + health > 100:
+		amount_healed = 100 - health
+		update_health()
+		amount_healed = floor(amount_healed*0.1)
+	else:
+		amount_healed = ceil(healing_recieved*0.1)
+		update_health()
+	return amount_healed
 	
+func get_healing(healing_recieved :int) -> int:
+	var amount_healed
+	if healing_recieved + health > 100:
+		amount_healed = 100 - health
+		health = 100
+		update_health()
+		amount_healed = floor(amount_healed*0.1)
+	else:
+		amount_healed = ceil(healing_recieved*0.1)
+		health += healing_recieved	
+		update_health()
+	return amount_healed*0.1*cost
 
 func use_ammo(_defender : Unit) -> bool:
 	return false
