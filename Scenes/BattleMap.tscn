@@ -1,6 +1,5 @@
 [gd_scene load_steps=25 format=2]
 
-
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/normal_tileset.tres" type="TileSet" id=3]
@@ -14,7 +13,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/PopupMenu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Objects/BattleMap Objects/Player.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Objects/BattleMap Objects/TurnQueue.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Objects/Commanders/William.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Objects/Commanders/RedLine.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Objects/Units/Junior.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
@@ -22,9 +21,9 @@
 [ext_resource path="res://assets/Sprites/Property/propertytileset.tres" type="TileSet" id=19]
 [ext_resource path="res://assets/Sprites/Property/devproperty.tres" type="TileSet" id=20]
 [ext_resource path="res://Scripts/AudioStreamPlayer.gd" type="Script" id=21]
-[ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -168,12 +167,10 @@ gamegrid = ExtResource( 7 )
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Human"
-commander_path = NodePath("William")
+commander_path = NodePath("RedLine")
 player_colour = 1
 
-[node name="William" parent="TurnQueue/Human" instance=ExtResource( 14 )]
-commanderName = "William"
-powerName = "Massive debt"
+[node name="RedLine" parent="TurnQueue/Human" instance=ExtResource( 14 )]
 player_path = NodePath("..")
 
 [node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
@@ -198,7 +195,7 @@ margin_bottom = 260.168
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource( 22 )]
+[node name="Power Activated" parent="CanvasLayer" instance=ExtResource( 24 )]
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -32.259
