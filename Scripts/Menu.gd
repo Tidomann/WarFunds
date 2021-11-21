@@ -10,6 +10,7 @@ func _ready():
 	$SceneTransitionRect/AnimationPlayer.play_backwards("Fade")
 	randomize()
 	$VBoxContainer/StartButton.grab_focus()
+	OS.set_window_maximized(true)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
