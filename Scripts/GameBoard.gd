@@ -145,16 +145,7 @@ func _move_active_unit(new_position: Vector2) -> void:
 		Constants.MOVEMENT_TYPE.TIRES:
 			pass
 	yield(_active_unit, "walk_finished")
-	#TODO: Instead of matching active unit, just call all audio to stop playing?
-	match _active_unit.movement_type:
-		Constants.MOVEMENT_TYPE.INFANTRY:
-			$SoundInfantryMove.stop()
-		Constants.MOVEMENT_TYPE.MECH:
-			$SoundInfantryMove.stop()
-		Constants.MOVEMENT_TYPE.TREAD:
-			pass
-		Constants.MOVEMENT_TYPE.TIRES:
-			pass
+	
 	if trapped:
 		#TODO: Play trapped effect
 		set_new_position(_active_unit, new_position)
@@ -166,6 +157,16 @@ func _move_active_unit(new_position: Vector2) -> void:
 		_pop_up.popup_menu(_cursor.position,\
 			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
 			true,false, false, false)
+	#TODO: Instead of matching active unit, just call all movement audio to stop playing?
+	match _active_unit.movement_type:
+		Constants.MOVEMENT_TYPE.INFANTRY:
+			$SoundInfantryMove.stop()
+		Constants.MOVEMENT_TYPE.MECH:
+			$SoundInfantryMove.stop()
+		Constants.MOVEMENT_TYPE.TREAD:
+			pass
+		Constants.MOVEMENT_TYPE.TIRES:
+			pass
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
