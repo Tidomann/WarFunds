@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -22,7 +22,6 @@
 [ext_resource path="res://assets/Sprites/Property/devproperty.tres" type="TileSet" id=20]
 [ext_resource path="res://Scripts/AudioStreamPlayer.gd" type="Script" id=21]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=22]
-[ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 
 [node name="BattleMap" type="Node2D"]
@@ -55,7 +54,7 @@ tile_data = PoolIntArray( 524305, 8, 5 )
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 458764, 26, 0, 458765, 26, 0, 524302, 23, 0, 589833, 13, 0, 589835, 8, 0, 655369, 6, 0, 655371, 9, 0, 655372, 7, 0, 655373, 6, 0, 655374, 10, 0, 655375, 11, 0, 720905, 2, 0, 720907, 3, 0, 720908, 1, 0, 720909, 0, 0, 720910, 4, 0, 720911, 5, 0, 786443, 15, 0, 786444, 13, 0, 786445, 12, 0, 786446, 16, 0, 786447, 17, 0 )
+tile_data = PoolIntArray( 196629, 12, 0, 458760, 11, 0, 458761, 11, 0, 589832, 6, 0, 655368, 8, 0, 720909, 14, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 19 )
@@ -86,9 +85,9 @@ player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 120.033, 183.128 )
+position = Vector2( 216.565, 197.72 )
 player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 7, 11 )
+cell = Vector2( 13, 12 )
 
 [node name="Unit5" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.495, 148.262 )
@@ -105,28 +104,6 @@ cell = Vector2( 10, 10 )
 position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 11 )
-
-[node name="Tower - Banktania" parent="GameBoard" instance=ExtResource( 23 )]
-position = Vector2( 345, 54 )
-player_path = NodePath("../../TurnQueue/Computer1")
-cell = Vector2( 21, 3 )
-unit_referance = 4
-unit_type = 1
-cost = 0
-move_range = 0
-attack_type = 1
-atk_range = 3
-
-[node name="Tower - Player" parent="GameBoard" instance=ExtResource( 23 )]
-position = Vector2( 120, 198 )
-player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 7, 12 )
-unit_referance = 4
-unit_type = 1
-cost = 0
-move_range = 0
-attack_type = 1
-atk_range = 3
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
@@ -175,7 +152,7 @@ player_path = NodePath("..")
 
 [node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
 position = Vector2( -0.529724, 0 )
-playerName = "Computer 1"
+playerName = "Banktania"
 team = 6
 commander_path = NodePath("Kronk")
 player_colour = 5
@@ -184,18 +161,18 @@ facing = "Left"
 [node name="Kronk" parent="TurnQueue/Computer1" instance=ExtResource( 1 )]
 player_path = NodePath("..")
 
-[node name="DialogBox" parent="." instance=ExtResource( 16 )]
-visible = false
-margin_left = 29.7393
-margin_top = 145.168
-margin_right = 460.739
-margin_bottom = 260.168
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
 [node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+
+[node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
+visible = false
+margin_left = -210.261
+margin_top = -124.832
+margin_right = 220.739
+margin_bottom = -9.83203
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -32.259

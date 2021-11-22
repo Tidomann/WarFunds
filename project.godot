@@ -118,6 +118,10 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray( "res://addons/carmel4a97.RTS_Camera2D/plugin.cfg" )
 
+[global]
+
+filter=false
+
 [input]
 
 ui_accept={

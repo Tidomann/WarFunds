@@ -601,8 +601,13 @@ func start_turn_income(player : Node2D) -> int:
 	var income = 0
 	for cell in propertytiles.get_used_cells():
 		var game_data = array[as_index(cell)]
+		# If the player owns a property
 		if game_data.property.playerOwner == player:
 			income += 1000
+			# If the property is a tower increase their power as well
+			if game_data.property.property_referance == Constants.PROPERTY.TOWER:
+				game_data.property.playerOwner.addPower(800)
+			# If the property has a unit on it repair the unit
 			if game_data.has_Unit():
 				if game_data.unit.playerOwner == player:
 					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds:
@@ -625,6 +630,12 @@ func can_capture(cell: Vector2, unit : Unit) -> bool:
 			elif array[as_index(cell)].property.playerOwner.team != unit.playerOwner.team:
 				return true
 		return false
+
+func get_properties() -> Array:
+	var property_array := []
+	for cell in propertytiles.get_used_cells():
+		property_array.append(array[as_index(cell)].property)
+	return property_array
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

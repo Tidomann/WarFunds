@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Kronksmile.png-c301a06fef1abead6a6421a088e435d7.stex"
+path="res://.import/KronkSmile.png-185ad7a2a0d72f5af2635531612e4dd3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/Kronk/Kronksmile.png"
-dest_files=[ "res://.import/Kronksmile.png-c301a06fef1abead6a6421a088e435d7.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/Kronk/KronkSmile.png"
+dest_files=[ "res://.import/KronkSmile.png-185ad7a2a0d72f5af2635531612e4dd3.stex" ]
 
 [params]
 

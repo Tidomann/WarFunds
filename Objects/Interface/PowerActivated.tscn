@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Sprites/UI/DemoUiBackgroundNineRect.png" type="Texture" id=1]
-[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/Konkneutral.png" type="Texture" id=2]
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Interface/PowerActivated.gd" type="Script" id=3]
 [ext_resource path="res://assets/Kenney Pixel.ttf" type="DynamicFontData" id=4]
 

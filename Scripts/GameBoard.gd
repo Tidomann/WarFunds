@@ -13,6 +13,7 @@ onready var _combat_cursor: CombatCursor = $CombatCursor
 onready var _unit_path: UnitPath = $UnitPath
 onready var _unit_overlay: UnitOverlay = $UnitOverlay
 onready var _property_tiles: TileMap = get_parent().get_node("PropertyTiles")
+onready var _human_player = _turn_queue.get_node("Human")
 
 # Represents the directions which can neighbour a cell
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
@@ -189,9 +190,12 @@ func _on_PopupMenu_selection(selection : String):
 			print(selection)
 			set_new_position(_active_unit, _stored_new_position)
 			_active_unit.flip_turnReady()
-			_clear_active_unit()
-			_pop_up.close()
-			_cursor.activate()
+			if is_game_finished(_human_player):
+				end_game(_human_player)
+			else:
+				_clear_active_unit()
+				_pop_up.close()
+				_cursor.activate()
 		"Attack":
 			print(selection)
 			_cursor.deactivate(true)
@@ -222,7 +226,10 @@ func _on_PopupMenu_selection(selection : String):
 			_clear_active_unit()
 			_turn_queue.activePlayer.commander.use_power()
 			#TODO: YIELD to commander power?
-			_pop_up.close()
+			if is_game_finished(_human_player):
+				end_game(_human_player)
+			else:
+				_pop_up.close()
 		"Capture":
 			print(selection)
 			set_new_position(_active_unit, _stored_new_position)
@@ -239,7 +246,10 @@ func _on_PopupMenu_selection(selection : String):
 				emit_signal("income_changed", signaled_player, signaled_income)
 			_clear_active_unit()
 			_pop_up.close()
-			_cursor.activate()
+			if is_game_finished(_human_player):
+				end_game(_human_player)
+			else:
+				_cursor.activate()
 			
 
 
@@ -283,8 +293,11 @@ func _on_CombatCursor_combat_selection(selection):
 			
 			if _active_unit.is_turnReady():
 				_active_unit.flip_turnReady()
-			_clear_active_unit()
-			_cursor.activate()
+			if is_game_finished(_human_player):
+				end_game(_human_player)
+			else:
+				_clear_active_unit()
+				_cursor.activate()
 
 
 func _on_CombatCursor_moved(new_coordinates):
@@ -320,3 +333,12 @@ func _on_CombatCursor_moved(new_coordinates):
 		else:
 			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, "0")
 
+func is_game_finished(human : Node2D) -> bool:
+	return get_parent().game_finished(human)
+	
+	
+func end_game(human : Node2D) -> void:
+	if get_parent().is_victory(human):
+		get_parent().victory()
+	else:
+		get_parent().defeat()
