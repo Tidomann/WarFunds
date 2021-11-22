@@ -17,23 +17,22 @@ onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Load the Game Data
 	gamegrid.initialize(self)
-	$TurnQueue.initialize(self)
 	
 	# Initialize the Humans Commander to be the chosen commander from Select
 	# or default to William
 	for child in $TurnQueue/Human.get_children():
 		$TurnQueue/Human.remove_child(child)
 		child.free()
-		
 	var leader = load(Global.path)
-	
 	var player = $TurnQueue/Human
 	player.add_child(leader.instance())
 	var commander = $TurnQueue/Human.get_child(0)
 	player.commander = commander
 	commander.playerOwner = player
 	commander.connect("power_changed", $CanvasLayer/CommanderUI, "power_changed")
+
 	
 	# Setup the Map now that proper commander is in place
 	setup_tiles()
@@ -51,10 +50,15 @@ func _ready():
 		else:
 			unit._sprite.frame = unit.playerOwner.player_colour	
 		unit.update_health()
+
+	#Now that the proper commander is in place, set up the turnqueue
+	$TurnQueue.initialize(self)
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
-	for child in $TurnQueue.get_children():
+	#for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
+		child.addPower(0)
+		print(child.commander.power)
 	
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
