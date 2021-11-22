@@ -261,9 +261,8 @@ func _on_PopupMenu_selection(selection : String):
 			if is_game_finished(_human_player):
 				end_game(_human_player)
 			else:
-				_active_unit.playerOwner.addFunds(-heal_cost(_active_unit))
 				# This assumes a unit will never exceed 100 health
-				_active_unit.get_healing(100)
+				_active_unit.playerOwner.addFunds(-_active_unit.get_healing(100))
 				_clear_active_unit()
 				_pop_up.close()
 				_cursor.activate()
