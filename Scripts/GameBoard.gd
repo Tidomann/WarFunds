@@ -164,7 +164,7 @@ func _move_active_unit(new_position: Vector2) -> void:
 		_stored_new_position = new_position
 		_pop_up.popup_menu(_cursor.position,\
 			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
-      gamegrid.can_capture(new_position, _active_unit), true,false, false, false)
+	  gamegrid.can_capture(new_position, _active_unit), true,false, false, false)
 	#TODO: Instead of matching active unit, just call all movement audio to stop playing?
 	match _active_unit.movement_type:
 		Constants.MOVEMENT_TYPE.INFANTRY:

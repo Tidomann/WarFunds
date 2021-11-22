@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -18,16 +18,14 @@
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Objects/Interface/CommanderUI.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Objects/Units/Tower.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=20]
-[ext_resource path="res://assets/Sound Effects/kenney_interfacesounds/Audio/click_002.ogg" type="AudioStream" id=21]
-[ext_resource path="res://assets/Sound Effects/kenney_interfacesounds/Audio/bong_001.ogg" type="AudioStream" id=22]
-[ext_resource path="res://assets/Sound Effects/kenney_impactsounds/Audio/running.ogg" type="AudioStream" id=23]
 [ext_resource path="res://assets/Sprites/Property/propertytileset.tres" type="TileSet" id=19]
 [ext_resource path="res://assets/Sprites/Property/devproperty.tres" type="TileSet" id=20]
 [ext_resource path="res://Scripts/AudioStreamPlayer.gd" type="Script" id=21]
-[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/Sound Effects/interface/bong_001.ogg" type="AudioStream" id=22]
+[ext_resource path="res://assets/Sound Effects/units/running.ogg" type="AudioStream" id=23]
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
+[ext_resource path="res://assets/Sound Effects/interface/click_002.ogg" type="AudioStream" id=25]
+[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -121,11 +119,11 @@ visible = false
 [node name="CanvasLayer" type="CanvasLayer" parent="GameBoard"]
 layer = 2
 
-[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 22 )]
+[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 26 )]
 visible = false
 
 [node name="SoundMoveAttackCursor" type="AudioStreamPlayer" parent="GameBoard"]
-stream = ExtResource( 21 )
+stream = ExtResource( 25 )
 volume_db = -10.0
 
 [node name="SoundInfantryMove" type="AudioStreamPlayer" parent="GameBoard"]
@@ -191,7 +189,7 @@ margin_right = 220.739
 margin_bottom = -9.83203
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
-volume_db = -32.259
+volume_db = -30.0
 script = ExtResource( 21 )
 
 [connection signal="income_changed" from="GameBoard" to="CanvasLayer/CommanderUI" method="income_changed"]
