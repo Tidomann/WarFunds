@@ -93,7 +93,6 @@ cell = Vector2( 13, 12 )
 position = Vector2( 168.495, 148.262 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 9 )
-cost = 10000000
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )
