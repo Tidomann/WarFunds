@@ -116,7 +116,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/carmel4a97.RTS_Camera2D/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [global]
 
