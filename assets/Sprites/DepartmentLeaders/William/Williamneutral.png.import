@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/WilliamNeutral.png-4fffb56bc74f9e388d29c6baa4f04734.stex"
+path="res://.import/Williamneutral.png-1a51f5c45d56e535f9a9bdea07be98e1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/William/WilliamNeutral.png"
-dest_files=[ "res://.import/WilliamNeutral.png-4fffb56bc74f9e388d29c6baa4f04734.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/William/Williamneutral.png"
+dest_files=[ "res://.import/Williamneutral.png-1a51f5c45d56e535f9a9bdea07be98e1.stex" ]
 
 [params]
 

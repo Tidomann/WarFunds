@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/RedlineHappy.png-ca6afcd6e36299c7b97ddebf7d8feaee.stex"
+path="res://.import/Redlinehappy.png-eeb0b7b7433f7596c1fca299c384eef3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/Redline/RedlineHappy.png"
-dest_files=[ "res://.import/RedlineHappy.png-ca6afcd6e36299c7b97ddebf7d8feaee.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/Redline/Redlinehappy.png"
+dest_files=[ "res://.import/Redlinehappy.png-eeb0b7b7433f7596c1fca299c384eef3.stex" ]
 
 [params]
 

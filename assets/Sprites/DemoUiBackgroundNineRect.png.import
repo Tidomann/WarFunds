@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/DemoUiBackgroundNineRect.png-887323b81efc8bae8683a78aa07113c6.stex"
+path="res://.import/DemoUiBackgroundNineRect.png-ea888daf89323580e2f168ccefa113f7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/DemoUiBackgroundNineRect.png"
-dest_files=[ "res://.import/DemoUiBackgroundNineRect.png-887323b81efc8bae8683a78aa07113c6.stex" ]
+source_file="res://assets/Sprites/DemoUiBackgroundNineRect.png"
+dest_files=[ "res://.import/DemoUiBackgroundNineRect.png-ea888daf89323580e2f168ccefa113f7.stex" ]
 
 [params]
 
