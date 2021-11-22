@@ -63,8 +63,10 @@ func popup_menu(new_positon: Vector2, fight: bool, capt: bool, heal: bool, affor
 func _on_PopupMenu_id_pressed(id):
 	if id == 2:
 		emit_signal("selection", "Heal")
+    $SoundMenuButtonClick.play()
 	else:
 		emit_signal("selection", self.get_item_text(get_item_index(id)))
+    $SoundMenuButtonClick.play()
 	close()
 
 func _unhandled_input(event: InputEvent) -> void:

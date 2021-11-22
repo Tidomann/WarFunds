@@ -142,7 +142,18 @@ func _move_active_unit(new_position: Vector2) -> void:
 	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
 	# finished.
 	_active_unit.walk_along(_unit_path.current_path)
+	if _unit_path.current_path.size() > 1:
+		match _active_unit.movement_type:
+			Constants.MOVEMENT_TYPE.INFANTRY:
+				$SoundInfantryMove.play()
+			Constants.MOVEMENT_TYPE.MECH:
+				$SoundInfantryMove.play()
+			Constants.MOVEMENT_TYPE.TREAD:
+				pass
+			Constants.MOVEMENT_TYPE.TIRES:
+				pass
 	yield(_active_unit, "walk_finished")
+	
 	if trapped:
 		#TODO: Play trapped effect
 		set_new_position(_active_unit, new_position)
@@ -158,11 +169,22 @@ func _move_active_unit(new_position: Vector2) -> void:
 			can_afford_heal(_active_unit),\
 			heal_cost(_active_unit),\
 			 true,false, false, false)
+	#TODO: Instead of matching active unit, just call all movement audio to stop playing?
+	match _active_unit.movement_type:
+		Constants.MOVEMENT_TYPE.INFANTRY:
+			$SoundInfantryMove.stop()
+		Constants.MOVEMENT_TYPE.MECH:
+			$SoundInfantryMove.stop()
+		Constants.MOVEMENT_TYPE.TREAD:
+			pass
+		Constants.MOVEMENT_TYPE.TIRES:
+			pass
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
 	# When the cursor moves, and we already have an active unit selected, we want to update the
 	# interactive path drawing.
+	$Cursor/SoundMoveCursor.play()
 	if _active_unit and _active_unit.is_selected:
 		_unit_path.draw(_active_unit, new_cell)
 
@@ -325,6 +347,7 @@ func _on_CombatCursor_moved(new_coordinates):
 		# should not get in here
 		pass
 	else:
+		$SoundMoveAttackCursor.play()
 		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		
