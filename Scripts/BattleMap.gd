@@ -62,8 +62,8 @@ func _ready():
 	
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
-	$CanvasLayer/DialogBox.start_dialog()
-	yield($CanvasLayer/DialogBox, "dialog_finished")
+	#$CanvasLayer/DialogBox.start_dialog()
+	#yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles

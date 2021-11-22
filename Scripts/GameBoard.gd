@@ -88,14 +88,14 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 			_select_unit(cell)
 		else:
 			_cursor.deactivate(true)
-			_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
+			_pop_up.popup_menu(_cursor.position,false,false,false,false,0,false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 	elif _active_unit:
 		if _active_unit.playerOwner == _turn_queue.activePlayer:
 			if not gamegrid.is_occupied(cell) || gamegrid.get_unit(cell) == _active_unit:
 				_move_active_unit(cell)
 	else:
 		_cursor.deactivate(true)
-		_pop_up.popup_menu(_cursor.position, false, false, false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
+		_pop_up.popup_menu(_cursor.position,false,false,false,false,0,false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 
 # Selects the unit in the `cell` if there's one there.
 # Sets it as the `_active_unit` and draws its walkable cells and interactive move path.
@@ -153,7 +153,11 @@ func _move_active_unit(new_position: Vector2) -> void:
 		_stored_new_position = new_position
 		_pop_up.popup_menu(_cursor.position,\
 			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
-			gamegrid.can_capture(new_position, _active_unit), true,false, false, false)
+			gamegrid.can_capture(new_position, _active_unit),\
+			can_buy_heal(_active_unit,gamegrid.get_unit_position(_active_unit)),\
+			can_afford_heal(_active_unit),\
+			heal_cost(_active_unit),\
+			 true,false, false, false)
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
@@ -250,6 +254,19 @@ func _on_PopupMenu_selection(selection : String):
 				end_game(_human_player)
 			else:
 				_cursor.activate()
+		"Heal":
+			print(selection)
+			set_new_position(_active_unit, _stored_new_position)
+			_active_unit.flip_turnReady()
+			if is_game_finished(_human_player):
+				end_game(_human_player)
+			else:
+				_active_unit.playerOwner.addFunds(-heal_cost(_active_unit))
+				# This assumes a unit will never exceed 100 health
+				_active_unit.get_healing(100)
+				_clear_active_unit()
+				_pop_up.close()
+				_cursor.activate()
 			
 
 
@@ -278,8 +295,12 @@ func _on_CombatCursor_combat_selection(selection):
 			if selection == "Cancel":
 				_combat_cursor.deactivate()
 				_pop_up.popup_menu(_cursor.position,\
-					gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
-					gamegrid.can_capture(_stored_new_position, _active_unit),true, false, false, false)
+				gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
+				gamegrid.can_capture(_stored_new_position, _active_unit),\
+				can_buy_heal(_active_unit,gamegrid.get_unit_position(_active_unit)),\
+				can_afford_heal(_active_unit),\
+				heal_cost(_active_unit),\
+				true,false, false, false)
 				_unit_overlay.totalclear()
 				_attacking = false
 				# Show the cursor but do not reactivate
@@ -332,6 +353,21 @@ func _on_CombatCursor_moved(new_coordinates):
 			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, dmgtaken)
 		else:
 			$CanvasLayer/FCTManager.show_value(_active_unit, dmgdone, target, "0")
+
+func can_buy_heal(unit : Unit, old_position : Vector2) -> bool:
+	if unit.cell == old_position && unit.health < 100:
+		if gamegrid.has_property(unit.cell):
+			if gamegrid.get_property(unit.cell).playerOwner == unit.playerOwner:
+				return true
+	return false
+
+func can_afford_heal(unit : Unit) -> bool:
+	var amount_healed = unit.heal_differance(100)
+	var cost = amount_healed*0.1*unit.cost
+	return unit.playerOwner.funds > cost
+
+func heal_cost(unit : Unit) -> int:
+	return int(unit.heal_differance(100)*0.1*unit.cost)
 
 func is_game_finished(human : Node2D) -> bool:
 	return get_parent().game_finished(human)
