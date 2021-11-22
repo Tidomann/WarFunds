@@ -58,7 +58,6 @@ func _ready():
 	#for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
 		child.addPower(0)
-		print(child.commander.power)
 	
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
