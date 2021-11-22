@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Kornkangry.png-ce8f44af8b2ea3aab7105155888e583d.stex"
+path="res://.import/KronkAngry.png-a81d5691e234d655d3dd3cd452fbad73.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/Kronk/Kornkangry.png"
-dest_files=[ "res://.import/Kornkangry.png-ce8f44af8b2ea3aab7105155888e583d.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/Kronk/KronkAngry.png"
+dest_files=[ "res://.import/KronkAngry.png-a81d5691e234d655d3dd3cd452fbad73.stex" ]
 
 [params]
 

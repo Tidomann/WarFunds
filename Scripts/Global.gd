@@ -9,9 +9,9 @@ var unlockedLevels = [true,false,false,false,false,false,false,false]
 
 # Leader Images
 var leaders = [
-	"res://assets/Sprites/DepartmentLeaders/Kronk/Konkneutral.png",
-	"res://assets/Sprites/DepartmentLeaders/Redline/Redlineneutral.png",	
-	"res://assets/Sprites/DepartmentLeaders/William/Williamneutral.png"
+	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png",
+	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineNeutral.png",	
+	"res://assets/Sprites/DepartmentLeaders/William/WilliamNeutral.png"
 ]
 
 # Path to leader scene

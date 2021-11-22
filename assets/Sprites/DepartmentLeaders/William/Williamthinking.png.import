@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Williamthinking.png-a538b2ac4593b6aaa590a27ac1f54f3a.stex"
+path="res://.import/WilliamThinking.png-5e97def61940150472b281f3914143cb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/William/Williamthinking.png"
-dest_files=[ "res://.import/Williamthinking.png-a538b2ac4593b6aaa590a27ac1f54f3a.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/William/WilliamThinking.png"
+dest_files=[ "res://.import/WilliamThinking.png-5e97def61940150472b281f3914143cb.stex" ]
 
 [params]
 
@@ -31,4 +31,4 @@ process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=false
-svg/scale=0.5
+svg/scale=1.0

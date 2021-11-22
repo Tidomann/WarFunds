@@ -190,9 +190,12 @@ func _on_PopupMenu_selection(selection : String):
 			print(selection)
 			set_new_position(_active_unit, _stored_new_position)
 			_active_unit.flip_turnReady()
-			_clear_active_unit()
-			_pop_up.close()
-			_cursor.activate()
+			if is_game_finished(_human_player):
+				end_game(_human_player)
+			else:
+				_clear_active_unit()
+				_pop_up.close()
+				_cursor.activate()
 		"Attack":
 			print(selection)
 			_cursor.deactivate(true)
@@ -223,9 +226,10 @@ func _on_PopupMenu_selection(selection : String):
 			_clear_active_unit()
 			_turn_queue.activePlayer.commander.use_power()
 			#TODO: YIELD to commander power?
-			if get_parent().game_finished(_human_player):
+			if is_game_finished(_human_player):
 				end_game(_human_player)
-			_pop_up.close()
+			else:
+				_pop_up.close()
 		"Capture":
 			print(selection)
 			set_new_position(_active_unit, _stored_new_position)
@@ -242,9 +246,10 @@ func _on_PopupMenu_selection(selection : String):
 				emit_signal("income_changed", signaled_player, signaled_income)
 			_clear_active_unit()
 			_pop_up.close()
-			if get_parent().game_finished(_human_player):
+			if is_game_finished(_human_player):
 				end_game(_human_player)
-			_cursor.activate()
+			else:
+				_cursor.activate()
 			
 
 
@@ -288,10 +293,11 @@ func _on_CombatCursor_combat_selection(selection):
 			
 			if _active_unit.is_turnReady():
 				_active_unit.flip_turnReady()
-			if get_parent().game_finished(_human_player):
+			if is_game_finished(_human_player):
 				end_game(_human_player)
-			_clear_active_unit()
-			_cursor.activate()
+			else:
+				_clear_active_unit()
+				_cursor.activate()
 
 
 func _on_CombatCursor_moved(new_coordinates):
@@ -332,4 +338,7 @@ func is_game_finished(human : Node2D) -> bool:
 	
 	
 func end_game(human : Node2D) -> void:
-	pass
+	if get_parent().is_victory(human):
+		get_parent().victory()
+	else:
+		get_parent().defeat()
