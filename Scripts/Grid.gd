@@ -16,6 +16,7 @@ var array = [GridData]
 var battlemap : Node2D
 var devtiles : TileMap
 var gameBoard : YSort
+var propertytiles : TileMap
 
 ## Half of ``cell_size``
 var _half_cell_size = cell_size / 2
@@ -35,6 +36,7 @@ func load_grid(inbattlemap: Node2D):
 	# Setup variable referances
 	battlemap = inbattlemap
 	devtiles = battlemap.find_node("Devtiles", false, false)
+	propertytiles = battlemap.find_node("Devproperty", false, false)
 	gameBoard = battlemap.find_node("GameBoard", false, false)
 	# Calculate space needed for the array
 	var row = battlemap.Xmax() - battlemap.Xmin() + 1
@@ -61,7 +63,25 @@ func load_data():
 		var tempIndex = as_index(unit.get_cell())
 		if array[tempIndex].getUnit() == null:
 			array[tempIndex].setUnit(unit)
+	var players = gameBoard._turn_queue.get_children()
 	# TODO: Property Load
+	for cell in propertytiles.get_used_cells():
+		var array_index = as_index(cell)
+		var temptilevalue = propertytiles.get_cellv(cell)
+		var tempplayer = int(temptilevalue / 6.0)
+		if tempplayer == 0:
+			tempplayer = null
+		else:
+			tempplayer -= 1
+		var property_type = temptilevalue % 6
+		var griddata_referance = array[array_index] 
+		griddata_referance.property = load("res://Scripts/Property.gd").new()
+		griddata_referance.property.cell = cell
+		griddata_referance.property.property_referance = property_type
+		if tempplayer != null && tempplayer < players.size():
+			griddata_referance.property.playerOwner = players[tempplayer]
+		else:
+			griddata_referance.property.playerOwner = null
 
 ## Returns true if the `grid_position` are within the map
 func is_gridcoordinate_within_map(grid_coordinate : Vector2) -> bool:
@@ -486,7 +506,8 @@ func calculate_min_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
 	var bad_luck = attacker.get_commander().bad_luck_modifier()
-	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	#var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var terrain_bonus = get_terrain_bonus(get_GridData_by_position(defender.cell))
 	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + bad_luck
 	var health_modifier = (ceil((attacker.health-damagedealt)/10.0) / 10.0)
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
@@ -500,7 +521,8 @@ func calculate_max_damage(attacker : Unit, defender : Unit, damagedealt=0) -> in
 	var commander_attack_bonus = attacker.get_commander().strength_modifier(attacker, defender)
 	var commander_defense_bonus = defender.get_commander().defense_modifier(attacker, defender)
 	var good_luck = attacker.get_commander().luck_modifier()
-	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	#var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var terrain_bonus = get_terrain_bonus(get_GridData_by_position(defender.cell))
 	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + good_luck
 	var health_modifier = (ceil((attacker.health-damagedealt)/10.0) / 10.0)
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
@@ -519,7 +541,8 @@ func calculate_damage(attacker : Unit, defender : Unit) -> int:
 	var bad_luck = attacker.get_commander().bad_luck_modifier()
 	var good_luck = attacker.get_commander().luck_modifier()
 	var luck_modifier = bad_luck + randi()%(good_luck - bad_luck +1)
-	var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	#var terrain_bonus = Constants.TILE_DEFENSE[get_GridData_by_position(defender.cell).getTileType()]
+	var terrain_bonus = get_terrain_bonus(get_GridData_by_position(defender.cell))
 	var full_damage = (damage_lookup * commander_attack_bonus / 100.0) + luck_modifier
 	var health_modifier = (ceil(attacker.health/10.0) / 10.0)
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
@@ -557,6 +580,62 @@ func unit_combat(attacker : Unit, defender : Unit):
 	if defender.is_dead():
 		find_unit(defender).unit = null
 		defender.queue_free()
+
+func get_terrain_bonus(grid_data : GridData) -> int:
+	if grid_data.property !=null:
+		if grid_data.property.property_referance == Constants.PROPERTY.HQ:
+			return 4
+		return 3
+	else:
+		return Constants.TILE_DEFENSE[grid_data.getTileType()]
+
+func calculate_income(player : Node2D) -> int:
+	var income = 0
+	for cell in propertytiles.get_used_cells():
+		var array_index = as_index(cell)
+		if array[array_index].property.playerOwner == player:
+			income += 1000
+	return income
+
+func start_turn_income(player : Node2D) -> int:
+	var income = 0
+	for cell in propertytiles.get_used_cells():
+		var game_data = array[as_index(cell)]
+		# If the player owns a property
+		if game_data.property.playerOwner == player:
+			income += 1000
+			# If the property is a tower increase their power as well
+			if game_data.property.property_referance == Constants.PROPERTY.TOWER:
+				game_data.property.playerOwner.addPower(800)
+			# If the property has a unit on it repair the unit
+			if game_data.has_Unit():
+				if game_data.unit.playerOwner == player:
+					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds:
+						var heal_cost = game_data.unit.get_healing(20)
+						player.addFunds(-heal_cost)
+	return income
+
+func has_property(cell : Vector2) -> bool:
+	if array[as_index(cell)].property != null:
+		return true
+	return false
+
+func can_capture(cell: Vector2, unit : Unit) -> bool:
+	if not has_property(cell):
+		return false
+	else:
+		if unit.unit_type == Constants.UNIT_TYPE.INFANTRY:
+			if array[as_index(cell)].property.playerOwner == null:
+				return true
+			elif array[as_index(cell)].property.playerOwner.team != unit.playerOwner.team:
+				return true
+		return false
+
+func get_properties() -> Array:
+	var property_array := []
+	for cell in propertytiles.get_used_cells():
+		property_array.append(array[as_index(cell)].property)
+	return property_array
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

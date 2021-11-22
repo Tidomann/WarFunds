@@ -23,6 +23,11 @@
 [ext_resource path="res://assets/Sound Effects/kenney_interfacesounds/Audio/click_002.ogg" type="AudioStream" id=21]
 [ext_resource path="res://assets/Sound Effects/kenney_interfacesounds/Audio/bong_001.ogg" type="AudioStream" id=22]
 [ext_resource path="res://assets/Sound Effects/kenney_impactsounds/Audio/running.ogg" type="AudioStream" id=23]
+[ext_resource path="res://assets/Sprites/Property/propertytileset.tres" type="TileSet" id=19]
+[ext_resource path="res://assets/Sprites/Property/devproperty.tres" type="TileSet" id=20]
+[ext_resource path="res://Scripts/AudioStreamPlayer.gd" type="Script" id=21]
+[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -50,8 +55,14 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 524305, 8, 5 )
 
+[node name="Devproperty" type="TileMap" parent="."]
+tile_set = ExtResource( 20 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 196629, 12, 0, 458760, 11, 0, 458761, 11, 0, 589832, 6, 0, 655368, 8, 0, 720909, 14, 0 )
+
 [node name="PropertyTiles" type="TileMap" parent="."]
-visible = false
+tile_set = ExtResource( 19 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
@@ -79,15 +90,14 @@ player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
 
 [node name="Unit4" parent="GameBoard" instance=ExtResource( 15 )]
-position = Vector2( 120.033, 183.128 )
+position = Vector2( 216.565, 197.72 )
 player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 7, 11 )
+cell = Vector2( 13, 12 )
 
 [node name="Unit5" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.495, 148.262 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 9 )
-cost = 10000000
 
 [node name="Unit6" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )
@@ -98,28 +108,6 @@ cell = Vector2( 10, 10 )
 position = Vector2( 167.923, 183.086 )
 player_path = NodePath("../../TurnQueue/Computer1")
 cell = Vector2( 10, 11 )
-
-[node name="Tower - Banktania" parent="GameBoard" instance=ExtResource( 19 )]
-position = Vector2( 345, 54 )
-player_path = NodePath("../../TurnQueue/Computer1")
-cell = Vector2( 21, 3 )
-unit_referance = 4
-unit_type = 1
-cost = 0
-move_range = 0
-attack_type = 1
-atk_range = 3
-
-[node name="Tower - Player" parent="GameBoard" instance=ExtResource( 19 )]
-position = Vector2( 120, 198 )
-player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 7, 12 )
-unit_referance = 4
-unit_type = 1
-cost = 0
-move_range = 0
-attack_type = 1
-atk_range = 3
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
@@ -133,7 +121,7 @@ visible = false
 [node name="CanvasLayer" type="CanvasLayer" parent="GameBoard"]
 layer = 2
 
-[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 20 )]
+[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 22 )]
 visible = false
 
 [node name="SoundMoveAttackCursor" type="AudioStreamPlayer" parent="GameBoard"]
@@ -168,6 +156,7 @@ popup_exclusive = true
 hide_on_item_selection = false
 
 [node name="TurnQueue" parent="." instance=ExtResource( 13 )]
+gamegrid = ExtResource( 7 )
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Human"
@@ -175,13 +164,11 @@ commander_path = NodePath("RedLine")
 player_colour = 1
 
 [node name="RedLine" parent="TurnQueue/Human" instance=ExtResource( 14 )]
-commanderName = "Red Line"
-powerName = "SONIC SPEED"
 player_path = NodePath("..")
 
 [node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
 position = Vector2( -0.529724, 0 )
-playerName = "Computer 1"
+playerName = "Banktania"
 team = 6
 commander_path = NodePath("Kronk")
 player_colour = 5
@@ -190,17 +177,24 @@ facing = "Left"
 [node name="Kronk" parent="TurnQueue/Computer1" instance=ExtResource( 1 )]
 player_path = NodePath("..")
 
-[node name="DialogBox" parent="." instance=ExtResource( 16 )]
-visible = false
-margin_left = 29.7393
-margin_top = 145.168
-margin_right = 460.739
-margin_bottom = 260.168
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
+[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+
+[node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
+visible = false
+margin_left = -210.261
+margin_top = -124.832
+margin_right = 220.739
+margin_bottom = -9.83203
+
+[node name="Music Player" type="AudioStreamPlayer" parent="."]
+volume_db = -32.259
+script = ExtResource( 21 )
+
+[connection signal="income_changed" from="GameBoard" to="CanvasLayer/CommanderUI" method="income_changed"]
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
@@ -212,4 +206,7 @@ margin_bottom = 260.168
 [connection signal="popup_hide" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_popup_hide"]
 [connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]
 [connection signal="turn_changed" from="TurnQueue" to="CanvasLayer/CommanderUI" method="_on_TurnQueue_turn_changed"]
-[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="_on_Kronk_power_changed"]
+[connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Human/RedLine" to="CanvasLayer/CommanderUI" method="power_changed"]
+[connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="power_changed"]

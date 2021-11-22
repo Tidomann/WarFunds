@@ -15,6 +15,7 @@ func start_dialog():
 	dialog = getDialog()
 	assert(dialog, "Dialog not found")
 	self.visible = true
+	phraseNum = 0
 	nextPhrase()
 
 func _ready():
@@ -45,7 +46,8 @@ func nextPhrase() -> void:
 	if phraseNum >= len(dialog):
 		isfinished = true
 		emit_signal("dialog_finished",isfinished)
-		queue_free()
+		self.visible = false
+		#queue_free()
 		return
 	
 	finished = false
@@ -72,6 +74,3 @@ func nextPhrase() -> void:
 	finished = true
 	phraseNum += 1
 	return
-
-func finished() -> bool:
-	return false

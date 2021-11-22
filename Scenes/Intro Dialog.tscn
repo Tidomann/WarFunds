@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Dialogs.gd" type="Script" id=1]
 [ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/Konkneutral.png" type="Texture" id=3]
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png" type="Texture" id=3]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )

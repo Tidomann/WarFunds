@@ -15,6 +15,5 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
-func _on_Intro_dialog_finished(isfinished):
-	get_tree().change_scene("res://Scenes/BattleMap.tscn")
+func _on_Intro_dialog_finished(_isfinished):
+	get_tree().change_scene("res://Scenes/Select.tscn")

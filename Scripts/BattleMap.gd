@@ -3,6 +3,11 @@ extends Node2D
 # Member Variables
 # Variables that represent the map boundaries
 export var fog_map := false
+export var victory_eliminate := true
+export var victory_hq := true
+export var victory_property := false
+export var property_goal := 15
+
 export(int) var xMin
 export(int) var xMax
 export(int) var yMin
@@ -12,9 +17,29 @@ onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Load the Game Data
 	gamegrid.initialize(self)
+	
+	# Initialize the Humans Commander to be the chosen commander from Select
+	# or default to William
+	for child in $TurnQueue/Human.get_children():
+		$TurnQueue/Human.remove_child(child)
+		child.free()
+	var leader = load(Global.path)
+	var player = $TurnQueue/Human
+	player.add_child(leader.instance())
+	var commander = $TurnQueue/Human.get_child(0)
+	player.commander = commander
+	commander.playerOwner = player
+	commander.connect("power_changed", $CanvasLayer/CommanderUI, "power_changed")
+
+	
+	# Setup the Map now that proper commander is in place
 	setup_tiles()
 	setup_cursor()
+	$GameBoard/Cursor.deactivate(true)
+
+	# Set the positioning and the correct unit sprite for the commanders
 	for child in $GameBoard.get_children():
 		var unit := child as Unit
 		if not unit:
@@ -23,13 +48,23 @@ func _ready():
 		if unit.army_sprite:
 			unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
 		else:
-			unit._sprite.frame = unit.playerOwner.player_colour
+			unit._sprite.frame = unit.playerOwner.player_colour	
+		unit.update_health()
+
+	#Now that the proper commander is in place, set up the turnqueue
+	$TurnQueue.initialize(self)
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
-	$TurnQueue.initialize()
-	$DialogBox.dialogPath = "res://Dialog/Dialog1.json"
-	#$DialogBox.start_dialog()
-
+	#for child in $TurnQueue.get_children():
+		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
+		child.addPower(0)
+		print(child.commander.power)
+	
+	#Start of battle dialog
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
+	$CanvasLayer/DialogBox.start_dialog()
+	yield($CanvasLayer/DialogBox, "dialog_finished")
+	$GameBoard/Cursor.activate()
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
@@ -41,8 +76,53 @@ func setup_tiles():
 		$RenderedTiles.set_cellv(cell, tileIndex)
 		if tileIndex == Constants.TILE.SEA || tileIndex == Constants.TILE.ROAD:
 			$RenderedTiles.update_bitmask_area(cell)
-			
-
+	var propertyArray = $Devproperty.get_used_cells()
+	var players = $TurnQueue.get_children()
+	for cell in propertyArray:
+		var temptilevalue = $Devproperty.get_cellv(cell)
+		var tempplayer = int(temptilevalue / 6.0)
+		var property_type = temptilevalue % 6
+		if tempplayer == 0:
+			if property_type > 1:
+				$PropertyTiles.set_cellv(cell, 64+property_type)
+			else:
+				$PropertyTiles.set_cellv(cell, 60)
+		else:
+			if tempplayer > players.size():
+				if property_type > 1:
+					$PropertyTiles.set_cellv(cell, 64+property_type)
+				else:
+					$PropertyTiles.set_cellv(cell, 60)
+			else:
+				var property_owner = players[tempplayer-1]
+				if property_type == 0:
+					#Find the right HQ building
+					var army_type = property_owner.commander.army_type
+					var army_array_value
+					match army_type:
+						Constants.ARMY.ENGINEERING:
+							army_array_value = 3
+						Constants.ARMY.COSC:
+							army_array_value = 1
+						Constants.ARMY.BIOLOGY:
+							army_array_value = 4
+						Constants.ARMY.FINANCE:
+							army_array_value = 2
+						Constants.ARMY.NURSING:
+							army_array_value = 4
+						Constants.ARMY.BANKTANIA:
+							army_array_value = 0
+					var property_tile_index = 10*property_owner.player_colour
+					#print(property_tile_index)
+					property_tile_index += army_array_value
+					#print(property_tile_index)
+					$PropertyTiles.set_cellv(cell, property_tile_index)
+				else:
+					#Find the right property building
+					var property_tile_index = 10*property_owner.player_colour
+					property_tile_index += 4+property_type
+					$PropertyTiles.set_cellv(cell, property_tile_index)
+	$Devproperty.visible = false
 # Initializes the cursor using the cursor.init function so the cursor knows
 # what tiles exist in the map
 func setup_cursor():
@@ -61,6 +141,188 @@ func Ymin() -> int:
 	
 func Ymax() -> int:
 	return yMax
+
+func set_property(cell : Vector2, player : Node2D):
+	var temptilevalue = $PropertyTiles.get_cellv(cell)
+	var property_type = temptilevalue % 10
+	if player == null:
+		$PropertyTiles.set_cellv(cell, 60+property_type)
+	else:
+		if property_type >= 0 && property_type <= 4:
+			#Find the right HQ building
+			var army_array_value
+			match player.commander.army_type:
+				Constants.ARMY.ENGINEERING:
+					army_array_value = 3
+				Constants.ARMY.COSC:
+					army_array_value = 1
+				Constants.ARMY.BIOLOGY:
+					army_array_value = 4
+				Constants.ARMY.FINANCE:
+					army_array_value = 2
+				Constants.ARMY.NURSING:
+					army_array_value = 4
+				Constants.ARMY.BANKTANIA:
+					army_array_value = 0
+			var property_tile_index = 10*player.player_colour
+			#print(property_tile_index)
+			property_tile_index += army_array_value
+			#print(property_tile_index)
+			$PropertyTiles.set_cellv(cell, property_tile_index)
+		else:
+			#Find the right property building
+			var property_tile_index = 10*player.player_colour
+			property_tile_index += property_type
+			$PropertyTiles.set_cellv(cell, property_tile_index)
+
+func game_finished(human : Node2D) -> bool:
+	var property_array = gamegrid.get_properties()
+	var players = $TurnQueue.get_children()
+	var enemies := []
+	var allies := []
+	for player in players:
+		if player.team != human.team:
+			enemies.append(player)
+		else:
+			allies.append(player)
+	# A player is eliminated if they own no units
+	# all production buildings has an enemy blocking it
+	if victory_eliminate:
+		for player in players:
+			# Assume player is eliminated
+			player.defeated = true
+			# if the player has units they are not defeated
+			if gamegrid.get_players_units(player).size() > 0:
+				player.defeated = false
+			else:
+				# check if the map has proprties
+				if not property_array.empty():
+					for property in property_array:
+						if property.playerOwner == player:
+							# if the property they own is a production building
+							if property.property_referance == Constants.PROPERTY.BASE || \
+							property.property_referance == Constants.PROPERTY.AIRPORT || \
+							property.property_referance == Constants.PROPERTY.PORT:
+								# the property is not occupied by a unit
+								if not gamegrid.is_occupied(property.cell):
+									player.defeated = false
+								# the property is occupied by a unit
+								else:
+									# that unit is on the same team as the player
+									if gamegrid.get_unit(property.cell).playerOwner.team == player.team:
+										player.defeated = false
+	# A player is eliminated if they don't own an HQ
+	if victory_hq:
+		for player in players:
+			# Skip if the player was previously eliminated
+			if player.defeated == true:
+				continue
+			# Assume player is eliminated
+			player.defeated = true
+			for property in property_array:
+				if property.playerOwner == player && property.property_referance == Constants.PROPERTY.HQ:
+					player.defeated = false
+	# If a player controls the required number of properties
+	# the game is over
+	if victory_property:
+		for player in players:
+			var property_count = 0
+			for property in property_array:
+				if property.playerOwner == player:
+					property_count += 1
+			if property_count >= property_goal:
+				return true
+	# Check all allies or all enemies are eliminated
+	# Assume allies are defeated
+	var team_defeated = true
+	for player in allies:
+		if not player.defeated:
+			team_defeated = false
+	if team_defeated:
+		return team_defeated
+	# Assume enemies are defeated
+	team_defeated = true
+	for player in enemies:
+		if not player.defeated:
+			team_defeated = false
+	# Remove Eliminated players from the game
+	for player in players:
+		if player.defeated:
+			# Turn all their properties to neutral
+			for property in property_array:
+				if property.playerOwner == player:
+					property.playerOwner = null
+					set_property(property.cell, null)
+			# Delete their units
+			var unit_array = gamegrid.get_players_units(player)
+			if not unit_array.empty():
+				for unit in unit_array:
+					# remove the unit from the grid data
+					gamegrid.array[gamegrid.as_index(unit.cell)].unit = null
+					# delete the unit node
+					unit.queue_free()
+			# Remove the Player from the UI
+			for player_ui in $CanvasLayer/CommanderUI.get_children():
+				if player_ui.player == player:
+					player_ui.queue_free()
+			# Remove the player (both from the turn order and the node)
+			for playernode in $TurnQueue.get_children():
+				if playernode == player:
+					if $TurnQueue.activePlayer == player:
+						$TurnQueue.nextTurn()
+					player.queue_free()
+	return team_defeated
+
+func is_victory(human : Node2D) -> bool:
+	var property_array = gamegrid.get_properties()
+	var players = $TurnQueue.get_children()
+	var enemies := []
+	var allies := []
+	for player in players:
+		if player.team != human.team:
+			enemies.append(player)
+		else:
+			allies.append(player)
+	if enemies.empty():
+		return true
+	var allies_defeated = true
+	for player in allies:
+		if not player.defeated:
+			allies_defeated = false
+	if allies_defeated:
+		return false
+	# Assume enemies are defeated
+	var enemies_defeated = true
+	for player in enemies:
+		if not player.defeated:
+			enemies_defeated = false
+	if enemies_defeated:
+		return true
+	if victory_property:
+		for player in players:
+			var property_count = 0
+			for property in property_array:
+				if property.playerOwner == player:
+					property_count += 1
+			if property_count >= property_goal:
+				return allies.has(player)
+	return false
+
+func victory() -> void:
+	print("Victory")
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
+	$CanvasLayer/DialogBox.start_dialog()
+	$GameBoard/Cursor.deactivate(true)
+	yield($CanvasLayer/DialogBox, "dialog_finished")
+	# TODO: Set Unlock Values
+
+func defeat() -> void:
+	print("Defeat")
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
+	$CanvasLayer/DialogBox.start_dialog()
+	$GameBoard/Cursor.deactivate(true)
+	yield($CanvasLayer/DialogBox, "dialog_finished")
+	get_tree().change_scene("res://Scenes/Select.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
