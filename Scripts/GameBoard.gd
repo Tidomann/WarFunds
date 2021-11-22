@@ -135,15 +135,16 @@ func _move_active_unit(new_position: Vector2) -> void:
 	# We then ask the unit to walk along the path stored in the UnitPath instance and wait until it
 	# finished.
 	_active_unit.walk_along(_unit_path.current_path)
-	match _active_unit.movement_type:
-		Constants.MOVEMENT_TYPE.INFANTRY:
-			$SoundInfantryMove.play()
-		Constants.MOVEMENT_TYPE.MECH:
-			$SoundInfantryMove.play()
-		Constants.MOVEMENT_TYPE.TREAD:
-			pass
-		Constants.MOVEMENT_TYPE.TIRES:
-			pass
+	if _unit_path.current_path.size() > 1:
+		match _active_unit.movement_type:
+			Constants.MOVEMENT_TYPE.INFANTRY:
+				$SoundInfantryMove.play()
+			Constants.MOVEMENT_TYPE.MECH:
+				$SoundInfantryMove.play()
+			Constants.MOVEMENT_TYPE.TREAD:
+				pass
+			Constants.MOVEMENT_TYPE.TIRES:
+				pass
 	yield(_active_unit, "walk_finished")
 	
 	if trapped:

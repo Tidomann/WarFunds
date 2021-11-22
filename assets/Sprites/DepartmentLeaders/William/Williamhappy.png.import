@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Williamhappy.png-899758f3f00d456f16d8712241c39583.stex"
+path="res://.import/WilliamHappy.png-9e63ad6d92c1c58ed2882130caa1c3d9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/William/Williamhappy.png"
-dest_files=[ "res://.import/Williamhappy.png-899758f3f00d456f16d8712241c39583.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/William/WilliamHappy.png"
+dest_files=[ "res://.import/WilliamHappy.png-9e63ad6d92c1c58ed2882130caa1c3d9.stex" ]
 
 [params]
 
