@@ -133,6 +133,8 @@ func get_unit(cell: Vector2) -> Unit:
 		return array[as_index(cell)].getUnit()
 	return null
 
+
+
 ## Returns the griddata containing the specified unit
 func find_unit(unit: Unit) -> GridData:
 	for data in array:
@@ -636,6 +638,12 @@ func get_properties() -> Array:
 	for cell in propertytiles.get_used_cells():
 		property_array.append(array[as_index(cell)].property)
 	return property_array
+
+func get_property(cell: Vector2) -> PropertyWF:
+	if not has_property(cell):
+		return null
+	else:
+		return array[as_index(cell)].property
 
 ## Makes the `grid_position` fit within the grid's bounds.
 ## Most likely obselete code

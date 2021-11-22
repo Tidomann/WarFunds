@@ -2,8 +2,8 @@
 tool
 class_name PropertyWF
 extends Reference
-var playerOwner : Node2D
 
+var playerOwner : Node2D
 var turnReady := true
 ## Coordinates of the property
 var cell : Vector2
