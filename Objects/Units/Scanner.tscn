@@ -40,11 +40,16 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1.5, 1.5, 1.5, 1 ) ]
 }
 
-[node name="Junior" type="Path2D"]
+[node name="Scanner" type="Path2D"]
 curve = null
 script = ExtResource( 3 )
 grid = ExtResource( 4 )
-army_sprite = true
+unit_referance = 3
+unit_type = 1
+cost = 4000
+movement_type = 2
+move_range = 6
+vision_range = 5
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotate = false

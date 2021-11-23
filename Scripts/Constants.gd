@@ -49,12 +49,12 @@ enum UNIT{
 	JUNIOR,
 	SENIOR,
 	BAZOOKA_SENIOR,
-	RECON,
-	TOWER
+	SCANNER,
+	TOWER,
 	#APC,
 	#RECON,
 	#AA,
-	#TANK,
+	#TANK
 	#MDTANK,
 	#ARTILLERY,
 	#ROCKET,
@@ -156,7 +156,7 @@ var junior_dict = {
 	UNIT.JUNIOR : 55, 
 	UNIT.SENIOR : 45,
 	UNIT.BAZOOKA_SENIOR : 45,
-	UNIT.RECON : 12,
+	UNIT.SCANNER : 12,
 	UNIT.TOWER : 10
 	}
 
@@ -164,7 +164,7 @@ var senior_dict = {
 	UNIT.JUNIOR : 65, 
 	UNIT.SENIOR : 55,
 	UNIT.BAZOOKA_SENIOR : 55,
-	UNIT.RECON : 18,
+	UNIT.SCANNER : 18,
 	UNIT.TOWER : 10
 	}
 
@@ -173,7 +173,16 @@ var bazooka_senior_dict = {
 	UNIT.JUNIOR : 65, 
 	UNIT.SENIOR : 55,
 	UNIT.BAZOOKA_SENIOR : 55,
-	UNIT.RECON : 85,
+	UNIT.SCANNER : 85,
+	UNIT.TOWER : 10
+	}
+
+# if Bazooka_senior doesn't have ammo, just use senior_dict
+var scanner_dict = {
+	UNIT.JUNIOR : 70, 
+	UNIT.SENIOR : 65,
+	UNIT.BAZOOKA_SENIOR : 65,
+	UNIT.SCANNER : 35,
 	UNIT.TOWER : 10
 	}
 	
@@ -181,6 +190,7 @@ var damage_dict = {
 	UNIT.JUNIOR : junior_dict,
 	UNIT.SENIOR : senior_dict,
 	UNIT.BAZOOKA_SENIOR : bazooka_senior_dict,
+	UNIT.SCANNER : scanner_dict
 	}
 
 # Called when the node enters the scene tree for the first time.
