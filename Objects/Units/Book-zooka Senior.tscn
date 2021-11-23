@@ -40,16 +40,16 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1.5, 1.5, 1.5, 1 ) ]
 }
 
-[node name="Scanner" type="Path2D"]
+[node name="Book-zooka Senior" type="Path2D"]
 curve = null
 script = ExtResource( 3 )
 grid = ExtResource( 4 )
-unit_referance = 3
-unit_type = 1
-cost = 4000
-movement_type = 2
-move_range = 8
-vision_range = 5
+unit_referance = 2
+cost = 3000
+movement_type = 1
+move_range = 2
+ammo = 3
+army_sprite = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotate = false
