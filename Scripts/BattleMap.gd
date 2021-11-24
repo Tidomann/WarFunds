@@ -49,12 +49,13 @@ func _ready():
 		unit.update_health()
 
 	#Now that the proper commander is in place, set up the turnqueue
-	$TurnQueue.initialize(self)
+	
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
 	#for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
 		child.addPower(0)
+	$TurnQueue.initialize(self)
 	
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
