@@ -40,7 +40,7 @@ func _ready():
 	$GameBoard/Cursor.deactivate(true)
 
 	# Set the positioning and the correct unit sprite for the commanders
-	for child in $GameBoard.get_children():
+	for child in $GameBoard/Units.get_children():
 		var unit := child as Unit
 		if not unit:
 			continue
