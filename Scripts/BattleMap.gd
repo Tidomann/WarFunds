@@ -45,10 +45,11 @@ func _ready():
 		if not unit:
 			continue
 		unit.update_position()
-		if unit.army_sprite:
-			unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
-		else:
-			unit._sprite.frame = unit.playerOwner.player_colour	
+		unit.army_color_set()
+		#if unit.army_sprite:
+			#unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
+		#else:
+			#unit._sprite.frame = unit.playerOwner.player_colour	
 		unit.update_health()
 
 	#Now that the proper commander is in place, set up the turnqueue

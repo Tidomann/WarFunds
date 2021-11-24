@@ -57,6 +57,7 @@ onready var _sprite: Sprite = $PathFollow2D/Sprite
 onready var _hp : Sprite = $PathFollow2D/Health
 onready var _anim_player: AnimationPlayer = $AnimationPlayer
 onready var _path_follow: PathFollow2D = $PathFollow2D
+onready var _army_colour: AnimationPlayer = $ArmyColour
 
 
 func _ready() -> void:
@@ -203,3 +204,105 @@ func update_health() -> void:
 
 func get_move_range() -> int:
 	return move_range + playerOwner.commander.move_bonus()
+
+func army_color_set() -> void:
+	if army_sprite:
+		match playerOwner.commander.army_type:
+			Constants.ARMY.ENGINEERING:
+				match playerOwner.player_colour:
+					Constants.COLOUR.RED:
+						_army_colour.play("eRed")
+					Constants.COLOUR.BLUE:
+						_army_colour.play("eBlue")
+					Constants.COLOUR.GREEN:
+						_army_colour.play("eGreen")
+					Constants.COLOUR.YELLOW:
+						_army_colour.play("eYellow")
+					Constants.COLOUR.CYAN:
+						_army_colour.play("eCyan")
+					Constants.COLOUR.PURPLE:
+						_army_colour.play("ePurple")
+			Constants.ARMY.COSC:
+				match playerOwner.player_colour:
+					Constants.COLOUR.RED:
+						_army_colour.play("cRed")
+					Constants.COLOUR.BLUE:
+						_army_colour.play("cBlue")
+					Constants.COLOUR.GREEN:
+						_army_colour.play("cGreen")
+					Constants.COLOUR.YELLOW:
+						_army_colour.play("cYellow")
+					Constants.COLOUR.CYAN:
+						_army_colour.play("cCyan")
+					Constants.COLOUR.PURPLE:
+						_army_colour.play("cPurple")
+			Constants.ARMY.BIOLOGY:
+				match playerOwner.player_colour:
+					Constants.COLOUR.RED:
+						_army_colour.play("sRed")
+					Constants.COLOUR.BLUE:
+						_army_colour.play("sBlue")
+					Constants.COLOUR.GREEN:
+						_army_colour.play("sGreen")
+					Constants.COLOUR.YELLOW:
+						_army_colour.play("sYellow")
+					Constants.COLOUR.CYAN:
+						_army_colour.play("sCyan")
+					Constants.COLOUR.PURPLE:
+						_army_colour.play("sPurple")
+			Constants.ARMY.FINANCE:
+				match playerOwner.player_colour:
+					Constants.COLOUR.RED:
+						_army_colour.play("fRed")
+					Constants.COLOUR.BLUE:
+						_army_colour.play("fBlue")
+					Constants.COLOUR.GREEN:
+						_army_colour.play("fGreen")
+					Constants.COLOUR.YELLOW:
+						_army_colour.play("fYellow")
+					Constants.COLOUR.CYAN:
+						_army_colour.play("fCyan")
+					Constants.COLOUR.PURPLE:
+						_army_colour.play("fPurple")
+			Constants.ARMY.NURSING:
+				match playerOwner.player_colour:
+					Constants.COLOUR.RED:
+						_army_colour.play("nRed")
+					Constants.COLOUR.BLUE:
+						_army_colour.play("nBlue")
+					Constants.COLOUR.GREEN:
+						_army_colour.play("nGreen")
+					Constants.COLOUR.YELLOW:
+						_army_colour.play("nYellow")
+					Constants.COLOUR.CYAN:
+						_army_colour.play("nCyan")
+					Constants.COLOUR.PURPLE:
+						_army_colour.play("nPurple")
+			Constants.ARMY.BANKTANIA:
+				match playerOwner.player_colour:
+					Constants.COLOUR.RED:
+						_army_colour.play("bRed")
+					Constants.COLOUR.BLUE:
+						_army_colour.play("bBlue")
+					Constants.COLOUR.GREEN:
+						_army_colour.play("bGreen")
+					Constants.COLOUR.YELLOW:
+						_army_colour.play("bYellow")
+					Constants.COLOUR.CYAN:
+						_army_colour.play("bCyan")
+					Constants.COLOUR.PURPLE:
+						_army_colour.play("bPurple")
+	else:
+		match playerOwner.player_colour:
+			Constants.COLOUR.RED:
+				_army_colour.play("Red")
+			Constants.COLOUR.BLUE:
+				_army_colour.play("Blue")
+			Constants.COLOUR.GREEN:
+				_army_colour.play("Green")
+			Constants.COLOUR.YELLOW:
+				_army_colour.play("Yellow")
+			Constants.COLOUR.CYAN:
+				_army_colour.play("Cyan")
+			Constants.COLOUR.PURPLE:
+				_army_colour.play("Purple")

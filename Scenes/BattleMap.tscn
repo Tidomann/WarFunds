@@ -75,20 +75,25 @@ gamegrid = ExtResource( 7 )
 
 [node name="UnitPath" parent="GameBoard" instance=ExtResource( 9 )]
 
+[node name="Printer" parent="GameBoard" instance=ExtResource( 28 )]
+position = Vector2( 278.337, 181.634 )
+player_path = NodePath("../../TurnQueue/Computer1")
+cell = Vector2( 17, 11 )
+
+[node name="Scanner2" parent="GameBoard" instance=ExtResource( 27 )]
+position = Vector2( 136.646, 133.703 )
+player_path = NodePath("../../TurnQueue/Human")
+cell = Vector2( 8, 8 )
+
+[node name="Scanner" parent="GameBoard" instance=ExtResource( 27 )]
+position = Vector2( 120.177, 183.199 )
+player_path = NodePath("../../TurnQueue/Human")
+cell = Vector2( 7, 11 )
+
 [node name="Stapler" parent="GameBoard" instance=ExtResource( 29 )]
 position = Vector2( 216.374, 166.58 )
 player_path = NodePath("../../TurnQueue/Human")
 cell = Vector2( 13, 10 )
-
-[node name="Scanner" parent="GameBoard" instance=ExtResource( 27 )]
-position = Vector2( 201.253, 119.026 )
-player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 12, 7 )
-
-[node name="Printer" parent="GameBoard" instance=ExtResource( 28 )]
-position = Vector2( 200.893, 135.486 )
-player_path = NodePath("../../TurnQueue/Human")
-cell = Vector2( 12, 8 )
 
 [node name="Unit" parent="GameBoard" instance=ExtResource( 15 )]
 position = Vector2( 120.588, 133.741 )
