@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CaptureProperty.mp3-d7eaec2f85d8ca44113faad615a10387.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/CaptureProperty.mp3"
+dest_files=[ "res://.import/CaptureProperty.mp3-d7eaec2f85d8ca44113faad615a10387.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

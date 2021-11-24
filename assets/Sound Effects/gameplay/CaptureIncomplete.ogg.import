@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/CaptureIncomplete.ogg-b22797dbf13bc29ff2a7740093459fa5.oggstr"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/CaptureIncomplete.ogg"
+dest_files=[ "res://.import/CaptureIncomplete.ogg-b22797dbf13bc29ff2a7740093459fa5.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

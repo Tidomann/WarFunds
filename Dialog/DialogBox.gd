@@ -22,12 +22,15 @@ func _ready():
 	$Timer.wait_time = textSpeed
  
 func _process(_delta):
-	$Indicator.visible = finished
-	if Input.is_action_just_pressed("ui_accept"):
-		if finished:
-			nextPhrase()
-		else:
-			$Text.visible_characters = len($Text.text)
+	if self.visible == true:
+		$Indicator.visible = finished
+		if Input.is_action_just_pressed("ui_accept"):
+			if finished:
+				$SoundDialog.play()
+				nextPhrase()
+			else:
+				$SoundDialog.play()
+				$Text.visible_characters = len($Text.text)
  
 func getDialog() -> Array:
 	var f = File.new()
@@ -49,7 +52,6 @@ func nextPhrase() -> void:
 		self.visible = false
 		#queue_free()
 		return
-	
 	finished = false
 	
 	$Name.bbcode_text = dialog[phraseNum]["Name"]

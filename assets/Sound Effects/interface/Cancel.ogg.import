@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Cancel.ogg-2d5da91ba2dd6b3756ba5a35d80fd41e.oggstr"
+
+[deps]
+
+source_file="res://assets/Sound Effects/interface/Cancel.ogg"
+dest_files=[ "res://.import/Cancel.ogg-2d5da91ba2dd6b3756ba5a35d80fd41e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

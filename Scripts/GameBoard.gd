@@ -83,6 +83,7 @@ func set_new_position(unit : Unit, new_cell : Vector2) -> void:
 func _on_Cursor_select_pressed(cell: Vector2) -> void:
 	# Dependingon the board's current state,
 	# select a unit or that we want to give it a move order.
+	$SoundManager.playsound("Select")
 	if not _active_unit && is_occupied(cell):
 		if gamegrid.get_unit(cell).is_turnReady():
 			_select_unit(cell)
@@ -104,6 +105,7 @@ func _select_unit(cell: Vector2) -> void:
 	# registered in the `cell`.
 	if not is_occupied(cell):
 		return
+	$SoundManager.playsound("Select")
 	_active_unit = gamegrid.get_unit(cell)
 	_active_unit.is_selected = true
 	_walkable_cells = gamegrid.get_walkable_cells(_active_unit)
@@ -145,9 +147,9 @@ func _move_active_unit(new_position: Vector2) -> void:
 	if _unit_path.current_path.size() > 1:
 		match _active_unit.movement_type:
 			Constants.MOVEMENT_TYPE.INFANTRY:
-				$SoundInfantryMove.play()
+				$SoundManager.playsound("InfantryMove")
 			Constants.MOVEMENT_TYPE.MECH:
-				$SoundInfantryMove.play()
+				$SoundManager.playsound("InfantryMove")
 			Constants.MOVEMENT_TYPE.TREAD:
 				pass
 			Constants.MOVEMENT_TYPE.TIRES:
@@ -172,9 +174,9 @@ func _move_active_unit(new_position: Vector2) -> void:
 	#TODO: Instead of matching active unit, just call all movement audio to stop playing?
 	match _active_unit.movement_type:
 		Constants.MOVEMENT_TYPE.INFANTRY:
-			$SoundInfantryMove.stop()
+			$SoundManager.stopsound("InfantryMove")
 		Constants.MOVEMENT_TYPE.MECH:
-			$SoundInfantryMove.stop()
+			$SoundManager.stopsound("InfantryMove")
 		Constants.MOVEMENT_TYPE.TREAD:
 			pass
 		Constants.MOVEMENT_TYPE.TIRES:
@@ -192,9 +194,11 @@ func _on_Cursor_moved(new_cell: Vector2) -> void:
 func _on_Cursor_cancel_pressed(cell: Vector2) -> void:
 	# if the unit is only selected
 	if _active_unit:
+		$SoundManager.playsound("Cancel")
 		_active_unit.is_selected = false
 		_clear_active_unit()
 	else:
+		$SoundManager.playsound("Cancel")
 		_pop_up.close()
 		_show_range(cell)
 
@@ -248,6 +252,7 @@ func _on_PopupMenu_selection(selection : String):
 			_pop_up.close()
 			_cursor.activate()
 		"Power":
+			$SoundManager.playsound("PowerReady")
 			print(selection)
 			_clear_active_unit()
 			_turn_queue.activePlayer.commander.use_power()
@@ -263,6 +268,12 @@ func _on_PopupMenu_selection(selection : String):
 			var game_data = gamegrid.array[gamegrid.as_index(_stored_new_position)]
 			var previous_owner = game_data.property.playerOwner
 			if game_data.property.capture(_active_unit):
+				if _active_unit.get_unit_team() == _human_player.team:
+					#Ally = good capture
+					$SoundManager.playsound("CaptureCompleteGood")
+				else:
+					#AI = bad capture
+					$SoundManager.playsound("CaptureCompleteBad")
 				get_parent().set_property(_stored_new_position, _active_unit.playerOwner)
 				signaled_player = previous_owner
 				signaled_income = gamegrid.calculate_income(signaled_player)
@@ -270,6 +281,9 @@ func _on_PopupMenu_selection(selection : String):
 				signaled_player = game_data.property.playerOwner
 				signaled_income = gamegrid.calculate_income(signaled_player)
 				emit_signal("income_changed", signaled_player, signaled_income)
+			else:
+				#One capture turn = Incomplete Capture
+				$SoundManager.playsound("CaptureIncomplete")
 			_clear_active_unit()
 			_pop_up.close()
 			if is_game_finished(_human_player):
@@ -284,6 +298,7 @@ func _on_PopupMenu_selection(selection : String):
 				end_game(_human_player)
 			else:
 				# This assumes a unit will never exceed 100 health
+				$SoundManager.playsound("Heal")
 				_active_unit.playerOwner.addFunds(-_active_unit.get_healing(100))
 				_clear_active_unit()
 				_pop_up.close()
@@ -314,6 +329,7 @@ func _on_CombatCursor_combat_selection(selection):
 		$CanvasLayer/FCTManager.visible = false
 		if selection is String:
 			if selection == "Cancel":
+				$SoundManager.playsound("Cancel")
 				_combat_cursor.deactivate()
 				_pop_up.popup_menu(_cursor.position,\
 				gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),_stored_new_position),\
@@ -327,6 +343,7 @@ func _on_CombatCursor_combat_selection(selection):
 				# Show the cursor but do not reactivate
 				_cursor.visible = true
 		elif selection is Unit:
+			$SoundManager.playsound("Attack")
 			_combat_cursor.deactivate()
 			_unit_overlay.totalclear()
 			set_new_position(_active_unit, _stored_new_position)
@@ -347,7 +364,7 @@ func _on_CombatCursor_moved(new_coordinates):
 		# should not get in here
 		pass
 	else:
-		$SoundMoveAttackCursor.play()
+		$SoundManager.playsound("MoveAttackCursor")
 		var min_damage = gamegrid.calculate_min_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		var max_damage = gamegrid.calculate_max_damage(_active_unit, gamegrid.get_unit(new_coordinates))
 		

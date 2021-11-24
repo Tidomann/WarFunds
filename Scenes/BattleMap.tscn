@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -26,6 +26,15 @@
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 [ext_resource path="res://assets/Sound Effects/interface/click_002.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
+[ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=27]
+[ext_resource path="res://assets/Sound Effects/interface/Select.ogg" type="AudioStream" id=28]
+[ext_resource path="res://assets/Sound Effects/gameplay/Heal.ogg" type="AudioStream" id=29]
+[ext_resource path="res://Scenes/SoundManager.gd" type="Script" id=30]
+[ext_resource path="res://assets/Sound Effects/gameplay/Attack.ogg" type="AudioStream" id=31]
+[ext_resource path="res://assets/Sound Effects/gameplay/CaptureProperty.mp3" type="AudioStream" id=32]
+[ext_resource path="res://assets/Sound Effects/gameplay/LoseProperty.mp3" type="AudioStream" id=33]
+[ext_resource path="res://assets/Sound Effects/gameplay/CaptureIncomplete.ogg" type="AudioStream" id=34]
+[ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -122,13 +131,44 @@ layer = 2
 [node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 26 )]
 visible = false
 
-[node name="SoundMoveAttackCursor" type="AudioStreamPlayer" parent="GameBoard"]
+[node name="SoundManager" type="Node2D" parent="GameBoard"]
+script = ExtResource( 30 )
+
+[node name="SoundMoveAttackCursor" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 25 )
 volume_db = -10.0
 
-[node name="SoundInfantryMove" type="AudioStreamPlayer" parent="GameBoard"]
+[node name="SoundInfantryMove" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 23 )
 volume_db = -10.0
+
+[node name="SoundCancel" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 27 )
+volume_db = -10.0
+
+[node name="SoundSelect" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 28 )
+volume_db = -10.0
+
+[node name="SoundHeal" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 29 )
+volume_db = -10.0
+
+[node name="SoundAttack" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 31 )
+volume_db = -10.0
+
+[node name="SoundCaptureProperty" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 32 )
+
+[node name="SoundLoseProperty" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 33 )
+
+[node name="SoundCaptureIncomplete" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 34 )
+
+[node name="SoundPowerReady" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 35 )
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
 position = Vector2( 239.604, 134.819 )

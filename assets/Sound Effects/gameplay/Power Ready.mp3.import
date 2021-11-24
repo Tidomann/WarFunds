@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Power Ready.mp3-d26850ae9f225ffc8cb42d8c2b9318fd.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/Power Ready.mp3"
+dest_files=[ "res://.import/Power Ready.mp3-d26850ae9f225ffc8cb42d8c2b9318fd.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
