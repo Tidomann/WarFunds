@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fax6.png-93793d8c8c69382835fdb9328b6731b7.stex"
+path="res://.import/fax.png-a45020bbbbef0cfd2d67f5552cb73bcb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Unit/fax/fax6.png"
-dest_files=[ "res://.import/fax6.png-93793d8c8c69382835fdb9328b6731b7.stex" ]
+source_file="res://assets/Sprites/Unit/fax/fax.png"
+dest_files=[ "res://.import/fax.png-a45020bbbbef0cfd2d67f5552cb73bcb.stex" ]
 
 [params]
 
