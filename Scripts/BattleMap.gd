@@ -66,13 +66,15 @@ func _ready():
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
 func setup_tiles():
+	# Setup Terrain Tiles
 	var tileArray = $Devtiles.get_used_cells()
 	for cell in tileArray:
 		var tileIndex = $RenderedTiles.tile_set.find_tile_by_name(
 			$Devtiles.tile_set.tile_get_name($Devtiles.get_cellv(cell)))
 		$RenderedTiles.set_cellv(cell, tileIndex)
-		if tileIndex == Constants.TILE.SEA || tileIndex == Constants.TILE.ROAD:
+		if tileIndex == Constants.TILE.SEA || tileIndex == Constants.TILE.ROAD || tileIndex == Constants.TILE.RIVER:
 			$RenderedTiles.update_bitmask_area(cell)
+	# Setup Property Tiles
 	var propertyArray = $Devproperty.get_used_cells()
 	var players = $TurnQueue.get_children()
 	for cell in propertyArray:
