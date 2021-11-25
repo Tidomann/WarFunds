@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Select.gd" type="Script" id=1]
+[ext_resource path="res://assets/Sound Effects/interface/click3.ogg" type="AudioStream" id=2]
 
 [node name="Select" type="Control"]
 anchor_right = 1.0
@@ -106,5 +107,8 @@ margin_bottom = 210.554
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SoundSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
 
 [connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]

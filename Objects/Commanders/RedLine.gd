@@ -34,6 +34,8 @@ func _ready():
 
 # increase the commanders current power meter by the passed parameter
 func addPower(iPower : float) -> void:
+	if (power == maxPower):
+		return
 	if(power + iPower > maxPower): #check for upper bounds
 		power = maxPower
 	elif(power + iPower < 0.0): #check for lower bounds
