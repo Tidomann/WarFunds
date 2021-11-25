@@ -1,12 +1,11 @@
 [
-	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"HA! You brought students to defeat me?"},
-	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"You'll never have what it takes! We're too strong!"},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"We'll see about that! These are our finest students!"},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"They are Game Designers that will defeat Banktania once and for all!"},
-	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"That day will never come!"},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Okay LU Student, you're up."},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"I'll be guiding you throughout the level to help you."},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Good luck!"},
-	{"Name":"LU Student", "Emotion":"Happy", "Text":"Thank you! I'll do my best."},
-	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"Uh oh, this is the game presentation and Professor Hewel is in charge."}
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Welcome to University!"},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"My name is Professor Hewel."},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Hi Professor Hewel."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Currently, University is being invaded by Banktania."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"We are unsure why but don't have to time to find out."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"We must defend University before all 5 regions fall."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Will you help us?"},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Yes of course."},
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Great. Please select a Department Leader and choose Level 1."}
 ]

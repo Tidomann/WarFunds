@@ -87,5 +87,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_PopupMenu_gui_input(event):
 	if self.visible:
 		if event.is_action_pressed("ui_cancel"):
+			$SoundMenuButtonCancel.play()
 			close()
 			#get_tree().set_input_as_handled()

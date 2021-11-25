@@ -59,6 +59,7 @@ func _on_Button_pressed(id):
 	sprite.texture = texture			
 	sprite.position = Vector2(245+106, 20+72)
 	add_child(sprite)
+	$SoundSelect.play()
 			
 func _on_LeaderButton_pressed(id):
 	if(id < Global.leaders.size()+1):
@@ -68,8 +69,10 @@ func _on_LeaderButton_pressed(id):
 		$Leaders.get_child(id).modulate = Color(1.0,5.0,1.0)
 		$Start.disabled = false
 		$LeaderDetails.text = Global.leadersDesc[id-1]
-		
+	$SoundSelect.play()
+	
 func _on_Start_pressed():
 	if(!(_current_choice == null)):
 # warning-ignore:return_value_discarded
+		$SoundSelect.play()
 		get_tree().change_scene(Global.levels[_current_choice-1])

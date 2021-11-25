@@ -19,13 +19,16 @@ func _ready():
 
 
 func _on_StartButton_pressed():
+	$SoundStartButtonClick.play()
 	$SceneTransitionRect/AnimationPlayer.play("Fade")
 	yield($SceneTransitionRect/AnimationPlayer, "animation_finished")
 	get_tree().change_scene("res://Scenes/Intro Dialog.tscn")
 
 func _on_OptionsButton_pressed():
+	$SoundStartButtonClick.play()
 	pass # Replace with function body.
 
 func _on_QuitButton_pressed():
+	$SoundStartButtonClick.play()
 	get_tree().quit()
 
