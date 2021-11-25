@@ -6,6 +6,7 @@ var activePlayer
 export var gamegrid: Resource
 var property_tilemap : TileMap
 onready var audioStream = get_parent().get_node("Music Player")
+onready var turn_ui = get_parent().get_node("CanvasLayer/NewTurnUi")
 onready var sound_manager = get_parent().get_node("GameBoard/SoundManager")
 signal turn_changed(activePlayer)
 
@@ -29,6 +30,7 @@ func nextTurn():
 	start_turn(activePlayer)
 	emit_signal("turn_changed", activePlayer)
 	audioStream.set_music(activePlayer.commander.commanderName)
+	turn_ui.new_turn_ui(activePlayer.commander.commander_portrait.texture, activePlayer.playerName)
 
 func getPlayers():
 	return get_children()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -39,6 +39,7 @@
 [ext_resource path="res://Objects/Units/Stapler.tscn" type="PackedScene" id=37]
 [ext_resource path="res://Objects/Units/Printer.tscn" type="PackedScene" id=38]
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
+[ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -260,6 +261,12 @@ margin_left = -210.261
 margin_top = -124.832
 margin_right = 220.739
 margin_bottom = -9.83203
+
+[node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
+margin_left = -239.123
+margin_top = -134.568
+margin_right = 240.877
+margin_bottom = 135.432
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -30.0

@@ -3,5 +3,5 @@
 [ext_resource path="res://assets/Kenney Pixel.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 10
+size = 15
 font_data = ExtResource( 1 )
