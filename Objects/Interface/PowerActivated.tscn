@@ -100,8 +100,8 @@ margin_left = 69.0
 margin_top = 6.0
 margin_right = 208.0
 margin_bottom = 27.0
-custom_fonts/normal_font = SubResource( 1 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 1 )
 text = "Power Activated"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,8 +112,8 @@ margin_left = 75.1148
 margin_top = 34.2074
 margin_right = 216.115
 margin_bottom = 68.2074
-custom_fonts/normal_font = SubResource( 2 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 2 )
 tab_size = 0
 __meta__ = {
 "_edit_use_anchors_": false
