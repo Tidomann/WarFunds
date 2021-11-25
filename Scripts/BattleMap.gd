@@ -56,9 +56,10 @@ func _ready():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
 		child.addPower(0)
 	$TurnQueue.initialize(self)
+	$Devtiles.visible = false
 	
 	#Start of battle dialog
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
@@ -66,13 +67,15 @@ func _ready():
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
 func setup_tiles():
+	# Setup Terrain Tiles
 	var tileArray = $Devtiles.get_used_cells()
 	for cell in tileArray:
 		var tileIndex = $RenderedTiles.tile_set.find_tile_by_name(
 			$Devtiles.tile_set.tile_get_name($Devtiles.get_cellv(cell)))
 		$RenderedTiles.set_cellv(cell, tileIndex)
-		if tileIndex == Constants.TILE.SEA || tileIndex == Constants.TILE.ROAD:
+		if tileIndex == Constants.TILE.SEA || tileIndex == Constants.TILE.ROAD || tileIndex == Constants.TILE.RIVER:
 			$RenderedTiles.update_bitmask_area(cell)
+	# Setup Property Tiles
 	var propertyArray = $Devproperty.get_used_cells()
 	var players = $TurnQueue.get_children()
 	for cell in propertyArray:
