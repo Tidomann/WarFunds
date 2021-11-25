@@ -613,6 +613,7 @@ func start_turn_income(player : Node2D) -> int:
 			if game_data.property.property_referance == Constants.PROPERTY.TOWER:
 				game_data.property.playerOwner.addPower(800)
 			# If the property has a unit on it repair the unit
+			# START TURN PROPERTY HEAL
 			if game_data.has_Unit():
 				if game_data.unit.playerOwner == player:
 					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds:
