@@ -56,7 +56,7 @@ func load_data():
 		array[array_index].setTileType(devtiles.get_cellv(cell))
 		array[array_index].setCoordinatesV2(cell)
 	# Unit Load
-	for child in gameBoard.get_children():
+	for child in gameBoard.get_node("Units").get_children():
 		var unit := child as Unit
 		if not unit:
 			continue
@@ -288,10 +288,13 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int,
 					continue
 				tileType = get_GridData_by_position(coordinates).getTileType()
 				# Skip if the unit can't move to the tile
-				if not is_valid_move(movement_type, tileType):
+				if not is_valid_move(movement_type, tileType) && not has_property(coordinates):
 					continue
 				# Check to see if the unit has exhausted all it's move range
-				movecost = get_movecost(movement_type, tileType)
+				if has_property(coordinates):
+					movecost = 1
+				else:
+					movecost = get_movecost(movement_type, tileType)
 			else:
 				movecost = 1
 			# Skip If we don't have enough movement remaining

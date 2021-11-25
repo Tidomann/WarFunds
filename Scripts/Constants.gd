@@ -49,15 +49,17 @@ enum UNIT{
 	JUNIOR,
 	SENIOR,
 	BAZOOKA_SENIOR,
-	RECON,
-	TOWER
+	SCANNER,
+	TOWER,
+	PRINTER,
+	STAPLER,
 	#APC,
 	#RECON,
 	#AA,
-	#TANK,
+	#TANK
 	#MDTANK,
 	#ARTILLERY,
-	#ROCKET,
+	FAX,
 	#TCOPTOR,
 	#BCOPTOR,
 	#FIGHTER,
@@ -156,16 +158,22 @@ var junior_dict = {
 	UNIT.JUNIOR : 55, 
 	UNIT.SENIOR : 45,
 	UNIT.BAZOOKA_SENIOR : 45,
-	UNIT.RECON : 12,
-	UNIT.TOWER : 10
+	UNIT.SCANNER : 12,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 5,
+	UNIT.STAPLER : 15,
+	UNIT.FAX : 25
 	}
 
 var senior_dict = {
 	UNIT.JUNIOR : 65, 
 	UNIT.SENIOR : 55,
 	UNIT.BAZOOKA_SENIOR : 55,
-	UNIT.RECON : 18,
-	UNIT.TOWER : 10
+	UNIT.SCANNER : 18,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 6,
+	UNIT.STAPLER : 32,
+	UNIT.FAX : 35
 	}
 
 # if Bazooka_senior doesn't have ammo, just use senior_dict
@@ -173,14 +181,65 @@ var bazooka_senior_dict = {
 	UNIT.JUNIOR : 65, 
 	UNIT.SENIOR : 55,
 	UNIT.BAZOOKA_SENIOR : 55,
-	UNIT.RECON : 85,
-	UNIT.TOWER : 10
+	UNIT.SCANNER : 85,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 55,
+	UNIT.STAPLER : 70,
+	UNIT.FAX : 85
+	}
+
+# if Bazooka_senior doesn't have ammo, just use senior_dict
+var scanner_dict = {
+	UNIT.JUNIOR : 70, 
+	UNIT.SENIOR : 65,
+	UNIT.BAZOOKA_SENIOR : 65,
+	UNIT.SCANNER : 35,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 6,
+	UNIT.STAPLER : 45,
+	UNIT.FAX : 55
 	}
 	
+var printer_dict = {
+	UNIT.JUNIOR : 75, 
+	UNIT.SENIOR : 50,
+	UNIT.BAZOOKA_SENIOR : 50,
+	UNIT.SCANNER : 85,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 55,
+	UNIT.STAPLER : 70,
+	UNIT.FAX : 85
+}
+var stapler_dict = {
+	UNIT.JUNIOR : 90, 
+	UNIT.SENIOR : 85,
+	UNIT.BAZOOKA_SENIOR : 85,
+	UNIT.SCANNER : 80,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 70,
+	UNIT.STAPLER : 75,
+	UNIT.FAX : 80
+}
+
+var fax_dict = {
+	UNIT.JUNIOR : 95, 
+	UNIT.SENIOR : 90,
+	UNIT.BAZOOKA_SENIOR : 90,
+	UNIT.SCANNER : 90,
+	UNIT.TOWER : 10,
+	UNIT.PRINTER : 85,
+	UNIT.STAPLER : 80,
+	UNIT.FAX : 85
+}
+
 var damage_dict = {
 	UNIT.JUNIOR : junior_dict,
 	UNIT.SENIOR : senior_dict,
 	UNIT.BAZOOKA_SENIOR : bazooka_senior_dict,
+	UNIT.SCANNER : scanner_dict,
+	UNIT.PRINTER : printer_dict,
+	UNIT.STAPLER : stapler_dict,
+	UNIT.FAX : fax_dict
 	}
 
 # Called when the node enters the scene tree for the first time.
