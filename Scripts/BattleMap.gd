@@ -56,9 +56,10 @@ func _ready():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
 		child.addPower(0)
 	$TurnQueue.initialize(self)
+	$Devtiles.visible = false
 	
 	#Start of battle dialog
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
