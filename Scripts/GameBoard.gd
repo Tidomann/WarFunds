@@ -252,7 +252,6 @@ func _on_PopupMenu_selection(selection : String):
 			_pop_up.close()
 			_cursor.activate()
 		"Power":
-			$SoundManager.playsound("PowerReady")
 			print(selection)
 			_clear_active_unit()
 			_turn_queue.activePlayer.commander.use_power()
@@ -347,7 +346,10 @@ func _on_CombatCursor_combat_selection(selection):
 			_combat_cursor.deactivate()
 			_unit_overlay.totalclear()
 			set_new_position(_active_unit, _stored_new_position)
+			var now_max_power = not _active_unit.playerOwner.commander.canUsePower()
 			gamegrid.unit_combat(_active_unit, selection)
+			if now_max_power && _active_unit.playerOwner.commander.canUsePower():
+				$SoundManager.playsound("PowerReady")
 			_attacking = false
 			
 			if _active_unit.is_turnReady():

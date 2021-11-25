@@ -6,6 +6,7 @@ var activePlayer
 export var gamegrid: Resource
 var property_tilemap : TileMap
 onready var audioStream = get_parent().get_node("Music Player")
+onready var sound_manager = get_parent().get_node("GameBoard/SoundManager")
 signal turn_changed(activePlayer)
 
 
@@ -41,9 +42,12 @@ func printOrder():
 func start_turn(player : Node2D):
 	player.commander.used_power = false
 	#generate income per property owned
+	var now_max_power = not player.commander.canUsePower()
 	var income = gamegrid.start_turn_income(player)
 	player.addFunds(income)
 	player.addPower(income*0.2)
+	if now_max_power && player.commander.canUsePower():
+				sound_manager.playsound("PowerReady")
 	
 	
 
