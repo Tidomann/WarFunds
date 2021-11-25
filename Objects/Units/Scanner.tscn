@@ -145,6 +145,7 @@ unit_type = 1
 cost = 4000
 movement_type = 2
 move_range = 8
+move_speed = 120.0
 vision_range = 5
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
