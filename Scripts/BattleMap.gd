@@ -40,24 +40,22 @@ func _ready():
 	$GameBoard/Cursor.deactivate(true)
 
 	# Set the positioning and the correct unit sprite for the commanders
-	for child in $GameBoard.get_children():
+	for child in $GameBoard/Units.get_children():
 		var unit := child as Unit
 		if not unit:
 			continue
 		unit.update_position()
-		if unit.army_sprite:
-			unit._sprite.frame = unit.playerOwner.player_colour + ((unit.playerOwner.commander.army_type)*6)
-		else:
-			unit._sprite.frame = unit.playerOwner.player_colour	
+		unit.army_color_set()
 		unit.update_health()
 
 	#Now that the proper commander is in place, set up the turnqueue
-	$TurnQueue.initialize(self)
+	
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
 	#for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
 		child.addPower(0)
+	$TurnQueue.initialize(self)
 	
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Dialog1.json"
