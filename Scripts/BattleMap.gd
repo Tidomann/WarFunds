@@ -19,7 +19,7 @@ onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
 func _ready():
 	# Load the Game Data
 	gamegrid.initialize(self)
-	
+	$AIControl.init()
 	# Initialize the Humans Commander to be the chosen commander from Select
 	# or default to William
 	for child in $TurnQueue/Human.get_children():

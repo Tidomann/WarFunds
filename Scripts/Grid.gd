@@ -153,6 +153,8 @@ func get_unit_position(unit: Unit) -> Vector2:
 
 ## Returns true if the grid_position is occupied by another unit
 func is_occupied(cell: Vector2) -> bool:
+	if array[as_index(cell)] == null:
+		return false
 	return true if array[as_index(cell)].getUnit() != null else false
 
 ## Test to see if the two units are enemies
@@ -291,6 +293,8 @@ func _flood_fill(cell: Vector2, max_distance: int, movement_type: int,
 				if not is_valid_move(movement_type, tileType) && not has_property(coordinates):
 					continue
 				# Check to see if the unit has exhausted all it's move range
+				# Code may need to be adjusting when adding ship units
+				# Ships won't move through bases or airports?
 				if has_property(coordinates):
 					movecost = 1
 				else:
