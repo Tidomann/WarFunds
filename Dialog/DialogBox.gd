@@ -63,6 +63,10 @@ func nextPhrase() -> void:
 	var img = "res://assets/Sprites/DepartmentLeaders/" + dialog[phraseNum]["Name"] + "/" + dialog[phraseNum]["Name"] + dialog[phraseNum]["Emotion"] + ".png"
 	if f.file_exists(img):
 		$Portrait.texture = load(img)
+		var tmp = $Portrait.texture.get_size()
+		tmp.x = 64 / tmp.x
+		tmp.y = 64/ tmp.y
+		$Portrait.scale = tmp
 		$Portrait.position.x = 6 + (0.5 * $Portrait.scale.x * $Portrait.texture.get_width())
 		$Portrait.position.y = 0.5 * $Portrait.scale.y * -($Portrait.texture.get_height())
 	else: $Portrait.texture = null

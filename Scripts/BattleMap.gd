@@ -1,6 +1,7 @@
 extends Node2D
 
 # Member Variables
+export var level_number = 0
 # Variables that represent the map boundaries
 export var fog_map := false
 export var victory_eliminate := true
@@ -57,19 +58,18 @@ func _ready():
 		child.addPower(0)
 	$TurnQueue.initialize(self)
 	$Devtiles.visible = false
-	
+	$AIControl.init(self)
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
-	#$CanvasLayer/DialogBox.start_dialog()
-	#yield($CanvasLayer/DialogBox, "dialog_finished")
+	match level_number:
+		0:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
+		1:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
+	$CanvasLayer/DialogBox.start_dialog()
+	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
-	$AIControl.init(self)
-	#var test_array = []
-	#test_array.append($GameBoard/Units/Scanner2)
-	#$AIControl.best_attack_path_direct($GameBoard/Units/Unit5)
-	#$AIControl.indirect_actions(test_array)
-	#$AIControl.direct_actions(test_array)
-	#$AIControl.take_computer_turn($TurnQueue/Human)
+
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
@@ -318,6 +318,11 @@ func is_victory(human : Node2D) -> bool:
 func victory() -> void:
 	print("Victory")
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
+	match level_number:
+		0:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
+		1:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -325,6 +330,12 @@ func victory() -> void:
 
 func defeat() -> void:
 	print("Defeat")
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
+	match level_number:
+		0:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
+		1:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)

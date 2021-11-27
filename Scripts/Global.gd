@@ -2,6 +2,7 @@ extends Node
 
 # Selected Leader
 var path = "res://Objects/Commanders/William.tscn"
+var intro_dialogue = "res://Dialog/GameIntro.json"
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,true,true,false,false,false,false,false]

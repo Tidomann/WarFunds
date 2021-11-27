@@ -39,6 +39,7 @@
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
+level_number = 1
 victory_hq = false
 xMin = 7
 xMax = 21
@@ -67,9 +68,10 @@ tile_data = PoolIntArray( 196615, 9, 65537, 196616, 9, 65537, 196617, 9, 65537, 
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 720905, 6, 0 )
+tile_data = PoolIntArray( 720903, 1, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
+visible = false
 tile_set = ExtResource( 19 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -217,7 +219,6 @@ playerName = "Banktania"
 team = 6
 commander_path = NodePath("RedLine")
 player_colour = 5
-funds = 16000
 facing = "Left"
 computerAI = true
 

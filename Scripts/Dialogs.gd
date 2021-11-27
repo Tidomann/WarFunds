@@ -8,7 +8,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Intro.dialogPath = "res://Dialog/Dialog1.json"
+	$Intro.dialogPath = Global.intro_dialogue
 	$Intro.start_dialog()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

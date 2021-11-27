@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Professor HewelHappy.png-7640d1a834b65d414a8b26297defae4e.stex"
+path="res://.import/LU StudentSurprised.png-6397229198b7a4d34437f9b1e2ea91a8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/Professor Hewel/Professor HewelHappy.png"
-dest_files=[ "res://.import/Professor HewelHappy.png-7640d1a834b65d414a8b26297defae4e.stex" ]
+source_file="res://assets/Sprites/DepartmentLeaders/LU Student/LU StudentSurprised.png"
+dest_files=[ "res://.import/LU StudentSurprised.png-6397229198b7a4d34437f9b1e2ea91a8.stex" ]
 
 [params]
 
