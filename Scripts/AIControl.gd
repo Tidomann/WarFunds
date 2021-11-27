@@ -548,6 +548,27 @@ func is_good_attack(attacker : Unit, defender : Unit) -> bool:
 
 func direct_actions(light_direct : Array) -> void:
 	for unit in light_direct:
+		if (unit.health < 29 || unit.ai_healing) && has_open_property(unit):
+			unit.ai_healing = true
+			var path = get_healing_path(unit)
+			move_computer_unit(unit,path)
+			if path.size() > 1:
+				yield(unit, "walk_finished")
+				soundmanager.stopallsound()
+			else:
+				if gameboard.can_afford_heal(unit):
+					soundmanager.playsound("Heal")
+					# ADJUST HEALING COST BALANCE HERE
+					unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+					if unit.turnReady:
+						unit.flip_turnReady()
+					timer.set_wait_time(1.9)
+					timer.set_one_shot(true)
+					timer.start()
+					yield(timer, "timeout")
+			if unit.turnReady:
+				unit.flip_turnReady()
+		else:
 			if not unit.defensive_ai:
 				var path = best_attack_path_direct(unit)
 				var old_position = unit.cell
@@ -599,6 +620,11 @@ func direct_actions(light_direct : Array) -> void:
 				else:
 					if unit.turnReady:
 						unit.flip_turnReady()
+	timer.stop()
+	timer.set_wait_time(0.25)
+	timer.set_one_shot(true)
+	timer.start()
+	yield(timer, "timeout")
 
 func infantry_actions(infantry : Array) -> void:
 	for unit in infantry:
@@ -683,7 +709,22 @@ func indirect_actions(indirects : Array) -> void:
 				yield(computer_combat(unit, targets[0]), "completed")
 		# no targets in range
 		else:
-			var path = no_targets_indirect_path(unit)
+			var path : PoolVector2Array = []
+			if (unit.health < 29 || unit.ai_healing) && has_open_property(unit):
+				unit.ai_healing = true
+				path = get_healing_path(unit)
+				if path.size() <= 1:
+					if gameboard.can_afford_heal(unit):
+						soundmanager.playsound("Heal")
+						unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+						if unit.turnReady:
+							unit.flip_turnReady()
+						timer.set_wait_time(1.9)
+						timer.set_one_shot(true)
+						timer.start()
+						yield(timer, "timeout")
+			else:
+				path = no_targets_indirect_path(unit)
 			move_computer_unit(unit,path)
 			if path.size() > 1:
 				yield(unit, "walk_finished")
@@ -741,6 +782,67 @@ func computer_combat(attacker : Unit, defender : Unit) -> void:
 	if attacker.turnReady:
 		attacker.flip_turnReady()
 
+func get_healing_path(attacker: Unit) -> PoolVector2Array:
+	var property_coordinates : PoolIntArray = []
+	var destination_path : PoolVector2Array = []
+	for cell in gamegrid.propertytiles.get_used_cells():
+			if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner == attacker.playerOwner:
+				if gamegrid.array[gamegrid.as_index(cell)].unit != null:
+					if gamegrid.array[gamegrid.as_index(cell)].unit != attacker:
+						property_coordinates.append(gamegrid.as_index(cell))
+					# unit is already on a property
+					else:
+						destination_path = []
+						destination_path.append(attacker.cell)
+						#battlemap._unit_overlay.draw(destination_path)
+						return destination_path
+				else:
+					property_coordinates.append(gamegrid.as_index(cell))
+	if not property_coordinates.empty():
+		var final_move_blocked = true
+		while final_move_blocked:
+			destination_path = []
+			recalculate_to_targets_map(attacker, property_coordinates)
+			dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+			# Set starting index
+			destination_path.append(attacker.cell)
+			var next_index = gamegrid.as_index(attacker.cell)
+			var move_distance = dijkstra_map.get_cost_at_point(next_index)
+			var move_bonus = attacker.playerOwner.commander.move_bonus()
+			while move_distance - dijkstra_map.get_cost_at_point(next_index) < (attacker.move_range + move_bonus):
+				if next_index == dijkstra_map.get_direction_at_point(next_index):
+						break
+				next_index = dijkstra_map.get_direction_at_point(next_index)
+				destination_path.append(gamegrid.array[next_index].coordinates)
+			# if the final destination coordinate is blocked
+			if gamegrid.array[next_index].getUnit() != null:
+				if gamegrid.array[next_index].getUnit() != attacker:
+					dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+					dijkstra_map.disable_point(next_index)
+					dijkstra_map.set_terrain_for_point(next_index, 1)
+				else:
+					final_move_blocked = false
+			else:
+				final_move_blocked = false
+		reactivate_all_points()
+		#battlemap._unit_overlay.draw(destination_path)
+		return destination_path
+	else:
+		reactivate_all_points()
+		destination_path = []
+		destination_path.append(attacker.cell)
+		#battlemap._unit_overlay.draw(destination_path)
+		return destination_path
+
+func has_open_property(attacker: Unit) -> bool:
+	for cell in gamegrid.propertytiles.get_used_cells():
+		if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner == attacker.playerOwner:
+			if gamegrid.array[gamegrid.as_index(cell)].unit != null:
+				if gamegrid.array[gamegrid.as_index(cell)].unit == attacker:
+					return true
+			else:
+				return true
+	return false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
