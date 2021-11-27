@@ -472,10 +472,10 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 					continue
 				# Do we have a path next to the targets if we are blocked by enemy units and
 				# is the end of that path not occupied already
-				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(target.cell + direction)).empty() &&\
-				not gamegrid.is_occupied(target.cell + direction):
-					if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range:
-						reachable_targets.append(target)
+				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(target.cell + direction)).empty() || (target.cell + direction) == attacker.cell:
+					if not gamegrid.is_occupied(target.cell + direction) || gamegrid.get_unit(target.cell + direction) == attacker:
+						if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range:
+							reachable_targets.append(target)
 		# find the best target of available targets
 		if not reachable_targets.empty():
 			var max_funds_damage = 0
@@ -497,8 +497,8 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 			for direction in DIRECTIONS:
 				if not gamegrid.is_gridcoordinate_within_map(best_target.cell + direction):
 					continue
-				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() &&\
-				not gamegrid.is_occupied(best_target.cell + direction):
+				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() || (best_target.cell + direction) == attacker.cell:
+					if not gamegrid.is_occupied(best_target.cell + direction) || gamegrid.get_unit(best_target.cell + direction) == attacker:
 						if destination == null:
 							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
@@ -630,9 +630,11 @@ func infantry_actions(infantry : Array) -> void:
 	for unit in infantry:
 		var path = defensive_direct(unit)
 		var old_position = unit.cell
-		move_computer_unit(unit,path)
 		if path.size() > 1:
-			yield(unit, "walk_finished")
+			if not path[0] == path[path.size()-1]:
+				move_computer_unit(unit,path)
+				yield(unit, "walk_finished")
+				soundmanager.stopallsound()
 			soundmanager.stopallsound()
 			var new_position = unit.cell
 			if gamegrid.enemy_in_range(unit, old_position, new_position):
@@ -653,33 +655,38 @@ func infantry_actions(infantry : Array) -> void:
 				if unit.turnReady:
 					unit.flip_turnReady()
 		else:
-			reactivate_all_points()
-			path = no_targets_direct_path(unit)
 			move_computer_unit(unit,path)
-			if path.size() > 1:
-				yield(unit, "walk_finished")
-				soundmanager.stopallsound()
-			timer.set_wait_time(1)
-			timer.set_one_shot(true)
-			timer.start()
-			if gamegrid.has_property(unit.cell):
-				var previous_owner = gamegrid.get_property(unit.cell).playerOwner
-				if gamegrid.get_property(unit.cell).playerOwner != unit.playerOwner:
-					if gamegrid.get_property(unit.cell).capture(unit):
-						#TODO: add capture sounds AI
-						if unit.get_unit_team() == human_player.team:
-							soundmanager.playsound("CaptureCompleteGood")
+			if unit.defensive_ai:
+				if unit.turnReady:
+					unit.flip_turnReady()
+			else:
+				reactivate_all_points()
+				path = no_targets_direct_path(unit)
+				move_computer_unit(unit,path)
+				if path.size() > 1:
+					yield(unit, "walk_finished")
+					soundmanager.stopallsound()
+				timer.set_wait_time(1)
+				timer.set_one_shot(true)
+				timer.start()
+				if gamegrid.has_property(unit.cell):
+					var previous_owner = gamegrid.get_property(unit.cell).playerOwner
+					if gamegrid.get_property(unit.cell).playerOwner != unit.playerOwner:
+						if gamegrid.get_property(unit.cell).capture(unit):
+							#TODO: add capture sounds AI
+							if unit.get_unit_team() == human_player.team:
+								soundmanager.playsound("CaptureCompleteGood")
+							else:
+								soundmanager.playsound("CaptureCompleteBad")
+							get_parent().set_property(unit.cell, unit.playerOwner)
+							var signaled_income = gamegrid.calculate_income(previous_owner)
+							gameboard.emit_signal("income_changed", previous_owner, signaled_income)
+							signaled_income = gamegrid.calculate_income(unit.playerOwner)
+							gameboard.emit_signal("income_changed", unit.playerOwner, signaled_income)
 						else:
-							soundmanager.playsound("CaptureCompleteBad")
-						get_parent().set_property(unit.cell, unit.playerOwner)
-						var signaled_income = gamegrid.calculate_income(previous_owner)
-						gameboard.emit_signal("income_changed", previous_owner, signaled_income)
-						signaled_income = gamegrid.calculate_income(unit.playerOwner)
-						gameboard.emit_signal("income_changed", unit.playerOwner, signaled_income)
-					else:
-						soundmanager.playsound("CaptureIncomplete")
-			if unit.turnReady:
-				unit.flip_turnReady()
+							soundmanager.playsound("CaptureIncomplete")
+				if unit.turnReady:
+					unit.flip_turnReady()
 		timer.set_wait_time(1.5)
 		timer.set_one_shot(true)
 		timer.start()
@@ -706,7 +713,18 @@ func indirect_actions(indirects : Array) -> void:
 			if not best_target == null:
 				yield(computer_combat(unit, best_target), "completed")
 			else:
-				yield(computer_combat(unit, targets[0]), "completed")
+				#Djkstra let us down
+				targets = []
+				var attackable_cells = gamegrid.get_attackable_cells(unit)
+				for cell in attackable_cells:
+					if gamegrid.is_occupied(cell):
+						if gamegrid.is_enemy(unit, gamegrid.get_unit(cell)):
+							targets.append(gamegrid.get_unit(cell))
+				best_target = get_best_target(unit, targets)
+				if not best_target == null:
+					yield(computer_combat(unit, best_target), "completed")
+				else:
+					yield(computer_combat(unit, targets[0]), "completed")
 		# no targets in range
 		else:
 			var path : PoolVector2Array = []
