@@ -3,6 +3,7 @@ extends Node
 # Selected Leader
 var path = "res://Objects/Commanders/William.tscn"
 var intro_dialogue = "res://Dialog/GameIntro.json"
+var next_level = "res://Scenes/Level1.tscn"
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,true,true,false,false,false,false,false]
@@ -31,5 +32,14 @@ var leadersDesc = [
 
 # Levels
 var levels = [
-	"res://Scenes/BattleMap.tscn"
+	"res://Scenes/Level1.tscn"
+]
+
+# Level Intros
+var level_intros = [
+	"res://Dialog/Level1Intro.json"
+]
+
+var intro_scenes = [
+	"res://Scenes/Level1Intro.tscn"
 ]

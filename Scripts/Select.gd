@@ -75,4 +75,7 @@ func _on_Start_pressed():
 	if(!(_current_choice == null)):
 # warning-ignore:return_value_discarded
 		$SoundSelect.play()
-		get_tree().change_scene(Global.levels[_current_choice-1])
+		Global.intro_dialogue = Global.level_intros[_current_choice-1]
+		Global.next_level = Global.levels[_current_choice-1]
+		get_tree().change_scene(Global.intro_scenes[_current_choice-1])
+

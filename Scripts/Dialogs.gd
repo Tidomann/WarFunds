@@ -16,4 +16,4 @@ func _ready():
 #	pass
 
 func _on_Intro_dialog_finished(_isfinished):
-	get_tree().change_scene("res://Scenes/Select.tscn")
+	get_tree().change_scene(Global.next_level)
