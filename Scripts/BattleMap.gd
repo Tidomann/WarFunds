@@ -68,7 +68,7 @@ func _ready():
 	test_array.append($GameBoard/Units/Stapler)
 	#$AIControl.best_attack_path_direct($GameBoard/Units/Unit5)
 	#$AIControl.indirect_actions(test_array)
-	$AIControl.take_computer_turn($TurnQueue/Human)
+	#AIControl.take_computer_turn($TurnQueue/Human)
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap

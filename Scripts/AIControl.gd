@@ -87,7 +87,8 @@ func take_computer_turn(computer : Node2D) -> void:
 				unit.flip_turnReady()
 	if gameboard.is_game_finished(human_player):
 		gameboard.end_game(human_player)
-	turn_queue.nextTurn()
+	else:
+		turn_queue.nextTurn()
 	
 
 func init(inbattlemap : Node2D) -> void:
@@ -213,7 +214,9 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 		for unit in battlemap._units_node.get_children():
 			# Attacker cannot travel on top of enemy
 			if attacker.playerOwner.team != unit.playerOwner.team:
+				dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 				dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
+				dijkstra_map.set_terrain_for_point(gamegrid.as_index(unit.cell), 1)
 		recalculate_map(attacker, attacker.cell)
 		dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 		# can we reach each target in the target_list
@@ -290,6 +293,11 @@ func reactivate_all_points() -> void:
 			tires_map.enable_point(index)
 			tread_map.enable_point(index)
 			air_map.enable_point(index)
+			infantry_map.set_terrain_for_point(index, -1)
+			mech_map.set_terrain_for_point(index, -1)
+			tires_map.set_terrain_for_point(index, -1)
+			tread_map.set_terrain_for_point(index, -1)
+			air_map.set_terrain_for_point(index, -1)
 		index += 1
 
 func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
@@ -318,7 +326,12 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 					destination_path.append(gamegrid.array[next_index].coordinates)
 				# if the final destination coordinate is blocked
 				if gamegrid.array[next_index].getUnit() != null:
-					dijkstra_map.disable_point(next_index)
+					if gamegrid.array[next_index].getUnit() != attacker:
+						dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+						dijkstra_map.disable_point(next_index)
+						dijkstra_map.set_terrain_for_point(next_index, 1)
+					else:
+						final_move_blocked = false
 				else:
 					final_move_blocked = false
 			reactivate_all_points()
@@ -354,7 +367,9 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 				# if the final destination coordinate is blocked
 				if gamegrid.array[next_index].getUnit() != null:
 					if gamegrid.array[next_index].getUnit() != attacker:
+						dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 						dijkstra_map.disable_point(next_index)
+						dijkstra_map.set_terrain_for_point(next_index, 1)
 					else:
 						final_move_blocked = false
 				else:
@@ -375,8 +390,11 @@ func no_targets_indirect_path(attacker: Unit) -> PoolVector2Array:
 	for unit in battlemap._units_node.get_children():
 		if unit.playerOwner.team != attacker.playerOwner.team:
 			long_distance_coordinates.append(gamegrid.as_index(unit.cell))
-			air_map.disable_point(gamegrid.as_index(unit.cell))
-			dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
+			#air_map.disable_point(gamegrid.as_index(unit.cell))
+			#air_map.set_terrain_for_point(gamegrid.as_index(unit.cell), 1)
+			#dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+			#dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
+			#dijkstra_map.set_terrain_for_point(gamegrid.as_index(unit.cell), 1)
 	if not long_distance_coordinates.empty():
 		var final_move_blocked = true
 		while final_move_blocked:
@@ -402,8 +420,13 @@ func no_targets_indirect_path(attacker: Unit) -> PoolVector2Array:
 				destination_path.append(gamegrid.array[next_index].coordinates)
 			# if the final destination coordinate is blocked
 			if gamegrid.array[next_index].getUnit() != null:
-				air_map.disable_point(next_index)
-				dijkstra_map.disable_point(next_index)
+				if gamegrid.array[next_index].getUnit() != attacker:
+					air_map.disable_point(next_index)
+					dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+					dijkstra_map.disable_point(next_index)
+					dijkstra_map.set_terrain_for_point(next_index, 1)
+				else:
+					final_move_blocked = false
 			else:
 				final_move_blocked = false
 		reactivate_all_points()
@@ -434,7 +457,9 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 	for unit in battlemap._units_node.get_children():
 		# Attacker cannot travel on top of enemy
 		if attacker.playerOwner.team != unit.playerOwner.team:
+			dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 			dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
+			dijkstra_map.set_terrain_for_point(gamegrid.as_index(unit.cell), 1)
 	recalculate_map(attacker, attacker.cell)
 	dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 	# can we reach each target in the target_list

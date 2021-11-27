@@ -236,6 +236,7 @@ gamegrid = ExtResource( 7 )
 playerName = "Human"
 commander_path = NodePath("RedLine")
 player_colour = 1
+computerAI = true
 
 [node name="RedLine" parent="TurnQueue/Human" instance=ExtResource( 14 )]
 player_path = NodePath("..")
