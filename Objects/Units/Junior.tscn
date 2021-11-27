@@ -614,6 +614,7 @@ loop = false
 texture = ExtResource( 1 )
 hframes = 24
 vframes = 6
+frame = 140
 
 [node name="Health" type="Sprite" parent="PathFollow2D"]
 visible = false

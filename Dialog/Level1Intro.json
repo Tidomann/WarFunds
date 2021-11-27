@@ -1,7 +1,10 @@
 [
-	{"Name":"Kronk", "Emotion":"Neutral", "Text":"Ah, Kronk love dev map. It's best map."},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Watch out, that's Kronk, Banktania's Mascot!"},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"How did he get in the Dev level?"},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"He's literally breaking the game!"},
-	{"Name":"Kronk", "Emotion":"Wink", "Text":"Ah, student come to play? Kronk KRONK!"},
+	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Welcome to the Parking Lot"},
+	{"Name":"William", "Emotion":"Happy", "Text":"Thank-you Professor! I'm happy to help the COSC department once more."},
+	{"Name":"William", "Emotion":"Neutral", "Text":"I guess getting to Finance won't be easy."},
+	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"Nothing has been the same since Banktania attacked."},
+	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"William we need you and Universities advisor to get to the parking office"},
+	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"Without access to the parking lot, we'll have to rely on our students to go in on foot."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"If they only just took over the parking lot, the forces there must be small."},
+	{"Name":"William", "Emotion":"Happy", "Text":"And with my advisor, I know that we'll win! Let's go!"},
 ]

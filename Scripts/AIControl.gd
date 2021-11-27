@@ -76,7 +76,7 @@ func take_computer_turn(computer : Node2D) -> void:
 		yield(infantry_actions(mech), "completed")
 	if not infantry.empty():
 		yield(infantry_actions(infantry), "completed")
-	timer.set_wait_time(2)
+	timer.set_wait_time(1.5)
 	timer.set_one_shot(true)
 	timer.start()
 	yield(timer, "timeout")

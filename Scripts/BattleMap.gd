@@ -53,19 +53,18 @@ func _ready():
 	
 	for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.add_player(child)
-	#for child in $TurnQueue.get_children():
 		$CanvasLayer/CommanderUI.income_changed(child, gamegrid.calculate_income(child))
 		child.addPower(0)
 	$TurnQueue.initialize(self)
 	$Devtiles.visible = false
 	$AIControl.init(self)
 	#Start of battle dialog
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
 	match level_number:
 		0:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
 		1:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
@@ -326,7 +325,13 @@ func victory() -> void:
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
-	# TODO: Set Unlock Values
+	match level_number:
+		0:
+			for level in Global.unlockedLevels:
+				level = true
+		1:
+			Global.unlockedLevels[1] = true
+			get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:
 	print("Defeat")
