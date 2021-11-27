@@ -20,7 +20,6 @@ onready var _units_node = $GameBoard/Units
 func _ready():
 	# Load the Game Data
 	gamegrid.initialize(self)
-	$AIControl.init(self)
 	# Initialize the Humans Commander to be the chosen commander from Select
 	# or default to William
 	for child in $TurnQueue/Human.get_children():
@@ -64,8 +63,8 @@ func _ready():
 	#$CanvasLayer/DialogBox.start_dialog()
 	#yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
-	
-	$AIControl.best_attack_path_direct($GameBoard/Units/Unit5)
+	$AIControl.init(self)
+	$AIControl.best_attack_path_direct($GameBoard/Units/Scanner)
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
@@ -86,7 +85,7 @@ func setup_tiles():
 		var tempplayer = int(temptilevalue / 6.0)
 		var property_type = temptilevalue % 6
 		if tempplayer == 0:
-			if property_type > 1:
+			if property_type >= 1:
 				$PropertyTiles.set_cellv(cell, 64+property_type)
 			else:
 				$PropertyTiles.set_cellv(cell, 60)

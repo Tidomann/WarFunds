@@ -45,6 +45,7 @@ export var skin: Texture setget set_skin
 export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## Variable if there is an army specific sprite
 export var army_sprite : bool
+export var defensive_ai : bool
 
 export(bool) var turnReady = true
 
