@@ -89,9 +89,9 @@ gamegrid = ExtResource( 7 )
 [node name="Units" type="YSort" parent="GameBoard"]
 
 [node name="Fax" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 137.047, 181.736 )
+position = Vector2( 135.923, 100.453 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 8, 11 )
+cell = Vector2( 8, 6 )
 
 [node name="Printer" parent="GameBoard/Units" instance=ExtResource( 38 )]
 position = Vector2( 278.337, 181.634 )
@@ -102,11 +102,12 @@ cell = Vector2( 17, 11 )
 position = Vector2( 136.646, 133.703 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 8, 8 )
+health = 10
 
 [node name="Scanner" parent="GameBoard/Units" instance=ExtResource( 27 )]
-position = Vector2( 120.177, 183.199 )
+position = Vector2( 279.747, 149.487 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 7, 11 )
+cell = Vector2( 17, 9 )
 
 [node name="Stapler" parent="GameBoard/Units" instance=ExtResource( 37 )]
 position = Vector2( 216.374, 166.58 )
@@ -114,15 +115,14 @@ player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 13, 10 )
 
 [node name="Unit" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 120.588, 133.741 )
+position = Vector2( 328.104, 116.885 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 7, 8 )
+cell = Vector2( 20, 7 )
 
 [node name="Unit2" parent="GameBoard/Units" instance=ExtResource( 15 )]
 position = Vector2( 328, 69 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 20, 4 )
-move_range = 90
 
 [node name="Unit3" parent="GameBoard/Units" instance=ExtResource( 15 )]
 position = Vector2( 120.146, 166.843 )
@@ -130,15 +130,15 @@ player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
 
 [node name="Unit4" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 216.565, 197.72 )
+position = Vector2( 248.404, 182.362 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 13, 12 )
+cell = Vector2( 15, 11 )
 
 [node name="Unit5" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 168.495, 148.262 )
+position = Vector2( 183.478, 54.9924 )
 player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 10, 9 )
-cost = 1000000
+cell = Vector2( 11, 3 )
+health = 60
 
 [node name="Unit6" parent="GameBoard/Units" instance=ExtResource( 15 )]
 position = Vector2( 168.232, 166.563 )

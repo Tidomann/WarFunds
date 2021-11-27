@@ -125,7 +125,7 @@ func _select_unit(cell: Vector2) -> void:
 # then presents the correct context menu
 func _move_active_unit(new_position: Vector2) -> void:
 	_active_unit.is_selected = false
-	# Security chek that the selected cell is invalid
+	# Security check if the selected cell is invalid
 	if _active_unit.cell != new_position:
 		if is_occupied(new_position) or not new_position in _walkable_cells:
 			return

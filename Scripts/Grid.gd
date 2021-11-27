@@ -153,6 +153,7 @@ func get_unit_position(unit: Unit) -> Vector2:
 
 ## Returns true if the grid_position is occupied by another unit
 func is_occupied(cell: Vector2) -> bool:
+	# must return false to avoid attempting to check enemies at location
 	if array[as_index(cell)] == null:
 		return false
 	return true if array[as_index(cell)].getUnit() != null else false

@@ -14,12 +14,13 @@ export(int) var yMin
 export(int) var yMax
 export var gamegrid: Resource
 onready var _unit_overlay: UnitOverlay = $GameBoard/UnitOverlay
+onready var _units_node = $GameBoard/Units
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Load the Game Data
 	gamegrid.initialize(self)
-	$AIControl.init()
+	$AIControl.init(self)
 	# Initialize the Humans Commander to be the chosen commander from Select
 	# or default to William
 	for child in $TurnQueue/Human.get_children():
@@ -60,9 +61,11 @@ func _ready():
 	
 	#Start of battle dialog
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Intro.json"
-	$CanvasLayer/DialogBox.start_dialog()
-	yield($CanvasLayer/DialogBox, "dialog_finished")
+	#$CanvasLayer/DialogBox.start_dialog()
+	#yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
+	
+	$AIControl.best_attack_path_direct($GameBoard/Units/Unit5)
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap
