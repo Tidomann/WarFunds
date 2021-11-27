@@ -45,6 +45,8 @@ export var skin: Texture setget set_skin
 export var skin_offset := Vector2.ZERO setget set_skin_offset
 ## Variable if there is an army specific sprite
 export var army_sprite : bool
+export var defensive_ai : bool
+export var ai_healing: bool
 
 export(bool) var turnReady = true
 
@@ -182,6 +184,7 @@ func get_healing(healing_recieved :int) -> int:
 		amount_healed = 100 - health
 		health = 100
 		update_health()
+		ai_healing = false
 		amount_healed = floor(amount_healed*0.1)
 	else:
 		amount_healed = ceil(healing_recieved*0.1)

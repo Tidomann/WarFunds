@@ -12,6 +12,7 @@ export(int) var funds = 0
 onready var commander : Node2D = self.get_node(commander_path)
 #onready var _sprite: Sprite = $PathFollow2D/Sprite
 export(String, "Right", "Left") var facing
+export(bool) var computerAI = false
 var defeated := false
 
 var self_referance = self

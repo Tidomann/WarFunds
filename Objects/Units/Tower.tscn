@@ -40,10 +40,17 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1.5, 1.5, 1.5, 1 ) ]
 }
 
-[node name="Unit" type="Path2D"]
+[node name="Tower" type="Path2D"]
 curve = null
 script = ExtResource( 3 )
 grid = ExtResource( 1 )
+unit_referance = 4
+unit_type = 1
+movement_type = 2
+move_range = 0
+attack_type = 1
+atk_range = 3
+vision_range = 3
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotate = false

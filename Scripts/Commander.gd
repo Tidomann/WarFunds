@@ -113,6 +113,9 @@ func special_attack(_attacker, _defender) -> void:
 	if used_power:
 		pass
 
+func move_bonus() -> int:
+	return 0
+
 func luck_modifier() -> int:
 	return 9
 

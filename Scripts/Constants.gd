@@ -29,7 +29,8 @@ enum TILE{
 	ROAD = 4,
 	RIVER = 5,
 	SHOAL = 6,
-	REEF = 7
+	REEF = 7,
+	PROPERTY = 8
 }
 
 # Terrain Defense Bonus
