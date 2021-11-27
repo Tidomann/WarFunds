@@ -64,7 +64,11 @@ func _ready():
 	#yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
 	$AIControl.init(self)
-	$AIControl.best_attack_path_direct($GameBoard/Units/Scanner)
+	var test_array = []
+	test_array.append($GameBoard/Units/Stapler)
+	#$AIControl.best_attack_path_direct($GameBoard/Units/Unit5)
+	#$AIControl.indirect_actions(test_array)
+	$AIControl.take_computer_turn($TurnQueue/Human)
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
 # tilemap

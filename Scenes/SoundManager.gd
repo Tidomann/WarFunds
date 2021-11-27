@@ -48,3 +48,17 @@ func stopsound(sound:String):
 			$SoundCaptureIncomplete.stop()
 		"PowerReady":
 			$SoundPowerReady.stop()
+
+func stopallsound() -> void:
+	for node in get_children():
+		node.stop()
+	#$SoundCancel.stop()
+	#$SoundSelect.stop()
+	#$SoundHeal.stop()
+	#$SoundInfantryMove.stop()
+	#$SoundMoveAttackCursor.stop()
+	#$SoundAttack.stop()
+	#$SoundCaptureProperty.stop()
+	#$SoundLoseProperty.stop()
+	#$SoundCaptureIncomplete.stop()
+	#$SoundPowerReady.stop()

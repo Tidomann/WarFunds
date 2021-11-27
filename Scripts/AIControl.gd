@@ -1,7 +1,13 @@
 extends Node2D
 
 
-var dijkstra_map: DijkstraMap = DijkstraMap.new()
+var dijkstra_map
+var dijkstra_map_dict
+var infantry_map: DijkstraMap = DijkstraMap.new()
+var mech_map: DijkstraMap = DijkstraMap.new()
+var tires_map: DijkstraMap = DijkstraMap.new()
+var tread_map: DijkstraMap = DijkstraMap.new()
+var air_map: DijkstraMap = DijkstraMap.new()
 export var gamegrid: Resource
 var battlemap
 var devtiles
@@ -62,15 +68,36 @@ func take_computer_turn(computer : Node2D) -> void:
 		timer.set_one_shot(true)
 		timer.start()
 		yield(timer, "timeout")
+	if not indirect.empty():
+		yield(indirect_actions(indirect), "completed")
 	if not direct.empty():
 		yield(direct_actions(direct), "completed")
 	if not mech.empty():
-		yield(direct_actions(mech), "completed")
+		yield(infantry_actions(mech), "completed")
 	if not infantry.empty():
 		yield(infantry_actions(infantry), "completed")
-		
+	timer.set_wait_time(2)
+	timer.set_one_shot(true)
+	timer.start()
+	yield(timer, "timeout")
+	var temp_units = gamegrid.get_players_units(computer)
+	if not temp_units.empty():
+		for unit in temp_units:
+			if not unit.is_turnReady():
+				unit.flip_turnReady()
+	if gameboard.is_game_finished(human_player):
+		gameboard.end_game(human_player)
+	turn_queue.nextTurn()
+	
 
 func init(inbattlemap : Node2D) -> void:
+	dijkstra_map_dict = {
+	Constants.MOVEMENT_TYPE.INFANTRY: infantry_map,
+	Constants.MOVEMENT_TYPE.MECH: mech_map,
+	Constants.MOVEMENT_TYPE.TIRES: tires_map,
+	Constants.MOVEMENT_TYPE.TREAD: tread_map,
+	Constants.MOVEMENT_TYPE.AIR: air_map,
+	}
 	battlemap = inbattlemap
 	turn_queue = battlemap.get_node("TurnQueue")
 	soundmanager = battlemap.get_node("GameBoard/SoundManager")
@@ -80,10 +107,11 @@ func init(inbattlemap : Node2D) -> void:
 	var index = 0
 	for cell in gamegrid.array:
 		if cell != null:
-			if cell.property != null:
-				dijkstra_map.add_point(index, Constants.TILE.PROPERTY)
-			else:
-				dijkstra_map.add_point(index, cell.tileType)
+			infantry_map.add_point(index)
+			mech_map.add_point(index)
+			tires_map.add_point(index)
+			tread_map.add_point(index)
+			air_map.add_point(index)
 		index += 1
 	index = 0
 	for cell in devtiles.get_used_cells():
@@ -91,79 +119,104 @@ func init(inbattlemap : Node2D) -> void:
 			var adjacent_coordinate: Vector2 = cell + direction
 			if not gamegrid.is_gridcoordinate_within_map(adjacent_coordinate):
 				continue
-			if devtiles.get_cellv(adjacent_coordinate) != -1 && not dijkstra_map.has_connection(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate)):
-				dijkstra_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), 1.0, true)
+			if devtiles.get_cellv(adjacent_coordinate) != -1 && not infantry_map.has_connection(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate)):
+				if gamegrid.has_property(adjacent_coordinate):
+					infantry_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), 1.0, false)
+				else:
+					var tiletype = gamegrid.array[gamegrid.as_index(adjacent_coordinate)].tileType
+					if gamegrid.is_valid_move(Constants.MOVEMENT_TYPE.INFANTRY,tiletype):
+						var move_cost = float(gamegrid.get_movecost(Constants.MOVEMENT_TYPE.INFANTRY,tiletype))
+						infantry_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), move_cost, false)
+			if devtiles.get_cellv(adjacent_coordinate) != -1 && not mech_map.has_connection(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate)):
+				if gamegrid.has_property(adjacent_coordinate):
+					mech_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), 1.0, false)
+				else:
+					var tiletype = gamegrid.array[gamegrid.as_index(adjacent_coordinate)].tileType
+					if gamegrid.is_valid_move(Constants.MOVEMENT_TYPE.MECH,tiletype):
+						var move_cost = float(gamegrid.get_movecost(Constants.MOVEMENT_TYPE.MECH,tiletype))
+						mech_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), move_cost, false)
+			if devtiles.get_cellv(adjacent_coordinate) != -1 && not tires_map.has_connection(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate)):
+				if gamegrid.has_property(adjacent_coordinate):
+					tires_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), 1.0, false)
+				else:
+					var tiletype = gamegrid.array[gamegrid.as_index(adjacent_coordinate)].tileType
+					if gamegrid.is_valid_move(Constants.MOVEMENT_TYPE.TIRES,tiletype):
+						var move_cost = float(gamegrid.get_movecost(Constants.MOVEMENT_TYPE.TIRES,tiletype))
+						tires_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), move_cost, false)
+			if devtiles.get_cellv(adjacent_coordinate) != -1 && not tread_map.has_connection(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate)):
+				if gamegrid.has_property(adjacent_coordinate):
+					tread_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), 1.0, false)
+				else:
+					var tiletype = gamegrid.array[gamegrid.as_index(adjacent_coordinate)].tileType
+					if gamegrid.is_valid_move(Constants.MOVEMENT_TYPE.TREAD,tiletype):
+						var move_cost = float(gamegrid.get_movecost(Constants.MOVEMENT_TYPE.TREAD,tiletype))
+						tread_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), move_cost, false)
+			if devtiles.get_cellv(adjacent_coordinate) != -1 && not air_map.has_connection(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate)):
+				if gamegrid.has_property(adjacent_coordinate):
+					air_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), 1.0, false)
+				else:
+					var tiletype = gamegrid.array[gamegrid.as_index(adjacent_coordinate)].tileType
+					if gamegrid.is_valid_move(Constants.MOVEMENT_TYPE.AIR,tiletype):
+						var move_cost = float(gamegrid.get_movecost(Constants.MOVEMENT_TYPE.AIR,tiletype))
+						air_map.connect_points(gamegrid.as_index(cell), gamegrid.as_index(adjacent_coordinate), move_cost, false)
 
 func recalculate_map(unit : Unit, cell : Vector2) -> void:
 	var movement_type = unit.movement_type
-	var cost_dict
-	match movement_type:
-		Constants.MOVEMENT_TYPE.INFANTRY:
-			cost_dict = { Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 1.0, Constants.TILE.MOUNTAIN: 2.0, Constants.TILE.ROAD: 1.0, Constants.TILE.RIVER: 2.0, Constants.TILE.SHOAL: 1.0, Constants.TILE.PROPERTY: 1.0, }
-		Constants.MOVEMENT_TYPE.MECH:
-			cost_dict = { Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 1.0, Constants.TILE.MOUNTAIN: 1.0, Constants.TILE.ROAD: 1.0, Constants.TILE.RIVER: 1.0, Constants.TILE.SHOAL: 1.0, Constants.TILE.PROPERTY: 1.0, }
-		Constants.MOVEMENT_TYPE.TIRES:
-			cost_dict = { Constants.TILE.PLAINS: 2.0, Constants.TILE.FOREST: 3.0, Constants.TILE.ROAD: 1.0, Constants.TILE.SHOAL: 1.0, Constants.TILE.PROPERTY: 1.0, }
-		Constants.MOVEMENT_TYPE.TREAD:
-			cost_dict = { Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 2.0, Constants.TILE.ROAD: 1.0, Constants.TILE.SHOAL: 1.0, Constants.TILE.PROPERTY: 1.0, }
-		Constants.MOVEMENT_TYPE.AIR:
-			cost_dict = { Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 1.0, Constants.TILE.MOUNTAIN: 1.0, Constants.TILE.SEA: 1.0, Constants.TILE.ROAD: 1.0, Constants.TILE.RIVER: 1.0, Constants.TILE.SHOAL: 1.0, Constants.TILE.REEF: 1.0, Constants.TILE.PROPERTY: 1.0, }
-		Constants.MOVEMENT_TYPE.SHIP:
-			# not yet implemented
-			pass
-	var movement_range = float(unit.move_range + unit.playerOwner.commander.move_bonus())
+	dijkstra_map = dijkstra_map_dict[movement_type]
 	var optional_params = {
-		"input_is_destination": true,
-		"terrain_weights": cost_dict,
-		"maximum_cost": movement_range,
+		"input_is_destination": false,
+		"terrain_weights": { -1: 1.0 },
 	}
 	dijkstra_map.recalculate(gamegrid.as_index(cell), optional_params)
 
-func recalculate_to_targets_map(movement_type : int, array : Array) -> void:
-	var cost_dict
-	match movement_type:
-		Constants.MOVEMENT_TYPE.INFANTRY:
-			cost_dict = {Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 1.0, Constants.TILE.MOUNTAIN: 2.0, Constants.TILE.ROAD: 1.0, Constants.TILE.RIVER: 2.0, Constants.TILE.SHOAL: 1.0}
-		Constants.MOVEMENT_TYPE.MECH:
-			cost_dict = {Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 1.0, Constants.TILE.MOUNTAIN: 1.0, Constants.TILE.ROAD: 1.0, Constants.TILE.RIVER: 1.0, Constants.TILE.SHOAL: 1.0}
-		Constants.MOVEMENT_TYPE.TIRES:
-			cost_dict = {Constants.TILE.PLAINS: 2.0, Constants.TILE.FOREST: 3.0, Constants.TILE.ROAD: 1.0, Constants.TILE.SHOAL: 1.0}
-		Constants.MOVEMENT_TYPE.TREAD:
-			cost_dict = {Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 2.0, Constants.TILE.ROAD: 1.0, Constants.TILE.SHOAL: 1.0}
-		Constants.MOVEMENT_TYPE.AIR:
-			cost_dict = {Constants.TILE.PLAINS: 1.0, Constants.TILE.FOREST: 1.0, Constants.TILE.MOUNTAIN: 1.0, Constants.TILE.SEA: 1.0, Constants.TILE.ROAD: 1.0, Constants.TILE.RIVER: 1.0, Constants.TILE.SHOAL: 1.0, Constants.TILE.REEF: 1.0}
-		Constants.MOVEMENT_TYPE.SHIP:
-			# not yet implemented
-			pass
+func recalculate_air_map(_unit : Unit, cell : Vector2) -> void:
+	var optional_params = {
+		"input_is_destination": false,
+		"terrain_weights": { -1: 1.0 },
+	}
+	air_map.recalculate(gamegrid.as_index(cell), optional_params)
+	
+func recalculate_to_targets_map(unit: Unit, array : Array) -> void:
+	var movement_type = unit.movement_type
+	dijkstra_map = dijkstra_map_dict[movement_type]
 	var optional_params = {
 		"input_is_destination": true,
-		"terrain_weights": cost_dict,
+		"terrain_weights": { -1: 1.0 },
 	}
 	dijkstra_map.recalculate(array, optional_params)
 
+func recalculate_to_targets_air_map(_unit: Unit, array : Array) -> void:
+	var optional_params = {
+		"input_is_destination": true,
+		"terrain_weights": { -1: 1.0 },
+	}
+	air_map.recalculate(array, optional_params)
+
 func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 	recalculate_map(attacker, attacker.cell)
-	print(dijkstra_map.get_cost_map())
+	dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 	var move_bonus = attacker.playerOwner.commander.move_bonus()
-	var dijkstra_tiles = dijkstra_map.get_all_points_with_cost_between(0.0, float(attacker.move_range + move_bonus))
+	var test_movement = attacker.move_range + move_bonus + 3.0
+	var dijkstra_tiles = dijkstra_map.get_all_points_with_cost_between(0.0, test_movement)
 	var test_array : Array = []
 	for index in dijkstra_tiles:
 		test_array.append(gamegrid.array[index].coordinates)
-	battlemap._unit_overlay.draw(test_array)
+	#battlemap._unit_overlay.draw(test_array)
 	var target_list : Array = []
 	for unit in battlemap._units_node.get_children():
 		if test_array.has(unit.cell):
 			if unit.playerOwner.team != attacker.playerOwner.team:
 				if is_good_attack(attacker, unit):
 					target_list.append(unit)
-	# Disable Movement through enemies
-	for unit in battlemap._units_node.get_children():
-		# Attacker cannot travel on top of enemy
-		if attacker.playerOwner.team != unit.playerOwner.team:
-			dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
-	recalculate_map(attacker, attacker.cell)
-	# can we reach each target in the target_list
 	if not target_list.empty():
+		# Disable Movement through enemies
+		for unit in battlemap._units_node.get_children():
+			# Attacker cannot travel on top of enemy
+			if attacker.playerOwner.team != unit.playerOwner.team:
+				dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
+		recalculate_map(attacker, attacker.cell)
+		dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+		# can we reach each target in the target_list
 		var reachable_targets : Array = []
 		# Check all possible targets
 		for target in target_list:
@@ -174,7 +227,7 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 				# is the end of that path not occupied already
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(target.cell + direction)).empty() &&\
 				not gamegrid.is_occupied(target.cell + direction):
-					if not reachable_targets.has(target):
+					if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range:
 						reachable_targets.append(target)
 		# find the best target of available targets
 		if not reachable_targets.empty():
@@ -200,10 +253,12 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() &&\
 				not gamegrid.is_occupied(best_target.cell + direction):
 						if destination == null:
-							best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
-							destination = best_target.cell + direction
+							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
+								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
+								destination = best_target.cell + direction
 						else:
-							if best_defense < gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)]):
+							if best_defense < gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)]) &&\
+							dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
 								destination = best_target.cell + direction
 			var destination_path : PoolVector2Array = []
@@ -230,7 +285,11 @@ func reactivate_all_points() -> void:
 	var index = 0
 	for gamedata in gamegrid.array:
 		if gamedata != null:
-			dijkstra_map.enable_point(index)
+			infantry_map.enable_point(index)
+			mech_map.enable_point(index)
+			tires_map.enable_point(index)
+			tread_map.enable_point(index)
+			air_map.enable_point(index)
 		index += 1
 
 func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
@@ -245,13 +304,16 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 			var final_move_blocked = true
 			while final_move_blocked:
 				destination_path = []
-				recalculate_to_targets_map(attacker.movement_type,long_distance_coordinates)
+				recalculate_to_targets_map(attacker,long_distance_coordinates)
+				dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 				# Set starting index
 				destination_path.append(attacker.cell)
 				var next_index = gamegrid.as_index(attacker.cell)
 				var move_distance = dijkstra_map.get_cost_at_point(next_index)
 				var move_bonus = attacker.playerOwner.commander.move_bonus()
 				while move_distance - dijkstra_map.get_cost_at_point(next_index) < (attacker.move_range + move_bonus):
+					if next_index == dijkstra_map.get_direction_at_point(next_index):
+						break
 					next_index = dijkstra_map.get_direction_at_point(next_index)
 					destination_path.append(gamegrid.array[next_index].coordinates)
 				# if the final destination coordinate is blocked
@@ -272,25 +334,29 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 		var destination_path : PoolVector2Array = []
 		for cell in gamegrid.propertytiles.get_used_cells():
 			if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner != attacker.playerOwner:
-				print(cell)
 				property_coordinates.append(gamegrid.as_index(cell))
 		if not property_coordinates.empty():
 			var final_move_blocked = true
 			while final_move_blocked:
 				destination_path = []
-				recalculate_to_targets_map(attacker.movement_type, property_coordinates)
-				print(dijkstra_map.get_direction_map())
+				recalculate_to_targets_map(attacker, property_coordinates)
+				dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 				# Set starting index
 				destination_path.append(attacker.cell)
 				var next_index = gamegrid.as_index(attacker.cell)
 				var move_distance = dijkstra_map.get_cost_at_point(next_index)
 				var move_bonus = attacker.playerOwner.commander.move_bonus()
 				while move_distance - dijkstra_map.get_cost_at_point(next_index) < (attacker.move_range + move_bonus):
+					if next_index == dijkstra_map.get_direction_at_point(next_index):
+						break
 					next_index = dijkstra_map.get_direction_at_point(next_index)
 					destination_path.append(gamegrid.array[next_index].coordinates)
 				# if the final destination coordinate is blocked
 				if gamegrid.array[next_index].getUnit() != null:
-					dijkstra_map.disable_point(next_index)
+					if gamegrid.array[next_index].getUnit() != attacker:
+						dijkstra_map.disable_point(next_index)
+					else:
+						final_move_blocked = false
 				else:
 					final_move_blocked = false
 			reactivate_all_points()
@@ -301,9 +367,60 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 			#battlemap._unit_overlay.draw(destination_path)
 			return destination_path
 
+func no_targets_indirect_path(attacker: Unit) -> PoolVector2Array:
+	var long_distance_coordinates : Array = []
+	var destination_path : PoolVector2Array = []
+	dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+	reactivate_all_points()
+	for unit in battlemap._units_node.get_children():
+		if unit.playerOwner.team != attacker.playerOwner.team:
+			long_distance_coordinates.append(gamegrid.as_index(unit.cell))
+			air_map.disable_point(gamegrid.as_index(unit.cell))
+			dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
+	if not long_distance_coordinates.empty():
+		var final_move_blocked = true
+		while final_move_blocked:
+			destination_path = []
+			recalculate_to_targets_map(attacker,long_distance_coordinates)
+			recalculate_to_targets_air_map(attacker,long_distance_coordinates)
+			destination_path.append(attacker.cell)
+			var next_index = gamegrid.as_index(attacker.cell)
+			var move_distance = dijkstra_map.get_cost_at_point(next_index)
+			var move_bonus = attacker.playerOwner.commander.move_bonus()
+			while move_distance - dijkstra_map.get_cost_at_point(next_index) < (attacker.move_range + move_bonus):
+				if next_index == dijkstra_map.get_direction_at_point(next_index):
+					break
+				if air_map.get_cost_at_point(next_index) <= attacker.atk_range && \
+				air_map.get_cost_at_point(next_index) > attacker.min_atk_range && \
+				dijkstra_map.get_cost_at_point(next_index) <= attacker.move_range:
+					break
+				# What is this logic why does it work though
+				if not gamegrid.is_occupied(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates):
+					next_index = dijkstra_map.get_direction_at_point(next_index)
+				else:
+					break
+				destination_path.append(gamegrid.array[next_index].coordinates)
+			# if the final destination coordinate is blocked
+			if gamegrid.array[next_index].getUnit() != null:
+				air_map.disable_point(next_index)
+				dijkstra_map.disable_point(next_index)
+			else:
+				final_move_blocked = false
+		reactivate_all_points()
+		#battlemap._unit_overlay.draw(destination_path)
+		return destination_path
+	# no targets to find
+	else:
+		reactivate_all_points()
+		#battlemap._unit_overlay.draw(destination_path)
+		return destination_path
+
 func defensive_direct(attacker: Unit) -> PoolVector2Array:
 	recalculate_map(attacker, attacker.cell)
-	var dijkstra_tiles = dijkstra_map.get_all_points_with_cost_between(0.0, float(attacker.move_range+1))
+	dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+	var move_bonus = attacker.playerOwner.commander.move_bonus()
+	var test_movement = attacker.move_range + move_bonus + 3.0
+	var dijkstra_tiles = dijkstra_map.get_all_points_with_cost_between(0.0, test_movement)
 	var test_array : Array = []
 	for index in dijkstra_tiles:
 		test_array.append(gamegrid.array[index].coordinates)
@@ -319,6 +436,7 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 		if attacker.playerOwner.team != unit.playerOwner.team:
 			dijkstra_map.disable_point(gamegrid.as_index(unit.cell))
 	recalculate_map(attacker, attacker.cell)
+	dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 	# can we reach each target in the target_list
 	if not target_list.empty():
 		var reachable_targets : Array = []
@@ -331,7 +449,7 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 				# is the end of that path not occupied already
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(target.cell + direction)).empty() &&\
 				not gamegrid.is_occupied(target.cell + direction):
-					if not reachable_targets.has(target):
+					if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range:
 						reachable_targets.append(target)
 		# find the best target of available targets
 		if not reachable_targets.empty():
@@ -357,10 +475,12 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() &&\
 				not gamegrid.is_occupied(best_target.cell + direction):
 						if destination == null:
-							best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
-							destination = best_target.cell + direction
+							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
+								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
+								destination = best_target.cell + direction
 						else:
-							if best_defense < gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)]):
+							if best_defense < gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)]) &&\
+							dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
 								destination = best_target.cell + direction
 			var destination_path : PoolVector2Array = []
@@ -409,6 +529,7 @@ func direct_actions(light_direct : Array) -> void:
 				move_computer_unit(unit, path)
 				if path.size() > 1:
 					yield(unit, "walk_finished")
+					soundmanager.stopallsound()
 				var new_position = unit.cell
 				if gamegrid.enemy_in_range(unit, old_position, new_position):
 					var targets = []
@@ -434,6 +555,7 @@ func direct_actions(light_direct : Array) -> void:
 				move_computer_unit(unit, path)
 				if path.size() > 1:
 					yield(unit, "walk_finished")
+					soundmanager.stopallsound()
 				var new_position = unit.cell
 				if gamegrid.enemy_in_range(unit, old_position, new_position):
 					var targets = []
@@ -460,6 +582,7 @@ func infantry_actions(infantry : Array) -> void:
 		move_computer_unit(unit,path)
 		if path.size() > 1:
 			yield(unit, "walk_finished")
+			soundmanager.stopallsound()
 			var new_position = unit.cell
 			if gamegrid.enemy_in_range(unit, old_position, new_position):
 						var targets = []
@@ -479,11 +602,15 @@ func infantry_actions(infantry : Array) -> void:
 				if unit.turnReady:
 					unit.flip_turnReady()
 		else:
+			reactivate_all_points()
 			path = no_targets_direct_path(unit)
 			move_computer_unit(unit,path)
 			if path.size() > 1:
 				yield(unit, "walk_finished")
-			var new_position = unit.cell
+				soundmanager.stopallsound()
+			timer.set_wait_time(1)
+			timer.set_one_shot(true)
+			timer.start()
 			if gamegrid.has_property(unit.cell):
 				var previous_owner = gamegrid.get_property(unit.cell).playerOwner
 				if gamegrid.get_property(unit.cell).playerOwner != unit.playerOwner:
@@ -502,11 +629,42 @@ func infantry_actions(infantry : Array) -> void:
 						soundmanager.playsound("CaptureIncomplete")
 			if unit.turnReady:
 				unit.flip_turnReady()
-			timer.set_wait_time(2)
+		timer.set_wait_time(1.5)
 		timer.set_one_shot(true)
 		timer.start()
 		yield(timer, "timeout")
 
+func indirect_actions(indirects : Array) -> void:
+	for unit in indirects:
+		# targets in range at start of turn
+		if gamegrid.enemy_in_range(unit, unit.cell, unit.cell):
+			var targets = []
+			recalculate_air_map(unit,unit.cell)
+			var attack_tiles = air_map.get_all_points_with_cost_between(float(unit.min_atk_range), float(unit.atk_range))
+			#var test_array = []
+			#for cell in attack_tiles:
+			#	test_array.append(gamegrid.array[cell].coordinates)
+			#battlemap._unit_overlay.draw(test_array)
+			for cell in attack_tiles:
+				if gamegrid.array[cell] != null:
+					if gamegrid.array[cell].getUnit() != null:
+						if gamegrid.array[cell].getUnit().playerOwner.team != unit.playerOwner.team:
+							targets.append(gamegrid.array[cell].getUnit())
+			var best_target
+			best_target = get_best_target(unit, targets)
+			if not best_target == null:
+				yield(computer_combat(unit, best_target), "completed")
+			else:
+				yield(computer_combat(unit, targets[0]), "completed")
+		# no targets in range
+		else:
+			var path = no_targets_indirect_path(unit)
+			move_computer_unit(unit,path)
+			if path.size() > 1:
+				yield(unit, "walk_finished")
+				soundmanager.stopallsound()
+			if unit.turnReady:
+				unit.flip_turnReady()
 
 func move_computer_unit(unit : Unit, path : PoolVector2Array) -> void:
 	if path.size() > 1:
@@ -514,6 +672,15 @@ func move_computer_unit(unit : Unit, path : PoolVector2Array) -> void:
 		gamegrid.array[gamegrid.as_index(path[0])].unit = null
 		gamegrid.array[gamegrid.as_index(path[path.size()-1])].unit = unit
 		unit.cell = path[path.size()-1]
+		match unit.movement_type:
+			Constants.MOVEMENT_TYPE.INFANTRY:
+				soundmanager.playsound("InfantryMove")
+			Constants.MOVEMENT_TYPE.MECH:
+				soundmanager.playsound("InfantryMove")
+			Constants.MOVEMENT_TYPE.TREAD:
+				pass
+			Constants.MOVEMENT_TYPE.TIRES:
+				pass
 
 func get_best_target(attacker : Unit, targets : Array) -> Unit:
 	if targets.size() == 0:
@@ -539,7 +706,8 @@ func computer_combat(attacker : Unit, defender : Unit) -> void:
 	screen_position.y += devtiles.cell_size.y/2
 	self.position = screen_position
 	self.visible = true
-	timer.set_wait_time(1.0)
+	timer.stop()
+	timer.set_wait_time(1.5)
 	timer.set_one_shot(true)
 	timer.start()
 	yield(timer, "timeout")
