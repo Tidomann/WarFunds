@@ -21,7 +21,7 @@ func _ready():
 	yield(t, "timeout")
 	var commander_name = get_parent().get_node("TurnQueue").activePlayer.commander.commanderName
 
-	#set_music(commander_name)
+	set_music(commander_name)
 	
 func set_music(commanderName : String) -> void:
 	var audio_Stream: AudioStream = load(commanderMusic[commanderName])

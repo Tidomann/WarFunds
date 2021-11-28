@@ -14,6 +14,7 @@ onready var _unit_path: UnitPath = $UnitPath
 onready var _unit_overlay: UnitOverlay = $UnitOverlay
 onready var _property_tiles: TileMap = get_parent().get_node("PropertyTiles")
 onready var _human_player = _turn_queue.get_node("Human")
+onready var _buy_menu = get_parent().get_node("BuyMenu")
 
 # Represents the directions which can neighbour a cell
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
@@ -103,9 +104,13 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 			# TODO: CHANGE THESE TO ERROR?
 			$SoundManager.playsound("Cancel")
 	else:
-		$SoundManager.playsound("Select")
-		_cursor.deactivate(true)
-		_pop_up.popup_menu(_cursor.position,false,false,false,false,0,false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
+		if gamegrid.has_property(cell):
+			if gamegrid.get_property(cell).property_referance == Constants.PROPERTY.BASE && gamegrid.get_property(cell).playerOwner == _turn_queue.activePlayer:
+				_buy_menu.popup_menu(_cursor.position, cell, _turn_queue.activePlayer)
+		else:
+			$SoundManager.playsound("Select")
+			_cursor.deactivate(true)
+			_pop_up.popup_menu(_cursor.position,false,false,false,false,0,false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 
 # Selects the unit in the `cell` if there's one there.
 # Sets it as the `_active_unit` and draws its walkable cells and interactive move path.

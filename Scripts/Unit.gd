@@ -68,14 +68,17 @@ func _ready() -> void:
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
+
+
+func update_position() -> void:
+	position = grid.calculate_map_position(cell)
+
+func set_flip() -> void:
 	# Set the facing of the unit according to the player
 	if playerOwner.facing == "Left":
 		_sprite.set_flip_h(true)
 
 
-func update_position() -> void:
-	position = grid.calculate_map_position(cell)
-	
 func _process(delta: float) -> void:
 	_path_follow.offset += move_speed * delta
 

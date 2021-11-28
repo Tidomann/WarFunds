@@ -1,0 +1,2431 @@
+[gd_scene load_steps=141 format=2]
+
+[ext_resource path="res://assets/Sprites/Unit/junior/junior.png" type="Texture" id=1]
+[ext_resource path="res://assets/Sprites/Unit/senior/senior.png" type="Texture" id=2]
+[ext_resource path="res://assets/Sprites/Unit/bsenior/bsenior.png" type="Texture" id=3]
+[ext_resource path="res://assets/Sound Effects/interface/click3.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/Sprites/Unit/stapler/stapler.png" type="Texture" id=6]
+[ext_resource path="res://assets/Sprites/Unit/fax/fax.png" type="Texture" id=7]
+[ext_resource path="res://assets/Sprites/Unit/printer/printer.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/BuyMenu.gd" type="Script" id=9]
+[ext_resource path="res://assets/Sprites/UI/uibackground.png" type="Texture" id=10]
+[ext_resource path="res://assets/Sprites/Unit/scanner/scanner.png" type="Texture" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "bBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 124, 125, 126, 127 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "bCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 136, 137, 138, 139 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "bPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 140, 141, 142, 143 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "bRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 120, 121, 122, 123 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "bYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 132, 133, 134, 135 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "cBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 28, 29, 30, 31 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "cCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "cGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "cPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 44, 45, 46, 47 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "cRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26, 27 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "cYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "eBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "eCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "eGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "ePurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "eRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "eYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "fBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 76, 77, 78, 79 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "fCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 88, 89, 90, 91 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "fGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 80, 81, 82, 83 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "fPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 92, 93, 94, 95 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "fRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 72, 73, 74, 75 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "fYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 84, 85, 86, 87 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "nBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 100, 101, 102, 103 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "nCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 112, 113, 114, 115 ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "nGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 104, 105, 106, 107 ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "nPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 116, 117, 118, 119 ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "nRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 96, 97, 98, 99 ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "nYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 108, 109, 110, 111 ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "sBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 52, 53, 54, 55 ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "sCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 64, 65, 66, 67 ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "sGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 56, 57, 58, 59 ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "sPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 68, 69, 70, 71 ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "sRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51 ]
+}
+
+[sub_resource type="Animation" id=35]
+resource_name = "sYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63 ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "bBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 124, 125, 126, 127 ]
+}
+
+[sub_resource type="Animation" id=37]
+resource_name = "bCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 136, 137, 138, 139 ]
+}
+
+[sub_resource type="Animation" id=38]
+resource_name = "bPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 140, 141, 142, 143 ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "bRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 120, 121, 122, 123 ]
+}
+
+[sub_resource type="Animation" id=40]
+resource_name = "bYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 132, 133, 134, 135 ]
+}
+
+[sub_resource type="Animation" id=41]
+resource_name = "cBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 28, 29, 30, 31 ]
+}
+
+[sub_resource type="Animation" id=42]
+resource_name = "cCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43 ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "cGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35 ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "cPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 44, 45, 46, 47 ]
+}
+
+[sub_resource type="Animation" id=45]
+resource_name = "cRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26, 27 ]
+}
+
+[sub_resource type="Animation" id=46]
+resource_name = "cYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=47]
+resource_name = "eBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=48]
+resource_name = "eCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=49]
+resource_name = "eGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=50]
+resource_name = "ePurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "eRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "eYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=53]
+resource_name = "fBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 76, 77, 78, 79 ]
+}
+
+[sub_resource type="Animation" id=54]
+resource_name = "fCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 88, 89, 90, 91 ]
+}
+
+[sub_resource type="Animation" id=55]
+resource_name = "fGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 80, 81, 82, 83 ]
+}
+
+[sub_resource type="Animation" id=56]
+resource_name = "fPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 92, 93, 94, 95 ]
+}
+
+[sub_resource type="Animation" id=57]
+resource_name = "fRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 72, 73, 74, 75 ]
+}
+
+[sub_resource type="Animation" id=58]
+resource_name = "fYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 84, 85, 86, 87 ]
+}
+
+[sub_resource type="Animation" id=59]
+resource_name = "nBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 100, 101, 102, 103 ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "nCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 112, 113, 114, 115 ]
+}
+
+[sub_resource type="Animation" id=61]
+resource_name = "nGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 104, 105, 106, 107 ]
+}
+
+[sub_resource type="Animation" id=62]
+resource_name = "nPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 116, 117, 118, 119 ]
+}
+
+[sub_resource type="Animation" id=63]
+resource_name = "nRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 96, 97, 98, 99 ]
+}
+
+[sub_resource type="Animation" id=64]
+resource_name = "nYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 108, 109, 110, 111 ]
+}
+
+[sub_resource type="Animation" id=65]
+resource_name = "sBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 52, 53, 54, 55 ]
+}
+
+[sub_resource type="Animation" id=66]
+resource_name = "sCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 64, 65, 66, 67 ]
+}
+
+[sub_resource type="Animation" id=67]
+resource_name = "sGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 56, 57, 58, 59 ]
+}
+
+[sub_resource type="Animation" id=68]
+resource_name = "sPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 68, 69, 70, 71 ]
+}
+
+[sub_resource type="Animation" id=69]
+resource_name = "sRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51 ]
+}
+
+[sub_resource type="Animation" id=70]
+resource_name = "sYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63 ]
+}
+
+[sub_resource type="Animation" id=71]
+resource_name = "bBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 124, 125, 126, 127 ]
+}
+
+[sub_resource type="Animation" id=72]
+resource_name = "bCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 136, 137, 138, 139 ]
+}
+
+[sub_resource type="Animation" id=73]
+resource_name = "bPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 140, 141, 142, 143 ]
+}
+
+[sub_resource type="Animation" id=74]
+resource_name = "bRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 120, 121, 122, 123 ]
+}
+
+[sub_resource type="Animation" id=75]
+resource_name = "bYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 132, 133, 134, 135 ]
+}
+
+[sub_resource type="Animation" id=76]
+resource_name = "cBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 28, 29, 30, 31 ]
+}
+
+[sub_resource type="Animation" id=77]
+resource_name = "cCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43 ]
+}
+
+[sub_resource type="Animation" id=78]
+resource_name = "cGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35 ]
+}
+
+[sub_resource type="Animation" id=79]
+resource_name = "cPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 44, 45, 46, 47 ]
+}
+
+[sub_resource type="Animation" id=80]
+resource_name = "cRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26, 27 ]
+}
+
+[sub_resource type="Animation" id=81]
+resource_name = "cYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=82]
+resource_name = "eBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=83]
+resource_name = "eCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=84]
+resource_name = "eGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=85]
+resource_name = "ePurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=86]
+resource_name = "eRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=87]
+resource_name = "eYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=88]
+resource_name = "fBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 76, 77, 78, 79 ]
+}
+
+[sub_resource type="Animation" id=89]
+resource_name = "fCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 88, 89, 90, 91 ]
+}
+
+[sub_resource type="Animation" id=90]
+resource_name = "fGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 80, 81, 82, 83 ]
+}
+
+[sub_resource type="Animation" id=91]
+resource_name = "fPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 92, 93, 94, 95 ]
+}
+
+[sub_resource type="Animation" id=92]
+resource_name = "fRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 72, 73, 74, 75 ]
+}
+
+[sub_resource type="Animation" id=93]
+resource_name = "fYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 84, 85, 86, 87 ]
+}
+
+[sub_resource type="Animation" id=94]
+resource_name = "nBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 100, 101, 102, 103 ]
+}
+
+[sub_resource type="Animation" id=95]
+resource_name = "nCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 112, 113, 114, 115 ]
+}
+
+[sub_resource type="Animation" id=96]
+resource_name = "nGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 104, 105, 106, 107 ]
+}
+
+[sub_resource type="Animation" id=97]
+resource_name = "nPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 116, 117, 118, 119 ]
+}
+
+[sub_resource type="Animation" id=98]
+resource_name = "nRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 96, 97, 98, 99 ]
+}
+
+[sub_resource type="Animation" id=99]
+resource_name = "nYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 108, 109, 110, 111 ]
+}
+
+[sub_resource type="Animation" id=100]
+resource_name = "sBlue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 52, 53, 54, 55 ]
+}
+
+[sub_resource type="Animation" id=101]
+resource_name = "sCyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 64, 65, 66, 67 ]
+}
+
+[sub_resource type="Animation" id=102]
+resource_name = "sGreen"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 56, 57, 58, 59 ]
+}
+
+[sub_resource type="Animation" id=103]
+resource_name = "sPurple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 68, 69, 70, 71 ]
+}
+
+[sub_resource type="Animation" id=104]
+resource_name = "sRed"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51 ]
+}
+
+[sub_resource type="Animation" id=105]
+resource_name = "sYellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 60, 61, 62, 63 ]
+}
+
+[sub_resource type="Animation" id=106]
+resource_name = "Blue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=107]
+resource_name = "Cyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=108]
+resource_name = "Green"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=109]
+resource_name = "Purple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=110]
+resource_name = "Red"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=111]
+resource_name = "Yellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=112]
+resource_name = "Blue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=113]
+resource_name = "Cyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=114]
+resource_name = "Green"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=115]
+resource_name = "Purple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=116]
+resource_name = "Red"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=117]
+resource_name = "Yellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=118]
+resource_name = "Blue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=119]
+resource_name = "Cyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=120]
+resource_name = "Green"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=121]
+resource_name = "Purple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=122]
+resource_name = "Red"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=123]
+resource_name = "Yellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[sub_resource type="Animation" id=124]
+resource_name = "Blue"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=125]
+resource_name = "Cyan"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=126]
+resource_name = "Green"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=127]
+resource_name = "Purple"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=128]
+resource_name = "Red"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=129]
+resource_name = "Yellow"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15 ]
+}
+
+[node name="BuyMenu" type="TextureRect"]
+margin_right = 80.0
+margin_bottom = 170.0
+texture = ExtResource( 10 )
+expand = true
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_top = 2.0
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Junior" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 5, 0 )
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/Junior"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/Junior/Control"]
+texture = ExtResource( 1 )
+centered = false
+hframes = 24
+vframes = 6
+frame = 124
+
+[node name="JuniorArmyColour" type="AnimationPlayer" parent="VBoxContainer/Junior/Control"]
+root_node = NodePath("../..")
+anims/bBlue = SubResource( 1 )
+anims/bCyan = SubResource( 2 )
+anims/bPurple = SubResource( 3 )
+anims/bRed = SubResource( 4 )
+anims/bYellow = SubResource( 5 )
+anims/cBlue = SubResource( 6 )
+anims/cCyan = SubResource( 7 )
+anims/cGreen = SubResource( 8 )
+anims/cPurple = SubResource( 9 )
+anims/cRed = SubResource( 10 )
+anims/cYellow = SubResource( 11 )
+anims/eBlue = SubResource( 12 )
+anims/eCyan = SubResource( 13 )
+anims/eGreen = SubResource( 14 )
+anims/ePurple = SubResource( 15 )
+anims/eRed = SubResource( 16 )
+anims/eYellow = SubResource( 17 )
+anims/fBlue = SubResource( 18 )
+anims/fCyan = SubResource( 19 )
+anims/fGreen = SubResource( 20 )
+anims/fPurple = SubResource( 21 )
+anims/fRed = SubResource( 22 )
+anims/fYellow = SubResource( 23 )
+anims/nBlue = SubResource( 24 )
+anims/nCyan = SubResource( 25 )
+anims/nGreen = SubResource( 26 )
+anims/nPurple = SubResource( 27 )
+anims/nRed = SubResource( 28 )
+anims/nYellow = SubResource( 29 )
+anims/sBlue = SubResource( 30 )
+anims/sCyan = SubResource( 31 )
+anims/sGreen = SubResource( 32 )
+anims/sPurple = SubResource( 33 )
+anims/sRed = SubResource( 34 )
+anims/sYellow = SubResource( 35 )
+
+[node name="JuniorButton" type="Button" parent="VBoxContainer/Junior"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+action_mode = 0
+text = " $1000 "
+
+[node name="Senior" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 78.0
+margin_bottom = 44.0
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/Senior"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/Senior/Control"]
+texture = ExtResource( 2 )
+centered = false
+hframes = 24
+vframes = 6
+frame = 124
+
+[node name="SeniorArmyColour" type="AnimationPlayer" parent="VBoxContainer/Senior/Control"]
+root_node = NodePath("../..")
+anims/bBlue = SubResource( 36 )
+anims/bCyan = SubResource( 37 )
+anims/bPurple = SubResource( 38 )
+anims/bRed = SubResource( 39 )
+anims/bYellow = SubResource( 40 )
+anims/cBlue = SubResource( 41 )
+anims/cCyan = SubResource( 42 )
+anims/cGreen = SubResource( 43 )
+anims/cPurple = SubResource( 44 )
+anims/cRed = SubResource( 45 )
+anims/cYellow = SubResource( 46 )
+anims/eBlue = SubResource( 47 )
+anims/eCyan = SubResource( 48 )
+anims/eGreen = SubResource( 49 )
+anims/ePurple = SubResource( 50 )
+anims/eRed = SubResource( 51 )
+anims/eYellow = SubResource( 52 )
+anims/fBlue = SubResource( 53 )
+anims/fCyan = SubResource( 54 )
+anims/fGreen = SubResource( 55 )
+anims/fPurple = SubResource( 56 )
+anims/fRed = SubResource( 57 )
+anims/fYellow = SubResource( 58 )
+anims/nBlue = SubResource( 59 )
+anims/nCyan = SubResource( 60 )
+anims/nGreen = SubResource( 61 )
+anims/nPurple = SubResource( 62 )
+anims/nRed = SubResource( 63 )
+anims/nYellow = SubResource( 64 )
+anims/sBlue = SubResource( 65 )
+anims/sCyan = SubResource( 66 )
+anims/sGreen = SubResource( 67 )
+anims/sPurple = SubResource( 68 )
+anims/sRed = SubResource( 69 )
+anims/sYellow = SubResource( 70 )
+
+[node name="SeniorButton" type="Button" parent="VBoxContainer/Senior"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+action_mode = 0
+text = " $1750 "
+
+[node name="BSenior" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 78.0
+margin_bottom = 68.0
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/BSenior"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/BSenior/Control"]
+texture = ExtResource( 3 )
+centered = false
+hframes = 24
+vframes = 6
+frame = 124
+
+[node name="BSeniorArmyColour" type="AnimationPlayer" parent="VBoxContainer/BSenior/Control"]
+root_node = NodePath("../..")
+anims/bBlue = SubResource( 71 )
+anims/bCyan = SubResource( 72 )
+anims/bPurple = SubResource( 73 )
+anims/bRed = SubResource( 74 )
+anims/bYellow = SubResource( 75 )
+anims/cBlue = SubResource( 76 )
+anims/cCyan = SubResource( 77 )
+anims/cGreen = SubResource( 78 )
+anims/cPurple = SubResource( 79 )
+anims/cRed = SubResource( 80 )
+anims/cYellow = SubResource( 81 )
+anims/eBlue = SubResource( 82 )
+anims/eCyan = SubResource( 83 )
+anims/eGreen = SubResource( 84 )
+anims/ePurple = SubResource( 85 )
+anims/eRed = SubResource( 86 )
+anims/eYellow = SubResource( 87 )
+anims/fBlue = SubResource( 88 )
+anims/fCyan = SubResource( 89 )
+anims/fGreen = SubResource( 90 )
+anims/fPurple = SubResource( 91 )
+anims/fRed = SubResource( 92 )
+anims/fYellow = SubResource( 93 )
+anims/nBlue = SubResource( 94 )
+anims/nCyan = SubResource( 95 )
+anims/nGreen = SubResource( 96 )
+anims/nPurple = SubResource( 97 )
+anims/nRed = SubResource( 98 )
+anims/nYellow = SubResource( 99 )
+anims/sBlue = SubResource( 100 )
+anims/sCyan = SubResource( 101 )
+anims/sGreen = SubResource( 102 )
+anims/sPurple = SubResource( 103 )
+anims/sRed = SubResource( 104 )
+anims/sYellow = SubResource( 105 )
+
+[node name="bSeniorButton" type="Button" parent="VBoxContainer/BSenior"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+action_mode = 0
+text = " $3000 "
+
+[node name="Scanner" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 78.0
+margin_bottom = 92.0
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/Scanner"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/Scanner/Control"]
+texture = ExtResource( 11 )
+centered = false
+hframes = 4
+vframes = 6
+frame = 4
+
+[node name="ScannerArmyColour" type="AnimationPlayer" parent="VBoxContainer/Scanner/Control"]
+anims/Blue = SubResource( 106 )
+anims/Cyan = SubResource( 107 )
+anims/Green = SubResource( 108 )
+anims/Purple = SubResource( 109 )
+anims/Red = SubResource( 110 )
+anims/Yellow = SubResource( 111 )
+
+[node name="ScannerButton" type="Button" parent="VBoxContainer/Scanner"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+action_mode = 0
+text = " $4000 "
+
+[node name="Printer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 96.0
+margin_right = 78.0
+margin_bottom = 116.0
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/Printer"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/Printer/Control"]
+texture = ExtResource( 8 )
+centered = false
+hframes = 4
+vframes = 6
+frame = 4
+
+[node name="PrinterArmyColour" type="AnimationPlayer" parent="VBoxContainer/Printer/Control"]
+anims/Blue = SubResource( 112 )
+anims/Cyan = SubResource( 113 )
+anims/Green = SubResource( 114 )
+anims/Purple = SubResource( 115 )
+anims/Red = SubResource( 116 )
+anims/Yellow = SubResource( 117 )
+
+[node name="PrinterButton" type="Button" parent="VBoxContainer/Printer"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+action_mode = 0
+text = "$7000"
+
+[node name="Stapler" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 120.0
+margin_right = 78.0
+margin_bottom = 140.0
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/Stapler"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/Stapler/Control"]
+texture = ExtResource( 6 )
+centered = false
+hframes = 4
+vframes = 6
+frame = 4
+
+[node name="StaplerArmyColour" type="AnimationPlayer" parent="VBoxContainer/Stapler/Control"]
+anims/Blue = SubResource( 118 )
+anims/Cyan = SubResource( 119 )
+anims/Green = SubResource( 120 )
+anims/Purple = SubResource( 121 )
+anims/Red = SubResource( 122 )
+anims/Yellow = SubResource( 123 )
+
+[node name="Staplerbutton" type="Button" parent="VBoxContainer/Stapler"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+mouse_filter = 1
+action_mode = 0
+text = "$6000"
+
+[node name="Fax" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 144.0
+margin_right = 78.0
+margin_bottom = 164.0
+custom_constants/separation = 18
+
+[node name="Control" type="Control" parent="VBoxContainer/Fax"]
+margin_bottom = 20.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer/Fax/Control"]
+texture = ExtResource( 7 )
+centered = false
+hframes = 4
+vframes = 6
+frame = 4
+
+[node name="FaxArmyColour" type="AnimationPlayer" parent="VBoxContainer/Fax/Control"]
+anims/Blue = SubResource( 124 )
+anims/Cyan = SubResource( 125 )
+anims/Green = SubResource( 126 )
+anims/Purple = SubResource( 127 )
+anims/Red = SubResource( 128 )
+anims/Yellow = SubResource( 129 )
+
+[node name="FaxButton" type="Button" parent="VBoxContainer/Fax"]
+margin_left = 18.0
+margin_right = 78.0
+margin_bottom = 20.0
+mouse_filter = 1
+action_mode = 0
+text = "$15000"
+
+[node name="SoundMenuButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+
+[node name="SoundMenuButtonCancel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[connection signal="pressed" from="VBoxContainer/Junior/JuniorButton" to="." method="_on_JuniorButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Senior/SeniorButton" to="." method="_on_SeniorButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/BSenior/bSeniorButton" to="." method="_on_bSeniorButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Scanner/ScannerButton" to="." method="_on_ScannerButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Printer/PrinterButton" to="." method="_on_PrinterButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Stapler/Staplerbutton" to="." method="_on_Staplerbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Fax/FaxButton" to="." method="_on_FaxButton_pressed"]

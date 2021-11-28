@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
+[ext_resource path="res://Objects/BattleMap Objects/BuyMenu.tscn" type="PackedScene" id=42]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -65,13 +66,13 @@ format = 1
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 196615, 9, 65537, 196616, 9, 65537, 196617, 9, 65537, 196618, 9, 65538, 262151, 9, 65537, 262154, 10, 196608, 327687, 9, 131073, 393223, 2, 0 )
+tile_data = PoolIntArray( 196615, 9, 65537, 196616, 9, 65537, 196617, 9, 65537, 196618, 9, 65538, 262151, 9, 65537, 262154, 10, 196612, 327687, 9, 131073, 393223, 2, 0 )
 
 [node name="Devproperty" type="TileMap" parent="."]
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 196620, 1, 0, 196621, 2, 0, 196629, 12, 0, 458760, 11, 0, 458761, 11, 0, 589832, 6, 0, 655368, 8, 0, 720909, 14, 0 )
+tile_data = PoolIntArray( 196620, 1, 0, 196621, 2, 0, 196629, 12, 0, 458760, 11, 0, 458761, 11, 0, 524295, 7, 0, 589832, 6, 0, 655368, 8, 0, 720903, 7, 0, 720904, 7, 0, 720909, 14, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 19 )
@@ -228,6 +229,9 @@ margin_right = 34.0
 margin_bottom = 63.0
 popup_exclusive = true
 hide_on_item_selection = false
+
+[node name="BuyMenu" parent="." instance=ExtResource( 42 )]
+visible = false
 
 [node name="TurnQueue" parent="." instance=ExtResource( 13 )]
 gamegrid = ExtResource( 7 )

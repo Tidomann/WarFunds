@@ -48,6 +48,7 @@ func _ready():
 		unit.update_position()
 		unit.army_color_set()
 		unit.update_health()
+		unit.set_flip()
 
 	#Now that the proper commander is in place, set up the turnqueue
 	
@@ -68,11 +69,12 @@ func _ready():
 		2:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
-	$"Music Player".set_stream(load("res://assets/Music/DialogBackgroundMusic.mp3"))
-	$"Music Player".set_volume_db(-30)
-	$"Music Player".play()
+	#$"Music Player".set_stream(load("res://assets/Music/DialogBackgroundMusic.mp3"))
+	#$"Music Player".set_volume_db(-30)
+	#$"Music Player".play()
+	#$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
-	$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
+	#$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	$GameBoard/Cursor.activate()
 
 
