@@ -220,7 +220,7 @@ hide_on_item_selection = false
 gamegrid = ExtResource( 7 )
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
-playerName = "Human"
+playerName = "University"
 commander_path = NodePath("RedLine")
 player_colour = 1
 

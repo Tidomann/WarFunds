@@ -62,7 +62,7 @@ format = 1
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 196615, 9, 65537, 196616, 9, 65537, 196617, 9, 65537, 196618, 9, 65538, 262151, 9, 65537, 262154, 10, 196608, 327687, 9, 131073, 393223, 2, 0 )
+tile_data = PoolIntArray( 196615, 9, 65537, 196616, 9, 65537, 196617, 9, 65537, 196618, 9, 65538, 262151, 9, 65537, 262154, 10, 196612, 327687, 9, 131073, 393223, 2, 0 )
 
 [node name="Devproperty" type="TileMap" parent="."]
 tile_set = ExtResource( 20 )
@@ -206,7 +206,7 @@ hide_on_item_selection = false
 gamegrid = ExtResource( 7 )
 
 [node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
-playerName = "Human"
+playerName = "University"
 commander_path = NodePath("RedLine")
 player_colour = 1
 

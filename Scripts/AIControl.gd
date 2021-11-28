@@ -661,6 +661,12 @@ func infantry_actions(infantry : Array) -> void:
 					unit.flip_turnReady()
 			else:
 				reactivate_all_points()
+				for enemy in battlemap._units_node.get_children():
+					# Attacker cannot travel on top of enemy
+						if unit.playerOwner.team != enemy.playerOwner.team:
+							dijkstra_map = dijkstra_map_dict[unit.movement_type]
+							dijkstra_map.disable_point(gamegrid.as_index(enemy.cell))
+							dijkstra_map.set_terrain_for_point(gamegrid.as_index(enemy.cell), 1)
 				path = no_targets_direct_path(unit)
 				move_computer_unit(unit,path)
 				if path.size() > 1:
