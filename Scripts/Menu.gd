@@ -26,6 +26,8 @@ func _on_StartButton_pressed():
 
 func _on_OptionsButton_pressed():
 	$SoundStartButtonClick.play()
+	$Kronk.visible = true
+	$Sorry.visible = true
 	pass # Replace with function body.
 
 func _on_QuitButton_pressed():
