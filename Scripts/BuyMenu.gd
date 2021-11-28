@@ -63,7 +63,7 @@ func popup_menu(inbase_position: Vector2, grid_coordinate: Vector2, inplayer: No
 	# 480 x 270 window size
 	# 80x170 menu size
 	self.rect_global_position = inbase_position
-	if base_position.x >= 240:
+	if inbase_position.x >= 240:
 		self.rect_global_position += Vector2(-96,0)
 	else:
 		self.rect_global_position += Vector2(16,0)
@@ -514,17 +514,17 @@ func army_color_set(playerOwner: Node2D) -> void:
 					$VBoxContainer/Fax/Control/FaxArmyColour.play("Purple")
 
 func test_funds(funds: int) -> void:
-	if funds < 1000:
+	if funds < juniorcost:
 		$VBoxContainer/Junior/JuniorButton.disabled = true
-	if funds < 1750:
+	if funds < seniorcost:
 		$VBoxContainer/Senior/SeniorButton.disabled = true
-	if funds < 3000:
+	if funds < bseniorcost:
 		$VBoxContainer/BSenior/bSeniorButton.disabled = true
-	if funds < 4000:
+	if funds < scannercost:
 		$VBoxContainer/Scanner/ScannerButton.disabled = true
-	if funds < 7000:
+	if funds < printercost:
 		$VBoxContainer/Printer/PrinterButton.disabled = true
-	if funds < 6000:
+	if funds < staplercost:
 		$VBoxContainer/Stapler/Staplerbutton.disabled = true
-	if funds < 15000:
+	if funds < faxcost:
 		$VBoxContainer/Fax/FaxButton.disabled = true

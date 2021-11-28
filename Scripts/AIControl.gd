@@ -15,6 +15,7 @@ var turn_queue
 var soundmanager
 var human_player
 var gameboard
+var buymenu
 onready var timer = $Timer
 
 const DIRECTIONS = [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
@@ -76,6 +77,7 @@ func take_computer_turn(computer : Node2D) -> void:
 		yield(infantry_actions(mech), "completed")
 	if not infantry.empty():
 		yield(infantry_actions(infantry), "completed")
+	buy_units(computer)
 	timer.set_wait_time(1.5)
 	timer.set_one_shot(true)
 	timer.start()
@@ -105,6 +107,7 @@ func init(inbattlemap : Node2D) -> void:
 	human_player = battlemap.get_node("TurnQueue/Human")
 	gameboard = battlemap.get_node("GameBoard")
 	devtiles = gamegrid.devtiles
+	buymenu = battlemap.get_node("BuyMenu")
 	var index = 0
 	for cell in gamegrid.array:
 		if cell != null:
@@ -868,6 +871,116 @@ func has_open_property(attacker: Unit) -> bool:
 			else:
 				return true
 	return false
+
+func buy_units(computer: Node2D) -> void:
+	var usable_bases: Array = []
+	var enemy_hqs: Array = []
+	var sorted_bases: Array = []
+	reactivate_all_points()
+	for data in gamegrid.array:
+		if data.property != null:
+			if data.property.property_referance == Constants.PROPERTY.HQ && data.property.playerOwner.team != computer.team:
+				enemy_hqs.append(gamegrid.as_index(data.property.cell))
+			if data.property.property_referance == Constants.PROPERTY.BASE && data.property.playerOwner == computer && data.unit == null:
+				usable_bases.append(data.property.cell)
+	if not enemy_hqs.empty():
+		var optional_params = {
+			"input_is_destination": true,
+			"terrain_weights": { -1: 1.0 },
+		}
+		air_map.recalculate(enemy_hqs, optional_params)
+	if not usable_bases.empty():
+		for base in usable_bases:
+			sorted_bases.append([air_map.get_cost_at_point(gamegrid.as_index(base)), base])
+	if not sorted_bases.empty():
+		sorted_bases.sort_custom(baseSorter, "sort_ascending")
+		for n in range(0, sorted_bases.size()):
+			var unitreferance = buy_which_unit(computer, sorted_bases, n)
+			if unitreferance != -1:
+				buy_unit(computer, unitreferance, sorted_bases[n][1])
+
+func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
+	var infantry_count = 0
+	var printer_count = 0
+	var direct_count
+	for unit in battlemap._units_node.get_children():
+		if unit.unit_type == Constants.UNIT_TYPE.INFANTRY && unit.playerOwner == computer:
+			infantry_count += 1
+		if unit.unit_referance == Constants.UNIT.PRINTER && unit.playerOwner == computer:
+			printer_count += 1
+	# if the amount of bases we have left is equal or less than the amount
+	# we need to at least have 5 infantry
+	if bases.size()-index <= 5-infantry_count:
+		if (5-infantry_count)*buymenu.bseniorcost < computer.funds:
+			return Constants.UNIT.BAZOOKA_SENIOR
+		if (5-infantry_count)*buymenu.seniorcost < computer.funds:
+			return Constants.UNIT.SENIOR
+		if (5-infantry_count)*buymenu.juniorcost < computer.funds:
+			return Constants.UNIT.JUNIOR
+	# We have more bases than the amount of infantry we need to buy
+	var funds_after_reserve = computer.funds
+	# reserve money to at least buy the amount of juniors we need
+	if (5-infantry_count) > 0:
+		funds_after_reserve -= (5-infantry_count)*buymenu.juniorcost
+	if printer_count < 5 && funds_after_reserve > buymenu.printercost:
+		return Constants.UNIT.PRINTER
+	# Have at least 5 printers, and will be able to get at least 5 infantry
+	if funds_after_reserve > buymenu.faxcost:
+		return Constants.UNIT.FAX
+	if funds_after_reserve > buymenu.printercost:
+		return Constants.UNIT.PRINTER
+	if funds_after_reserve > buymenu.staplercost:
+		return Constants.UNIT.STAPLER
+	if funds_after_reserve > buymenu.scannercost:
+		return Constants.UNIT.SCANNER
+	if funds_after_reserve > buymenu.bseniorcost:
+		return Constants.UNIT.BAZOOKA_SENIOR
+	if funds_after_reserve > buymenu.seniorcost:
+		return Constants.UNIT.SENIOR
+	if funds_after_reserve > buymenu.juniorcost:
+		return Constants.UNIT.JUNIOR
+	return -1
+
+func buy_unit(computer: Node2D, unit_referance: int, coordinates: Vector2) -> void:
+	var previous_player = buymenu.player
+	var previous_grid_position = buymenu.grid_position
+	match unit_referance:
+		Constants.UNIT.JUNIOR:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_JuniorButton_pressed()
+		Constants.UNIT.SENIOR:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_SeniorButton_pressed()
+		Constants.UNIT.BAZOOKA_SENIOR:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_bSeniorButton_pressed()
+		Constants.UNIT.SCANNER:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_ScannerButton_pressed()
+		Constants.UNIT.STAPLER:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_Staplerbutton_pressed()
+		Constants.UNIT.PRINTER:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_PrinterButton_pressed()
+		Constants.UNIT.FAX:
+			buymenu.player = computer
+			buymenu.grid_position = coordinates
+			buymenu._on_FaxButton_pressed()
+	buymenu.player = previous_player
+	buymenu.grid_position = previous_grid_position
+
+class baseSorter:
+	static func sort_ascending(a, b):
+		if a[0] < b[0]:
+			return true
+		return false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
