@@ -65,6 +65,8 @@ func _ready():
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
 		1:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Start.json"
+		2:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$GameBoard/Cursor.activate()
@@ -316,12 +318,14 @@ func is_victory(human : Node2D) -> bool:
 
 func victory() -> void:
 	print("Victory")
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
 	match level_number:
 		0:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
 		1:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
+		2:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -329,19 +333,26 @@ func victory() -> void:
 		0:
 			for level in Global.unlockedLevels:
 				level = true
+			for leader in Global.unlockedLeaders:
+				leader = true
+			get_tree().change_scene("res://Scenes/Select.tscn")
 		1:
 			Global.unlockedLevels[1] = true
+			get_tree().change_scene("res://Scenes/Select.tscn")
+		2:
+			Global.unlockedLevels[2] = true
 			get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:
 	print("Defeat")
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"
 	match level_number:
 		0:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"
 		1:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
+		2:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Defeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")

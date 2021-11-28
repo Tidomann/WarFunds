@@ -208,7 +208,7 @@
 10/texture = ExtResource( 1 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
-10/region = Rect2( 426, 1, 16, 67 )
+10/region = Rect2( 358, 1, 84, 67 )
 10/tile_mode = 2
 10/autotile/icon_coordinate = Vector2( 0, 0 )
 10/autotile/tile_size = Vector2( 16, 16 )

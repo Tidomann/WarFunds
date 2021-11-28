@@ -1,4 +1,5 @@
 [
+	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"You've defeated the enemy! This mission is a success! Keep up the good work!"},
 	{"Name":"Redline", "Emotion":"Worried", "Text":"I... I lost?"},
 	{"Name":"Redline", "Emotion":"Worried2", "Text":"Banktania will not be happy about this."},
 	{"Name":"Redline", "Emotion":"Sad", "Text":"I'll have to hold them off before they get to the parking office."},

@@ -796,6 +796,7 @@ func computer_combat(attacker : Unit, defender : Unit) -> void:
 	timer.start()
 	yield(timer, "timeout")
 	gamegrid.unit_combat(attacker, defender)
+	soundmanager.playsound("Attack")
 	self.visible = false
 	if attacker.turnReady:
 		attacker.flip_turnReady()
