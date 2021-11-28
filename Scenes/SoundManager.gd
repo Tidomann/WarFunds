@@ -25,6 +25,8 @@ func playsound(sound:String):
 			$SoundCaptureIncomplete.play()
 		"PowerReady":
 			$SoundPowerReady.play()
+		"Error":
+			$SoundError.play()
 
 func stopsound(sound:String):
 	match sound:
@@ -48,6 +50,8 @@ func stopsound(sound:String):
 			$SoundCaptureIncomplete.stop()
 		"PowerReady":
 			$SoundPowerReady.stop()
+		"Error":
+			$SoundError.stop()
 
 func stopallsound() -> void:
 	for node in get_children():

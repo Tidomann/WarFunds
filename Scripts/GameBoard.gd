@@ -98,10 +98,10 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 				_move_active_unit(cell)
 			else:
 				# TODO: CHANGE THESE TO ERROR?
-				$SoundManager.playsound("Cancel")
+				$SoundManager.playsound("Error")
 		else:
 			# TODO: CHANGE THESE TO ERROR?
-			$SoundManager.playsound("Cancel")
+			$SoundManager.playsound("Error")
 	else:
 		$SoundManager.playsound("Select")
 		_cursor.deactivate(true)
