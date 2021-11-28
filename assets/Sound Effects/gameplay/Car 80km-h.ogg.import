@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Car 80km-h.ogg-c4f1959997f734284469b5432af99354.oggstr"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/Car 80km-h.ogg"
+dest_files=[ "res://.import/Car 80km-h.ogg-c4f1959997f734284469b5432af99354.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

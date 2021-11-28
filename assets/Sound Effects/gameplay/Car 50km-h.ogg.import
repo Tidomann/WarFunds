@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Car 50km-h.ogg-bc0572549d715db809af3dd0f90beab4.oggstr"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/Car 50km-h.ogg"
+dest_files=[ "res://.import/Car 50km-h.ogg-bc0572549d715db809af3dd0f90beab4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -160,9 +160,11 @@ func _move_active_unit(new_position: Vector2) -> void:
 			Constants.MOVEMENT_TYPE.MECH:
 				$SoundManager.playsound("InfantryMove")
 			Constants.MOVEMENT_TYPE.TREAD:
-				pass
+				#find better ones
+				$SoundManager.playsound("TreadMove")
 			Constants.MOVEMENT_TYPE.TIRES:
-				pass
+				#find better ones
+				$SoundManager.playsound("TiresMove")
 	yield(_active_unit, "walk_finished")
 	
 	if trapped:
