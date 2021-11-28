@@ -331,10 +331,10 @@ func victory() -> void:
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	match level_number:
 		0:
-			for level in Global.unlockedLevels:
-				level = true
-			for leader in Global.unlockedLeaders:
-				leader = true
+			for n in 8:
+				Global.unlockedLevels[n] = true
+			for n in 8:
+				Global.unlockedLeaders[n] = true
 			get_tree().change_scene("res://Scenes/Select.tscn")
 		1:
 			Global.unlockedLevels[1] = true
