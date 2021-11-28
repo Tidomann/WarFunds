@@ -68,7 +68,11 @@ func _ready():
 		2:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
+	$"Music Player".set_stream(load("res://assets/Music/DialogBackgroundMusic.mp3"))
+	$"Music Player".set_volume_db(-30)
+	$"Music Player".play()
 	yield($CanvasLayer/DialogBox, "dialog_finished")
+	$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	$GameBoard/Cursor.activate()
 
 
