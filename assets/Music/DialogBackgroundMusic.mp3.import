@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/DialogBackgroundMusic.mp3-a05cf3bc7c5a52c68221d6a025b075ae.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/DialogBackgroundMusic.mp3"
+dest_files=[ "res://.import/DialogBackgroundMusic.mp3-a05cf3bc7c5a52c68221d6a025b075ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
