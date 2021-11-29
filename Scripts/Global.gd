@@ -7,7 +7,7 @@ var next_level = "res://Scenes/Select.tscn"
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]
-var unlockedLevels = [true,false,false,false,false,false,false,false]
+var unlockedLevels = [true,true,true,false,false,false,false,false]
 
 # Leader Images
 var leaders = [
@@ -33,16 +33,19 @@ var leadersDesc = [
 # Levels
 var levels = [
 	"res://Scenes/Level1.tscn",
-	"res://Scenes/Level2.tscn"
+	"res://Scenes/Level2.tscn",
+	"res://Scenes/Level3.tscn"
 ]
 
 # Level Intros
 var level_intros = [
 	"res://Dialog/Level1Intro.json",
-	"res://Dialog/Level2Intro.json"
+	"res://Dialog/Level2Intro.json",
+	"res://Dialog/Level3Intro.json"
 ]
 
 var intro_scenes = [
 	"res://Scenes/Level1Intro.tscn",
-	"res://Scenes/Level2Intro.tscn"
+	"res://Scenes/Level2Intro.tscn",
+	"res://Scenes/Level3Intro.tscn"
 ]

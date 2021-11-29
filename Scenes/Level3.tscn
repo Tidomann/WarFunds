@@ -1,0 +1,305 @@
+[gd_scene load_steps=40 format=2]
+
+[ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://assets/Sprites/Tile/NormalTileset.tres" type="TileSet" id=3]
+[ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
+[ext_resource path="res://Objects/BattleMap Objects/Cursor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=6]
+[ext_resource path="res://Objects/BattleMap Objects/Grid.tres" type="Resource" id=7]
+[ext_resource path="res://Objects/BattleMap Objects/UnitOverlay.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Objects/BattleMap Objects/UnitPath.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/GameBoard.gd" type="Script" id=10]
+[ext_resource path="res://Objects/BattleMap Objects/PopupMenu.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Objects/BattleMap Objects/Player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Objects/BattleMap Objects/TurnQueue.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Objects/Commanders/RedLine.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Objects/Units/Junior.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Dialog/DialogBox.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Objects/BattleMap Objects/CombatCursor.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Objects/Interface/CommanderUI.tscn" type="PackedScene" id=18]
+[ext_resource path="res://assets/Sprites/Property/propertytileset.tres" type="TileSet" id=19]
+[ext_resource path="res://assets/Sprites/Property/devproperty.tres" type="TileSet" id=20]
+[ext_resource path="res://Scripts/AudioStreamPlayer.gd" type="Script" id=21]
+[ext_resource path="res://assets/Sound Effects/interface/bong_001.ogg" type="AudioStream" id=22]
+[ext_resource path="res://assets/Sound Effects/units/running.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
+[ext_resource path="res://assets/Sound Effects/interface/click_002.ogg" type="AudioStream" id=25]
+[ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Objects/Units/Book-zooka Senior.tscn" type="PackedScene" id=27]
+[ext_resource path="res://assets/Sound Effects/interface/Select.ogg" type="AudioStream" id=28]
+[ext_resource path="res://assets/Sound Effects/gameplay/Heal.ogg" type="AudioStream" id=29]
+[ext_resource path="res://Scenes/SoundManager.gd" type="Script" id=30]
+[ext_resource path="res://assets/Sound Effects/gameplay/Attack.ogg" type="AudioStream" id=31]
+[ext_resource path="res://assets/Sound Effects/gameplay/CaptureProperty.mp3" type="AudioStream" id=32]
+[ext_resource path="res://assets/Sound Effects/gameplay/LoseProperty.mp3" type="AudioStream" id=33]
+[ext_resource path="res://assets/Sound Effects/gameplay/CaptureIncomplete.ogg" type="AudioStream" id=34]
+[ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
+[ext_resource path="res://Objects/Units/Printer.tscn" type="PackedScene" id=36]
+[ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
+[ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
+[ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
+
+[node name="BattleMap" type="Node2D"]
+script = ExtResource( 4 )
+level_number = 3
+victory_eliminate = false
+victory_hq = false
+xMin = 7
+xMax = 21
+yMin = 3
+yMax = 12
+gamegrid = ExtResource( 7 )
+
+[node name="Devtiles" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 196615, 1, 0, 196616, 2, 0, 196617, 2, 0, 196618, 2, 0, 196619, 1, 0, 196620, 1, 0, 196621, 1, 0, 196622, 2, 0, 196623, 2, 0, 196624, 2, 0, 196625, 2, 0, 196626, 5, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 262151, 0, 0, 262152, 1, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 2, 0, 262158, 2, 0, 262159, 2, 0, 262160, 2, 0, 262161, 0, 0, 262162, 4, 0, 262163, 0, 0, 262164, 0, 0, 262165, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 2, 0, 327695, 2, 0, 327696, 0, 0, 327697, 0, 0, 327698, 5, 0, 327699, 0, 0, 327700, 0, 0, 327701, 1, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 2, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 5, 0, 393235, 0, 0, 393236, 2, 0, 393237, 2, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 2, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 5, 0, 458771, 2, 0, 458772, 0, 0, 458773, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 2, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 5, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 2, 0, 589839, 2, 0, 589840, 0, 0, 589841, 0, 0, 589842, 5, 0, 589843, 2, 0, 589844, 0, 0, 589845, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 2, 0, 655376, 2, 0, 655377, 2, 0, 655378, 5, 0, 655379, 0, 0, 655380, 2, 0, 655381, 2, 0, 720903, 1, 0, 720904, 2, 0, 720905, 2, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 0, 0, 720913, 0, 0, 720914, 4, 0, 720915, 0, 0, 720916, 0, 0, 720917, 1, 0, 786439, 2, 0, 786440, 2, 0, 786441, 2, 0, 786442, 2, 0, 786443, 0, 0, 786444, 2, 0, 786445, 1, 0, 786446, 1, 0, 786447, 2, 0, 786448, 1, 0, 786449, 2, 0, 786450, 5, 0, 786451, 2, 0, 786452, 1, 0, 786453, 1, 0 )
+
+[node name="RenderedTiles" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="RenderedTiles2" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 196626, 10, 0, 262162, 11, 0, 720914, 11, 0, 786450, 10, 0 )
+
+[node name="Devproperty" type="TileMap" parent="."]
+tile_set = ExtResource( 20 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 393227, 1, 0, 393228, 1, 0, 393229, 13, 0, 458768, 13, 0, 458769, 13, 0, 524295, 6, 0, 524309, 12, 0, 589835, 1, 0, 589836, 13, 0 )
+
+[node name="PropertyTiles" type="TileMap" parent="."]
+tile_set = ExtResource( 19 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="GameBoard" type="YSort" parent="."]
+script = ExtResource( 10 )
+gamegrid = ExtResource( 7 )
+
+[node name="UnitOverlay" parent="GameBoard" instance=ExtResource( 8 )]
+
+[node name="UnitPath" parent="GameBoard" instance=ExtResource( 9 )]
+
+[node name="Units" type="YSort" parent="GameBoard"]
+
+[node name="Junior" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 119.826, 84.1901 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 7, 5 )
+
+[node name="Junior2" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 119.849, 99.6094 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 7, 6 )
+
+[node name="Junior3" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 119.452, 113.499 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 7, 7 )
+
+[node name="Book-zooka Senior" parent="GameBoard/Units" instance=ExtResource( 27 )]
+position = Vector2( 231.681, 102.086 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 14, 6 )
+
+[node name="Book-zooka Senior2" parent="GameBoard/Units" instance=ExtResource( 27 )]
+position = Vector2( 119.49, 165.938 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 7, 10 )
+
+[node name="Printer" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 279.809, 69.6713 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 17, 4 )
+
+[node name="Printer2" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 264.451, 85.0289 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 16, 5 )
+
+[node name="Printer3" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 312.397, 70.0459 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 19, 4 )
+
+[node name="Printer4" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 327.755, 82.0323 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 20, 5 )
+
+[node name="Junior5" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 312.022, 118.741 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 19, 7 )
+
+[node name="Junior6" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 312.772, 150.954 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 19, 9 )
+
+[node name="Senior" parent="GameBoard/Units" instance=ExtResource( 1 )]
+position = Vector2( 328.878, 117.617 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 20, 7 )
+
+[node name="Senior2" parent="GameBoard/Units" instance=ExtResource( 1 )]
+position = Vector2( 328.129, 150.205 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 20, 9 )
+
+[node name="Senior3" parent="GameBoard/Units" instance=ExtResource( 1 )]
+position = Vector2( 135.597, 100.012 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 8, 6 )
+
+[node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
+
+[node name="SoundMoveCursor" type="AudioStreamPlayer" parent="GameBoard/Cursor"]
+stream = ExtResource( 22 )
+volume_db = -15.0
+
+[node name="CombatCursor" parent="GameBoard" instance=ExtResource( 17 )]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GameBoard"]
+layer = 2
+
+[node name="FCTManager" parent="GameBoard/CanvasLayer" instance=ExtResource( 26 )]
+visible = false
+
+[node name="SoundManager" type="Node2D" parent="GameBoard"]
+visible = false
+script = ExtResource( 30 )
+
+[node name="SoundMoveAttackCursor" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 25 )
+volume_db = -10.0
+
+[node name="SoundInfantryMove" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 23 )
+volume_db = -10.0
+
+[node name="SoundCancel" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 39 )
+volume_db = -10.0
+
+[node name="SoundSelect" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 28 )
+volume_db = -10.0
+
+[node name="SoundHeal" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 29 )
+volume_db = -10.0
+
+[node name="SoundAttack" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 31 )
+volume_db = -10.0
+
+[node name="SoundCaptureProperty" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 32 )
+
+[node name="SoundLoseProperty" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 33 )
+
+[node name="SoundCaptureIncomplete" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 34 )
+
+[node name="SoundPowerReady" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 35 )
+volume_db = -10.0
+
+[node name="RTS-Camera2D" type="Camera2D" parent="."]
+position = Vector2( 239.604, 134.819 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 480
+limit_bottom = 270
+smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource( 6 )
+drag = false
+edge = true
+wheel = false
+camera_margin = 40
+
+[node name="PopupMenu" parent="." instance=ExtResource( 11 )]
+margin_left = 18.0
+margin_top = 43.0
+margin_right = 34.0
+margin_bottom = 63.0
+popup_exclusive = true
+hide_on_item_selection = false
+
+[node name="TurnQueue" parent="." instance=ExtResource( 13 )]
+gamegrid = ExtResource( 7 )
+
+[node name="Human" parent="TurnQueue" instance=ExtResource( 12 )]
+playerName = "University"
+commander_path = NodePath("RedLine")
+player_colour = 1
+
+[node name="RedLine" parent="TurnQueue/Human" instance=ExtResource( 14 )]
+player_path = NodePath("..")
+
+[node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
+position = Vector2( -0.529724, 0 )
+playerName = "Banktania"
+team = 6
+commander_path = NodePath("RedLine")
+player_colour = 5
+facing = "Left"
+computerAI = true
+
+[node name="RedLine" parent="TurnQueue/Computer1" instance=ExtResource( 14 )]
+player_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
+
+[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+
+[node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
+visible = false
+margin_left = -210.261
+margin_top = -124.832
+margin_right = 220.739
+margin_bottom = -9.83203
+
+[node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
+margin_left = -239.123
+margin_top = -134.568
+margin_right = 240.877
+margin_bottom = 135.432
+
+[node name="Music Player" type="AudioStreamPlayer" parent="."]
+volume_db = -30.0
+script = ExtResource( 21 )
+
+[node name="AIControl" parent="." instance=ExtResource( 41 )]
+gamegrid = ExtResource( 7 )
+
+[connection signal="income_changed" from="GameBoard" to="CanvasLayer/CommanderUI" method="income_changed"]
+[connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
+[connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
+[connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
+[connection signal="select_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_select_pressed"]
+[connection signal="combat_selection" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_combat_selection"]
+[connection signal="moved" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_moved"]
+[connection signal="gui_input" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_gui_input"]
+[connection signal="id_pressed" from="PopupMenu" to="PopupMenu" method="_on_PopupMenu_id_pressed"]
+[connection signal="popup_hide" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_popup_hide"]
+[connection signal="selection" from="PopupMenu" to="GameBoard" method="_on_PopupMenu_selection"]
+[connection signal="turn_changed" from="TurnQueue" to="CanvasLayer/CommanderUI" method="_on_TurnQueue_turn_changed"]
+[connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Human/RedLine" to="CanvasLayer/CommanderUI" method="power_changed"]
+[connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
+[connection signal="power_changed" from="TurnQueue/Computer1/RedLine" to="CanvasLayer/CommanderUI" method="power_changed"]

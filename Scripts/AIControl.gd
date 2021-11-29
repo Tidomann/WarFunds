@@ -199,10 +199,11 @@ func recalculate_to_targets_air_map(_unit: Unit, array : Array) -> void:
 
 func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 	recalculate_map(attacker, attacker.cell)
+	recalculate_air_map(attacker, attacker.cell)
 	dijkstra_map = dijkstra_map_dict[attacker.movement_type]
 	var move_bonus = attacker.playerOwner.commander.move_bonus()
-	var test_movement = attacker.move_range + move_bonus + 3.0
-	var dijkstra_tiles = dijkstra_map.get_all_points_with_cost_between(0.0, test_movement)
+	var test_movement = attacker.move_range + move_bonus + 1.0
+	var dijkstra_tiles = air_map.get_all_points_with_cost_between(0.0, test_movement)
 	var test_array : Array = []
 	for index in dijkstra_tiles:
 		test_array.append(gamegrid.array[index].coordinates)
@@ -211,7 +212,7 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 	for unit in battlemap._units_node.get_children():
 		if test_array.has(unit.cell):
 			if unit.playerOwner.team != attacker.playerOwner.team:
-				if is_good_attack(attacker, unit):
+				if is_good_attack(attacker, unit) || (attacker.unit_type != Constants.UNIT_TYPE.INFANTRY && unit.unit_type == Constants.UNIT_TYPE.INFANTRY):
 					target_list.append(unit)
 	if not target_list.empty():
 		# Disable Movement through enemies
@@ -248,10 +249,14 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 					if target.attack_type == Constants.ATTACK_TYPE.DIRECT:
 						var funds_damage_recieved = gamegrid.calculate_max_damage(target, attacker, temp_damage) * 0.01 * attacker.cost
 						# Dont consider this a good trade
-						if funds_damage < funds_damage_recieved * 0.8:
+						if funds_damage < funds_damage_recieved * 0.8 && (best_target != null && target.health <= attacker.health):
 							continue
 					max_funds_damage = funds_damage
 					best_target = target
+			# No targets are viable, or the only targets we have are stronger than us
+			if best_target == null:
+				reactivate_all_points()
+				return no_targets_direct_path(attacker)
 			var best_defense = 0
 			var destination = null
 			for direction in DIRECTIONS:
@@ -584,24 +589,47 @@ func direct_actions(light_direct : Array) -> void:
 				if path.size() > 1:
 					yield(unit, "walk_finished")
 					soundmanager.stopallsound()
-				var new_position = unit.cell
-				if gamegrid.enemy_in_range(unit, old_position, new_position):
-					var targets = []
-					for direction in DIRECTIONS:
-						var coordinates: Vector2 = new_position + direction
-						if gamegrid.is_gridcoordinate_within_map(coordinates):
-							if gamegrid.is_occupied(coordinates):
-								if gamegrid.is_enemy(unit, gamegrid.get_unit(coordinates)):
-									targets.append(gamegrid.get_unit(coordinates))
-					if targets.size() > 1:
-						var best_target = get_best_target(unit, targets)
-						if not best_target == null:
-							yield(computer_combat(unit, best_target), "completed")
+					var new_position = unit.cell
+					if gamegrid.enemy_in_range(unit, old_position, new_position):
+						var targets = []
+						for direction in DIRECTIONS:
+							var coordinates: Vector2 = new_position + direction
+							if gamegrid.is_gridcoordinate_within_map(coordinates):
+								if gamegrid.is_occupied(coordinates):
+									if gamegrid.is_enemy(unit, gamegrid.get_unit(coordinates)):
+										targets.append(gamegrid.get_unit(coordinates))
+						if targets.size() > 1:
+							var best_target = get_best_target(unit, targets)
+							if not best_target == null:
+								yield(computer_combat(unit, best_target), "completed")
+						else:
+							yield(computer_combat(unit, targets[0]), "completed")
 					else:
-						yield(computer_combat(unit, targets[0]), "completed")
+						if unit.turnReady:
+							unit.flip_turnReady()
 				else:
-					if unit.turnReady:
-						unit.flip_turnReady()
+					if (unit.health < 100):
+						var heal_path = get_healing_path(unit)
+						move_computer_unit(unit,heal_path)
+						if heal_path.size() > 1:
+							yield(unit, "walk_finished")
+							soundmanager.stopallsound()
+						else:
+							if gameboard.can_afford_heal(unit):
+								soundmanager.playsound("Heal")
+								# ADJUST HEALING COST BALANCE HERE
+								unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+								if unit.turnReady:
+									unit.flip_turnReady()
+								timer.set_wait_time(1.9)
+								timer.set_one_shot(true)
+								timer.start()
+								yield(timer, "timeout")
+						if unit.turnReady:
+							unit.flip_turnReady()
+					else:
+						if unit.turnReady:
+							unit.flip_turnReady()
 			else:
 				#print(unit.cell)
 				var path = defensive_direct(unit)
@@ -628,11 +656,11 @@ func direct_actions(light_direct : Array) -> void:
 				else:
 					if unit.turnReady:
 						unit.flip_turnReady()
-	timer.stop()
-	timer.set_wait_time(0.25)
-	timer.set_one_shot(true)
-	timer.start()
-	yield(timer, "timeout")
+		timer.stop()
+		timer.set_wait_time(1.0)
+		timer.set_one_shot(true)
+		timer.start()
+		yield(timer, "timeout")
 
 func infantry_actions(infantry : Array) -> void:
 	for unit in infantry:
@@ -702,7 +730,7 @@ func infantry_actions(infantry : Array) -> void:
 							soundmanager.playsound("CaptureIncomplete")
 				if unit.turnReady:
 					unit.flip_turnReady()
-		timer.set_wait_time(1.5)
+		timer.set_wait_time(1.0)
 		timer.set_one_shot(true)
 		timer.start()
 		yield(timer, "timeout")

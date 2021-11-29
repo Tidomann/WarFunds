@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/normaltile.png-e571d00283a1033b20ff940dc4845b22.stex"
+path="res://.import/Level3Intro.png-10a2a1d01e04f01668b77727b0eaa7c1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/Tile/normaltile.png"
-dest_files=[ "res://.import/normaltile.png-e571d00283a1033b20ff940dc4845b22.stex" ]
+source_file="res://assets/Sprites/Dialog Backgrounds/Level3Intro.png"
+dest_files=[ "res://.import/Level3Intro.png-10a2a1d01e04f01668b77727b0eaa7c1.stex" ]
 
 [params]
 
