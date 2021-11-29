@@ -98,11 +98,9 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 				$SoundManager.playsound("Select")
 				_move_active_unit(cell)
 			else:
-				# TODO: CHANGE THESE TO ERROR?
-				$SoundManager.playsound("Cancel")
+				$SoundManager.playsound("Error")
 		else:
-			# TODO: CHANGE THESE TO ERROR?
-			$SoundManager.playsound("Cancel")
+			$SoundManager.playsound("Error")
 	else:
 		if gamegrid.has_property(cell):
 			if gamegrid.get_property(cell).property_referance == Constants.PROPERTY.BASE && gamegrid.get_property(cell).playerOwner == _turn_queue.activePlayer:

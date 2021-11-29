@@ -25,6 +25,8 @@ func playsound(sound:String):
 			$SoundCaptureIncomplete.play()
 		"PowerReady":
 			$SoundPowerReady.play()
+		"Error":
+			$SoundError.play()
 
 func stopsound(sound:String):
 	match sound:
