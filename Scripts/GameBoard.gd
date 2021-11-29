@@ -127,7 +127,6 @@ func _select_unit(cell: Vector2) -> void:
 # Visually moves the active unit to the location
 # then presents the correct context menu
 func _move_active_unit(new_position: Vector2) -> void:
-	_active_unit.is_selected = false
 	# Security check if the selected cell is invalid
 	if _active_unit.cell != new_position:
 		if is_occupied(new_position) or not new_position in _walkable_cells:
@@ -170,12 +169,15 @@ func _move_active_unit(new_position: Vector2) -> void:
 	
 	if trapped:
 		#TODO: Play trapped effect
+		_active_unit.is_selected = false
 		set_new_position(_active_unit, new_position)
 		_active_unit.flip_turnReady()
 		_clear_active_unit()
 		_cursor.activate()
 	else:
 		_stored_new_position = new_position
+		# Could try and move this to the end of all commands- but may affect turn end modulations
+		_active_unit.is_selected = false
 		_pop_up.popup_menu(_cursor.position,\
 			gamegrid.enemy_in_range(_active_unit, gamegrid.get_unit_position(_active_unit),new_position),\
 			gamegrid.can_capture(new_position, _active_unit),\
