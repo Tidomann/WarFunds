@@ -879,11 +879,12 @@ func buy_units(computer: Node2D) -> void:
 	var sorted_bases: Array = []
 	reactivate_all_points()
 	for data in gamegrid.array:
-		if data.property != null:
-			if data.property.property_referance == Constants.PROPERTY.HQ && data.property.playerOwner.team != computer.team:
-				enemy_hqs.append(gamegrid.as_index(data.property.cell))
-			if data.property.property_referance == Constants.PROPERTY.BASE && data.property.playerOwner == computer && data.unit == null:
-				usable_bases.append(data.property.cell)
+		if data != null:
+			if data.property != null:
+				if data.property.property_referance == Constants.PROPERTY.HQ && data.property.playerOwner.team != computer.team:
+					enemy_hqs.append(gamegrid.as_index(data.property.cell))
+				if data.property.property_referance == Constants.PROPERTY.BASE && data.property.playerOwner == computer && data.unit == null:
+					usable_bases.append(data.property.cell)
 	if not enemy_hqs.empty():
 		var optional_params = {
 			"input_is_destination": true,
