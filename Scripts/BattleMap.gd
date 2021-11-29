@@ -334,6 +334,8 @@ func victory() -> void:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
 		2:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
+		3:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -350,6 +352,9 @@ func victory() -> void:
 		2:
 			Global.unlockedLevels[2] = true
 			get_tree().change_scene("res://Scenes/Select.tscn")
+		3:
+			Global.unlockedLevels[3] = true
+			get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:
 	print("Defeat")
@@ -361,6 +366,8 @@ func defeat() -> void:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
 		2:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Defeat.json"
+		3:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Defeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
