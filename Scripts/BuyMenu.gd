@@ -514,6 +514,13 @@ func army_color_set(playerOwner: Node2D) -> void:
 					$VBoxContainer/Fax/Control/FaxArmyColour.play("Purple")
 
 func test_funds(funds: int) -> void:
+	$VBoxContainer/Junior/JuniorButton.disabled = false
+	$VBoxContainer/Senior/SeniorButton.disabled = false
+	$VBoxContainer/BSenior/bSeniorButton.disabled = false
+	$VBoxContainer/Scanner/ScannerButton.disabled = false
+	$VBoxContainer/Printer/PrinterButton.disabled = false
+	$VBoxContainer/Stapler/Staplerbutton.disabled = false
+	$VBoxContainer/Fax/FaxButton.disabled = false
 	if funds < juniorcost:
 		$VBoxContainer/Junior/JuniorButton.disabled = true
 	if funds < seniorcost:
