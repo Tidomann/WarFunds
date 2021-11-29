@@ -189,9 +189,9 @@ func _move_active_unit(new_position: Vector2) -> void:
 		Constants.MOVEMENT_TYPE.MECH:
 			$SoundManager.stopsound("InfantryMove")
 		Constants.MOVEMENT_TYPE.TREAD:
-			pass
+			$SoundManager.stopsound("TreadMove")
 		Constants.MOVEMENT_TYPE.TIRES:
-			pass
+			$SoundManager.stopsound("TiresMove")
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:

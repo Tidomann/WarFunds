@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Tread.ogg-3e5dbd3884edbbaf46b0e22f66e28bb2.oggstr"
+
+[deps]
+
+source_file="res://assets/Sound Effects/units/Tread.ogg"
+dest_files=[ "res://.import/Tread.ogg-3e5dbd3884edbbaf46b0e22f66e28bb2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
