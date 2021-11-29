@@ -108,6 +108,7 @@ func init(inbattlemap : Node2D) -> void:
 	gameboard = battlemap.get_node("GameBoard")
 	devtiles = gamegrid.devtiles
 	buymenu = battlemap.get_node("BuyMenu")
+	gamegrid = battlemap.gamegrid
 	var index = 0
 	for cell in gamegrid.array:
 		if cell != null:
