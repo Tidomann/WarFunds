@@ -57,11 +57,10 @@ func printOrder():
 func start_turn(player : Node2D):
 	player.commander.used_power = false
 	#generate income per property owned
-	var now_max_power = not player.commander.canUsePower()
 	var income = gamegrid.start_turn_income(player)
 	player.addFunds(income)
 	player.addPower(income*0.2)
-	if now_max_power && player.commander.canUsePower():
+	if player.commander.canUsePower():
 				sound_manager.playsound("PowerReady")
 	
 	

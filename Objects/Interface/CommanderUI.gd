@@ -28,10 +28,11 @@ func income_changed(player : Node2D, income : int) -> void:
 			uiPlayerData.income_label.text = String(income)
 
 
-func power_changed(playerOwner, power):
+func power_changed(playerOwner, power, maxPower):
 	for uiPlayerData in self.get_children():
 		if uiPlayerData.player == playerOwner:
 			uiPlayerData.power_progress_bar.value = power
+			uiPlayerData.power_progress_bar.max_value = maxPower
 
 
 func _on_TurnQueue_turn_changed(activePlayer):

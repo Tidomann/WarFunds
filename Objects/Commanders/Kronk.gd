@@ -35,7 +35,7 @@ func addPower(iPower : float) -> void:
 		power = 0.0
 	else:
 		power += iPower
-	emit_signal("power_changed", playerOwner, power)
+	emit_signal("power_changed", playerOwner, power, maxPower)
 
 # decrease the commanders current power meter by the passed parameter
 func removePower(iPower : float) -> void:
@@ -45,12 +45,12 @@ func removePower(iPower : float) -> void:
 		power = maxPower
 	else:
 		power -= iPower
-	emit_signal("power_changed", playerOwner, power)
+	emit_signal("power_changed", playerOwner, power, maxPower)
 
 # set the power meter to it's maximum value
 func setPowerFilled() -> void:
 		power = maxPower
-		emit_signal("power_changed", playerOwner, power)
+		emit_signal("power_changed", playerOwner, power, maxPower)
 
 # function that returns the current value of the commanders power
 func currentPower() -> float:
