@@ -111,11 +111,12 @@ func use_power() -> void:
 		#Do Power Stuff
 
 
-func special_attack(_attacker, _defender) -> void:
+func special_attack(_attacker, _defender, damage_result) -> int:
 	if used_power:
 		if _defender.is_turnReady() == true:
 			_defender.flip_turnReady()
-			
+	return damage_result
+
 func move_bonus() -> int:
 	return 0
 

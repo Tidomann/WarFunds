@@ -114,9 +114,11 @@ func use_power() -> void:
 		#Do Power Stuff
 
 
-func special_attack(_attacker, _defender) -> void:
-	pass
-			
+func special_attack(_attacker, _defender, damage_result) -> int:
+	if used_power:
+		pass
+	return damage_result
+
 func move_bonus() -> int:
 	if used_power:
 		return 2
