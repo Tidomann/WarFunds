@@ -914,12 +914,17 @@ func buy_units(computer: Node2D) -> void:
 func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 	var infantry_count = 0
 	var printer_count = 0
-	var direct_count
+	var scanner_count = 0
+	var book_count = 0
 	for unit in battlemap._units_node.get_children():
 		if unit.unit_type == Constants.UNIT_TYPE.INFANTRY && unit.playerOwner == computer:
 			infantry_count += 1
 		if unit.unit_referance == Constants.UNIT.PRINTER && unit.playerOwner == computer:
 			printer_count += 1
+		if unit.unit_referance == Constants.UNIT.BAZOOKA_SENIOR && unit.playerOwner == computer:
+			book_count += 1
+		if unit.unit_referance == Constants.UNIT.SCANNER && unit.playerOwner == computer:
+			scanner_count += 1
 	# if the amount of bases we have left is equal or less than the amount
 	# we need to at least have 5 infantry
 	if bases.size()-index <= 5-infantry_count:
@@ -943,7 +948,7 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 		return Constants.UNIT.PRINTER
 	if funds_after_reserve > buymenu.staplercost && printer_count >= 3:
 		return Constants.UNIT.STAPLER
-	if funds_after_reserve > buymenu.scannercost:
+	if funds_after_reserve > buymenu.scannercost && book_count < scanner_count:
 		return Constants.UNIT.SCANNER
 	if funds_after_reserve > buymenu.bseniorcost:
 		return Constants.UNIT.BAZOOKA_SENIOR
