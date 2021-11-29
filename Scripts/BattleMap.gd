@@ -335,7 +335,7 @@ func victory() -> void:
 		2:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
 		3:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
