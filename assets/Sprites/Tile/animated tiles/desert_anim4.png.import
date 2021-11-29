@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/power2.png-5ac41bdd66e86f1a65e6f66b0440b60d.stex"
+path="res://.import/desert_anim4.png-acc0766347206a61e59f37cfbab8af7b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/UI/commanderpower/power2.png"
-dest_files=[ "res://.import/power2.png-5ac41bdd66e86f1a65e6f66b0440b60d.stex" ]
+source_file="res://assets/Sprites/Tile/animated tiles/desert_anim4.png"
+dest_files=[ "res://.import/desert_anim4.png-acc0766347206a61e59f37cfbab8af7b.stex" ]
 
 [params]
 

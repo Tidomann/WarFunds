@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://assets/Sprites/Tile/NormalTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
 [ext_resource path="res://Objects/BattleMap Objects/Cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=6]
@@ -43,6 +42,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
 [ext_resource path="res://Objects/BattleMap Objects/BuyMenu.tscn" type="PackedScene" id=42]
 [ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=43]
+[ext_resource path="res://assets/Sprites/Tile/DesertTileset.tres" type="TileSet" id=44]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -59,12 +59,12 @@ format = 1
 tile_data = PoolIntArray( 196615, 3, 0, 196616, 3, 0, 196617, 3, 0, 196618, 3, 0, 196619, 1, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 1, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 4, 0, 196629, 0, 0, 262151, 3, 0, 262152, 3, 0, 262153, 3, 0, 262154, 3, 0, 262155, 5, 0, 262156, 5, 0, 262157, 5, 0, 262158, 5, 0, 262159, 1, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 1, 0, 262164, 4, 0, 262165, 0, 0, 327687, 3, 0, 327688, 3, 0, 327689, 3, 0, 327690, 3, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 5, 0, 327695, 5, 0, 327696, 1, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 4, 0, 327701, 0, 0, 393223, 2, 0, 393224, 1, 0, 393225, 1, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 5, 0, 393232, 5, 0, 393233, 5, 0, 393234, 0, 0, 393235, 0, 0, 393236, 4, 0, 393237, 1, 0, 458759, 1, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 2, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 1, 0, 458768, 0, 0, 458769, 5, 0, 458770, 0, 0, 458771, 0, 0, 458772, 4, 0, 458773, 0, 0, 524295, 4, 0, 524296, 4, 0, 524297, 4, 0, 524298, 0, 0, 524299, 2, 0, 524300, 1, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 1, 0, 524305, 5, 0, 524306, 5, 0, 524307, 5, 0, 524308, 4, 0, 524309, 5, 0, 589831, 2, 0, 589832, 0, 0, 589833, 4, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 1, 0, 589842, 0, 0, 589843, 0, 0, 589844, 4, 0, 589845, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 4, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 4, 0, 655381, 1, 0, 720903, 4, 0, 720904, 4, 0, 720905, 4, 0, 720906, 4, 0, 720907, 4, 0, 720908, 4, 0, 720909, 4, 0, 720910, 4, 0, 720911, 4, 0, 720912, 4, 0, 720913, 4, 0, 720914, 1, 0, 720915, 4, 0, 720916, 4, 0, 720917, 0, 0, 786439, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 1, 0, 786444, 0, 0, 786445, 1, 0, 786446, 0, 0, 786447, 1, 0, 786448, 0, 0, 786449, 1, 0, 786450, 1, 0, 786451, 1, 0, 786452, 0, 0, 786453, 1, 0 )
 
 [node name="RenderedTiles" type="TileMap" parent="."]
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 44 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
 [node name="RenderedTiles2" type="TileMap" parent="."]
-tile_set = ExtResource( 3 )
+tile_set = ExtResource( 44 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 196615, 9, 65537, 196616, 9, 65537, 196617, 9, 65537, 196618, 9, 65538, 262151, 9, 65537, 262154, 10, 196612, 327687, 9, 131073, 393223, 2, 0 )

@@ -104,9 +104,9 @@ player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 7, 7 )
 
 [node name="Book-zooka Senior" parent="GameBoard/Units" instance=ExtResource( 27 )]
-position = Vector2( 231.681, 102.086 )
+position = Vector2( 134.849, 150.502 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 14, 6 )
+cell = Vector2( 8, 9 )
 
 [node name="Book-zooka Senior2" parent="GameBoard/Units" instance=ExtResource( 27 )]
 position = Vector2( 119.49, 165.938 )
