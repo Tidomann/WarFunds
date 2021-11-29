@@ -204,7 +204,7 @@ func is_dead() -> bool:
 func update_health() -> void:
 	if health < 91 && health > 0:
 		_hp.visible = true
-		_hp.frame = int(health*0.1)
+		_hp.frame = int((health-1)*0.1)
 	else:
 		_hp.visible = false
 

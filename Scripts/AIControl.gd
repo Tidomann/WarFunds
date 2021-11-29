@@ -586,9 +586,10 @@ func direct_actions(light_direct : Array) -> void:
 				var path = best_attack_path_direct(unit)
 				var old_position = unit.cell
 				move_computer_unit(unit, path)
-				if path.size() > 1:
-					yield(unit, "walk_finished")
-					soundmanager.stopallsound()
+				if path.size() > 1 || gamegrid.enemy_in_range(unit, old_position, old_position):
+					if path.size() > 1:
+						yield(unit, "walk_finished")
+						soundmanager.stopallsound()
 					var new_position = unit.cell
 					if gamegrid.enemy_in_range(unit, old_position, new_position):
 						var targets = []
