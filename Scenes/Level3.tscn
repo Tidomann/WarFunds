@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -36,6 +36,7 @@
 [ext_resource path="res://assets/Sound Effects/gameplay/CaptureIncomplete.ogg" type="AudioStream" id=34]
 [ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
 [ext_resource path="res://Objects/Units/Printer.tscn" type="PackedScene" id=36]
+[ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=37]
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
@@ -214,6 +215,10 @@ stream = ExtResource( 34 )
 [node name="SoundPowerReady" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 35 )
 volume_db = -10.0
+
+[node name="SoundError" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 37 )
+volume_db = -15.0
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
 position = Vector2( 239.604, 134.819 )

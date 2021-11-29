@@ -1,5 +1,6 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
+[ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/NormalTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
@@ -178,6 +179,10 @@ stream = ExtResource( 34 )
 [node name="SoundPowerReady" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 35 )
 volume_db = -10.0
+
+[node name="SoundError" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 1 )
+volume_db = -15.0
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
 position = Vector2( 239.604, 134.819 )

@@ -569,16 +569,17 @@ func direct_actions(light_direct : Array) -> void:
 				yield(unit, "walk_finished")
 				soundmanager.stopallsound()
 			else:
-				if gameboard.can_afford_heal(unit):
-					soundmanager.playsound("Heal")
-					# ADJUST HEALING COST BALANCE HERE
-					unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
-					if unit.turnReady:
-						unit.flip_turnReady()
-					timer.set_wait_time(1.9)
-					timer.set_one_shot(true)
-					timer.start()
-					yield(timer, "timeout")
+				if gameboard.can_afford_heal(unit) && gamegrid.has_property(unit.cell):
+					if gamegrid.get_property(unit.cell).playerOwner == unit.playerOwner:
+						soundmanager.playsound("Heal")
+						# ADJUST HEALING COST BALANCE HERE
+						unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+						if unit.turnReady:
+							unit.flip_turnReady()
+						timer.set_wait_time(1.9)
+						timer.set_one_shot(true)
+						timer.start()
+						yield(timer, "timeout")
 			if unit.turnReady:
 				unit.flip_turnReady()
 		else:
@@ -616,16 +617,17 @@ func direct_actions(light_direct : Array) -> void:
 							yield(unit, "walk_finished")
 							soundmanager.stopallsound()
 						else:
-							if gameboard.can_afford_heal(unit):
-								soundmanager.playsound("Heal")
-								# ADJUST HEALING COST BALANCE HERE
-								unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
-								if unit.turnReady:
-									unit.flip_turnReady()
-								timer.set_wait_time(1.9)
-								timer.set_one_shot(true)
-								timer.start()
-								yield(timer, "timeout")
+							if gameboard.can_afford_heal(unit) && gamegrid.has_property(unit.cell):
+								if gamegrid.get_property(unit.cell).playerOwner == unit.playerOwner:
+									soundmanager.playsound("Heal")
+									# ADJUST HEALING COST BALANCE HERE
+									unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+									if unit.turnReady:
+										unit.flip_turnReady()
+									timer.set_wait_time(1.9)
+									timer.set_one_shot(true)
+									timer.start()
+									yield(timer, "timeout")
 						if unit.turnReady:
 							unit.flip_turnReady()
 					else:
@@ -776,15 +778,16 @@ func indirect_actions(indirects : Array) -> void:
 				unit.ai_healing = true
 				path = get_healing_path(unit)
 				if path.size() <= 1:
-					if gameboard.can_afford_heal(unit):
-						soundmanager.playsound("Heal")
-						unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
-						if unit.turnReady:
-							unit.flip_turnReady()
-						timer.set_wait_time(1.9)
-						timer.set_one_shot(true)
-						timer.start()
-						yield(timer, "timeout")
+					if gameboard.can_afford_heal(unit) && gamegrid.has_property(unit.cell):
+						if gamegrid.get_property(unit.cell).playerOwner == unit.playerOwner:
+							soundmanager.playsound("Heal")
+							unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+							if unit.turnReady:
+								unit.flip_turnReady()
+							timer.set_wait_time(1.9)
+							timer.set_one_shot(true)
+							timer.start()
+							yield(timer, "timeout")
 			else:
 				path = no_targets_indirect_path(unit)
 			move_computer_unit(unit,path)

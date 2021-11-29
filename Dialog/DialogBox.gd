@@ -31,6 +31,12 @@ func _process(_delta):
 			else:
 				$SoundDialog.play()
 				$Text.visible_characters = len($Text.text)
+		if Input.is_key_pressed(KEY_ENTER) || Input.is_key_pressed(KEY_KP_ENTER):
+			phraseNum = len(dialog)
+			isfinished = true
+			emit_signal("dialog_finished",isfinished)
+			self.visible = false
+			
  
 func getDialog() -> Array:
 	var f = File.new()

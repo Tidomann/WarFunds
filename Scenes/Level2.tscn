@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 [ext_resource path="res://assets/Sound Effects/interface/click_002.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
+[ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=27]
 [ext_resource path="res://assets/Sound Effects/interface/Select.ogg" type="AudioStream" id=28]
 [ext_resource path="res://assets/Sound Effects/gameplay/Heal.ogg" type="AudioStream" id=29]
 [ext_resource path="res://Scenes/SoundManager.gd" type="Script" id=30]
@@ -192,6 +193,10 @@ stream = ExtResource( 34 )
 [node name="SoundPowerReady" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 35 )
 volume_db = -10.0
+
+[node name="SoundError" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
+stream = ExtResource( 27 )
+volume_db = -15.0
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
 position = Vector2( 239.604, 134.819 )
