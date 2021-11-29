@@ -351,7 +351,11 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 		var destination_path : PoolVector2Array = []
 		for cell in gamegrid.propertytiles.get_used_cells():
 			if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner != attacker.playerOwner:
-				property_coordinates.append(gamegrid.as_index(cell))
+				if gamegrid.array[gamegrid.as_index(cell)].unit != null:
+					if not gamegrid.array[gamegrid.as_index(cell)].unit == attacker.playerOwner:
+						property_coordinates.append(gamegrid.as_index(cell))
+				else:
+					property_coordinates.append(gamegrid.as_index(cell))
 		if not property_coordinates.empty():
 			var final_move_blocked = true
 			while final_move_blocked:
@@ -668,9 +672,10 @@ func infantry_actions(infantry : Array) -> void:
 				for enemy in battlemap._units_node.get_children():
 					# Attacker cannot travel on top of enemy
 						if unit.playerOwner.team != enemy.playerOwner.team:
-							dijkstra_map = dijkstra_map_dict[unit.movement_type]
-							dijkstra_map.disable_point(gamegrid.as_index(enemy.cell))
-							dijkstra_map.set_terrain_for_point(gamegrid.as_index(enemy.cell), 1)
+							if not gamegrid.has_property(enemy.cell):
+								dijkstra_map = dijkstra_map_dict[unit.movement_type]
+								dijkstra_map.disable_point(gamegrid.as_index(enemy.cell))
+								dijkstra_map.set_terrain_for_point(gamegrid.as_index(enemy.cell), 1)
 				path = no_targets_direct_path(unit)
 				move_computer_unit(unit,path)
 				if path.size() > 1:
@@ -759,6 +764,11 @@ func indirect_actions(indirects : Array) -> void:
 				soundmanager.stopallsound()
 			if unit.turnReady:
 				unit.flip_turnReady()
+	timer.stop()
+	timer.set_wait_time(0.15)
+	timer.set_one_shot(true)
+	timer.start()
+	yield(timer, "timeout")
 
 func move_computer_unit(unit : Unit, path : PoolVector2Array) -> void:
 	if path.size() > 1:
@@ -927,11 +937,11 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 	if printer_count < 5 && funds_after_reserve > buymenu.printercost:
 		return Constants.UNIT.PRINTER
 	# Have at least 5 printers, and will be able to get at least 5 infantry
-	if funds_after_reserve > buymenu.faxcost:
+	if funds_after_reserve > buymenu.faxcost && printer_count >= 5:
 		return Constants.UNIT.FAX
 	if funds_after_reserve > buymenu.printercost:
 		return Constants.UNIT.PRINTER
-	if funds_after_reserve > buymenu.staplercost:
+	if funds_after_reserve > buymenu.staplercost && printer_count >= 3:
 		return Constants.UNIT.STAPLER
 	if funds_after_reserve > buymenu.scannercost:
 		return Constants.UNIT.SCANNER
