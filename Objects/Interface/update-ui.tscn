@@ -1,0 +1,128 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normal.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/Sprites/Unit/junior/junior.png" type="Texture" id=2]
+[ext_resource path="res://assets/Sprites/UI/DemoUiBackgroundNineRect.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Interface/update-ui.gd" type="Script" id=4]
+[ext_resource path="res://assets/Kenney Pixel.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/Sprites/UI/transheart.png" type="Texture" id=6]
+[ext_resource path="res://assets/Sprites/UI/shield.png" type="Texture" id=7]
+[ext_resource path="res://assets/Sprites/UI/pincome.png" type="Texture" id=8]
+[ext_resource path="res://assets/Sprites/Property/Individual Animated/ncity.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
+
+[node name="update-ui" type="Control"]
+anchor_left = 0.718
+anchor_top = 0.5
+anchor_right = 0.718
+anchor_bottom = 0.5
+margin_left = 33.76
+margin_top = 80.0
+margin_right = 134.76
+margin_bottom = 135.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 41.0
+margin_top = -13.0
+margin_right = 3.05176e-05
+texture = ExtResource( 3 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Unit sprite" type="Sprite" parent="NinePatchRect"]
+position = Vector2( 15.1691, 18.8938 )
+scale = Vector2( 1.40964, 1.5036 )
+z_index = 665
+texture = ExtResource( 2 )
+hframes = 24
+vframes = 6
+frame = 3
+
+[node name="Heat Icon" type="Sprite" parent="NinePatchRect/Unit sprite"]
+position = Vector2( -1.62784, 14.7001 )
+scale = Vector2( 0.920485, 0.897789 )
+texture = ExtResource( 6 )
+
+[node name="Health text" type="Label" parent="NinePatchRect/Unit sprite"]
+margin_left = -6.13995
+margin_top = 20.0
+margin_right = 3.86005
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="Control" parent="NinePatchRect"]
+margin_left = 38.8028
+margin_top = 29.665
+margin_right = 78.8028
+margin_bottom = 69.665
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="NinePatchRect/VBoxContainer"]
+position = Vector2( -2.94727, 2.48975 )
+scale = Vector2( 0.075, 0.075 )
+texture = ExtResource( 7 )
+
+[node name="text" type="Label" parent="NinePatchRect/VBoxContainer"]
+margin_left = 8.40378
+margin_top = -4.4454
+margin_right = 20.4038
+margin_bottom = 7.5546
+rect_pivot_offset = Vector2( 6, 4.26863 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite2" type="Sprite" parent="NinePatchRect/VBoxContainer"]
+position = Vector2( -4.09586, 23.4376 )
+scale = Vector2( 1.8, 1.8 )
+texture = ExtResource( 8 )
+
+[node name="Property Life" type="Label" parent="NinePatchRect/VBoxContainer"]
+visible = false
+margin_left = 7.69666
+margin_top = 18.3588
+margin_right = 19.6967
+margin_bottom = 30.3588
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="property_sprite" type="Sprite" parent="NinePatchRect/VBoxContainer"]
+position = Vector2( -3.5, -24.5 )
+texture = ExtResource( 9 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 69.011, -8 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0 )
