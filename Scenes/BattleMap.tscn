@@ -182,7 +182,7 @@ volume_db = -10.0
 
 [node name="SoundTiresMove" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 43 )
-volume_db = -15.0
+volume_db = -10.0
 
 [node name="SoundTreadMove" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
 stream = ExtResource( 44 )
