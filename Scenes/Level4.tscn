@@ -155,12 +155,6 @@ position = Vector2( 199.157, 132.142 )
 player_path = NodePath("../../../TurnQueue/Computer1")
 cell = Vector2( 12, 8 )
 
-[node name="Printer2" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 296.377, 54.2728 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 18, 3 )
-defensive_ai = true
-
 [node name="Stapler5" parent="GameBoard/Units" instance=ExtResource( 44 )]
 position = Vector2( 279.859, 54.7447 )
 player_path = NodePath("../../../TurnQueue/Computer1")
@@ -176,12 +170,6 @@ cell = Vector2( 18, 9 )
 position = Vector2( 344.514, 152.436 )
 player_path = NodePath("../../../TurnQueue/Computer1")
 cell = Vector2( 21, 9 )
-
-[node name="Scanner4" parent="GameBoard/Units" instance=ExtResource( 43 )]
-position = Vector2( 342.626, 198.214 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 21, 12 )
-defensive_ai = true
 
 [node name="Book-zooka Senior3" parent="GameBoard/Units" instance=ExtResource( 27 )]
 position = Vector2( 328.468, 87.7803 )

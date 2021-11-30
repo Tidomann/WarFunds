@@ -742,20 +742,15 @@ func infantry_actions(infantry : Array) -> void:
 
 func indirect_actions(indirects : Array) -> void:
 	for unit in indirects:
+		reactivate_all_points()
 		# targets in range at start of turn
 		if gamegrid.enemy_in_range(unit, unit.cell, unit.cell):
 			var targets = []
-			recalculate_air_map(unit,unit.cell)
-			var attack_tiles = air_map.get_all_points_with_cost_between(float(unit.min_atk_range), float(unit.atk_range))
-			#var test_array = []
-			#for cell in attack_tiles:
-			#	test_array.append(gamegrid.array[cell].coordinates)
-			#battlemap._unit_overlay.draw(test_array)
-			for cell in attack_tiles:
-				if gamegrid.array[cell] != null:
-					if gamegrid.array[cell].getUnit() != null:
-						if gamegrid.array[cell].getUnit().playerOwner.team != unit.playerOwner.team:
-							targets.append(gamegrid.array[cell].getUnit())
+			var attackable_cells = gamegrid.get_attackable_cells(unit)
+			for cell in attackable_cells:
+				if gamegrid.is_occupied(cell):
+					if gamegrid.is_enemy(unit, gamegrid.get_unit(cell)):
+						targets.append(gamegrid.get_unit(cell))
 			var best_target
 			best_target = get_best_target(unit, targets)
 			if not best_target == null:
@@ -763,22 +758,9 @@ func indirect_actions(indirects : Array) -> void:
 				unit.defensive_ai = false
 				yield(computer_combat(unit, best_target), "completed")
 			else:
-				#Djkstra let us down
-				targets = []
-				var attackable_cells = gamegrid.get_attackable_cells(unit)
-				for cell in attackable_cells:
-					if gamegrid.is_occupied(cell):
-						if gamegrid.is_enemy(unit, gamegrid.get_unit(cell)):
-							targets.append(gamegrid.get_unit(cell))
-				best_target = get_best_target(unit, targets)
-				if not best_target == null:
-					# Maybe indirect can stay defensive?
-					unit.defensive_ai = false
-					yield(computer_combat(unit, best_target), "completed")
-				else:
-					# Maybe indirect can stay defensive?
-					unit.defensive_ai = false
-					yield(computer_combat(unit, targets[0]), "completed")
+				# Maybe indirect can stay defensive?
+				unit.defensive_ai = false
+				yield(computer_combat(unit, targets[0]), "completed")
 		# no targets in range
 		else:
 			var path : PoolVector2Array = []
