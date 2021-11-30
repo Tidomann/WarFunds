@@ -25,6 +25,7 @@ func _ready():
 	pass # Replace with function body.
 
 func take_computer_turn(computer : Node2D) -> void:
+	battlemap.get_node("CanvasLayer/update-ui").visible = false
 	var infantry : Array = []
 	var mech : Array = []
 	var light_direct : Array = []
@@ -91,7 +92,7 @@ func take_computer_turn(computer : Node2D) -> void:
 		gameboard.end_game(human_player)
 	else:
 		turn_queue.nextTurn()
-	
+	battlemap.get_node("CanvasLayer/update-ui").visible = true
 
 func init(inbattlemap : Node2D) -> void:
 	dijkstra_map_dict = {

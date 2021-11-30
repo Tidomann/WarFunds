@@ -93,7 +93,7 @@ gamegrid = ExtResource( 7 )
 [node name="Units" type="YSort" parent="GameBoard"]
 
 [node name="Fax" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 152.302, 181.088 )
+position = Vector2( 152.302, 182.088 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 9, 11 )
 
