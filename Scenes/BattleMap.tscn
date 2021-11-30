@@ -44,7 +44,7 @@
 [ext_resource path="res://Objects/BattleMap Objects/BuyMenu.tscn" type="PackedScene" id=42]
 [ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=43]
 [ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=44]
-[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normal.tres" type="TileSet" id=45]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/wastelandui.tres" type="TileSet" id=45]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -106,6 +106,7 @@ cell = Vector2( 17, 11 )
 position = Vector2( 214.761, 151.342 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 13, 9 )
+cost = 1000
 
 [node name="Scanner" parent="GameBoard/Units" instance=ExtResource( 27 )]
 position = Vector2( 136.431, 134.998 )
@@ -256,15 +257,6 @@ player_path = NodePath("..")
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
-
-[node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
-visible = false
-margin_left = -210.261
-margin_top = -124.832
-margin_right = 220.739
-margin_bottom = -9.83203
-
 [node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
 margin_left = -239.123
 margin_top = -134.568
@@ -274,6 +266,15 @@ margin_bottom = 135.432
 [node name="update-ui" parent="CanvasLayer" instance=ExtResource( 44 )]
 gamegrid = ExtResource( 7 )
 map_builder_tileset = ExtResource( 45 )
+
+[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+
+[node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
+visible = false
+margin_left = -210.261
+margin_top = -124.832
+margin_right = 220.739
+margin_bottom = -9.83203
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -30.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normal.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/wastelandui.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/Sprites/Unit/junior/junior.png" type="Texture" id=2]
 [ext_resource path="res://assets/Sprites/UI/DemoUiBackgroundNineRect.png" type="Texture" id=3]
 [ext_resource path="res://Objects/Interface/update-ui.gd" type="Script" id=4]
@@ -61,8 +61,8 @@ margin_left = -6.13995
 margin_top = 20.0
 margin_right = 3.86005
 margin_bottom = 32.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "10"
 align = 1
 __meta__ = {
@@ -89,8 +89,8 @@ margin_top = -4.4454
 margin_right = 20.4038
 margin_bottom = 7.5546
 rect_pivot_offset = Vector2( 6, 4.26863 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "10"
 align = 1
 __meta__ = {
@@ -108,8 +108,8 @@ margin_left = 7.69666
 margin_top = 18.3588
 margin_right = 19.6967
 margin_bottom = 30.3588
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "10"
 align = 1
 __meta__ = {

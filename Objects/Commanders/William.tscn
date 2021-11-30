@@ -7,6 +7,7 @@
 script = ExtResource( 2 )
 commanderName = "William"
 powerName = "Hackathon"
+army_type = 2
 
 [node name="commanderPortrait" type="Sprite" parent="."]
 visible = false

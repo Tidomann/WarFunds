@@ -19,6 +19,8 @@ onready var _units_node = $GameBoard/Units
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$"CanvasLayer/update-ui".visible = false
+	$CanvasLayer/CommanderUI.visible = false
 	# Load the Game Data
 	gamegrid.initialize(self)
 	# Initialize the Humans Commander to be the chosen commander from Select
@@ -76,8 +78,17 @@ func _ready():
 	#$"Music Player".play()
 	#$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
+	$"CanvasLayer/update-ui".visible = true
+	$CanvasLayer/CommanderUI.visible = true
 	#$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	$GameBoard/Cursor.activate()
+	#var t = Timer.new()
+	#t.set_wait_time(1)
+	#t.set_one_shot(true)
+	#self.add_child(t)
+	#t.start()
+	#yield(t, "timeout")
+	#victory()
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles

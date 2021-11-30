@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -37,9 +37,11 @@
 [ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
 [ext_resource path="res://Objects/Units/Printer.tscn" type="PackedScene" id=36]
 [ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=37]
+[ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=38]
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=42]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -268,7 +270,9 @@ player_path = NodePath("..")
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+[node name="update-ui" parent="CanvasLayer" instance=ExtResource( 38 )]
+gamegrid = ExtResource( 7 )
+map_builder_tileset = ExtResource( 42 )
 
 [node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
 visible = false
@@ -276,6 +280,8 @@ margin_left = -210.261
 margin_top = -124.832
 margin_right = 220.739
 margin_bottom = -9.83203
+
+[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
 
 [node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
 margin_left = -239.123
@@ -294,6 +300,7 @@ gamegrid = ExtResource( 7 )
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
+[connection signal="moved" from="GameBoard/Cursor" to="CanvasLayer/update-ui" method="_on_Cursor_moved"]
 [connection signal="select_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_select_pressed"]
 [connection signal="combat_selection" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_combat_selection"]
 [connection signal="moved" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_moved"]

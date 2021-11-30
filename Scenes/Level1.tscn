@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 [ext_resource path="res://assets/Sound Effects/interface/click_002.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/Sound Effects/interface/Select.ogg" type="AudioStream" id=28]
 [ext_resource path="res://assets/Sound Effects/gameplay/Heal.ogg" type="AudioStream" id=29]
 [ext_resource path="res://Scenes/SoundManager.gd" type="Script" id=30]
@@ -34,6 +35,7 @@
 [ext_resource path="res://assets/Sound Effects/gameplay/LoseProperty.mp3" type="AudioStream" id=33]
 [ext_resource path="res://assets/Sound Effects/gameplay/CaptureIncomplete.ogg" type="AudioStream" id=34]
 [ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=36]
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
@@ -234,6 +236,16 @@ player_path = NodePath("..")
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
+[node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
+margin_left = -239.123
+margin_top = -134.568
+margin_right = 240.877
+margin_bottom = 135.432
+
+[node name="update-ui" parent="CanvasLayer" instance=ExtResource( 27 )]
+gamegrid = ExtResource( 7 )
+map_builder_tileset = ExtResource( 36 )
+
 [node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
 
 [node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
@@ -242,12 +254,6 @@ margin_left = -210.261
 margin_top = -124.832
 margin_right = 220.739
 margin_bottom = -9.83203
-
-[node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
-margin_left = -239.123
-margin_top = -134.568
-margin_right = 240.877
-margin_bottom = 135.432
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -30.0
@@ -260,6 +266,7 @@ gamegrid = ExtResource( 7 )
 [connection signal="cancel_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_pressed"]
 [connection signal="cancel_released" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_cancel_released"]
 [connection signal="moved" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_moved"]
+[connection signal="moved" from="GameBoard/Cursor" to="CanvasLayer/update-ui" method="_on_Cursor_moved"]
 [connection signal="select_pressed" from="GameBoard/Cursor" to="GameBoard" method="_on_Cursor_select_pressed"]
 [connection signal="combat_selection" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_combat_selection"]
 [connection signal="moved" from="GameBoard/CombatCursor" to="GameBoard" method="_on_CombatCursor_moved"]
