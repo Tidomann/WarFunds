@@ -105,6 +105,10 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 		if gamegrid.has_property(cell):
 			if gamegrid.get_property(cell).property_referance == Constants.PROPERTY.BASE && gamegrid.get_property(cell).playerOwner == _turn_queue.activePlayer:
 				_buy_menu.popup_menu(_cursor.position, cell, _turn_queue.activePlayer)
+			else:
+				$SoundManager.playsound("Select")
+				_cursor.deactivate(true)
+				_pop_up.popup_menu(_cursor.position,false,false,false,false,0,false, true, _turn_queue.activePlayer.commander.canUsePower(), true)
 		else:
 			$SoundManager.playsound("Select")
 			_cursor.deactivate(true)

@@ -527,6 +527,7 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 				destination_path.append(gamegrid.array[dijkstra_path[n]].coordinates)
 			destination_path.append(destination)
 			reactivate_all_points()
+			attacker.defensive_ai = false
 			#battlemap._unit_overlay.draw(destination_path)
 			return destination_path
 		else:
@@ -757,6 +758,8 @@ func indirect_actions(indirects : Array) -> void:
 			var best_target
 			best_target = get_best_target(unit, targets)
 			if not best_target == null:
+				# Maybe indirect can stay defensive?
+				unit.defensive_ai = false
 				yield(computer_combat(unit, best_target), "completed")
 			else:
 				#Djkstra let us down
@@ -768,8 +771,12 @@ func indirect_actions(indirects : Array) -> void:
 							targets.append(gamegrid.get_unit(cell))
 				best_target = get_best_target(unit, targets)
 				if not best_target == null:
+					# Maybe indirect can stay defensive?
+					unit.defensive_ai = false
 					yield(computer_combat(unit, best_target), "completed")
 				else:
+					# Maybe indirect can stay defensive?
+					unit.defensive_ai = false
 					yield(computer_combat(unit, targets[0]), "completed")
 		# no targets in range
 		else:
@@ -789,18 +796,19 @@ func indirect_actions(indirects : Array) -> void:
 							timer.start()
 							yield(timer, "timeout")
 			else:
-				path = no_targets_indirect_path(unit)
+				if not unit.defensive_ai:
+					path = no_targets_indirect_path(unit)
 			move_computer_unit(unit,path)
 			if path.size() > 1:
 				yield(unit, "walk_finished")
 				soundmanager.stopallsound()
 			if unit.turnReady:
 				unit.flip_turnReady()
-	timer.stop()
-	timer.set_wait_time(0.15)
-	timer.set_one_shot(true)
-	timer.start()
-	yield(timer, "timeout")
+		timer.stop()
+		timer.set_wait_time(1)
+		timer.set_one_shot(true)
+		timer.start()
+		yield(timer, "timeout")
 
 func move_computer_unit(unit : Unit, path : PoolVector2Array) -> void:
 	if path.size() > 1:
@@ -870,6 +878,14 @@ func get_healing_path(attacker: Unit) -> PoolVector2Array:
 				else:
 					property_coordinates.append(gamegrid.as_index(cell))
 	if not property_coordinates.empty():
+		reactivate_all_points()
+		# Disable Movement through enemies
+		for enemy in battlemap._units_node.get_children():
+			# Attacker cannot travel on top of enemy
+			if enemy.playerOwner.team != attacker.playerOwner.team:
+				dijkstra_map = dijkstra_map_dict[attacker.movement_type]
+				dijkstra_map.disable_point(gamegrid.as_index(enemy.cell))
+				dijkstra_map.set_terrain_for_point(gamegrid.as_index(enemy.cell), 1)
 		var final_move_blocked = true
 		while final_move_blocked:
 			destination_path = []

@@ -1,6 +1,6 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=46 format=2]
 
-[ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/Sprites/Tile/NormalTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
@@ -26,7 +26,7 @@
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
 [ext_resource path="res://assets/Sound Effects/interface/click_002.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
-[ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=27]
+[ext_resource path="res://Objects/Units/Book-zooka Senior.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/Sound Effects/interface/Select.ogg" type="AudioStream" id=28]
 [ext_resource path="res://assets/Sound Effects/gameplay/Heal.ogg" type="AudioStream" id=29]
 [ext_resource path="res://Scenes/SoundManager.gd" type="Script" id=30]
@@ -35,27 +35,33 @@
 [ext_resource path="res://assets/Sound Effects/gameplay/LoseProperty.mp3" type="AudioStream" id=33]
 [ext_resource path="res://assets/Sound Effects/gameplay/CaptureIncomplete.ogg" type="AudioStream" id=34]
 [ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
-[ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=36]
-[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=37]
+[ext_resource path="res://Objects/Units/Printer.tscn" type="PackedScene" id=36]
+[ext_resource path="res://assets/Sound Effects/interface/Error.ogg" type="AudioStream" id=37]
+[ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=38]
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=42]
+[ext_resource path="res://Objects/Units/Scanner.tscn" type="PackedScene" id=43]
+[ext_resource path="res://Objects/Units/Stapler.tscn" type="PackedScene" id=44]
+[ext_resource path="res://Objects/Units/Fax.tscn" type="PackedScene" id=45]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
-level_number = 2
+level_number = 4
+victory_eliminate = false
 victory_hq = false
-xMin = 5
-xMax = 19
-yMin = 2
-yMax = 11
+xMin = 7
+xMax = 21
+yMin = 3
+yMax = 12
 gamegrid = ExtResource( 7 )
 
 [node name="Devtiles" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 131077, 1, 0, 131078, 1, 0, 131079, 2, 0, 131080, 5, 0, 131081, 0, 0, 131082, 0, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 2, 0, 131087, 1, 0, 131088, 2, 0, 131089, 1, 0, 131090, 0, 0, 131091, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 5, 0, 196617, 5, 0, 196618, 2, 0, 196619, 1, 0, 196620, 0, 0, 196621, 1, 0, 196622, 0, 0, 196623, 2, 0, 196624, 2, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 5, 0, 262154, 1, 0, 262155, 2, 0, 262156, 1, 0, 262157, 0, 0, 262158, 0, 0, 262159, 2, 0, 262160, 5, 0, 262161, 5, 0, 262162, 5, 0, 262163, 5, 0, 327685, 0, 0, 327686, 2, 0, 327687, 4, 0, 327688, 4, 0, 327689, 4, 0, 327690, 4, 0, 327691, 4, 0, 327692, 4, 0, 327693, 0, 0, 327694, 1, 0, 327695, 5, 0, 327696, 5, 0, 327697, 1, 0, 327698, 0, 0, 327699, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 4, 0, 393224, 2, 0, 393225, 5, 0, 393226, 1, 0, 393227, 2, 0, 393228, 4, 0, 393229, 1, 0, 393230, 0, 0, 393231, 5, 0, 393232, 0, 0, 393233, 1, 0, 393234, 0, 0, 393235, 4, 0, 458757, 4, 0, 458758, 4, 0, 458759, 4, 0, 458760, 0, 0, 458761, 5, 0, 458762, 5, 0, 458763, 1, 0, 458764, 4, 0, 458765, 1, 0, 458766, 3, 0, 458767, 3, 0, 458768, 3, 0, 458769, 0, 0, 458770, 0, 0, 458771, 4, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 1, 0, 524297, 0, 0, 524298, 5, 0, 524299, 0, 0, 524300, 4, 0, 524301, 4, 0, 524302, 3, 0, 524303, 3, 0, 524304, 3, 0, 524305, 0, 0, 524306, 0, 0, 524307, 4, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 5, 0, 589834, 5, 0, 589835, 1, 0, 589836, 2, 0, 589837, 5, 0, 589838, 3, 0, 589839, 3, 0, 589840, 3, 0, 589841, 1, 0, 589842, 0, 0, 589843, 4, 0, 655365, 2, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 5, 0, 655370, 2, 0, 655371, 0, 0, 655372, 5, 0, 655373, 5, 0, 655374, 3, 0, 655375, 3, 0, 655376, 4, 0, 655377, 4, 0, 655378, 4, 0, 655379, 4, 0, 720901, 2, 0, 720902, 2, 0, 720903, 0, 0, 720904, 0, 0, 720905, 5, 0, 720906, 0, 0, 720907, 0, 0, 720908, 5, 0, 720909, 0, 0, 720910, 1, 0, 720911, 2, 0, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0 )
+tile_data = PoolIntArray( 196615, 2, 0, 196616, 2, 0, 196617, 2, 0, 196618, 2, 0, 196619, 2, 0, 196620, 2, 0, 196621, 1, 0, 196622, 2, 0, 196623, 1, 0, 196624, 0, 0, 196625, 1, 0, 196626, 0, 0, 196627, 2, 0, 196628, 2, 0, 196629, 2, 0, 262151, 2, 0, 262152, 2, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 4, 0, 262157, 4, 0, 262158, 4, 0, 262159, 4, 0, 262160, 4, 0, 262161, 4, 0, 262162, 4, 0, 262163, 4, 0, 262164, 2, 0, 262165, 2, 0, 327687, 2, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 4, 0, 327693, 0, 0, 327694, 4, 0, 327695, 0, 0, 327696, 0, 0, 327697, 4, 0, 327698, 0, 0, 327699, 4, 0, 327700, 0, 0, 327701, 2, 0, 393223, 0, 0, 393224, 1, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 4, 0, 393229, 0, 0, 393230, 0, 0, 393231, 6, 0, 393232, 6, 0, 393233, 6, 0, 393234, 0, 0, 393235, 4, 0, 393236, 0, 0, 393237, 2, 0, 458759, 4, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 4, 0, 458765, 4, 0, 458766, 2, 0, 458767, 6, 0, 458768, 7, 0, 458769, 6, 0, 458770, 0, 0, 458771, 4, 0, 458772, 0, 0, 458773, 2, 0, 524295, 2, 0, 524296, 1, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 4, 0, 524302, 2, 0, 524303, 6, 0, 524304, 3, 0, 524305, 6, 0, 524306, 0, 0, 524307, 4, 0, 524308, 0, 0, 524309, 1, 0, 589831, 2, 0, 589832, 2, 0, 589833, 0, 0, 589834, 2, 0, 589835, 2, 0, 589836, 2, 0, 589837, 4, 0, 589838, 4, 0, 589839, 4, 0, 589840, 4, 0, 589841, 4, 0, 589842, 4, 0, 589843, 4, 0, 589844, 4, 0, 589845, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 4, 0, 655374, 2, 0, 655375, 3, 0, 655376, 3, 0, 655377, 3, 0, 655378, 0, 0, 655379, 4, 0, 655380, 0, 0, 655381, 1, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 1, 0, 720907, 0, 0, 720908, 0, 0, 720909, 4, 0, 720910, 2, 0, 720911, 3, 0, 720912, 4, 0, 720913, 4, 0, 720914, 4, 0, 720915, 4, 0, 720916, 4, 0, 720917, 0, 0, 786439, 4, 0, 786440, 4, 0, 786441, 4, 0, 786442, 4, 0, 786443, 4, 0, 786444, 4, 0, 786445, 4, 0, 786446, 4, 0, 786447, 3, 0, 786448, 3, 0, 786449, 3, 0, 786450, 0, 0, 786451, 4, 0, 786452, 0, 0, 786453, 1, 0 )
 
 [node name="RenderedTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
@@ -66,16 +72,15 @@ format = 1
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 458767, 10, 65540, 589837, 10, 1, 589838, 10, 131076, 655373, 10, 131075, 655374, 9, 131072 )
+tile_data = PoolIntArray( 393231, 8, 131079, 393232, 8, 65541, 393233, 8, 131080, 458767, 8, 65537, 458769, 8, 65536, 524303, 8, 65537, 524304, 9, 65537, 524305, 8, 65536, 655375, 9, 6, 655376, 9, 131073, 655377, 9, 7, 720911, 9, 65539, 720913, 11, 0, 786447, 9, 131078, 786448, 9, 1, 786449, 9, 131079 )
 
 [node name="Devproperty" type="TileMap" parent="."]
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 458757, 1, 0 )
+tile_data = PoolIntArray( 327694, 1, 0, 327697, 1, 0, 458759, 7, 0, 589838, 1, 0, 589842, 13, 0, 589843, 12, 0, 589844, 13, 0, 720912, 13, 0, 720914, 13, 0, 720916, 13, 0, 786439, 6, 0, 786440, 7, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
-visible = false
 tile_set = ExtResource( 19 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -90,55 +95,105 @@ gamegrid = ExtResource( 7 )
 
 [node name="Units" type="YSort" parent="GameBoard"]
 
-[node name="Junior5" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 265.229, 102.882 )
+[node name="Junior3" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 150.548, 102.882 )
 player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 16, 6 )
+cell = Vector2( 9, 6 )
+
+[node name="Scanner3" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 165.65, 84.9487 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 10, 5 )
+
+[node name="Book-zooka Senior" parent="GameBoard/Units" instance=ExtResource( 27 )]
+position = Vector2( 216.436, 182.543 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 13, 11 )
+
+[node name="Printer" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 215.675, 164.706 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 13, 10 )
+
+[node name="Stapler" parent="GameBoard/Units" instance=ExtResource( 44 )]
+position = Vector2( 197.742, 182.168 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 12, 11 )
+
+[node name="Scanner" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 233.137, 200.101 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 14, 12 )
+
+[node name="Scanner2" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 180.28, 199.629 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 11, 12 )
 
 [node name="Junior" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 105.109, 85.6059 )
+position = Vector2( 135.918, 180.28 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 6, 5 )
+cell = Vector2( 8, 11 )
 
 [node name="Junior2" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 88.7242, 103.354 )
+position = Vector2( 135.446, 197.742 )
 player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 5, 6 )
+cell = Vector2( 8, 12 )
 
-[node name="Junior3" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 87.3084, 137.806 )
-player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 5, 8 )
+[node name="Stapler3" parent="GameBoard/Units" instance=ExtResource( 44 )]
+position = Vector2( 263.341, 182.64 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 16, 11 )
+defensive_ai = true
 
-[node name="Senior" parent="GameBoard/Units" instance=ExtResource( 1 )]
-position = Vector2( 104.783, 118.558 )
-player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 6, 7 )
+[node name="Fax" parent="GameBoard/Units" instance=ExtResource( 45 )]
+position = Vector2( 344.514, 165.178 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 21, 10 )
+defensive_ai = true
 
-[node name="Senior2" parent="GameBoard/Units" instance=ExtResource( 1 )]
-position = Vector2( 296.848, 54.2728 )
+[node name="Stapler4" parent="GameBoard/Units" instance=ExtResource( 44 )]
+position = Vector2( 199.157, 132.142 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 12, 8 )
+
+[node name="Printer2" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 296.377, 54.2728 )
 player_path = NodePath("../../../TurnQueue/Computer1")
 cell = Vector2( 18, 3 )
+defensive_ai = true
 
-[node name="Senior3" parent="GameBoard/Units" instance=ExtResource( 1 )]
-position = Vector2( 296.377, 148.188 )
+[node name="Stapler5" parent="GameBoard/Units" instance=ExtResource( 44 )]
+position = Vector2( 279.859, 54.7447 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 17, 3 )
+defensive_ai = true
+
+[node name="Junior4" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 296.377, 151.02 )
 player_path = NodePath("../../../TurnQueue/Computer1")
 cell = Vector2( 18, 9 )
 
-[node name="Junior4" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 264.757, 167.538 )
+[node name="Book-zooka Senior2" parent="GameBoard/Units" instance=ExtResource( 27 )]
+position = Vector2( 344.514, 152.436 )
 player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 16, 10 )
+cell = Vector2( 21, 9 )
 
-[node name="Junior6" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 104.948, 149.617 )
-player_path = NodePath("../../../TurnQueue/Human")
-cell = Vector2( 6, 9 )
-
-[node name="Junior7" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 136.39, 117.512 )
+[node name="Scanner4" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 342.626, 198.214 )
 player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 8, 7 )
+cell = Vector2( 21, 12 )
+defensive_ai = true
+
+[node name="Book-zooka Senior3" parent="GameBoard/Units" instance=ExtResource( 27 )]
+position = Vector2( 328.468, 87.7803 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 20, 5 )
+
+[node name="Junior5" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 182.64, 102.41 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 11, 6 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
@@ -197,7 +252,7 @@ stream = ExtResource( 35 )
 volume_db = -10.0
 
 [node name="SoundError" type="AudioStreamPlayer" parent="GameBoard/SoundManager"]
-stream = ExtResource( 27 )
+stream = ExtResource( 37 )
 volume_db = -15.0
 
 [node name="RTS-Camera2D" type="Camera2D" parent="."]
@@ -238,29 +293,21 @@ player_path = NodePath("..")
 position = Vector2( -0.529724, 0 )
 playerName = "Banktania"
 team = 6
-commander_path = NodePath("RedLine")
+commander_path = NodePath("Kronk")
 player_colour = 5
 facing = "Left"
 computerAI = true
 
-[node name="RedLine" parent="TurnQueue/Computer1" instance=ExtResource( 14 )]
+[node name="Kronk" parent="TurnQueue/Computer1" instance=ExtResource( 1 )]
 player_path = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="CommanderUI" parent="CanvasLayer" instance=ExtResource( 18 )]
 
-[node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
-margin_left = -239.123
-margin_top = -134.568
-margin_right = 240.877
-margin_bottom = 135.432
-
-[node name="update-ui" parent="CanvasLayer" instance=ExtResource( 36 )]
+[node name="update-ui" parent="CanvasLayer" instance=ExtResource( 38 )]
 gamegrid = ExtResource( 7 )
-map_builder_tileset = ExtResource( 37 )
-
-[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+map_builder_tileset = ExtResource( 42 )
 
 [node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
 visible = false
@@ -268,6 +315,14 @@ margin_left = -210.261
 margin_top = -124.832
 margin_right = 220.739
 margin_bottom = -9.83203
+
+[node name="PowerActivated" parent="CanvasLayer" instance=ExtResource( 24 )]
+
+[node name="NewTurnUi" parent="CanvasLayer" instance=ExtResource( 40 )]
+margin_left = -239.123
+margin_top = -134.568
+margin_right = 240.877
+margin_bottom = 135.432
 
 [node name="Music Player" type="AudioStreamPlayer" parent="."]
 volume_db = -30.0
@@ -293,4 +348,4 @@ gamegrid = ExtResource( 7 )
 [connection signal="funds_changed" from="TurnQueue/Human" to="CanvasLayer/CommanderUI" method="funds_changed"]
 [connection signal="power_changed" from="TurnQueue/Human/RedLine" to="CanvasLayer/CommanderUI" method="power_changed"]
 [connection signal="funds_changed" from="TurnQueue/Computer1" to="CanvasLayer/CommanderUI" method="funds_changed"]
-[connection signal="power_changed" from="TurnQueue/Computer1/RedLine" to="CanvasLayer/CommanderUI" method="power_changed"]
+[connection signal="power_changed" from="TurnQueue/Computer1/Kronk" to="CanvasLayer/CommanderUI" method="power_changed"]

@@ -34,18 +34,21 @@ var leadersDesc = [
 var levels = [
 	"res://Scenes/Level1.tscn",
 	"res://Scenes/Level2.tscn",
-	"res://Scenes/Level3.tscn"
+	"res://Scenes/Level3.tscn",
+	"res://Scenes/Level4.tscn"
 ]
 
 # Level Intros
 var level_intros = [
 	"res://Dialog/Level1Intro.json",
 	"res://Dialog/Level2Intro.json",
-	"res://Dialog/Level3Intro.json"
+	"res://Dialog/Level3Intro.json",
+	"res://Dialog/Level4Intro.json"
 ]
 
 var intro_scenes = [
 	"res://Scenes/Level1Intro.tscn",
 	"res://Scenes/Level2Intro.tscn",
+	"res://Scenes/Level3Intro.tscn",
 	"res://Scenes/Level3Intro.tscn"
 ]

@@ -72,6 +72,8 @@ func _ready():
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Start.json"
 		3:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Start.json"
+		4:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	#$"Music Player".set_stream(load("res://assets/Music/DialogBackgroundMusic.mp3"))
 	#$"Music Player".set_volume_db(-30)
@@ -347,6 +349,8 @@ func victory() -> void:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
 		3:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Victory.json"
+		4:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -366,6 +370,10 @@ func victory() -> void:
 		3:
 			Global.unlockedLevels[3] = true
 			get_tree().change_scene("res://Scenes/Select.tscn")
+		4:
+			Global.unlockedLevels[4] = true
+			Global.unlockedLeaders[1] = true
+			get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:
 	print("Defeat")
@@ -379,6 +387,8 @@ func defeat() -> void:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Defeat.json"
 		3:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Defeat.json"
+		4:
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Defeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")

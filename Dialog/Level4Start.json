@@ -1,0 +1,12 @@
+[
+	{"Name":"William", "Emotion":"Neutral", "Text":"Alright Advisor, we're ready to advance."},
+	{"Name":"William", "Emotion":"Happy", "Text":"With the parking lot liberated, we now have Mecha-Equipment."},
+	{"Name":"William", "Emotion":"Neutral", "Text":"One of the units, the Mecha-Stapler is an indirect unit. In order to attack, it can't move."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"But it has the benefit of being able to attack at range. If you hold cancel (X on the keyboard or right click) ontop of the unit, you will see what tiles it can attack."},
+	{"Name":"William", "Emotion":"Happy", "Text":"Take your time and check the range on all of our new equipment. The finance leader is counting on us!"},
+	{"Name":"William", "Emotion":"Thinking", "Text":"We're up against indirect units as well. Check the range of the enemies before making your move. Our troops and equipment are itching to go, but we should excercise caution."},
+	{"Name":"William", "Emotion":"Happy", "Text":"Let's move out! University is counting on us!"},
+	{"Name":"Kronk", "Emotion":"Angry", "Text":"Spread out. Kronk stay at manor. Kronk use BIG STAPLER to attack. Enemies won't know what him them!"},
+	{"Name":"Kronk", "Emotion":"Neutral", "Text":"This give Kronk time to sun-tan and practice lines. Kronk convince Finance Leader that Banktania is BEST!"},
+	{"Name":"Kronk", "Emotion":"Wink", "Text":"Kronk convince Finance Leader Kronk is strongest, and because Kronk the strongest, Banktania the STRONGEST!"},
+]
