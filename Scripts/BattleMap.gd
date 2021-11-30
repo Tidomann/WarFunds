@@ -340,6 +340,8 @@ func is_victory(human : Node2D) -> bool:
 func victory() -> void:
 	print("Victory")
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
+	$"CanvasLayer/update-ui".visible = false
+	$CanvasLayer/CommanderUI.visible = false
 	match level_number:
 		0:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
@@ -378,6 +380,8 @@ func victory() -> void:
 func defeat() -> void:
 	print("Defeat")
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"
+	$"CanvasLayer/update-ui".visible = false
+	$CanvasLayer/CommanderUI.visible = false
 	match level_number:
 		0:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"

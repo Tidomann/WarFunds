@@ -2077,6 +2077,7 @@ tracks/0/keys = {
 }
 
 [node name="BuyMenu" type="TextureRect"]
+visible = false
 margin_right = 80.0
 margin_bottom = 170.0
 texture = ExtResource( 10 )

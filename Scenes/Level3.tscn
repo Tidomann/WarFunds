@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
 [ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=42]
+[ext_resource path="res://Objects/Units/Scanner.tscn" type="PackedScene" id=43]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -115,26 +116,6 @@ position = Vector2( 119.49, 165.938 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 7, 10 )
 
-[node name="Printer" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 279.809, 69.6713 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 17, 4 )
-
-[node name="Printer2" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 264.451, 85.0289 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 16, 5 )
-
-[node name="Printer3" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 312.397, 70.0459 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 19, 4 )
-
-[node name="Printer4" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 327.755, 82.0323 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 20, 5 )
-
 [node name="Junior5" parent="GameBoard/Units" instance=ExtResource( 15 )]
 position = Vector2( 312.022, 118.741 )
 player_path = NodePath("../../../TurnQueue/Computer1")
@@ -159,6 +140,26 @@ cell = Vector2( 20, 9 )
 position = Vector2( 135.597, 100.012 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 8, 6 )
+
+[node name="Scanner" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 265.395, 86.3462 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 16, 5 )
+
+[node name="Scanner2" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 280.228, 69.9246 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 17, 4 )
+
+[node name="Scanner3" parent="GameBoard/Units" instance=ExtResource( 43 )]
+position = Vector2( 314.661, 70.4543 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 19, 4 )
+
+[node name="Printer" parent="GameBoard/Units" instance=ExtResource( 36 )]
+position = Vector2( 326.315, 84.2273 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 20, 5 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 

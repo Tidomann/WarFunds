@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Objects/Units/Senior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -37,6 +37,7 @@
 [ext_resource path="res://assets/Sound Effects/gameplay/Power Ready.mp3" type="AudioStream" id=35]
 [ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=36]
 [ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=37]
+[ext_resource path="res://Objects/BattleMap Objects/BuyMenu.tscn" type="PackedScene" id=38]
 [ext_resource path="res://assets/Sound Effects/interface/Cancel.ogg" type="AudioStream" id=39]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
@@ -222,6 +223,8 @@ margin_right = 34.0
 margin_bottom = 63.0
 popup_exclusive = true
 hide_on_item_selection = false
+
+[node name="BuyMenu" parent="." instance=ExtResource( 38 )]
 
 [node name="TurnQueue" parent="." instance=ExtResource( 13 )]
 gamegrid = ExtResource( 7 )
