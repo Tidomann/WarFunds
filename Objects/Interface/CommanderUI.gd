@@ -35,7 +35,7 @@ func power_changed(playerOwner, power, maxPower):
 			uiPlayerData.power_progress_bar.max_value = maxPower
 
 
-func _on_TurnQueue_turn_changed(activePlayer):
+func _on_TurnQueue_turn_changed(activePlayer, _round_count):
 	for uiPlayerData in self.get_children():
 		if uiPlayerData.player == activePlayer:
 			uiPlayerData.player_turn_arrow.visible = true

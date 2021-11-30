@@ -27,26 +27,27 @@ func _on_Cursor_moved(new_coordinates):
 	var grid_data = gamegrid.array[gamegrid.as_index(new_coordinates)]
 	var tmp = gamegrid.get_unit(new_coordinates)
 	
-	var sprite: Sprite = $"NinePatchRect/Unit sprite"
-	var tileSet: TileSet = tilemap.tile_set
+	var _sprite: Sprite = $"NinePatchRect/Unit sprite"
+	var _tileSet: TileSet = tilemap.tile_set
 	var tileId: int = grid_data.tileType
 	# If tileset normal -> get normal
 	$TileMap.set_cellv(Vector2(0,0), tileId)
 
 	
-	var prop_sprite: Sprite = $NinePatchRect/VBoxContainer/property_sprite
-	var prop_tileSet: TileSet = property_tiles.tile_set
-	var prop_tileId: int = property_tiles.get_cellv(new_coordinates)
 
-	prop_sprite.texture = prop_tileSet.tile_get_texture(prop_tileId)
-	prop_sprite.region_rect = prop_tileSet.tile_get_region(prop_tileId)
-	prop_sprite.region_enabled = true
 	
 	
 	
 
 	$NinePatchRect/VBoxContainer/text.text = String(gamegrid.get_terrain_bonus(grid_data))
 	if gamegrid.has_property(new_coordinates):
+		$NinePatchRect/VBoxContainer/property_sprite.visible = true
+		var prop_sprite: Sprite = $NinePatchRect/VBoxContainer/property_sprite
+		var prop_tileSet: TileSet = property_tiles.tile_set
+		var prop_tileId: int = property_tiles.get_cellv(new_coordinates)
+		prop_sprite.texture = prop_tileSet.tile_get_texture(prop_tileId)
+		prop_sprite.region_rect = prop_tileSet.tile_get_region(prop_tileId)
+		prop_sprite.region_enabled = true
 		$NinePatchRect/VBoxContainer/Sprite2.visible = true
 		$"NinePatchRect/VBoxContainer/Property Life".visible = true
 		$TileMap.visible = false
@@ -54,12 +55,13 @@ func _on_Cursor_moved(new_coordinates):
 	else:
 		$TileMap.visible = true
 		$NinePatchRect/VBoxContainer/Sprite2.visible = false
+		$NinePatchRect/VBoxContainer/property_sprite.visible = false
 		$"NinePatchRect/VBoxContainer/Property Life".visible = false
 	
 	
 	if tmp != null:
 		unit_sprite.visible = true
-		print(tmp.health)
+		#print(tmp.health)
 		var new_sprite = tmp.get_child(0).get_child(0)
 		$"NinePatchRect/Unit sprite/Health text".text = String(ceil(tmp.health * 0.1))
 		

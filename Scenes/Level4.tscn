@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
@@ -45,6 +45,7 @@
 [ext_resource path="res://Objects/Units/Scanner.tscn" type="PackedScene" id=43]
 [ext_resource path="res://Objects/Units/Stapler.tscn" type="PackedScene" id=44]
 [ext_resource path="res://Objects/Units/Fax.tscn" type="PackedScene" id=45]
+[ext_resource path="res://Objects/BattleMap Objects/BuyMenu.tscn" type="PackedScene" id=46]
 
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
@@ -263,6 +264,9 @@ margin_right = 34.0
 margin_bottom = 63.0
 popup_exclusive = true
 hide_on_item_selection = false
+
+[node name="BuyMenu" parent="." instance=ExtResource( 46 )]
+visible = false
 
 [node name="TurnQueue" parent="." instance=ExtResource( 13 )]
 gamegrid = ExtResource( 7 )
