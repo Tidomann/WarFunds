@@ -1,11 +1,9 @@
 [
 	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"Welcome to University!"},
 	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"My name is Professor Hewel."},
-	{"Name":"LU Student", "Emotion":"Happy", "Text":"Hi Professor Hewel."},
 	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"Currently, University is being invaded by Banktania."},
 	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"We are unsure why but don't have to time to find out."},
 	{"Name":"Professor Hewel", "Emotion":"Angry", "Text":"We must defend University before all 5 regions fall."},
-	{"Name":"Professor Hewel", "Emotion":"Fist", "Text":"Will you help us?"},
-	{"Name":"LU Student", "Emotion":"Happy", "Text":"Yes of course."},
-	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Great. Please select a Department Leader and choose a level."}
+	{"Name":"Professor Hewel", "Emotion":"Fist", "Text":"With your help as the Academic Advisor, we'll take back University!"},
+	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Please select a Department Leader and choose a mission."}
 ]

@@ -7,7 +7,7 @@ var next_level = "res://Scenes/Select.tscn"
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]
-var unlockedLevels = [true,false,false,false,false,false,false,false]
+var unlockedLevels = [true,true,true,true,false,false,false,false]
 
 # Leader Images
 var leaders = [

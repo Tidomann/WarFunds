@@ -1,14 +1,7 @@
 [
-	{"Name":"Redline", "Emotion":"Happy", "Text":"Hahaha, first again. It certainly pays to be the fastest."},
-	{"Name":"Redline", "Emotion":"Smile2", "Text":"Like they say, time is money, and when you're the quickest in all of Banktania..."},
-	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"Ma'am! University forces are approaching the parking lot!"},
-	{"Name":"Redline", "Emotion":"Surprised", "Text":"Oh no, most of my forces are still catching up!"},
-	{"Name":"Redline", "Emotion":"Worried", "Text":"In my rush I could only bring Juniors..."},
-	{"Name":"Redline", "Emotion":"Smile", "Text":"But what could a few University students do against Banktania?"},
-	{"Name":"Redline", "Emotion":"Angry", "Text":"Go find their forces! The rest of you, guard the entrance!"},
 	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"You must defeat Banktanias forces. In order to do so, you must command our troops."},
 	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Select a unit by bringing the cursor overtop of our BLUE troops. Select them with Z on the keyboard or left click."},
 	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Once they are selected you will see where they can move to. Select a spot within the blue tiles to move it to that location."},
-	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Once it moves, you can select a command such as wait, or attack if an enemy is close."},
+	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Once it moves, you can select a command such as wait, or attack if an enemy beside the unit."},
 	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"If you ever need to stop an order, press X on the keyboard or right click the menu! Don't worry, you'll be leading like a natural in no time!"},
 ]

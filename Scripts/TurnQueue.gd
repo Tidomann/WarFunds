@@ -36,7 +36,7 @@ func nextTurn():
 	emit_signal("turn_changed", activePlayer, round_count)
 	audioStream.set_music(activePlayer.commander.commanderName)
 	turn_ui.new_turn_ui(activePlayer.commander.commander_portrait.texture, activePlayer.playerName, round_count)
-	check_new_turn_dialogue(round_count, activePlayer)
+	yield(check_new_turn_dialogue(round_count, activePlayer), "completed")
 	if activePlayer.computerAI:
 		ai_control.take_computer_turn(activePlayer)
 		var t = Timer.new()
@@ -70,19 +70,53 @@ func start_turn(player : Node2D):
 func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 	match gamegrid.battlemap.level_number:
 		0:
+			pass
+		1:
 			match turn_count:
 				1:
 					if not inPlayer.computerAI:
 						#this is the players first turn
 						pass
 					else:
-						#this is the computers first turn
-						pass
-			pass
-		1:
-			pass
+						#this is the computer first turn
+						var t = Timer.new()
+						t.set_wait_time(2)
+						t.set_one_shot(true)
+						self.add_child(t)
+						t.start()
+						yield(t, "timeout")
+						t.queue_free()
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						var dialogue_node = gamegrid.battlemap.get_node("CanvasLayer/DialogBox")
+						dialogue_node.dialogPath = "res://Dialog/Level1Comp1.json"
+						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
+						dialogue_node.start_dialog()
+						yield(dialogue_node, "dialog_finished")
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		2:
-			pass
+			match turn_count:
+				1:
+					if not inPlayer.computerAI:
+						#this is the players first turn
+						pass
+					else:
+						#this is the computer first turn
+						var t = Timer.new()
+						t.set_wait_time(2)
+						t.set_one_shot(true)
+						self.add_child(t)
+						t.start()
+						yield(t, "timeout")
+						t.queue_free()
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						var dialogue_node = gamegrid.battlemap.get_node("CanvasLayer/DialogBox")
+						dialogue_node.dialogPath = "res://Dialog/Level2Comp1.json"
+						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
+						dialogue_node.start_dialog()
+						yield(dialogue_node, "dialog_finished")
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		3:
 			pass
 		4:
