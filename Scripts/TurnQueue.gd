@@ -184,7 +184,28 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						pass
 			pass
 		4:
-			pass
+			match turn_count:
+				1:
+					if not inPlayer.computerAI:
+						#this is the players first turn
+						pass
+					else:
+						#this is the computer first turn
+						var t = Timer.new()
+						t.set_wait_time(2)
+						t.set_one_shot(true)
+						self.add_child(t)
+						t.start()
+						yield(t, "timeout")
+						t.queue_free()
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						var dialogue_node = gamegrid.battlemap.get_node("CanvasLayer/DialogBox")
+						dialogue_node.dialogPath = "res://Dialog/Level4Comp1.json"
+						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
+						dialogue_node.start_dialog()
+						yield(dialogue_node, "dialog_finished")
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 	var t = Timer.new()
 	t.set_wait_time(0.08)
 	t.set_one_shot(true)
