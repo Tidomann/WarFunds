@@ -13,6 +13,10 @@ func playsound(sound:String):
 			$SoundHeal.play()
 		"InfantryMove":
 			$SoundInfantryMove.play()
+		"TireMove":
+			$SoundTireMove.play()
+		"TreadMove":
+			$SoundTreadMove.play()
 		"MoveAttackCursor":
 			$SoundMoveAttackCursor.play()
 		"Attack":
@@ -38,6 +42,10 @@ func stopsound(sound:String):
 			$SoundHeal.stop()
 		"InfantryMove":
 			$SoundInfantryMove.stop()
+		"TireMove":
+			$SoundTireMove.stop()
+		"TreadMove":
+			$SoundTreadMove.stop()
 		"MoveAttackCursor":
 			$SoundMoveAttackCursor.stop()
 		"Attack":

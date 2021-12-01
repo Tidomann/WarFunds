@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Tires.ogg-dbdc894d835f26fbc8aa97ec7dacc4f0.oggstr"
+
+[deps]
+
+source_file="res://assets/Sound Effects/units/Tires.ogg"
+dest_files=[ "res://.import/Tires.ogg-dbdc894d835f26fbc8aa97ec7dacc4f0.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -24,6 +24,7 @@ font_data = ExtResource( 2 )
 [node name="FCTManager" type="Panel"]
 margin_right = 50.0
 margin_bottom = 30.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
@@ -37,6 +38,7 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = 48.0
 margin_bottom = 27.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -44,6 +46,7 @@ __meta__ = {
 [node name="FCT" type="RichTextLabel" parent="VBoxContainer"]
 margin_right = 45.0
 margin_bottom = 10.0
+mouse_filter = 2
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 fit_content_height = true
@@ -57,6 +60,7 @@ __meta__ = {
 margin_top = 14.0
 margin_right = 45.0
 margin_bottom = 24.0
+mouse_filter = 2
 custom_fonts/normal_font = SubResource( 3 )
 bbcode_enabled = true
 fit_content_height = true

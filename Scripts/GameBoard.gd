@@ -166,9 +166,9 @@ func _move_active_unit(new_position: Vector2) -> void:
 			Constants.MOVEMENT_TYPE.MECH:
 				$SoundManager.playsound("InfantryMove")
 			Constants.MOVEMENT_TYPE.TREAD:
-				pass
+				$SoundManager.playsound("TreadMove")
 			Constants.MOVEMENT_TYPE.TIRES:
-				pass
+				$SoundManager.playsound("TireMove")
 	yield(_active_unit, "walk_finished")
 	
 	if trapped:
@@ -196,9 +196,9 @@ func _move_active_unit(new_position: Vector2) -> void:
 		Constants.MOVEMENT_TYPE.MECH:
 			$SoundManager.stopsound("InfantryMove")
 		Constants.MOVEMENT_TYPE.TREAD:
-			pass
+				$SoundManager.stopsound("TreadMove")
 		Constants.MOVEMENT_TYPE.TIRES:
-			pass
+				$SoundManager.stopsound("TireMove")
 
 # Updates the interactive path's drawing if there's an active and selected unit.
 func _on_Cursor_moved(new_cell: Vector2) -> void:
