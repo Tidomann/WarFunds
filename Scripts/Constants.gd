@@ -189,22 +189,21 @@ var bazooka_senior_dict = {
 	UNIT.FAX : 85
 	}
 
-# if Bazooka_senior doesn't have ammo, just use senior_dict
 var scanner_dict = {
 	UNIT.JUNIOR : 75, 
 	UNIT.SENIOR : 70,
 	UNIT.BAZOOKA_SENIOR : 70,
-	UNIT.SCANNER : 35,
+	UNIT.SCANNER : 45,
 	UNIT.TOWER : 10,
-	UNIT.PRINTER : 10,
+	UNIT.PRINTER : 12,
 	UNIT.STAPLER : 50,
 	UNIT.FAX : 60
 	}
 	
 var printer_dict = {
 	UNIT.JUNIOR : 75, 
-	UNIT.SENIOR : 50,
-	UNIT.BAZOOKA_SENIOR : 50,
+	UNIT.SENIOR : 70,
+	UNIT.BAZOOKA_SENIOR : 70,
 	UNIT.SCANNER : 85,
 	UNIT.TOWER : 10,
 	UNIT.PRINTER : 55,
