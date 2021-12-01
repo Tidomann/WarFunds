@@ -621,7 +621,7 @@ func start_turn_income(player : Node2D) -> int:
 			# START TURN PROPERTY HEAL
 			if game_data.has_Unit():
 				if game_data.unit.playerOwner == player:
-					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds:
+					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds + income:
 						var heal_cost = game_data.unit.get_healing(20)
 						player.addFunds(-heal_cost)
 	return income

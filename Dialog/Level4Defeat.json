@@ -1,6 +1,5 @@
 [
-	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"Oh no, you've been defeated."},
-	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Don't worry. Regroup and try again."},
-	{"Name":"William", "Emotion":"Neutral", "Text":"Those Mecha-Printers sure are tough."},
-	{"Name":"William", "Emotion":"Thinking", "Text":"Maybe we can use the terrain to avoid the Mecha-Printers and focus on the headquarters."},
+	{"Name":"William", "Emotion":"Neutral", "Text":"We need to fall back and regoup."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"We need to be careful with our movement. Planning around unit ranges can be tough."},
+	{"Name":"William", "Emotion":"Happy", "Text":"Let's give it another shot when you are ready!"},
 ]

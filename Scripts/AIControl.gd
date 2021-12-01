@@ -805,9 +805,9 @@ func move_computer_unit(unit : Unit, path : PoolVector2Array) -> void:
 			Constants.MOVEMENT_TYPE.MECH:
 				soundmanager.playsound("InfantryMove")
 			Constants.MOVEMENT_TYPE.TREAD:
-				pass
+				soundmanager.playsound("TreadMove")
 			Constants.MOVEMENT_TYPE.TIRES:
-				pass
+				soundmanager.playsound("TireMove")
 
 func get_best_target(attacker : Unit, targets : Array) -> Unit:
 	if targets.size() == 0:
@@ -963,7 +963,7 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 			return Constants.UNIT.BAZOOKA_SENIOR
 		if (4-infantry_count)*buymenu.seniorcost < computer.funds:
 			return Constants.UNIT.SENIOR
-		if (4-infantry_count)*buymenu.juniorcost < computer.funds:
+		if buymenu.juniorcost < computer.funds:
 			return Constants.UNIT.JUNIOR
 	# We have more bases than the amount of infantry we need to buy
 	var funds_after_reserve = computer.funds
