@@ -59,8 +59,10 @@ func nextPhrase() -> void:
 		#queue_free()
 		return
 	finished = false
-	
-	$Name.bbcode_text = dialog[phraseNum]["Name"]
+	$Name.clear()
+	$Name.push_underline()
+	$Name.add_text(dialog[phraseNum]["Name"])
+	$Name.pop()
 	$Text.bbcode_text = dialog[phraseNum]["Text"]
 	
 	$Text.visible_characters = 0

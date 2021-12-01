@@ -558,6 +558,9 @@ func calculate_damage(attacker : Unit, defender : Unit) -> int:
 	var result = full_damage * health_modifier * reduction_modifier
 	#print("Real result: " + String(floor(result)))
 	result = attacker.get_commander().special_attack(attacker, defender, int(floor(result)))
+	# Anti-Kronk Barrier (Prevent Kronk from healing with attacks)
+	if int(floor(result) <= 0):
+		return 1
 	return int(floor(result))
 
 func unit_combat(attacker : Unit, defender : Unit):

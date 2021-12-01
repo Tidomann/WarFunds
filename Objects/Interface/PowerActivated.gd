@@ -13,6 +13,7 @@ func power_activated(comander_texture : StreamTexture, power_name : String):
 	var music_player = get_parent().get_parent().get_node("Music Player")
 	get_child(1).get_node("Commander").set_texture(comander_texture)
 	get_child(1).get_child(2).set_text(power_name)
+	get_parent().get_parent().get_node("CanvasLayer/update-ui").visible = false
 	$AnimationPlayer.play("fade")
 	var previous_music = music_player.stream
 	music_player.set_stream(copower)
@@ -25,8 +26,12 @@ func power_activated(comander_texture : StreamTexture, power_name : String):
 	self.add_child(t)
 	t.start()
 	yield(t, "timeout")
+	get_parent().get_parent().get_node("CanvasLayer/update-ui").visible = true
 	music_player.set_stream(previous_music)	
 	music_player.set_volume_db(-30)
+	match power_name:
+		"Viral Outbreak":
+			music_player.set_volume_db(-15)
 	music_player.play()
 	visible = false
 

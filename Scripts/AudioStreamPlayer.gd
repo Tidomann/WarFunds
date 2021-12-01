@@ -9,7 +9,8 @@ var commanderMusic = {
 	"Red Line" : "res://assets/Music/WinningtheRace.ogg",
 	"Kronk" : "res://assets/Music/Kronk Theme.mp3",
 	"William" : "res://assets/Music/William theme.mp3",
-	"Sally" : "res://assets/Music/Busy Day At The Market-LOOP.wav"
+	"Sally" : "res://assets/Music/Busy Day At The Market-LOOP.wav",
+	"Dr. Deficit" : "res://assets/Music/Flights of Fancy.mp3"
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -26,8 +27,11 @@ func _ready():
 	
 func set_music(commanderName : String) -> void:
 	var audio_Stream: AudioStream = load(commanderMusic[commanderName])
-	self.set_stream(audio_Stream)	
+	self.set_stream(audio_Stream)
 	self.set_volume_db(-30)
+	match commanderName:
+		"Dr. Deficit":
+			self.set_volume_db(-15)
 	play()
 	
 	

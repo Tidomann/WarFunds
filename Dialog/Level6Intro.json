@@ -1,8 +1,8 @@
 [
-	{"Name":"Kronk", "Emotion":"Sad", "Text":"Redline? Redline! Why is Redline in Kronk Manor"},
-	{"Name":"Redline", "Emotion":"Sad", "Text":"I don't get why you call it that. It's the University's Presidents Manor. It's not like it was yours to begin with."},
+	{"Name":"Kronk", "Emotion":"Sad", "Text":"Redline? Redline! Why is Redline in Kronk Manor?"},
+	{"Name":"Redline", "Emotion":"Sad", "Text":"I don't get why you call it that. It's the University President's Manor. It's not like it was yours to begin with."},
 	{"Name":"Kronk", "Emotion":"Smile", "Text":"Fast lady is right. This wasn't Kronks..."},
-	{"Name":"Kronk", "Emotion":"Wink", "Text":"It's President Kronk's!"},
+	{"Name":"President Kronk", "Emotion":"Wink", "Text":"It's President Kronk's!"},
 	{"Name":"Redline", "Emotion":"Surprised", "Text":"....."},
 	{"Name":"Redline", "Emotion":"Sad", "Text":"You know what Kronk. I'm off. Toodles.."},
 	{"Name":"Redline", "Emotion":"Smile", "Text":"Have fun! Oh yeah, command said to hurry up and conquer University."},
