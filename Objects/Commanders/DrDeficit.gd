@@ -104,7 +104,7 @@ func strength_modifier(_attacker : Unit, _defender : Unit) -> float:
 				if not _attacker.grid.is_enemy(_defender, _attacker.grid.get_unit(coordinates)):
 					beside_friendly = true
 	if not beside_friendly:
-		strength = 130.0
+		strength = 120.0
 	if used_power:
 		return strength*1.1
 	return strength

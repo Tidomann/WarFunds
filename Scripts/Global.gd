@@ -7,9 +7,9 @@ var next_level = "res://Scenes/Select.tscn"
 var player_colour = Constants.COLOUR.GREEN
 
 # Currently Unlocked Leaders and Levels
-var unlockedLeaders = [true,true,true,false,false,false,false,false]
+var unlockedLeaders = [true,true,true,true,true,false,false,false]
 var unlockedLevels = [true,false,false,false,false,false,false,false]
-var unlockedColours = [false,true,true,true,false,false]
+var unlockedColours = [true,true,true,true,true,true]
 
 # Leader Images
 var leaders = [
@@ -31,11 +31,11 @@ var leaderPath = [
 
 # Leader abilities and information
 var leadersDesc = [
-	"William:\nNo constant bonus.\nPower\n Hackathon - Attacking with units will disable the enemy units for one turn. \nLeader of the Computer Science Club.",
-	"Sally:\nUnits on properties gain a +40% attack bonus.\nPower\n Liquidation - Gain funds equal to 50% of the damage dealt when attacking enemy units.\nLeader of the Finance Region.",
-	"Dr. Deficit:\nEnemy units that are not next to a friendly unit take +30% more damage.\nPower\n Viral Outbreak - Enemy units that are next to another unit lose 2HP (cannot kill units).\nHe claims he predicted a grand deficit.",
-	"RedLine: Sanic",
-	"Kronk: KRONK"
+	"[u][color=#62beff]William[/color][/u]\n[u][color=#62beff]Power[/color][/u]\n[color=#62beff]Hackathon[/color] - Attacking an enemy unit will disable it for one turn.\nLeader of the Computer Science Club.",
+	"[u][color=#d39c36]Sally[/color][/u]\nUnits on properties gain a +40% attack bonus.\n[u][color=#d39c36]Power[/color][/u]\n[color=#d39c36]Liquidation[/color] - Gain funds equal to 50% of the damage dealt when attacking enemy units.\nLeader of the Finance Region. Money is power!",
+	"[u][color=#30f830]Dr. Deficit[/color][/u]\nEnemy units that are not next to a friendly unit take +20% more damage.\n[u][color=#30f830]Power[/color][/u]\n[color=#30f830]Viral Outbreak[/color] - Enemy units that are next to another unit lose 2HP (cannot kill units).\nHe claims he predicted a grand deficit.",
+	"[u][color=#5f4d72]Redline[/color][/u]\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Homestrech[/color] - Units gain +1 movement.\nTime is money!",
+	"[u][color=#5f4d72]Kronk[/color][/u]\nUnits have a chance to deal more or less damage.\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Hapless Hero[/color] - Units have a chance to deal a lot more or a lot less damage.\nKronk!"
 ]
 
 # Levels

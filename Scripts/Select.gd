@@ -76,7 +76,8 @@ func _on_LeaderButton_pressed(id):
 			child.modulate = Color(1,1,1)
 		$Leaders.get_child(id).modulate = Color(1.0,5.0,1.0)
 		$Start.disabled = false
-		$LeaderDetails.text = Global.leadersDesc[id-1]
+		$LeaderDetails.clear()
+		$LeaderDetails.append_bbcode(Global.leadersDesc[id-1])
 	$SoundSelect.play()
 	
 func _on_Start_pressed():

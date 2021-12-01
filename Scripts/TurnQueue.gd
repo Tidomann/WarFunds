@@ -32,7 +32,8 @@ func nextTurn():
 	if newIndex == 0:
 		round_count += 1
 	activePlayer = get_child(newIndex)
-	activePlayer.commander.setPowerFilled()
+	#Auto fill power line
+	#activePlayer.commander.setPowerFilled()
 	start_turn(activePlayer)
 	emit_signal("turn_changed", activePlayer)
 	audioStream.set_music(activePlayer.commander.commanderName)

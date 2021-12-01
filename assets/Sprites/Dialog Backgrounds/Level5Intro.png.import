@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/President KronkNeutral.png-511dd2032b0f31515e6602c2b2135a2a.stex"
+path="res://.import/Level5Intro.png-a0a3d679930716feb14403928ff58518.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprites/DepartmentLeaders/President Kronk/President KronkNeutral.png"
-dest_files=[ "res://.import/President KronkNeutral.png-511dd2032b0f31515e6602c2b2135a2a.stex" ]
+source_file="res://assets/Sprites/Dialog Backgrounds/Level5Intro.png"
+dest_files=[ "res://.import/Level5Intro.png-a0a3d679930716feb14403928ff58518.stex" ]
 
 [params]
 

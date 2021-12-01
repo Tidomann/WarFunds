@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Select.gd" type="Script" id=1]
 [ext_resource path="res://assets/Sound Effects/interface/click3.ogg" type="AudioStream" id=2]
@@ -10,6 +10,10 @@
 [ext_resource path="res://assets/Sprites/UI/colours/red.png" type="Texture" id=8]
 [ext_resource path="res://assets/Sprites/UI/colours/green.png" type="Texture" id=9]
 [ext_resource path="res://assets/Sprites/UI/colours/cyan.png" type="Texture" id=10]
+[ext_resource path="res://Objects/BattleMap Objects/PixelFont.tres" type="DynamicFont" id=11]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 11 )
 
 [node name="Select" type="Control"]
 anchor_right = 1.0
@@ -130,6 +134,7 @@ margin_left = 244.257
 margin_top = 25.0
 margin_right = 456.257
 margin_bottom = 160.0
+theme = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
