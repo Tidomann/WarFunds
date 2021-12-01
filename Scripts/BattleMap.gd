@@ -396,6 +396,9 @@ func victory() -> void:
 			Global.unlockedLeaders[1] = true
 			Global.unlockedColours[3] = true
 			get_tree().change_scene("res://Scenes/Select.tscn")
+		5:
+			Global.unlockedLevels[5] = true
+			get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:
 	print("Defeat")
@@ -413,6 +416,8 @@ func defeat() -> void:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Defeat.json"
 		4:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Defeat.json"
+		5:
+			pass
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
