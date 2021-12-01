@@ -23,7 +23,7 @@ func get_team() -> int:
 	return playerOwner.team
 
 func capture(unit : Unit) -> bool:
-	var damage = int(unit.health*0.1)
+	var damage = ceil(unit.health*0.1)
 	health -= damage
 	if health <= 0:
 		playerOwner = unit.playerOwner

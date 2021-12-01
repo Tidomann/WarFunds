@@ -117,6 +117,7 @@ cell = Vector2( 14, 12 )
 position = Vector2( 180.28, 199.629 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 11, 12 )
+move_speed = 10.0
 
 [node name="Junior" parent="GameBoard/Units" instance=ExtResource( 15 )]
 position = Vector2( 135.918, 180.28 )
