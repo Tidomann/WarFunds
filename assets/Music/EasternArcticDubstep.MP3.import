@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/EasternArcticDubstep.MP3-1af4e99ef12c7a4c23ab463b89e4999f.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/EasternArcticDubstep.MP3"
+dest_files=[ "res://.import/EasternArcticDubstep.MP3-1af4e99ef12c7a4c23ab463b89e4999f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

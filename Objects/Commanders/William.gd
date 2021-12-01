@@ -15,7 +15,7 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 onready var playerOwner : Node2D = self.get_node(player_path)
-export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/4stars.png"
+export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/3stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type := Constants.ARMY.COSC
 var used_power := false

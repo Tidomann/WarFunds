@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/This is Life.mp3-2e00a60bec8aa12a07b4f8573c265094.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/This is Life.mp3"
+dest_files=[ "res://.import/This is Life.mp3-2e00a60bec8aa12a07b4f8573c265094.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

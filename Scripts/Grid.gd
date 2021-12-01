@@ -557,7 +557,7 @@ func calculate_damage(attacker : Unit, defender : Unit) -> int:
 	var reduction_modifier = ((200-(commander_defense_bonus+terrain_bonus*ceil(defender.health/10.0)))/100)
 	var result = full_damage * health_modifier * reduction_modifier
 	#print("Real result: " + String(floor(result)))
-	result = attacker.get_commander().special_attack(attacker, defender, result)
+	result = attacker.get_commander().special_attack(attacker, defender, int(floor(result)))
 	return int(floor(result))
 
 func unit_combat(attacker : Unit, defender : Unit):

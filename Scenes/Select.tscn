@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Select.gd" type="Script" id=1]
 [ext_resource path="res://assets/Sound Effects/interface/click3.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/Sound Effects/gameplay/MoveOut.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Objects/Interface/SceneTransitionRect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/Sprites/UI/colours/purple.png" type="Texture" id=5]
+[ext_resource path="res://assets/Sprites/UI/colours/blue.png" type="Texture" id=6]
+[ext_resource path="res://assets/Sprites/UI/colours/yellow.png" type="Texture" id=7]
+[ext_resource path="res://assets/Sprites/UI/colours/red.png" type="Texture" id=8]
+[ext_resource path="res://assets/Sprites/UI/colours/green.png" type="Texture" id=9]
+[ext_resource path="res://assets/Sprites/UI/colours/cyan.png" type="Texture" id=10]
 
 [node name="Select" type="Control"]
 anchor_right = 1.0
@@ -58,6 +66,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorSelector" type="OptionButton" parent="Backgrounds/LeaderInfoBackground"]
+margin_right = 213.0
+margin_bottom = 43.0
+text = "Team Colour Blue"
+icon = ExtResource( 6 )
+flat = true
+align = 1
+items = [ "Team Colour Red", ExtResource( 8 ), true, 0, null, "Team Colour Blue", ExtResource( 6 ), false, 1, null, "Team Colour Green", ExtResource( 9 ), true, 2, null, "Team Colour Yellow", ExtResource( 7 ), true, 3, null, "Team Colour Cyan", ExtResource( 10 ), true, 4, null, "Team Colour Purple", ExtResource( 5 ), true, 5, null ]
+selected = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="StartBackground" type="ColorRect" parent="Backgrounds"]
 margin_left = 242.0
 margin_top = 218.0
@@ -101,14 +122,22 @@ __meta__ = {
 
 [node name="LeaderDetails" type="RichTextLabel" parent="."]
 margin_left = 244.257
-margin_top = 171.554
+margin_top = 25.0
 margin_right = 456.257
-margin_bottom = 210.554
+margin_bottom = 160.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SceneTransitionRect" parent="." instance=ExtResource( 4 )]
+margin_left = -0.280609
+margin_right = -0.280609
+
 [node name="SoundSelect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 
+[node name="MoveOut" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[connection signal="item_selected" from="Backgrounds/LeaderInfoBackground/ColorSelector" to="." method="_on_ColorSelector_item_selected"]
 [connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]

@@ -46,19 +46,27 @@ func _ready():
 		button.rect_position = Vector2(3, 3+n*25)
 		button.rect_min_size = Vector2(95, 20)
 		button.connect("pressed", self, "_on_Button_pressed", [n+1])
+		button.set_toggle_mode(true)
 		
 		if(Global.unlockedLevels[n] == false):
 			button.disabled = true
 		$ButtonList.add_child(button)
+	$Backgrounds/LeaderInfoBackground/ColorSelector.select(Global.player_colour)
+	for n in Global.unlockedColours.size():
+		$Backgrounds/LeaderInfoBackground/ColorSelector.set_item_disabled(n, !Global.unlockedColours[n])
 
 func _on_Button_pressed(id):
 	_current_choice = id
-	var path = "res://assets/Sprites/LeaderScreen/preview"+str(id)+".png"
-	var texture = load(path)
-	var sprite = Sprite.new()
-	sprite.texture = texture			
-	sprite.position = Vector2(245+106, 20+72)
-	add_child(sprite)
+	for button in $ButtonList.get_children():
+		if button.get_class() == "Button":
+			if button.pressed && button != $ButtonList.get_child(id):
+				button.set_pressed(false)
+	#var path = "res://assets/Sprites/LeaderScreen/preview"+str(id)+".png"
+	#var texture = load(path)
+	#var sprite = Sprite.new()
+	#sprite.texture = texture			
+	#sprite.position = Vector2(245+106, 20+72)
+	#add_child(sprite)
 	$SoundSelect.play()
 			
 func _on_LeaderButton_pressed(id):
@@ -75,7 +83,29 @@ func _on_Start_pressed():
 	if(!(_current_choice == null)):
 # warning-ignore:return_value_discarded
 		$SoundSelect.play()
+		$MoveOut.play()
+		$SceneTransitionRect/AnimationPlayer.play("Fade")
+		yield($SceneTransitionRect/AnimationPlayer, "animation_finished")
 		Global.intro_dialogue = Global.level_intros[_current_choice-1]
 		Global.next_level = Global.levels[_current_choice-1]
 		get_tree().change_scene(Global.intro_scenes[_current_choice-1])
 
+
+
+func _on_ColorSelector_item_selected(index):
+	match index:
+		#red
+		0:
+			Global.player_colour = Constants.COLOUR.RED
+		#blue
+		1:
+			Global.player_colour = Constants.COLOUR.BLUE
+		2:
+			Global.player_colour = Constants.COLOUR.GREEN
+		3:
+			Global.player_colour = Constants.COLOUR.YELLOW
+		4:
+			Global.player_colour = Constants.COLOUR.CYAN
+		5:
+			Global.player_colour = Constants.COLOUR.PURPLE
+	pass # Replace with function body.

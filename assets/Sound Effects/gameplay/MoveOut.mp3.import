@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/MoveOut.mp3-ee98567298c6636b0af20e2a76b7b151.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/MoveOut.mp3"
+dest_files=[ "res://.import/MoveOut.mp3-ee98567298c6636b0af20e2a76b7b151.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

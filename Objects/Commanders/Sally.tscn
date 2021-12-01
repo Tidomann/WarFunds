@@ -10,4 +10,5 @@ powerName = "Liquidate"
 army_type = 3
 
 [node name="commanderPortrait" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 1 )

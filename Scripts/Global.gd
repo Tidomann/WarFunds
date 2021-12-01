@@ -1,33 +1,38 @@
 extends Node
 
 # Selected Leader
-var path = "res://Objects/Commanders/William.tscn"
+var path = "res://Objects/Commanders/Sally.tscn"
 var intro_dialogue = "res://Dialog/GameIntro.json"
 var next_level = "res://Scenes/Select.tscn"
+var player_colour = Constants.COLOUR.BLUE
 
 # Currently Unlocked Leaders and Levels
-var unlockedLeaders = [true,false,false,false,false,false,false,false]
+var unlockedLeaders = [true,true,true,true,false,false,false,false]
 var unlockedLevels = [true,true,true,true,false,false,false,false]
+var unlockedColours = [true,true,true,true,true,true]
 
 # Leader Images
 var leaders = [
 	"res://assets/Sprites/DepartmentLeaders/William/WilliamNeutral.png",
+	"res://assets/Sprites/DepartmentLeaders/Sally/SallyNeutral.png",
+	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png",
-	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineNeutral.png"	
 ]
 
 # Path to leader scene
 var leaderPath = [
 	"res://Objects/Commanders/William.tscn",
-	"res://Objects/Commanders/Kronk.tscn",
-	"res://Objects/Commanders/RedLine.tscn"
+	"res://Objects/Commanders/Sally.tscn",
+	"res://Objects/Commanders/RedLine.tscn",
+	"res://Objects/Commanders/Kronk.tscn"
 ]
 
 # Leader abilities and information
 var leadersDesc = [
-	"William: Power - Hackathon. For one turn, units will disable enemies for one turn. Leader of the Computer Science Club, William has no advantages or disadvantages, which is an advantage itself.",
-	"Kronk: Boi",
-	"RedLine: ioB"
+	"William:\nNo constant bonus.\nPower - Hackathon. Attacking with units will disable the enemy units for one turn. \nLeader of the Computer Science Club.",
+	"Sally:\nUnits on properties gain a +40% attack bonus.\nPower - Liquidation. Gain funds equal to 50% of the damage dealth when attacking enemy units. \nLeader of the Finance Region.",
+	"RedLine: Sanic",
+	"Kronk: KRONK"
 ]
 
 # Levels

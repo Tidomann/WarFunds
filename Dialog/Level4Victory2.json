@@ -1,0 +1,18 @@
+[
+	{"Name":"Sally", "Emotion":"NeutralClosed", "Text":"Phew, I thought I'd be stuck talking to that guy for awhile."},
+	{"Name":"Sally", "Emotion":"Neutral", "Text":"Who do I have to thank for the rescue?"},
+	{"Name":"William", "Emotion":"Happy", "Text":"My name is William, and this here is University's Academic Advisor."},
+	{"Name":"Sally", "Emotion":"Upsurprised", "Text":"The Computer Science Army?"},
+	{"Name":"Sally", "Emotion":"Upone", "Text":"I didn't think other departments would help us."},
+	{"Name":"Sally", "Emotion":"Uptwo", "Text":"Sorry, where are my manners."},
+	{"Name":"Sally", "Emotion":"Upone", "Text":"My name is Sally. Thanks to you the Finance Region has been saved."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"I didn't know it was so dire in the other departments. We thought COSC had it bad."},
+	{"Name":"William", "Emotion":"Neutral", "Text":"Maybe all the other regions need help too."},
+	{"Name":"William", "Emotion":"Happy", "Text":"Sally, with your help, and the help of the Academic Advisor, we should see how your neighbours, the Science Region is doing."},
+	{"Name":"Sally", "Emotion":"Thinkone", "Text":"We haven't heard from them since we've been invaded..."},
+	{"Name":"Sally", "Emotion":"Thinktwo", "Text":"I hope they're doing better than we are."},
+	{"Name":"Sally", "Emotion":"Neutral", "Text":"That settles it."},
+	{"Name":"Sally", "Emotion":"Yellhappy", "Text":"Let's go rescue University!"},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"Sally has been unlocked as a Department Leader."},
+	{"Name":"LU Student", "Emotion":"Happy", "Text":"The team colour Yellow for Finance has been unlocked."},
+]

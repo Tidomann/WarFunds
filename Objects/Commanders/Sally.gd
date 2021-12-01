@@ -7,7 +7,7 @@ signal power_changed(playerOwner, power)
 # the current power meter value
 export(float) var power = 0.0
 # the maximum power meter value
-export(float) var maxPower = 27000.0
+export(float) var maxPower = 36000.0
 # The name of the commander
 export(String) var commanderName
 # The name of the commander's power
@@ -90,6 +90,8 @@ func setOwner(newPlayer : Node2D):
 
 func strength_modifier(_attacker : Unit, _defender : Unit) -> float:
 	var strength = 100.0
+	if _attacker.grid.has_property(_attacker.cell):
+		strength = 140.0
 	if used_power:
 		return strength*1.1
 	return strength
@@ -113,8 +115,15 @@ func use_power() -> void:
 
 func special_attack(_attacker, _defender, damage_result) -> int:
 	if used_power:
-		if _defender.is_turnReady() == true:
-			_defender.flip_turnReady()
+		#playerOwner.addFunds(int(damage_result*0.1)*_defender.cost
+		#(int(attacker_damage_taken)*attacker.cost*0.1)*0.5
+		var damage = damage_result
+		if damage > _defender.health:
+			damage = _defender.health
+			damage = ceil(damage * 0.1)
+		else:
+			damage = floor(damage*0.1)
+		_attacker.playerOwner.addFunds((int(damage)*_defender.cost*0.1)*0.5)
 	return damage_result
 
 func move_bonus() -> int:

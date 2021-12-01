@@ -30,6 +30,7 @@ func _ready():
 		child.free()
 	var leader = load(Global.path)
 	var player = $TurnQueue/Human
+	player.player_colour = Global.player_colour
 	player.add_child(leader.instance())
 	var commander = $TurnQueue/Human.get_child(0)
 	player.commander = commander
@@ -352,7 +353,23 @@ func victory() -> void:
 		3:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Victory.json"
 		4:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory.json"
+			if Global.unlockedLeaders[1] == false:
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
+				$CanvasLayer/DialogBox.start_dialog()
+				$GameBoard/Cursor.deactivate(true)
+				yield($CanvasLayer/DialogBox, "dialog_finished")
+				var t = Timer.new()
+				t.set_wait_time(0.05)
+				t.set_one_shot(true)
+				self.add_child(t)
+				t.start()
+				yield(t, "timeout")
+				$"Music Player".set_stream(load("res://assets/Music/Busy Day At The Market-LOOP.wav"))
+				$"Music Player".set_volume_db(-30)
+				$"Music Player".play()
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory2.json"
+			else:
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -375,6 +392,7 @@ func victory() -> void:
 		4:
 			Global.unlockedLevels[4] = true
 			Global.unlockedLeaders[1] = true
+			Global.unlockedColours[3] = true
 			get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:

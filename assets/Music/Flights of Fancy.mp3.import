@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Flights of Fancy.mp3-77011eb3a2e6dacb25d284bf6b7cc451.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/Flights of Fancy.mp3"
+dest_files=[ "res://.import/Flights of Fancy.mp3-77011eb3a2e6dacb25d284bf6b7cc451.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
