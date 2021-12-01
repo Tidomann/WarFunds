@@ -117,7 +117,7 @@ func calculate_grid_coordinates(map_position: Vector2) -> Vector2:
 ## Takes in grid coordinates and returns the appropriate
 ## index in the griddata array
 func as_index(cell : Vector2) -> int:
-	return int((cell.x- battlemap.Xmin()) +(cell.y- battlemap.Ymin())*15)
+	return int((cell.x- battlemap.Xmin()) +(cell.y- battlemap.Ymin())*(battlemap.Xmax() - battlemap.Xmin() + 1))
 
 ## Return the griddata object at the passed index
 func get_GridData(index :int) -> GridData:

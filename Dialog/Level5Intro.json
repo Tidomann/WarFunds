@@ -1,9 +1,12 @@
 [
-	{"Name":"William", "Emotion":"Happy", "Text":"Banktania sure spent a lot of resources to get the finance region. We need to rescue their leader!."},
-	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"With her help, and the help of our advisor, I think we'll have a real chance at standing up to Banktania."},
-	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"I must head back to the Computer Science Region. I'll be meeting with Universities president to discuss the situation. Advisor, you and William are in charge of the Computer Science Army."},
-	{"Name":"William", "Emotion":"Happy", "Text":"Alright Advisor, together nothing can stop us!."},
-	{"Name":"Kronk", "Emotion":"Sad", "Text":"What? University forces? How did they get here?!?."},
-	{"Name":"Evil Bankman", "Emotion":"Happy", "Text":"I.. I don't know sir. Maybe Redline was defeated?"},
-	{"Name":"Kronk", "Emotion":"Angry", "Text":"Grrrr! Take care of them! Kronk has important things to attend to at Kronk Manor."},
+	{"Name":"Kronk", "Emotion":"Sad", "Text":"Redline? Redline! Why is Redline in Kronk Manor"},
+	{"Name":"Redline", "Emotion":"Sad", "Text":"I don't get why you call it that. It's the University's Presidents Manor. It's not like it was yours to begin with."},
+	{"Name":"Kronk", "Emotion":"Smile", "Text":"Fast lady is right. This wasn't Kronks..."},
+	{"Name":"Kronk", "Emotion":"Wink", "Text":"It's President Kronk's!"},
+	{"Name":"Redline", "Emotion":"Surprised", "Text":"....."},
+	{"Name":"Redline", "Emotion":"Sad", "Text":"You know what Kronk. I'm off. Toodles.."},
+	{"Name":"Redline", "Emotion":"Smile", "Text":"Have fun! Oh yeah, command said to hurry up and conquer University."},
+	{"Name":"Redline", "Emotion":"Neutral", "Text":"Now get to it Kronk."},
+	{"Name":"Kronk", "Emotion":"Wink", "Text":"President Kronk."},
+	{"Name":"Redline", "Emotion":"Angry", "Text":"Why you-"}
 ]

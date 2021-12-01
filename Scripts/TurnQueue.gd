@@ -206,6 +206,15 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						yield(dialogue_node, "dialog_finished")
 						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
+		5:
+			match turn_count:
+				1:
+					if not inPlayer.computerAI:
+						#this is the players first turn
+						pass
+					else:
+						#this is the computer's first rurn
+						pass
 	var t = Timer.new()
 	t.set_wait_time(0.08)
 	t.set_one_shot(true)

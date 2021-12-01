@@ -358,7 +358,7 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 		for cell in gamegrid.propertytiles.get_used_cells():
 			if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner != attacker.playerOwner:
 				if gamegrid.array[gamegrid.as_index(cell)].unit != null:
-					if not gamegrid.array[gamegrid.as_index(cell)].unit == attacker.playerOwner:
+					if not gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner == attacker.playerOwner || gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner == attacker:
 						property_coordinates.append(gamegrid.as_index(cell))
 				else:
 					property_coordinates.append(gamegrid.as_index(cell))
@@ -979,7 +979,7 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 		return Constants.UNIT.PRINTER
 	if funds_after_reserve > buymenu.staplercost && printer_count >= 3:
 		return Constants.UNIT.STAPLER
-	if funds_after_reserve > buymenu.scannercost && book_count < scanner_count:
+	if funds_after_reserve > buymenu.scannercost && book_count >= scanner_count:
 		return Constants.UNIT.SCANNER
 	if funds_after_reserve > buymenu.bseniorcost:
 		return Constants.UNIT.BAZOOKA_SENIOR
