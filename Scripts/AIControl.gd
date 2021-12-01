@@ -358,8 +358,11 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 		for cell in gamegrid.propertytiles.get_used_cells():
 			if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner != attacker.playerOwner:
 				if gamegrid.array[gamegrid.as_index(cell)].unit != null:
-					if not gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner == attacker.playerOwner || gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner == attacker:
+					if not gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner == attacker.playerOwner:
 						property_coordinates.append(gamegrid.as_index(cell))
+					else:
+						if gamegrid.array[gamegrid.as_index(cell)].unit == attacker:
+							property_coordinates.append(gamegrid.as_index(cell))
 				else:
 					property_coordinates.append(gamegrid.as_index(cell))
 		if not property_coordinates.empty():
