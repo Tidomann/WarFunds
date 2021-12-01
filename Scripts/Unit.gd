@@ -10,7 +10,7 @@ signal walk_finished
 
 
 export var player_path := @""
-onready var playerOwner : Node2D = self.get_node(player_path)
+var playerOwner : Node2D
 ## Shared resource of type Grid, used to calculate map coordinates.
 export var grid: Resource
 ## Coordinates of the current cell the unit moved to.
@@ -68,6 +68,8 @@ func _ready() -> void:
 	# moving the unit.
 	if not Engine.editor_hint:
 		curve = Curve2D.new()
+	if not player_path.is_empty():
+		playerOwner = self.get_node(player_path)
 
 
 func update_position() -> void:

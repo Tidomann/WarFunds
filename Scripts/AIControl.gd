@@ -841,6 +841,10 @@ func computer_combat(attacker : Unit, defender : Unit) -> void:
 	screen_position.y += devtiles.cell_size.y/2
 	self.position = screen_position
 	self.visible = true
+	if attacker.attack_type == Constants.ATTACK_TYPE.INDIRECT || attacker.attack_type == Constants.ATTACK_TYPE.OTHER:
+		var rangefinder_cells = gamegrid._flood_fill(attacker.cell, attacker.atk_range, Constants.MOVEMENT_TYPE.AIR, true)
+		gamegrid.gameBoard._unit_path.initialize(rangefinder_cells, attacker)
+		gamegrid.gameBoard._unit_path.redraw(attacker.cell, defender.cell)
 	timer.stop()
 	timer.set_wait_time(1.5)
 	timer.set_one_shot(true)
@@ -849,6 +853,7 @@ func computer_combat(attacker : Unit, defender : Unit) -> void:
 	gamegrid.unit_combat(attacker, defender)
 	soundmanager.playsound("Attack")
 	self.visible = false
+	gamegrid.gameBoard._unit_path.stop()
 	if attacker.turnReady:
 		attacker.flip_turnReady()
 
