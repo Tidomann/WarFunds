@@ -2,6 +2,6 @@
 	{"Name":"Professor Hewel", "Emotion":"Sad", "Text":"You must defeat Banktanias forces. In order to do so, you must command our troops."},
 	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Select a unit by bringing the cursor overtop of our BLUE troops. Select them with Z on the keyboard or left click."},
 	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Once they are selected you will see where they can move to. Select a spot within the blue tiles to move it to that location."},
-	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Once it moves, you can select a command such as wait, or attack if an enemy beside the unit."},
+	{"Name":"Professor Hewel", "Emotion":"Neutral", "Text":"Once it moves, you can select a command such as wait, or attack if an enemy is beside the unit."},
 	{"Name":"Professor Hewel", "Emotion":"Happy", "Text":"If you ever need to stop an order, press X on the keyboard or right click the menu! Don't worry, you'll be leading like a natural in no time!"},
 ]

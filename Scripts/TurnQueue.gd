@@ -92,7 +92,7 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
-						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		2:
 			match turn_count:
@@ -115,7 +115,7 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
-						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		3:
 			match turn_count:
@@ -138,7 +138,7 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
-						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 				2:
 					if not inPlayer.computerAI:
@@ -156,7 +156,7 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.dialogPath = "res://Dialog/Level3Player2.json"
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
-						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 					else:
 						#this is the computer first turn
@@ -177,7 +177,7 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.dialogPath = "res://Dialog/Level3Player3.json"
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
-						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 					else:
 						#this is the computer first turn
@@ -204,7 +204,7 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						gamegrid.battlemap.get_node("GameBoard/Cursor").deactivate(true)
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
-						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = false
+						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
 						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		5:
 			match turn_count:
