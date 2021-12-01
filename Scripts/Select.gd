@@ -56,6 +56,9 @@ func _ready():
 		$Backgrounds/LeaderInfoBackground/ColorSelector.set_item_disabled(n, !Global.unlockedColours[n])
 
 func _on_Button_pressed(id):
+	if _current_choice == id:
+		$ButtonList.get_child(id).set_pressed(true)
+		return
 	_current_choice = id
 	for button in $ButtonList.get_children():
 		if button.get_class() == "Button":

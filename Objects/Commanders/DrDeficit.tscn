@@ -3,7 +3,7 @@
 [ext_resource path="res://Objects/Commanders/DrDeficit.gd" type="Script" id=1]
 [ext_resource path="res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitNeutral.png" type="Texture" id=2]
 
-[node name="Commander" type="Node2D"]
+[node name="DrDefecit" type="Node2D"]
 script = ExtResource( 1 )
 commanderName = "Dr. Deficit"
 powerName = "Viral Outbreak"

@@ -512,6 +512,9 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 			var best_defense = 0
 			var destination = null
 			for direction in DIRECTIONS:
+				if best_target == null:
+					destination = attacker.cell
+					continue
 				if not gamegrid.is_gridcoordinate_within_map(best_target.cell + direction):
 					continue
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() || (best_target.cell + direction) == attacker.cell:
@@ -738,6 +741,8 @@ func infantry_actions(infantry : Array) -> void:
 							soundmanager.playsound("CaptureIncomplete")
 				if unit.turnReady:
 					unit.flip_turnReady()
+		if unit.turnReady:
+			unit.flip_turnReady()
 		timer.set_wait_time(1.0)
 		timer.set_one_shot(true)
 		timer.start()

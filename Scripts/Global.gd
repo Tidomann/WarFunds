@@ -8,7 +8,7 @@ var player_colour = Constants.COLOUR.GREEN
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,true,true,true,true,false,false,false]
-var unlockedLevels = [true,false,false,false,false,false,false,false]
+var unlockedLevels = [true,true,true,true,true,true,false,false]
 var unlockedColours = [true,true,true,true,true,true]
 
 # Leader Images
@@ -44,7 +44,8 @@ var levels = [
 	"res://Scenes/Level2.tscn",
 	"res://Scenes/Level3.tscn",
 	"res://Scenes/Level4.tscn",
-	"res://Scenes/Level5.tscn"
+	"res://Scenes/Level5.tscn",
+	"res://Scenes/Level6.tscn"
 ]
 
 # Level Intros
@@ -53,7 +54,8 @@ var level_intros = [
 	"res://Dialog/Level2Intro.json",
 	"res://Dialog/Level3Intro.json",
 	"res://Dialog/Level4Intro.json",
-	"res://Dialog/Level5Intro.json"
+	"res://Dialog/Level5Intro.json",
+	"res://Dialog/Level6Intro.json"
 ]
 
 var intro_scenes = [
@@ -61,5 +63,6 @@ var intro_scenes = [
 	"res://Scenes/Level2Intro.tscn",
 	"res://Scenes/Level3Intro.tscn",
 	"res://Scenes/Level4Intro.tscn",
-	"res://Scenes/Level5Intro.tscn"
+	"res://Scenes/Level5Intro.tscn",
+	"res://Scenes/Level6Intro.tscn"
 ]
