@@ -14,7 +14,7 @@ export(String) var commanderName
 export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
-onready var playerOwner : Node2D = self.get_node(player_path)
+var playerOwner : Node2D
 export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/3stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type := Constants.ARMY.BANKTANIA
@@ -25,7 +25,12 @@ onready var power_activated = get_parent().get_parent().get_parent().get_node("C
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var tmp = commander_portrait.texture.get_size()
+	tmp.x = 128 / tmp.x
+	tmp.y = 128 / tmp.y
+	commander_portrait.scale = tmp
+	if not player_path.is_empty():
+		playerOwner = self.get_node(player_path)
 
 # increase the commanders current power meter by the passed parameter
 func addPower(iPower : float) -> void:

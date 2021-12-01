@@ -14,7 +14,7 @@ export(String) var commanderName
 export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
-onready var playerOwner : Node2D = self.get_node(player_path)
+var playerOwner : Node2D
 export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/6stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type
@@ -29,6 +29,8 @@ func _ready():
 	tmp.x = 128 / tmp.x
 	tmp.y = 128 / tmp.y
 	commander_portrait.scale = tmp
+	if not player_path.is_empty():
+		playerOwner = self.get_node(player_path)
 
 # increase the commanders current power meter by the passed parameter
 func addPower(iPower : float) -> void:
