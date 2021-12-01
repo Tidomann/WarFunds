@@ -32,7 +32,7 @@ func _process(_delta):
 				$SoundDialog.play()
 				$Text.visible_characters = len($Text.text)
 		if Input.is_key_pressed(KEY_ENTER) || Input.is_key_pressed(KEY_KP_ENTER):
-			phraseNum = len(dialog)
+			phraseNum = 0
 			isfinished = true
 			emit_signal("dialog_finished",isfinished)
 			self.visible = false

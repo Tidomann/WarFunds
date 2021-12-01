@@ -7,7 +7,7 @@ var next_level = "res://Scenes/Select.tscn"
 var player_colour = Constants.COLOUR.BLUE
 
 # Currently Unlocked Leaders and Levels
-var unlockedLeaders = [true,true,true,true,false,false,false,false]
+var unlockedLeaders = [true,false,true,true,false,false,false,false]
 var unlockedLevels = [true,true,true,true,false,false,false,false]
 var unlockedColours = [true,true,true,true,true,true]
 
