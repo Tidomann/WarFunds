@@ -35,6 +35,7 @@ func _ready():
 			m = m + 1
 		if(Global.unlockedLeaders[n] == false):
 			leaderButton.disabled = true
+			leaderButton.texture_focused = null
 		leaderButton.connect("pressed", self, "_on_LeaderButton_pressed", [n+1])
 		$Leaders.add_child(leaderButton)
 	# Generate the Level Select Buttons

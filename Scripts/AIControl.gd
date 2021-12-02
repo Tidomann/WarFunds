@@ -672,6 +672,8 @@ func direct_actions(light_direct : Array) -> void:
 				else:
 					if unit.turnReady:
 						unit.flip_turnReady()
+		if unit.turnReady:
+			unit.flip_turnReady()
 		timer.stop()
 		timer.set_wait_time(1.0)
 		timer.set_one_shot(true)
