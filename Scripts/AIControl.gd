@@ -429,11 +429,16 @@ func no_targets_indirect_path(attacker: Unit) -> PoolVector2Array:
 				air_map.get_cost_at_point(next_index) > attacker.min_atk_range && \
 				dijkstra_map.get_cost_at_point(next_index) <= attacker.move_range:
 					break
-				# What is this logic why does it work though
-				if not gamegrid.is_occupied(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates):
-					next_index = dijkstra_map.get_direction_at_point(next_index)
+				# What is this logic why does it work though <- poor sleep deprivation JT
+				if gamegrid.is_occupied(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates):
+					if gamegrid.get_unit(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates).playerOwner.team == attacker.playerOwner.team:
+						next_index = dijkstra_map.get_direction_at_point(next_index)
+					else:
+						dijkstra_map.disable_point(gamegrid.as_index(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates))
+						dijkstra_map.set_terrain_for_point(gamegrid.as_index(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates), 1)
+						break
 				else:
-					break
+					next_index = dijkstra_map.get_direction_at_point(next_index)
 				destination_path.append(gamegrid.array[next_index].coordinates)
 			# if the final destination coordinate is blocked
 			if gamegrid.array[next_index].getUnit() != null:
