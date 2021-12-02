@@ -1,14 +1,14 @@
 extends Node
 
 # Selected Leader
-var path = "res://Objects/Commanders/DrDeficit.tscn"
+var path = "res://Objects/Commanders/William.tscn"
 var intro_dialogue = "res://Dialog/GameIntro.json"
 var next_level = "res://Scenes/Select.tscn"
 var player_colour = Constants.COLOUR.BLUE
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]
-var unlockedLevels = [true,true,true,true,true,true,false,false]
+var unlockedLevels = [true,false,false,false,false,false,false,false]
 var unlockedColours = [false,true,false,false,false,false]
 
 # Leader Images
@@ -75,3 +75,35 @@ var intro_scenes = [
 	"res://Scenes/Level5Intro.tscn",
 	"res://Scenes/Level6Intro.tscn"
 ]
+
+func save():
+	var save_dict = {
+		"leaders" : unlockedLeaders,
+		"levels" : unlockedLevels,
+		"colour" : unlockedColours,
+		"colour_choice" : player_colour,
+		"commander_choice" : path
+	}
+	return save_dict
+
+func save_game():
+	var save_game = File.new()
+	save_game.open("user://savegame.save", File.WRITE)
+	var game_data = Global.save()
+	save_game.store_line(to_json(game_data))
+	save_game.close()
+
+func load_game():
+	var save_game = File.new()
+	if not save_game.file_exists("user://savegame.save"):
+		return # We don't have a save to load.
+	
+	save_game.open("user://savegame.save", File.READ)
+	while save_game.get_position() < save_game.get_len():
+		var game_data = parse_json(save_game.get_line())
+		Global.path = game_data["commander_choice"]
+		Global.player_colour = game_data["colour_choice"]
+		Global.unlockedLeaders = game_data["leaders"]
+		Global.unlockedLevels = game_data["levels"]
+		Global.unlockedColours = game_data["colour"]
+	save_game.close()

@@ -349,15 +349,31 @@ func victory() -> void:
 	$CanvasLayer/CommanderUI.visible = false
 	match level_number:
 		0:
+			for n in 8:
+				Global.unlockedLevels[n] = true
+			for n in 8:
+				Global.unlockedLeaders[n] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
 		1:
+			Global.unlockedLevels[1] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
 		2:
+			Global.unlockedLevels[2] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
 		3:
+			Global.unlockedLevels[3] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Victory.json"
 		4:
-			if Global.unlockedLeaders[1] == false:
+			var previously_beaten = Global.unlockedLeaders[1]
+			Global.unlockedLevels[4] = true
+			Global.unlockedLeaders[1] = true
+			Global.unlockedColours[3] = true
+			Global.save_game()
+			if not previously_beaten:
 				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
 				$CanvasLayer/DialogBox.start_dialog()
 				$GameBoard/Cursor.deactivate(true)
@@ -375,36 +391,15 @@ func victory() -> void:
 			else:
 				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
 		5:
-			pass
+			Global.unlockedLevels[5] = true
+			Global.save_game()
 		6:
-			pass
+			Global.unlockedLevels[6] = true
+			Global.save_game()
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
-	match level_number:
-		0:
-			for n in 8:
-				Global.unlockedLevels[n] = true
-			for n in 8:
-				Global.unlockedLeaders[n] = true
-			get_tree().change_scene("res://Scenes/Select.tscn")
-		1:
-			Global.unlockedLevels[1] = true
-			get_tree().change_scene("res://Scenes/Select.tscn")
-		2:
-			Global.unlockedLevels[2] = true
-			get_tree().change_scene("res://Scenes/Select.tscn")
-		3:
-			Global.unlockedLevels[3] = true
-			get_tree().change_scene("res://Scenes/Select.tscn")
-		4:
-			Global.unlockedLevels[4] = true
-			Global.unlockedLeaders[1] = true
-			Global.unlockedColours[3] = true
-			get_tree().change_scene("res://Scenes/Select.tscn")
-		6:
-			Global.unlockedLevels[5] = true
-			get_tree().change_scene("res://Scenes/Select.tscn")
+	get_tree().change_scene("res://Scenes/Select.tscn")
 
 func defeat() -> void:
 	print("Defeat")

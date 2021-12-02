@@ -6,6 +6,7 @@ var emptycommander = load("res://assets/Sprites/DepartmentLeaders/emptycommander
 var disabledCommander = load("res://assets/Sprites/DepartmentLeaders/disabledcommander.png")
 
 func _ready():
+	Global.load_game()
 	$Start.disabled = true
 	# Generate the Leader Portraits 
 	var m = 0
@@ -18,24 +19,33 @@ func _ready():
 			texture_focused = load(Global.leaders_focused[n])
 		else:
 			texture = emptycommander
-		#Connects the textures and resizes it
+		# Create he leader button
 		var leaderButton = TextureButton.new()
+		# Don't allow the controller to move to this button if no commander exists
 		if texture == emptycommander:
 			leaderButton.set_focus_mode(0)
 		else:
+			# Load the focused button for controller support
 			leaderButton.texture_focused = texture_focused
+		# Set the textures
 		leaderButton.texture_normal = texture
 		leaderButton.texture_disabled = disabledCommander
-		var scale = 50.5/texture.get_size().x
-		leaderButton.rect_scale = Vector2(scale, scale)
+		# Disable the commanders that are not unlocked
+		if(Global.unlockedLeaders[n] == false):
+			leaderButton.disabled = true
+			leaderButton.texture_focused = null
+		# Rescale the images
+		if leaderButton.disabled == false:
+			var scale = 50.5/texture.get_size().x
+			leaderButton.rect_scale = Vector2(scale, scale)
+		else:
+			var scale = 50.5/disabledCommander.get_size().x
+			leaderButton.rect_scale = Vector2(scale, scale)
 		if n%2 == 0:
 			leaderButton.rect_position = Vector2(0,5+m*55)
 		else: 
 			leaderButton.rect_position = Vector2(50.5,5+m*55)
 			m = m + 1
-		if(Global.unlockedLeaders[n] == false):
-			leaderButton.disabled = true
-			leaderButton.texture_focused = null
 		leaderButton.connect("pressed", self, "_on_LeaderButton_pressed", [n+1])
 		$Leaders.add_child(leaderButton)
 	# Generate the Level Select Buttons

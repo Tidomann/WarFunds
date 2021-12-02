@@ -48,7 +48,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 14.0
 margin_top = -82.0
-margin_right = 77.0
+margin_right = 12.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,10 +65,17 @@ margin_right = 63.0
 margin_bottom = 44.0
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="Reset" type="Button" parent="VBoxContainer"]
 margin_top = 48.0
 margin_right = 63.0
 margin_bottom = 68.0
+focus_neighbour_top = NodePath("../QuitButton")
+text = "Reset"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 63.0
+margin_bottom = 92.0
 focus_neighbour_bottom = NodePath("../StartButton")
 text = "Quit"
 
@@ -96,6 +103,24 @@ autoplay = true
 [node name="SoundStartButtonClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -37.5
+margin_right = 100.0
+margin_bottom = 37.5
+window_title = "Confirm Reset"
+dialog_text = "Do you wish to reset your save?"
+dialog_autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Reset" to="." method="_on_Reset_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
