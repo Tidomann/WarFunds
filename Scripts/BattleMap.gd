@@ -80,15 +80,11 @@ func _ready():
 		6:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
-	#$"Music Player".set_stream(load("res://assets/Music/DialogBackgroundMusic.mp3"))
-	#$"Music Player".set_volume_db(-30)
-	#$"Music Player".play()
-	#$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$"CanvasLayer/update-ui".visible = true
 	$CanvasLayer/CommanderUI.visible = true
-	#$"Music Player".set_music($TurnQueue.activePlayer.commander.commanderName)
 	$GameBoard/Cursor.activate()
+	# Uncomment out to automatically win test
 	#var t = Timer.new()
 	#t.set_wait_time(1)
 	#t.set_one_shot(true)
@@ -391,8 +387,24 @@ func victory() -> void:
 			else:
 				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
 		5:
+			var previously_beaten = Global.unlockedColours[2]
+			Global.unlockedColours[2] = true
 			Global.unlockedLevels[5] = true
 			Global.save_game()
+			if not previously_beaten:
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory.json"
+				$CanvasLayer/DialogBox.start_dialog()
+				$GameBoard/Cursor.deactivate(true)
+				yield($CanvasLayer/DialogBox, "dialog_finished")
+				var t = Timer.new()
+				t.set_wait_time(0.05)
+				t.set_one_shot(true)
+				self.add_child(t)
+				t.start()
+				yield(t, "timeout")
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory2.json"
+			else:
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory.json"
 		6:
 			Global.unlockedLevels[6] = true
 			Global.save_game()
@@ -418,7 +430,7 @@ func defeat() -> void:
 		4:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Defeat.json"
 		5:
-			pass
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Defeat.json"
 		6:
 			pass
 	$CanvasLayer/DialogBox.start_dialog()

@@ -29,7 +29,10 @@ func _ready():
 			leaderButton.texture_focused = texture_focused
 		# Set the textures
 		leaderButton.texture_normal = texture
-		leaderButton.texture_disabled = disabledCommander
+		if(n < Global.leaders.size()):
+			leaderButton.texture_disabled = disabledCommander
+		else:
+			leaderButton.texture_disabled = emptycommander
 		# Disable the commanders that are not unlocked
 		if(Global.unlockedLeaders[n] == false):
 			leaderButton.disabled = true
@@ -108,10 +111,11 @@ func _on_Start_pressed():
 # warning-ignore:return_value_discarded
 		$SoundSelect.play()
 		$MoveOut.play()
-		$SceneTransitionRect/AnimationPlayer.play("Fade")
-		yield($SceneTransitionRect/AnimationPlayer, "animation_finished")
 		Global.intro_dialogue = Global.level_intros[_current_choice-1]
 		Global.next_level = Global.levels[_current_choice-1]
+		Global.save_game()
+		$SceneTransitionRect/AnimationPlayer.play("Fade")
+		yield($SceneTransitionRect/AnimationPlayer, "animation_finished")
 		get_tree().change_scene(Global.intro_scenes[_current_choice-1])
 
 
@@ -132,4 +136,3 @@ func _on_ColorSelector_item_selected(index):
 			Global.player_colour = Constants.COLOUR.CYAN
 		5:
 			Global.player_colour = Constants.COLOUR.PURPLE
-	pass # Replace with function body.

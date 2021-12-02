@@ -8,6 +8,7 @@ var player_colour = Constants.COLOUR.BLUE
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]
+var discoveredLeaders = [true,false,false,false,false,false,false,false]
 var unlockedLevels = [true,false,false,false,false,false,false,false]
 var unlockedColours = [false,true,false,false,false,false]
 
@@ -102,7 +103,8 @@ func load_game():
 	while save_game.get_position() < save_game.get_len():
 		var game_data = parse_json(save_game.get_line())
 		Global.path = game_data["commander_choice"]
-		Global.player_colour = game_data["colour_choice"]
+		# Json parses as float, but enums are int
+		Global.player_colour = int(game_data["colour_choice"])
 		Global.unlockedLeaders = game_data["leaders"]
 		Global.unlockedLevels = game_data["levels"]
 		Global.unlockedColours = game_data["colour"]

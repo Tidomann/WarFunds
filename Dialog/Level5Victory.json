@@ -1,0 +1,18 @@
+[
+	{"Name":"Dr Deficit", "Emotion":"Head3", "Text":"Amazing. Abssssssolutely amazing. Such incredible results!"},
+	{"Name":"Sally", "Emotion":"Sad", "Text":"Uhhh- THAT was not the reaction I was expecting."},
+	{"Name":"Dr Deficit", "Emotion":"Smile2", "Text":"Don't you see what this means!?"},
+	{"Name":"Dr Deficit", "Emotion":"Turned", "Text":"I didn't account for all the variables!"},
+	{"Name":"William", "Emotion":"Happy", "Text":"Does that mean you'll help us defend University?"},
+	{"Name":"Dr Deficit", "Emotion":"Neutral", "Text":"Hmmm. I will help you get to the President's Manor."},
+	{"Name":"Dr Deficit", "Emotion":"Head1", "Text":"The data I need is there!"},
+	{"Name":"Dr Deficit", "Emotion":"Turned", "Text":"Help me get it, and I'll join your cause."},
+	{"Name":"Sally", "Emotion":"Uptwo", "Text":"Let me consider your proposal with my associates."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"Advisor, Sally, should we tell him we were already heading there?"},
+	{"Name":"Sally", "Emotion":"Neutral", "Text":"Of course not!"},
+	{"Name":"Sally", "Emotion":"NeutralClosed", "Text":"Never reveal all your information during negotiations."},
+	{"Name":"Sally", "Emotion":"Yell", "Text":"You got a deal Dr. Demented. Take us to the manor."},
+	{"Name":"Dr Deficit", "Emotion":"Turned", "Text":"Excellent with the data I-......."},
+	{"Name":"Dr Deficit", "Emotion":"Straight2", "Text":"......."},
+	{"Name":"Dr Deficit", "Emotion":"Straight1", "Text":"......."},
+]
