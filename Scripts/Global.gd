@@ -20,6 +20,15 @@ var leaders = [
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png",
 ]
 
+# Selected Leaders Images
+var leaders_focused = [
+	"res://assets/Sprites/DepartmentLeaders/William/WilliamSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Sally/SallySelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkSelected.png",
+]
+
 # Path to leader scene
 var leaderPath = [
 	"res://Objects/Commanders/William.tscn",

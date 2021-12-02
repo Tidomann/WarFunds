@@ -103,6 +103,7 @@ margin_left = 23.0
 margin_top = 23.0
 margin_right = 124.0
 margin_bottom = 247.0
+focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,6 +113,7 @@ margin_left = 134.0
 margin_top = 23.0
 margin_right = 235.0
 margin_bottom = 247.0
+focus_mode = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }

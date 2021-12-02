@@ -11,13 +11,19 @@ func _ready():
 	var m = 0
 	for n in 8:
 		var texture
+		var texture_focused
 		#Determine if we have the leader
 		if(n < Global.leaders.size()):
 			texture = load(Global.leaders[n])
+			texture_focused = load(Global.leaders_focused[n])
 		else:
 			texture = emptycommander
 		#Connects the textures and resizes it
 		var leaderButton = TextureButton.new()
+		if texture == emptycommander:
+			leaderButton.set_focus_mode(0)
+		else:
+			leaderButton.texture_focused = texture_focused
 		leaderButton.texture_normal = texture
 		leaderButton.texture_disabled = disabledCommander
 		var scale = 50.5/texture.get_size().x
@@ -54,6 +60,9 @@ func _ready():
 	$Backgrounds/LeaderInfoBackground/ColorSelector.select(Global.player_colour)
 	for n in Global.unlockedColours.size():
 		$Backgrounds/LeaderInfoBackground/ColorSelector.set_item_disabled(n, !Global.unlockedColours[n])
+	$ButtonList.get_children()[1].grab_focus()
+	$ButtonList.get_children()[1].emit_signal("pressed")
+	$ButtonList.get_children()[1].pressed = true
 
 func _on_Button_pressed(id):
 	if _current_choice == id:
