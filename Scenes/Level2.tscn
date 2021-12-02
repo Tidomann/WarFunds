@@ -221,7 +221,6 @@ margin_left = 18.0
 margin_top = 43.0
 margin_right = 34.0
 margin_bottom = 63.0
-popup_exclusive = true
 hide_on_item_selection = false
 
 [node name="BuyMenu" parent="." instance=ExtResource( 38 )]

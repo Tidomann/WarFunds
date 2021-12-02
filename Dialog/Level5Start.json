@@ -1,0 +1,15 @@
+[	
+	{"Name":"William", "Emotion":"Thinking", "Text":"It's going to be tough. He's caught us off guard. We barely have any units..."},
+	{"Name":"Sally", "Emotion":"Neutral", "Text":"With my connections in the finance reagion, we've go the budget to be able to use bases!"},
+	{"Name":"Sally", "Emotion":"NeutralClosed", "Text":"We can use them to deploy units."},
+	{"Name":"William", "Emotion":"Happy", "Text":"I'm glad we have you Sally. I had thought the University closed all their bases for good."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"But how do we use them?"},
+	{"Name":"Sally", "Emotion":"Neutral", "Text":"Don't worry- We'll go through the steps!."},
+	{"Name":"Sally", "Emotion":"NeutralClosed", "Text":"First, place the cursor on an empty base. They are the ones with the slanted roofs. Then select it."},
+	{"Name":"Sally", "Emotion":"Uptwo", "Text":"A list of units will be displayed. Units that you can't afford will appear in gray."},
+	{"Name":"Sally", "Emotion":"Upone", "Text":"Select a unit you want to deploy. If you don't want to deploy one, you can always cancel."},
+	{"Name":"Sally", "Emotion":"Upsurprised", "Text":"Remember, you can't move units you've just deployed on the same turn."},
+	{"Name":"Sally", "Emotion":"Yellhappy", "Text":"Hope you got all that!"},
+	{"Name":"William", "Emotion":"Thinking", "Text":"To fund our army we'll have to capture more properties here."},
+	{"Name":"Sally", "Emotion":"Yell", "Text":"Let's show this guy that Money is Power!"},
+]

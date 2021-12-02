@@ -76,7 +76,7 @@ func _ready():
 		4:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Start.json"
 		5:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Start.json"
 		6:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
