@@ -95,6 +95,7 @@ func _on_JuniorButton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_junior
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 
 func _on_SeniorButton_pressed():
@@ -111,6 +112,7 @@ func _on_SeniorButton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_senior
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 
 func _on_bSeniorButton_pressed():
@@ -127,6 +129,7 @@ func _on_bSeniorButton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_bsenior
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 
 func _on_ScannerButton_pressed():
@@ -143,6 +146,7 @@ func _on_ScannerButton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_scanner
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 
 func _on_PrinterButton_pressed():
@@ -159,6 +163,7 @@ func _on_PrinterButton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_printer
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 
 func _on_Staplerbutton_pressed():
@@ -175,6 +180,7 @@ func _on_Staplerbutton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_stapler
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 
 func _on_FaxButton_pressed():
@@ -191,6 +197,7 @@ func _on_FaxButton_pressed():
 	gamegrid.get_GridData_by_position(grid_position).unit = new_fax
 	$SoundMenuButtonClick.play()
 	hide()
+	get_tree().set_input_as_handled()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -84,7 +84,6 @@ func set_new_position(unit : Unit, new_cell : Vector2) -> void:
 func _on_Cursor_select_pressed(cell: Vector2) -> void:
 	# Dependingon the board's current state,
 	# select a unit or that we want to give it a move order.
-	
 	if not _active_unit && is_occupied(cell):
 		$SoundManager.playsound("Select")
 		if gamegrid.get_unit(cell).is_turnReady():
