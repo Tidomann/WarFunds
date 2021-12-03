@@ -40,8 +40,6 @@
 [node name="BattleMap" type="Node2D"]
 script = ExtResource( 4 )
 level_number = 5
-victory_eliminate = false
-victory_hq = false
 xMin = 5
 xMax = 22
 yMin = 2
