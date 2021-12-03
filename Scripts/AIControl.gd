@@ -357,14 +357,25 @@ func no_targets_direct_path(attacker : Unit) -> PoolVector2Array:
 		var destination_path : PoolVector2Array = []
 		for cell in gamegrid.propertytiles.get_used_cells():
 			if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner != attacker.playerOwner:
-				if gamegrid.array[gamegrid.as_index(cell)].unit != null:
-					if not gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner == attacker.playerOwner:
-						property_coordinates.append(gamegrid.as_index(cell))
-					else:
-						if gamegrid.array[gamegrid.as_index(cell)].unit == attacker:
+				if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner != null:
+					if gamegrid.array[gamegrid.as_index(cell)].property.playerOwner.team !=  attacker.playerOwner.team:
+						if gamegrid.array[gamegrid.as_index(cell)].unit != null:
+							if not gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner.team == attacker.playerOwner.team:
+								property_coordinates.append(gamegrid.as_index(cell))
+							else:
+								if gamegrid.array[gamegrid.as_index(cell)].unit == attacker:
+									property_coordinates.append(gamegrid.as_index(cell))
+						else:
 							property_coordinates.append(gamegrid.as_index(cell))
 				else:
-					property_coordinates.append(gamegrid.as_index(cell))
+					if gamegrid.array[gamegrid.as_index(cell)].unit != null:
+						if not gamegrid.array[gamegrid.as_index(cell)].unit.playerOwner.team == attacker.playerOwner.team:
+							property_coordinates.append(gamegrid.as_index(cell))
+						else:
+							if gamegrid.array[gamegrid.as_index(cell)].unit == attacker:
+								property_coordinates.append(gamegrid.as_index(cell))
+					else:
+						property_coordinates.append(gamegrid.as_index(cell))
 		if not property_coordinates.empty():
 			var final_move_blocked = true
 			while final_move_blocked:
@@ -427,7 +438,7 @@ func no_targets_indirect_path(attacker: Unit) -> PoolVector2Array:
 					break
 				if air_map.get_cost_at_point(next_index) <= attacker.atk_range && \
 				air_map.get_cost_at_point(next_index) > attacker.min_atk_range && \
-				dijkstra_map.get_cost_at_point(next_index) <= attacker.move_range:
+				dijkstra_map.get_cost_at_point(next_index) <= attacker.move_range + move_bonus:
 					break
 				# What is this logic why does it work though <- poor sleep deprivation JT
 				if gamegrid.is_occupied(gamegrid.array[dijkstra_map.get_direction_at_point(next_index)].coordinates):
@@ -496,7 +507,7 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 				# is the end of that path not occupied already
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(target.cell + direction)).empty() || (target.cell + direction) == attacker.cell:
 					if not gamegrid.is_occupied(target.cell + direction) || gamegrid.get_unit(target.cell + direction) == attacker:
-						if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range:
+						if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range + move_bonus:
 							reachable_targets.append(target)
 		# find the best target of available targets
 		if not reachable_targets.empty():
@@ -525,12 +536,12 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() || (best_target.cell + direction) == attacker.cell:
 					if not gamegrid.is_occupied(best_target.cell + direction) || gamegrid.get_unit(best_target.cell + direction) == attacker:
 						if destination == null:
-							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
+							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range + move_bonus:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
 								destination = best_target.cell + direction
 						else:
 							if best_defense < gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)]) &&\
-							dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
+							dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range + move_bonus:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
 								destination = best_target.cell + direction
 			var destination_path : PoolVector2Array = []
