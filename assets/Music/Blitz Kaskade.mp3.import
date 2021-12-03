@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Blitz Kaskade.mp3-3583168666875f1b75b6f20d4638fb21.mp3str"
+
+[deps]
+
+source_file="res://assets/Music/Blitz Kaskade.mp3"
+dest_files=[ "res://.import/Blitz Kaskade.mp3-3583168666875f1b75b6f20d4638fb21.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

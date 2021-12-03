@@ -317,7 +317,7 @@ func _on_PopupMenu_selection(selection : String):
 				# This assumes a unit will never exceed 100 health
 				$SoundManager.playsound("Heal")
 				# ADJUST HEALING COST BALANCE HERE
-				_active_unit.playerOwner.addFunds(-_active_unit.get_healing(100) * 2)
+				_active_unit.playerOwner.addFunds(-_active_unit.get_healing(100) * 2*_active_unit.playerOwner.commander.get_heal_discount())
 				_clear_active_unit()
 				_pop_up.close()
 				_cursor.activate()
@@ -424,12 +424,12 @@ func can_buy_heal(unit : Unit, old_position : Vector2) -> bool:
 func can_afford_heal(unit : Unit) -> bool:
 	var amount_healed = unit.heal_differance(100)
 	# ADJUST HEALING COST BALANCE HERE
-	var cost = amount_healed*0.1*unit.get_cost()*2
+	var cost = amount_healed*0.1*unit.get_cost()*2*unit.playerOwner.commander.get_heal_discount()
 	return unit.playerOwner.funds > cost
 
 func heal_cost(unit : Unit) -> int:
 	# ADJUST HEALING COST BALANCE HERE
-	return int(unit.heal_differance(100)*0.1*unit.get_cost()*2)
+	return int(unit.heal_differance(100)*0.1*unit.get_cost()*2*unit.playerOwner.commander.get_heal_discount())
 
 func is_game_finished(human : Node2D) -> bool:
 	return get_parent().game_finished(human)

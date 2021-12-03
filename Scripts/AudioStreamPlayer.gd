@@ -11,6 +11,8 @@ var commanderMusic = {
 	"William" : "res://assets/Music/William theme.mp3",
 	"Sally" : "res://assets/Music/Busy Day At The Market-LOOP.wav",
 	"Dr. Deficit" : "res://assets/Music/Flights of Fancy.mp3",
+	"Clint" : "res://assets/Music/Blitz Kaskade.mp3",
+	"Clarissa" : "res://assets/Music/Christmas synths.ogg",
 	"General Ghani" : "res://assets/Music/EasternArcticDubstep.MP3"
 }
 
@@ -32,6 +34,8 @@ func set_music(commanderName : String) -> void:
 	self.set_volume_db(-30)
 	match commanderName:
 		"Dr. Deficit":
+			self.set_volume_db(-15)
+		"Clint":
 			self.set_volume_db(-15)
 	play()
 	

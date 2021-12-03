@@ -174,26 +174,29 @@ func take_damage(damage_recieved : int) -> int:
 
 func heal_differance(healing_recieved : int) -> int:
 	var amount_healed
-	if healing_recieved + health > 100:
-		amount_healed = 100 - health
+	var commander_bonus = playerOwner.commander.get_heal_bonus()
+	if healing_recieved + commander_bonus + health > 100:
+		amount_healed = 100 - health - commander_bonus
 		update_health()
 		amount_healed = floor(amount_healed*0.1)
 	else:
 		amount_healed = ceil(healing_recieved*0.1)
 		update_health()
 	return amount_healed
-	
+
+# Commander bonus does not cost funds
 func get_healing(healing_recieved :int) -> int:
 	var amount_healed
-	if healing_recieved + health > 100:
-		amount_healed = 100 - health
+	var commander_bonus = playerOwner.commander.get_heal_bonus()
+	if healing_recieved + commander_bonus + health > 100:
+		amount_healed = 100 - health - commander_bonus
 		health = 100
 		update_health()
 		ai_healing = false
 		amount_healed = floor(amount_healed*0.1)
 	else:
 		amount_healed = ceil(healing_recieved*0.1)
-		health += healing_recieved	
+		health += healing_recieved + commander_bonus
 		update_health()
 	return amount_healed*0.1*get_cost()
 

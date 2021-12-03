@@ -91,7 +91,8 @@ func getOwner():
 func setOwner(newPlayer : Node2D):
 	playerOwner = newPlayer
 
-# Dr. Deficit gains +30% attack power if the friendly unit is not beside another friendly unit
+# Attacker is always assumed to belong to the commander
+# Dr. Deficit gains +30% attack power if _defender is not beside another friendly unit
 func strength_modifier(_attacker : Unit, _defender : Unit) -> float:
 	var strength = 100.0
 	var beside_friendly = false
@@ -167,6 +168,15 @@ func get_unit_cost_multiplier() -> float:
 
 func get_unit_cost(unit: Unit) -> int:
 	return int(unit.cost*get_unit_cost_multiplier())
+
+func get_heal_discount() -> float:
+	var heal_discount = 1.0
+	return heal_discount
+
+func get_heal_bonus() -> int:
+	# Value healed is in % of unit life
+	var heal_bonus = 0
+	return heal_bonus
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

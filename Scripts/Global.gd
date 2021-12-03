@@ -1,10 +1,10 @@
 extends Node
 
 # Selected Leader
-var path = "res://Objects/Commanders/William.tscn"
+var path = "res://Objects/Commanders/Clint.tscn"
 var intro_dialogue = "res://Dialog/GameIntro.json"
 var next_level = "res://Scenes/Select.tscn"
-var player_colour = Constants.COLOUR.BLUE
+var player_colour = Constants.COLOUR.RED
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]
@@ -17,6 +17,8 @@ var leaders = [
 	"res://assets/Sprites/DepartmentLeaders/William/WilliamNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Sally/SallyNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitNeutral.png",
+	"res://assets/Sprites/DepartmentLeaders/Clint/ClintNeutral.png",
+	"res://assets/Sprites/DepartmentLeaders/Clarissa/ClarissaNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniOne.png",
@@ -27,6 +29,8 @@ var leaders_focused = [
 	"res://assets/Sprites/DepartmentLeaders/William/WilliamSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Sally/SallySelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Clint/ClintSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Clarissa/ClarissaSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniSelected.png",
@@ -37,6 +41,8 @@ var leaders_discovered = [
 	"res://assets/Sprites/DepartmentLeaders/William/WilliamDiscovered.png",
 	"res://assets/Sprites/DepartmentLeaders/Sally/SallyDiscovered.png",
 	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/Clint/ClintDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/Clarissa/ClarissaDiscovered.png",
 	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineDiscovered.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkDiscovered.png",
 	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniDiscovered.png",
@@ -47,6 +53,8 @@ var leaders_discovered_focused = [
 	"res://assets/Sprites/DepartmentLeaders/William/WilliamDiscoveredSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Sally/SallyDiscoveredSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Clint/ClintDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Clarissa/ClarissaDiscoveredSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineDiscoveredSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkDiscoveredSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniDiscoveredSelected.png",
@@ -57,6 +65,8 @@ var leaderPath = [
 	"res://Objects/Commanders/William.tscn",
 	"res://Objects/Commanders/Sally.tscn",
 	"res://Objects/Commanders/DrDeficit.tscn",
+	"res://Objects/Commanders/Clint.tscn",
+	"res://Objects/Commanders/Clarissa.tscn",
 	"res://Objects/Commanders/RedLine.tscn",
 	"res://Objects/Commanders/Kronk.tscn",
 	"res://Objects/Commanders/Ghani.tscn"

@@ -135,6 +135,15 @@ func get_unit_cost_multiplier() -> float:
 func get_unit_cost(unit: Unit) -> int:
 	return int(unit.cost*get_unit_cost_multiplier())
 
+func get_heal_discount() -> float:
+	var heal_discount = 1.0
+	return heal_discount
+
+func get_heal_bonus() -> int:
+	# Value healed is in % of unit life
+	var heal_bonus = 0
+	return heal_bonus
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

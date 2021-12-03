@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/Clint/ClintNeutral.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Commanders/Clint.gd" type="Script" id=2]
+
+[node name="Clint" type="Node2D"]
+script = ExtResource( 2 )
+commanderName = "Clint"
+powerName = "Cram Time"
+army_type = 0
+
+[node name="commanderPortrait" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )

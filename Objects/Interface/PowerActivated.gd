@@ -32,6 +32,8 @@ func power_activated(comander_texture : StreamTexture, power_name : String):
 	match power_name:
 		"Viral Outbreak":
 			music_player.set_volume_db(-15)
+		"Cram Time":
+			music_player.set_volume_db(-15)
 	music_player.play()
 	visible = false
 

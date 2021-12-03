@@ -236,7 +236,7 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 				# is the end of that path not occupied already
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(target.cell + direction)).empty() &&\
 				not gamegrid.is_occupied(target.cell + direction):
-					if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range:
+					if not reachable_targets.has(target) && dijkstra_map.get_cost_at_point(gamegrid.as_index(target.cell + direction)) <= attacker.move_range +move_bonus:
 						reachable_targets.append(target)
 		# find the best target of available targets
 		if not reachable_targets.empty():
@@ -266,12 +266,12 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 				if not dijkstra_map.get_shortest_path_from_point(gamegrid.as_index(best_target.cell + direction)).empty() &&\
 				not gamegrid.is_occupied(best_target.cell + direction):
 						if destination == null:
-							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
+							if dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range + move_bonus:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
 								destination = best_target.cell + direction
 						else:
 							if best_defense < gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)]) &&\
-							dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range:
+							dijkstra_map.get_cost_at_point(gamegrid.as_index(best_target.cell + direction)) <= attacker.move_range + move_bonus:
 								best_defense = gamegrid.get_terrain_bonus(gamegrid.array[gamegrid.as_index(best_target.cell + direction)])
 								destination = best_target.cell + direction
 			var destination_path : PoolVector2Array = []
@@ -586,7 +586,7 @@ func direct_actions(light_direct : Array) -> void:
 					if gamegrid.get_property(unit.cell).playerOwner == unit.playerOwner:
 						soundmanager.playsound("Heal")
 						# ADJUST HEALING COST BALANCE HERE
-						unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+						unit.playerOwner.addFunds(-unit.get_healing(100) * 2*unit.playerOwner.commander.get_heal_discount())
 						if unit.turnReady:
 							unit.flip_turnReady()
 						timer.set_wait_time(1.9)
@@ -634,7 +634,7 @@ func direct_actions(light_direct : Array) -> void:
 								if gamegrid.get_property(unit.cell).playerOwner == unit.playerOwner:
 									soundmanager.playsound("Heal")
 									# ADJUST HEALING COST BALANCE HERE
-									unit.playerOwner.addFunds(-unit.get_healing(100) * 2)
+									unit.playerOwner.addFunds(-unit.get_healing(100) * 2*unit.playerOwner.commander.get_heal_discount())
 									if unit.turnReady:
 										unit.flip_turnReady()
 									timer.set_wait_time(1.9)

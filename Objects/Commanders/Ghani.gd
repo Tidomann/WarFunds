@@ -7,7 +7,7 @@ signal power_changed(playerOwner, power)
 # the current power meter value
 export(float) var power = 0.0
 # the maximum power meter value
-export(float) var maxPower = 36000.0
+export(float) var maxPower = 45000.0
 # The name of the commander
 export(String) var commanderName
 # The name of the commander's power
@@ -15,7 +15,7 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 var playerOwner : Node2D
-export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/4stars.png"
+export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/5stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type := Constants.ARMY.BANKTANIA
 var used_power := false
@@ -133,6 +133,15 @@ func get_unit_cost_multiplier() -> float:
 
 func get_unit_cost(unit: Unit) -> int:
 	return int(unit.cost*get_unit_cost_multiplier())
+
+func get_heal_discount() -> float:
+	var heal_discount = 1.0
+	return heal_discount
+
+func get_heal_bonus() -> int:
+	# Value healed is in % of unit life
+	var heal_bonus = 0
+	return heal_bonus
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
