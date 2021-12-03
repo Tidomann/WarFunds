@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Objects/Commanders/Kronk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://assets/Sprites/Tile/NormalTileset.tres" type="TileSet" id=3]
+[ext_resource path="res://assets/Sprites/Tile/WastelandTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
 [ext_resource path="res://Objects/BattleMap Objects/Cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=6]
@@ -24,11 +24,11 @@
 [ext_resource path="res://assets/Sound Effects/interface/bong_001.ogg" type="AudioStream" id=22]
 [ext_resource path="res://Objects/BattleMap Objects/SoundManager.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/wastelandui.tres" type="TileSet" id=25]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Objects/Interface/update-ui.tscn" type="PackedScene" id=38]
 [ext_resource path="res://Objects/Interface/NewTurnUi.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Objects/BattleMap Objects/AIControl.tscn" type="PackedScene" id=41]
-[ext_resource path="res://assets/Sprites/Tile/UI Tileset/normalui.tres" type="TileSet" id=42]
 [ext_resource path="res://Objects/BattleMap Objects/BuyMenu.tscn" type="PackedScene" id=46]
 
 [node name="BattleMap" type="Node2D"]
@@ -159,7 +159,7 @@ player_path = NodePath("..")
 
 [node name="update-ui" parent="CanvasLayer" instance=ExtResource( 38 )]
 gamegrid = ExtResource( 7 )
-map_builder_tileset = ExtResource( 42 )
+map_builder_tileset = ExtResource( 25 )
 
 [node name="DialogBox" parent="CanvasLayer" instance=ExtResource( 16 )]
 visible = false

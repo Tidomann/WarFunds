@@ -1,0 +1,4 @@
+[
+	{"Name":"William", "Emotion":"Neutral", "Text":"We need to fall back and regoup."},
+	{"Name":"William", "Emotion":"Happy", "Text":"Let's give it another shot when you are ready!"},
+]

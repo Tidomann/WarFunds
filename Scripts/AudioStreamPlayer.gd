@@ -10,7 +10,8 @@ var commanderMusic = {
 	"Kronk" : "res://assets/Music/Kronk Theme.mp3",
 	"William" : "res://assets/Music/William theme.mp3",
 	"Sally" : "res://assets/Music/Busy Day At The Market-LOOP.wav",
-	"Dr. Deficit" : "res://assets/Music/Flights of Fancy.mp3"
+	"Dr. Deficit" : "res://assets/Music/Flights of Fancy.mp3",
+	"General Ghani" : "res://assets/Music/EasternArcticDubstep.MP3"
 }
 
 # Called when the node enters the scene tree for the first time.

@@ -1,0 +1,17 @@
+[
+	{"Name":"President Kronk", "Emotion":"Smile", "Text":"Oh no....."},
+	{"Name":"President Kronk", "Emotion":"Happy", "Text":"Does this mean?..."},
+	{"Name":"Kronk", "Emotion":"Sad", "Text":"Kronk just Kronk..."},
+	{"Name":"Sally", "Emotion":"Upone", "Text":"Alright buster, you're getting put away."},
+	{"Name":"Sally", "Emotion":"Uptwo", "Text":"Preferably out of earshot."},
+	{"Name":"Dr Deficit", "Emotion":"Head3", "Text":"Wonderful! Wonderful!"},
+	{"Name":"Dr Deficit", "Emotion":"Neutral", "Text":"I knew it all along."},
+	{"Name":"Dr Deficit", "Emotion":"Sad", "Text":"Banktania's invasion started from within."},
+	{"Name":"Sally", "Emotion":"Upsurprised", "Text":"What do you mean?"},
+	{"Name":"Dr Deficit", "Emotion":"Turned", "Text":"Simple empirical evidence. Banktania was helped in!"},
+	{"Name":"William", "Emotion":"Thinking", "Text":"Is this why all the regions were forced to downsize their bases?"},
+	{"Name":"Sally", "Emotion":"Thinkone", "Text":"Is that why Banktania invaded Finance first? To hide the budget?"},
+	{"Name":"Dr Deficit", "Emotion":"Head1", "Text":"No time to publish a paper on this. Engineering and Nursing are in trouble."},
+	{"Name":"Sally", "Emotion":"Yellhappy", "Text":"Let's go, time to be heroes!"},
+	{"Name":"William", "Emotion":"Happy", "Text":"It's time to reuinite University."},
+]

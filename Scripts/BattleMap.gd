@@ -85,13 +85,13 @@ func _ready():
 	$CanvasLayer/CommanderUI.visible = true
 	$GameBoard/Cursor.activate()
 	# Uncomment out to automatically win test
-	#var t = Timer.new()
-	#t.set_wait_time(1)
-	#t.set_one_shot(true)
-	#self.add_child(t)
-	#t.start()
-	#yield(t, "timeout")
-	#victory()
+	var t = Timer.new()
+	t.set_wait_time(1)
+	t.set_one_shot(true)
+	self.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	victory()
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
@@ -345,22 +345,30 @@ func victory() -> void:
 	$CanvasLayer/CommanderUI.visible = false
 	match level_number:
 		0:
-			for n in 8:
-				Global.unlockedLevels[n] = true
-			for n in 8:
-				Global.unlockedLeaders[n] = true
+			for n in Global.unlockedLevels:
+				n = true
+			for n in Global.unlockedLeaders:
+				n = true
+			for n in Global.unlockedColours:
+				n = true
+			for n in Global.discoveredLeaders:
+				n = true
 			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
 		1:
 			Global.unlockedLevels[1] = true
+			Global.discoveredLeaders[3] = true
 			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
 		2:
 			Global.unlockedLevels[2] = true
+			Global.discoveredLeaders[3] = true
 			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
 		3:
 			Global.unlockedLevels[3] = true
+			Global.discoveredLeaders[1] = true
+			Global.discoveredLeaders[3] = true
 			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Victory.json"
 		4:
@@ -368,6 +376,7 @@ func victory() -> void:
 			Global.unlockedLevels[4] = true
 			Global.unlockedLeaders[1] = true
 			Global.unlockedColours[3] = true
+			Global.discoveredLeaders[4] = true
 			Global.save_game()
 			if not previously_beaten:
 				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
@@ -390,6 +399,7 @@ func victory() -> void:
 			var previously_beaten = Global.unlockedColours[2]
 			Global.unlockedColours[2] = true
 			Global.unlockedLevels[5] = true
+			Global.discoveredLeaders[2] = true
 			Global.save_game()
 			if not previously_beaten:
 				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory.json"
@@ -406,8 +416,28 @@ func victory() -> void:
 			else:
 				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory.json"
 		6:
+			var previously_beaten = Global.unlockedColours[2]
+			Global.unlockedLeaders[2] = true
 			Global.unlockedLevels[6] = true
 			Global.save_game()
+			Global.unlockedColours[2] = true
+			Global.unlockedLevels[5] = true
+			Global.discoveredLeaders[2] = true
+			Global.save_game()
+			if not previously_beaten:
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Victory.json"
+				$CanvasLayer/DialogBox.start_dialog()
+				$GameBoard/Cursor.deactivate(true)
+				yield($CanvasLayer/DialogBox, "dialog_finished")
+				var t = Timer.new()
+				t.set_wait_time(0.05)
+				t.set_one_shot(true)
+				self.add_child(t)
+				t.start()
+				yield(t, "timeout")
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Victory2.json"
+			else:
+				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -422,17 +452,29 @@ func defeat() -> void:
 		0:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"
 		1:
+			Global.discoveredLeaders[3] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
 		2:
+			Global.discoveredLeaders[3] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Defeat.json"
 		3:
+			Global.discoveredLeaders[3] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Defeat.json"
 		4:
+			Global.discoveredLeaders[4] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Defeat.json"
 		5:
+			Global.discoveredLeaders[2] = true
+			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Defeat.json"
 		6:
-			pass
+			Global.discoveredLeaders[4] = true
+			Global.save_game()
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/GenericDefeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")

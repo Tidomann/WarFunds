@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniOne.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Commanders/Ghani.gd" type="Script" id=2]
+
+[node name="Ghani" type="Node2D"]
+script = ExtResource( 2 )
+commanderName = "General Ghani"
+powerName = "Sheik's Demand"
+
+[node name="commanderPortrait" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )

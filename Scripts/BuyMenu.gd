@@ -55,6 +55,13 @@ func _ready():
 	$VBoxContainer/Fax/FaxButton.text = "$"+String(faxcost)
 
 func popup_menu(inbase_position: Vector2, grid_coordinate: Vector2, inplayer: Node2D) -> void:
+	$VBoxContainer/Junior/JuniorButton.text = "$"+String(int(juniorcost*inplayer.commander.get_unit_cost_multiplier()))
+	$VBoxContainer/Senior/SeniorButton.text = "$"+String(int(seniorcost*inplayer.commander.get_unit_cost_multiplier()))
+	$VBoxContainer/BSenior/bSeniorButton.text = "$"+String(int(bseniorcost*inplayer.commander.get_unit_cost_multiplier()))
+	$VBoxContainer/Scanner/ScannerButton.text = "$"+String(int(scannercost*inplayer.commander.get_unit_cost_multiplier()))
+	$VBoxContainer/Printer/PrinterButton.text = "$"+String(int(printercost*inplayer.commander.get_unit_cost_multiplier()))
+	$VBoxContainer/Stapler/Staplerbutton.text = "$"+String(int(staplercost*inplayer.commander.get_unit_cost_multiplier()))
+	$VBoxContainer/Fax/FaxButton.text = "$"+String(faxcost)
 	base_position = inbase_position
 	grid_position = grid_coordinate
 	player = inplayer
@@ -75,7 +82,7 @@ func popup_menu(inbase_position: Vector2, grid_coordinate: Vector2, inplayer: No
 	$VBoxContainer/Junior/JuniorButton.grab_focus()
 
 func _on_JuniorButton_pressed():
-	player.addFunds(-juniorcost)
+	player.addFunds(-int(juniorcost*player.commander.get_unit_cost_multiplier()))
 	var new_junior = junior.instance()
 	_unitsort.add_child(new_junior)
 	new_junior.playerOwner = player
@@ -87,11 +94,12 @@ func _on_JuniorButton_pressed():
 		new_junior.flip_turnReady()
 	gamegrid.get_GridData_by_position(grid_position).unit = new_junior
 	$SoundMenuButtonClick.play()
+	print(player.commander.get_unit_cost(new_junior))
 	hide()
 
 
 func _on_SeniorButton_pressed():
-	player.addFunds(-seniorcost)
+	player.addFunds(-int(seniorcost*player.commander.get_unit_cost_multiplier()))
 	var new_senior = senior.instance()
 	_unitsort.add_child(new_senior)
 	new_senior.playerOwner = player
@@ -107,7 +115,7 @@ func _on_SeniorButton_pressed():
 
 
 func _on_bSeniorButton_pressed():
-	player.addFunds(-bseniorcost)
+	player.addFunds(-int(bseniorcost*player.commander.get_unit_cost_multiplier()))
 	var new_bsenior = bsenior.instance()
 	_unitsort.add_child(new_bsenior)
 	new_bsenior.playerOwner = player
@@ -123,7 +131,7 @@ func _on_bSeniorButton_pressed():
 
 
 func _on_ScannerButton_pressed():
-	player.addFunds(-scannercost)
+	player.addFunds(-int(scannercost*player.commander.get_unit_cost_multiplier()))
 	var new_scanner = scanner.instance()
 	_unitsort.add_child(new_scanner)
 	new_scanner.playerOwner = player
@@ -139,7 +147,7 @@ func _on_ScannerButton_pressed():
 
 
 func _on_PrinterButton_pressed():
-	player.addFunds(-printercost)
+	player.addFunds(-int(printercost*player.commander.get_unit_cost_multiplier()))
 	var new_printer = printer.instance()
 	_unitsort.add_child(new_printer)
 	new_printer.playerOwner = player
@@ -155,7 +163,7 @@ func _on_PrinterButton_pressed():
 
 
 func _on_Staplerbutton_pressed():
-	player.addFunds(-staplercost)
+	player.addFunds(-int(staplercost*player.commander.get_unit_cost_multiplier()))
 	var new_stapler = stapler.instance()
 	_unitsort.add_child(new_stapler)
 	new_stapler.playerOwner = player
@@ -171,7 +179,7 @@ func _on_Staplerbutton_pressed():
 
 
 func _on_FaxButton_pressed():
-	player.addFunds(-faxcost)
+	player.addFunds(-int(faxcost*player.commander.get_unit_cost_multiplier()))
 	var new_fax = fax.instance()
 	_unitsort.add_child(new_fax)
 	new_fax.playerOwner = player

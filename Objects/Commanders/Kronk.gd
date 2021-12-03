@@ -129,6 +129,12 @@ func bad_luck_modifier() -> int:
 		return -19
 	return -9
 
+func get_unit_cost_multiplier() -> float:
+	return 1.0
+
+func get_unit_cost(unit: Unit) -> int:
+	return int(unit.cost*get_unit_cost_multiplier())
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

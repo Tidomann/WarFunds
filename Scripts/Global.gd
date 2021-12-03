@@ -19,6 +19,7 @@ var leaders = [
 	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineNeutral.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkNeutral.png",
+	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniOne.png",
 ]
 
 # Selected Leaders Images
@@ -28,6 +29,27 @@ var leaders_focused = [
 	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineSelected.png",
 	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniSelected.png",
+]
+
+# Leader Images
+var leaders_discovered = [
+	"res://assets/Sprites/DepartmentLeaders/William/WilliamDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/Sally/SallyDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkDiscovered.png",
+	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniDiscovered.png",
+]
+
+# Selected Leaders Images
+var leaders_discovered_focused = [
+	"res://assets/Sprites/DepartmentLeaders/William/WilliamDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Sally/SallyDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Dr Deficit/Dr DeficitDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Redline/RedlineDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/Kronk/KronkDiscoveredSelected.png",
+	"res://assets/Sprites/DepartmentLeaders/General Ghani/General GhaniDiscoveredSelected.png",
 ]
 
 # Path to leader scene
@@ -36,16 +58,18 @@ var leaderPath = [
 	"res://Objects/Commanders/Sally.tscn",
 	"res://Objects/Commanders/DrDeficit.tscn",
 	"res://Objects/Commanders/RedLine.tscn",
-	"res://Objects/Commanders/Kronk.tscn"
+	"res://Objects/Commanders/Kronk.tscn",
+	"res://Objects/Commanders/Ghani.tscn"
 ]
 
 # Leader abilities and information
 var leadersDesc = [
-	"[u][color=#62beff]William[/color][/u]\n[u][color=#62beff]Power[/color][/u]\n[color=#62beff]Hackathon[/color] - Attacking an enemy unit will disable it for one turn.\nLeader of the Computer Science Club.",
-	"[u][color=#d39c36]Sally[/color][/u]\nUnits on properties gain a +40% attack bonus.\n[u][color=#d39c36]Power[/color][/u]\n[color=#d39c36]Liquidation[/color] - Gain funds equal to 50% of the damage dealt when attacking enemy units.\nLeader of the Finance Region. Money is power!",
-	"[u][color=#30f830]Dr. Deficit[/color][/u]\nEnemy units that are not next to a friendly unit take +20% more damage.\n[u][color=#30f830]Power[/color][/u]\n[color=#30f830]Viral Outbreak[/color] - Enemy units that are next to another unit lose 2HP (cannot kill units).\nHe claims he predicted a grand deficit.",
-	"[u][color=#5f4d72]Redline[/color][/u]\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Homestrech[/color] - Units gain +1 movement.\nTime is money!",
-	"[u][color=#5f4d72]Kronk[/color][/u]\nUnits have a chance to deal more or less damage.\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Hapless Hero[/color] - Units have a chance to deal a lot more or a lot less damage.\nKronk!"
+	"[u][color=#62beff]William[/color][/u]\n[u][color=#62beff]Power[/color][/u]\n[color=#62beff]Hackathon[/color] - Attacking an enemy unit will disable it for one turn.\n\nLeader of the Computer Science Club.",
+	"[u][color=#d39c36]Sally[/color][/u]\nUnits on properties gain a +40% attack bonus.\n[u][color=#d39c36]Power[/color][/u]\n[color=#d39c36]Liquidation[/color] - Gain funds equal to 50% of the damage dealt when attacking enemy units.\n\nLeader of the Finance Region. Money is power!",
+	"[u][color=#30f830]Dr. Deficit[/color][/u]\nEnemy units that are not next to a friendly unit take +20% more damage.\n[u][color=#30f830]Power[/color][/u]\n[color=#30f830]Viral Outbreak[/color] - Enemy units that are next to another unit lose 2HP (cannot kill units).\n\nHe claims he predicted a grand deficit.",
+	"[u][color=#5f4d72]Redline[/color][/u]\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Homestrech[/color] - Units gain +1 movement.\n\nTime is money!",
+	"[u][color=#5f4d72]Kronk[/color][/u]\nUnits have a chance to deal more or less damage.\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Hapless Hero[/color] - Units have a chance to deal a lot more or a lot less damage.\n\nKronk!",
+	"[u][color=#5f4d72]General Ghani[/color][/u]\nUnits cost +20% more to make, but gain +20% attack and defense.\n[u][color=#5f4d72]Power[/color][/u]\n[color=#5f4d72]Sheik's Demand[/color] - Units bonuses increased to +40% attack and +30% defense for the round.\n\nCut them to shreds!"
 ]
 
 # Levels
@@ -80,6 +104,7 @@ var intro_scenes = [
 func save():
 	var save_dict = {
 		"leaders" : unlockedLeaders,
+		"discovered" : discoveredLeaders,
 		"levels" : unlockedLevels,
 		"colour" : unlockedColours,
 		"colour_choice" : player_colour,
@@ -106,6 +131,7 @@ func load_game():
 		# Json parses as float, but enums are int
 		Global.player_colour = int(game_data["colour_choice"])
 		Global.unlockedLeaders = game_data["leaders"]
+		Global.discoveredLeaders = game_data["discovered"]
 		Global.unlockedLevels = game_data["levels"]
 		Global.unlockedColours = game_data["colour"]
 	save_game.close()

@@ -195,7 +195,7 @@ func get_healing(healing_recieved :int) -> int:
 		amount_healed = ceil(healing_recieved*0.1)
 		health += healing_recieved	
 		update_health()
-	return amount_healed*0.1*cost
+	return amount_healed*0.1*get_cost()
 
 func use_ammo(_defender : Unit) -> bool:
 	return false
@@ -212,6 +212,9 @@ func update_health() -> void:
 
 func get_move_range() -> int:
 	return move_range + playerOwner.commander.move_bonus()
+
+func get_cost() -> int:
+	return int(cost*playerOwner.commander.get_unit_cost_multiplier())
 
 func army_color_set() -> void:
 	if army_sprite:

@@ -582,11 +582,11 @@ func unit_combat(attacker : Unit, defender : Unit):
 	# defender gets 100% of the damage recieved in power
 	# Calculate the cost of funds dealth/lost in terms of the unit health displayed
 	# IE the unit losses 5 displayed life, 50% of the cost given to defender 50% of the 50% to attacker
-	attacker.get_commander().addPower((int(defender_damage_taken)*defender.cost*0.1)*0.5)
-	defender.get_commander().addPower(int(defender_damage_taken)*defender.cost*0.1)
+	attacker.get_commander().addPower((int(defender_damage_taken)*defender.get_cost()*0.1)*0.5)
+	defender.get_commander().addPower(int(defender_damage_taken)*defender.get_cost()*0.1)
 	if attacker_damage_taken > 0:
-		defender.get_commander().addPower((int(attacker_damage_taken)*attacker.cost*0.1)*0.5)
-		attacker.get_commander().addPower(int(attacker_damage_taken)*attacker.cost*0.1)
+		defender.get_commander().addPower((int(attacker_damage_taken)*attacker.get_cost()*0.1)*0.5)
+		attacker.get_commander().addPower(int(attacker_damage_taken)*attacker.get_cost()*0.1)
 	if attacker.is_dead():
 		find_unit(attacker).unit = null
 		attacker.queue_free()
@@ -624,7 +624,7 @@ func start_turn_income(player : Node2D) -> int:
 			# START TURN PROPERTY HEAL
 			if game_data.has_Unit():
 				if game_data.unit.playerOwner == player:
-					if game_data.unit.heal_differance(20)*0.1*game_data.unit.cost < player.funds + income:
+					if game_data.unit.heal_differance(20)*0.1*game_data.unit.get_cost() < player.funds + income:
 						var heal_cost = game_data.unit.get_healing(20)
 						player.addFunds(-heal_cost)
 	return income

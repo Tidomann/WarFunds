@@ -244,11 +244,11 @@ func best_attack_path_direct(attacker : Unit) -> PoolVector2Array:
 			var best_target
 			for target in reachable_targets:
 				var temp_damage = gamegrid.calculate_max_damage(attacker, target)
-				var funds_damage = temp_damage * 0.01 * target.cost
+				var funds_damage = temp_damage * 0.01 * target.get_cost()
 				if funds_damage > max_funds_damage:
 					# If the unit will retaliate back, only consider it a good target if the damage
 					if target.attack_type == Constants.ATTACK_TYPE.DIRECT:
-						var funds_damage_recieved = gamegrid.calculate_max_damage(target, attacker, temp_damage) * 0.01 * attacker.cost
+						var funds_damage_recieved = gamegrid.calculate_max_damage(target, attacker, temp_damage) * 0.01 * attacker.get_cost()
 						# Dont consider this a good trade
 						if funds_damage < funds_damage_recieved * 0.8 && (best_target != null && target.health <= attacker.health):
 							continue
@@ -504,11 +504,11 @@ func defensive_direct(attacker: Unit) -> PoolVector2Array:
 			var best_target
 			for target in reachable_targets:
 				var temp_damage = gamegrid.calculate_max_damage(attacker, target)
-				var funds_damage = temp_damage * 0.01 * target.cost
+				var funds_damage = temp_damage * 0.01 * target.get_cost()
 				if funds_damage > max_funds_damage:
 					# If the unit will retaliate back, only consider it a good target if the damage
 					if target.attack_type == Constants.ATTACK_TYPE.DIRECT:
-						var funds_damage_recieved = gamegrid.calculate_max_damage(target, attacker, temp_damage) * 0.01 * attacker.cost
+						var funds_damage_recieved = gamegrid.calculate_max_damage(target, attacker, temp_damage) * 0.01 * attacker.get_cost()
 						# Dont consider this a good trade
 						if funds_damage < funds_damage_recieved * 0.8:
 							continue
@@ -558,7 +558,7 @@ func is_good_attack(attacker : Unit, defender : Unit) -> bool:
 	#This attack is relying on luck rolls onl;y
 	if temp_damage < 10 && defender.health > temp_damage:
 		return false
-	var funds_damage = temp_damage * 0.01 * defender.cost
+	var funds_damage = temp_damage * 0.01 * defender.get_cost()
 	var funds_damage_recieved = 0
 	if defender.attack_type == Constants.ATTACK_TYPE.DIRECT && attacker.attack_type == Constants.ATTACK_TYPE.DIRECT:
 		var temp_max_damage_received = gamegrid.calculate_max_damage(defender, attacker, temp_damage)
@@ -568,7 +568,7 @@ func is_good_attack(attacker : Unit, defender : Unit) -> bool:
 		if temp_damage_recieved != 0:
 			if temp_damage_recieved/attacker.health > 0.8:
 				return false
-		funds_damage_recieved = temp_damage_recieved * 0.01 * attacker.cost
+		funds_damage_recieved = temp_damage_recieved * 0.01 * attacker.get_cost()
 		# Dont consider this a good trade
 	return funds_damage > funds_damage_recieved*0.8
 
@@ -836,7 +836,7 @@ func get_best_target(attacker : Unit, targets : Array) -> Unit:
 			var temp_max_damage = gamegrid.calculate_max_damage(attacker, defender)
 			var temp_min_damage = gamegrid.calculate_min_damage(attacker, defender)
 			var temp_damage = (temp_max_damage + temp_min_damage)/2.0
-			var temp_funds_damage = temp_damage * 0.01 * defender.cost
+			var temp_funds_damage = temp_damage * 0.01 * defender.get_cost()
 			if funds_damage < temp_funds_damage || best_target == null:
 				funds_damage = temp_funds_damage
 				best_target = defender
@@ -979,33 +979,33 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 	# if the amount of bases we have left is equal or less than the amount
 	# we need to at least have 5 infantry
 	if bases.size()-index <= 4-infantry_count:
-		if (4-infantry_count)*buymenu.bseniorcost < computer.funds:
+		if (4-infantry_count)*int(buymenu.bseniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
 			return Constants.UNIT.BAZOOKA_SENIOR
-		if (4-infantry_count)*buymenu.seniorcost < computer.funds:
+		if (4-infantry_count)*int(buymenu.seniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
 			return Constants.UNIT.SENIOR
-		if buymenu.juniorcost < computer.funds:
+		if int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
 			return Constants.UNIT.JUNIOR
 	# We have more bases than the amount of infantry we need to buy
 	var funds_after_reserve = computer.funds
 	# reserve money to at least buy the amount of juniors we need
 	if (4-infantry_count) > 0:
-		funds_after_reserve -= (4-infantry_count)*buymenu.juniorcost
-	if printer_count < 5 && funds_after_reserve > buymenu.printercost:
+		funds_after_reserve -= (4-infantry_count)*int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier())
+	if printer_count < 5 && funds_after_reserve > int(buymenu.printercost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.PRINTER
 	# Have at least 5 printers, and will be able to get at least 5 infantry
-	if funds_after_reserve > buymenu.faxcost && printer_count >= 5:
+	if funds_after_reserve > int(buymenu.faxcost*computer.commander.get_unit_cost_multiplier()) && printer_count >= 5:
 		return Constants.UNIT.FAX
-	if funds_after_reserve > buymenu.printercost:
+	if funds_after_reserve > int(buymenu.printercost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.PRINTER
-	if funds_after_reserve > buymenu.staplercost && printer_count >= 3:
+	if funds_after_reserve > int(buymenu.staplercost*computer.commander.get_unit_cost_multiplier()) && printer_count >= 3:
 		return Constants.UNIT.STAPLER
-	if funds_after_reserve > buymenu.scannercost && book_count >= scanner_count:
+	if funds_after_reserve > int(buymenu.scannercost*computer.commander.get_unit_cost_multiplier()) && book_count >= scanner_count:
 		return Constants.UNIT.SCANNER
-	if funds_after_reserve > buymenu.bseniorcost:
+	if funds_after_reserve > int(buymenu.bseniorcost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.BAZOOKA_SENIOR
-	if funds_after_reserve > buymenu.seniorcost:
+	if funds_after_reserve > int(buymenu.seniorcost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.SENIOR
-	if funds_after_reserve > buymenu.juniorcost:
+	if funds_after_reserve > int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.JUNIOR
 	return -1
 

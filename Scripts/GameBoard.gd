@@ -424,12 +424,12 @@ func can_buy_heal(unit : Unit, old_position : Vector2) -> bool:
 func can_afford_heal(unit : Unit) -> bool:
 	var amount_healed = unit.heal_differance(100)
 	# ADJUST HEALING COST BALANCE HERE
-	var cost = amount_healed*0.1*unit.cost*2
+	var cost = amount_healed*0.1*unit.get_cost()*2
 	return unit.playerOwner.funds > cost
 
 func heal_cost(unit : Unit) -> int:
 	# ADJUST HEALING COST BALANCE HERE
-	return int(unit.heal_differance(100)*0.1*unit.cost*2)
+	return int(unit.heal_differance(100)*0.1*unit.get_cost()*2)
 
 func is_game_finished(human : Node2D) -> bool:
 	return get_parent().game_finished(human)

@@ -17,7 +17,7 @@ export var player_path := @""
 var playerOwner : Node2D
 export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/4stars.png"
 #onready var stars_overlay : Texture = stars_path
-export(Constants.ARMY) var army_type := Constants.ARMY.COSC
+export(Constants.ARMY) var army_type := Constants.ARMY.BANKTANIA
 var used_power := false
 var power_used := 0
 onready var commander_portrait = $commanderPortrait
@@ -90,16 +90,16 @@ func setOwner(newPlayer : Node2D):
 	playerOwner = newPlayer
 
 func strength_modifier(_attacker : Unit, _defender : Unit) -> float:
-	var strength = 100.0
-	if _attacker.grid.has_property(_attacker.cell):
-		strength = 140.0
+	var strength = 120.0
 	if used_power:
+		strength = 140.0
 		return strength*1.1
 	return strength
 
 func defense_modifier(_attacker : Unit, _defender : Unit) -> float:
-	var defense = 100.0
+	var defense = 120.0
 	if used_power:
+		defense = 130.0
 		return defense*1.1
 	return defense
 
@@ -116,13 +116,7 @@ func use_power() -> void:
 
 func special_attack(_attacker, _defender, damage_result) -> int:
 	if used_power:
-		var damage = damage_result
-		if damage > _defender.health:
-			damage = _defender.health
-			damage = ceil(damage * 0.1)
-		else:
-			damage = floor(damage*0.1)
-		_attacker.playerOwner.addFunds((int(damage)*_defender.get_cost()*0.1)*0.5)
+		pass
 	return damage_result
 
 func move_bonus() -> int:
@@ -135,7 +129,7 @@ func bad_luck_modifier() -> int:
 	return 0
 
 func get_unit_cost_multiplier() -> float:
-	return 1.0
+	return 1.2
 
 func get_unit_cost(unit: Unit) -> int:
 	return int(unit.cost*get_unit_cost_multiplier())
