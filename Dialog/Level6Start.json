@@ -3,6 +3,7 @@
 	{"Name":"William", "Emotion":"Thinking", "Text":"We'll have to eliminate all his units, or capture the headquarters right?"},
 	{"Name":"Sally", "Emotion":"NeutralClosed", "Text":"That's right. If we want to eliminate all his units-"},
 	{"Name":"Sally", "Emotion":"Neutral", "Text":"We'll have to block or capture his bases as well."},
+	{"Name":"Dr Deficit", "Emotion":"Turned", "Text":"INSERT DIALOG ABOUT RADAR TOWERS HERE LOL"},
 	{"Name":"William", "Emotion":"Thinking", "Text":"It's going to be tough. Advisor, Sally do you think we can do it?"},
 	{"Name":"Sally", "Emotion":"Yell", "Text":"Time for payback Kronk! You're my prisoner now!"},
 	{"Name":"William", "Emotion":"Happy", "Text":"Okay Advisor, let's do this!"},
