@@ -529,17 +529,17 @@ func test_funds(funds: int) -> void:
 	$VBoxContainer/Printer/PrinterButton.disabled = false
 	$VBoxContainer/Stapler/Staplerbutton.disabled = false
 	$VBoxContainer/Fax/FaxButton.disabled = false
-	if funds < juniorcost:
+	if funds < (juniorcost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/Junior/JuniorButton.disabled = true
-	if funds < seniorcost:
+	if funds < (seniorcost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/Senior/SeniorButton.disabled = true
-	if funds < bseniorcost:
+	if funds < (bseniorcost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/BSenior/bSeniorButton.disabled = true
-	if funds < scannercost:
+	if funds < (scannercost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/Scanner/ScannerButton.disabled = true
-	if funds < printercost:
+	if funds < (printercost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/Printer/PrinterButton.disabled = true
-	if funds < staplercost:
+	if funds < (staplercost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/Stapler/Staplerbutton.disabled = true
-	if funds < faxcost:
+	if funds < (faxcost*player.commander.get_unit_cost_multiplier()):
 		$VBoxContainer/Fax/FaxButton.disabled = true
