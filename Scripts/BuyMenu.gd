@@ -94,7 +94,6 @@ func _on_JuniorButton_pressed():
 		new_junior.flip_turnReady()
 	gamegrid.get_GridData_by_position(grid_position).unit = new_junior
 	$SoundMenuButtonClick.play()
-	print(player.commander.get_unit_cost(new_junior))
 	hide()
 
 

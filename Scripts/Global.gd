@@ -1,10 +1,10 @@
 extends Node
 
 # Selected Leader
-var path = "res://Objects/Commanders/Clint.tscn"
+var path = "res://Objects/Commanders/Sally.tscn"
 var intro_dialogue = "res://Dialog/GameIntro.json"
 var next_level = "res://Scenes/Select.tscn"
-var player_colour = Constants.COLOUR.RED
+var player_colour = Constants.COLOUR.YELLOW
 
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]

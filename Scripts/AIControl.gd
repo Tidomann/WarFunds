@@ -990,17 +990,32 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 	# if the amount of bases we have left is equal or less than the amount
 	# we need to at least have 5 infantry
 	if bases.size()-index <= 4-infantry_count:
-		if (4-infantry_count)*int(buymenu.bseniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
-			return Constants.UNIT.BAZOOKA_SENIOR
-		if (4-infantry_count)*int(buymenu.seniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
-			return Constants.UNIT.SENIOR
-		if int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
-			return Constants.UNIT.JUNIOR
+		if not bases.size()-index == 1:
+			if (4-infantry_count)*int(buymenu.bseniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
+				return Constants.UNIT.BAZOOKA_SENIOR
+			if (4-infantry_count)*int(buymenu.seniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
+				return Constants.UNIT.SENIOR
+			if int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
+				return Constants.UNIT.JUNIOR
+		# On our last base - still have not enough infantry BUT can afford printer
+		else:
+			if printer_count < 5 && computer.funds > int(buymenu.printercost*computer.commander.get_unit_cost_multiplier()):
+				return Constants.UNIT.PRINTER
+			else:
+				if int(buymenu.bseniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
+					return Constants.UNIT.BAZOOKA_SENIOR
+				if int(buymenu.seniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
+					return Constants.UNIT.SENIOR
+				if int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()) < computer.funds:
+					return Constants.UNIT.JUNIOR
 	# We have more bases than the amount of infantry we need to buy
 	var funds_after_reserve = computer.funds
 	# reserve money to at least buy the amount of juniors we need
 	if (4-infantry_count) > 0:
 		funds_after_reserve -= (4-infantry_count)*int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier())
+	# We have more than 4 infantry, we should save money to at least use each base
+	else:
+		funds_after_reserve -= (bases.size()-index-1)*int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier())
 	if printer_count < 5 && funds_after_reserve > int(buymenu.printercost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.PRINTER
 	# Have at least 5 printers, and will be able to get at least 5 infantry
@@ -1016,7 +1031,7 @@ func buy_which_unit(computer: Node2D, bases: Array, index: int) -> int:
 		return Constants.UNIT.BAZOOKA_SENIOR
 	if funds_after_reserve > int(buymenu.seniorcost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.SENIOR
-	if funds_after_reserve > int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()):
+	if computer.funds > int(buymenu.juniorcost*computer.commander.get_unit_cost_multiplier()):
 		return Constants.UNIT.JUNIOR
 	return -1
 
