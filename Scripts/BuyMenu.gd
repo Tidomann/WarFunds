@@ -61,7 +61,7 @@ func popup_menu(inbase_position: Vector2, grid_coordinate: Vector2, inplayer: No
 	$VBoxContainer/Scanner/ScannerButton.text = "$"+String(int(scannercost*inplayer.commander.get_unit_cost_multiplier()))
 	$VBoxContainer/Printer/PrinterButton.text = "$"+String(int(printercost*inplayer.commander.get_unit_cost_multiplier()))
 	$VBoxContainer/Stapler/Staplerbutton.text = "$"+String(int(staplercost*inplayer.commander.get_unit_cost_multiplier()))
-	$VBoxContainer/Fax/FaxButton.text = "$"+String(faxcost)
+	$VBoxContainer/Fax/FaxButton.text = "$"+String(int(faxcost*inplayer.commander.get_unit_cost_multiplier()))
 	base_position = inbase_position
 	grid_position = grid_coordinate
 	player = inplayer

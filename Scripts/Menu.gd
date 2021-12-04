@@ -58,6 +58,6 @@ func _on_ConfirmationDialog_confirmed():
 	Global.player_colour = Constants.COLOUR.BLUE
 	Global.unlockedLeaders = [true,false,false,false,false,false,false,false]
 	Global.discoveredLeaders = [true,false,false,false,false,false,false,false]
-	Global.unlockedLevels = [true,false,false,false,false,false,false,false]
+	Global.unlockedLevels = [true,false,false,false,false,false,false,false,false]
 	Global.unlockedColours = [false,true,false,false,false,false]
 	Global.save_game()
