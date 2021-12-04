@@ -104,7 +104,7 @@ player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 13, 10 )
 
 [node name="Stapler" parent="GameBoard/Units" instance=ExtResource( 44 )]
-position = Vector2( 197.742, 182.168 )
+position = Vector2( 198.303, 182.729 )
 player_path = NodePath("../../../TurnQueue/Human")
 cell = Vector2( 12, 11 )
 
