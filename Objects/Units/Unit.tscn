@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Objects/BattleMap Objects/Grid.tres" type="Resource" id=1]
 [ext_resource path="res://assets/Sprites/Unit/Health/health.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Unit.gd" type="Script" id=3]
+[ext_resource path="res://assets/Sprites/powers/power11.png" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -39,6 +40,22 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1.5, 1.5, 1.5, 1 ) ]
 }
 
+[sub_resource type="Animation" id=4]
+resource_name = "PowerCycle"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("PathFollow2D/Power:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
 [node name="Unit" type="Path2D"]
 curve = null
 script = ExtResource( 3 )
@@ -56,6 +73,16 @@ position = Vector2( 3, 4 )
 texture = SubResource( 1 )
 hframes = 9
 
+[node name="Power" type="Sprite" parent="PathFollow2D"]
+visible = false
+texture = ExtResource( 4 )
+hframes = 8
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 2 )
 anims/selected = SubResource( 3 )
+
+[node name="PowerAnimation" type="AnimationPlayer" parent="."]
+anims/PowerCycle = SubResource( 4 )
+
+[connection signal="animation_finished" from="PowerAnimation" to="." method="_on_PowerAnimation_animation_finished"]

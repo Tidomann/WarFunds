@@ -116,8 +116,17 @@ func use_power() -> void:
 			if game_data.unit != null:
 				# If the unit belongs to an ally
 				if game_data.unit.playerOwner.team == playerOwner.team:
+					var t = Timer.new()
+					t.set_wait_time(0.15)
+					t.set_one_shot(true)
+					self.add_child(t)
+					t.start()
+					yield(t, "timeout")
+					t.queue_free()
 					# Heal 20 damage (Clarissa gets a bonus to this healing)
+					game_data.unit.power_animation(self)
 					game_data.unit.get_healing(20)
+		emit_signal("power_changed", playerOwner, power, maxPower)
 
 
 func special_attack(_attacker, _defender, damage_result) -> int:

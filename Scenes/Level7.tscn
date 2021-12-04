@@ -24,7 +24,7 @@
 [ext_resource path="res://assets/Sound Effects/interface/bong_001.ogg" type="AudioStream" id=22]
 [ext_resource path="res://Objects/BattleMap Objects/SoundManager.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Objects/Interface/PowerActivated.tscn" type="PackedScene" id=24]
-[ext_resource path="res://assets/Sprites/Tile/UI Tileset/wastelandui.tres" type="TileSet" id=25]
+[ext_resource path="res://assets/Sprites/Tile/UI Tileset/snowui.tres" type="TileSet" id=25]
 [ext_resource path="res://Objects/BattleMap Objects/FCTManager.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Objects/Commanders/Ghani.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Objects/Units/Fax.tscn" type="PackedScene" id=28]

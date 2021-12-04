@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
+[ext_resource path="res://Objects/Units/Fax.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Sprites/Tile/dev_tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://assets/Sprites/Tile/SnowTileset.tres" type="TileSet" id=3]
+[ext_resource path="res://assets/Sprites/Tile/NormalTileset.tres" type="TileSet" id=3]
 [ext_resource path="res://Scripts/BattleMap.gd" type="Script" id=4]
 [ext_resource path="res://Objects/BattleMap Objects/Cursor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=6]
@@ -79,9 +80,68 @@ gamegrid = ExtResource( 7 )
 [node name="Units" type="YSort" parent="GameBoard"]
 
 [node name="Junior" parent="GameBoard/Units" instance=ExtResource( 15 )]
-position = Vector2( 280.188, 72.1628 )
+position = Vector2( 296.627, 87.188 )
 player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 17, 4 )
+cell = Vector2( 18, 5 )
+
+[node name="Junior2" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 136.379, 165.002 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 8, 10 )
+
+[node name="Junior3" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 187.288, 167.061 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 11, 10 )
+
+[node name="Junior4" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 247.221, 168.185 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 15, 10 )
+health = 50
+
+[node name="Junior5" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 184.666, 86.9018 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 11, 5 )
+health = 50
+
+[node name="Junior6" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 280.933, 103.758 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 17, 6 )
+health = 50
+
+[node name="Junior7" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 231.863, 134.848 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 14, 8 )
+health = 70
+
+[node name="Junior8" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 264.077, 168.185 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 16, 10 )
+
+[node name="Junior9" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 247.97, 133.724 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 15, 8 )
+
+[node name="Junior10" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 200.024, 86.5272 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 12, 5 )
+
+[node name="Junior11" parent="GameBoard/Units" instance=ExtResource( 15 )]
+position = Vector2( 312.397, 103.009 )
+player_path = NodePath("../../../TurnQueue/Computer1")
+cell = Vector2( 19, 6 )
+
+[node name="Fax" parent="GameBoard/Units" instance=ExtResource( 1 )]
+position = Vector2( 199.649, 133.724 )
+player_path = NodePath("../../../TurnQueue/Human")
+cell = Vector2( 12, 8 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 
@@ -137,6 +197,7 @@ player_path = NodePath("..")
 
 [node name="Computer1" parent="TurnQueue" instance=ExtResource( 12 )]
 playerName = "Banktania"
+team = 6
 commander_path = NodePath("RedLine")
 player_colour = 5
 facing = "Left"

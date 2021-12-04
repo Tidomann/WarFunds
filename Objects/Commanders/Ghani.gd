@@ -105,6 +105,7 @@ func defense_modifier(_attacker : Unit, _defender : Unit) -> float:
 
 func use_power() -> void:
 	if canUsePower():
+		var grid_referance = playerOwner.get_parent().gamegrid
 		removePower(maxPower)
 		power_activated.power_activated(commander_portrait.texture, powerName)
 		if power_used <= 5:
@@ -112,6 +113,20 @@ func use_power() -> void:
 			power_used += 1
 		used_power = true
 		#Do Power Stuff
+		for game_data in grid_referance.array:
+			# If there is a unit at this location
+			if game_data.unit != null:
+				# If the unit belongs to an ally
+				if game_data.unit.playerOwner == playerOwner:
+					var t = Timer.new()
+					t.set_wait_time(0.15)
+					t.set_one_shot(true)
+					self.add_child(t)
+					t.start()
+					yield(t, "timeout")
+					t.queue_free()
+					game_data.unit.power_animation(self)
+		emit_signal("power_changed", playerOwner, power, maxPower)
 
 
 func special_attack(_attacker, _defender, damage_result) -> int:

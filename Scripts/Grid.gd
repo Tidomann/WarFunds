@@ -592,7 +592,12 @@ func unit_combat(attacker : Unit, defender : Unit):
 		attacker.queue_free()
 	if defender.is_dead():
 		find_unit(defender).unit = null
-		defender.queue_free()
+		if defender.get_node("PowerAnimation").is_playing():
+			# The animation player is currently playing for a special attack
+			# the animation player will perform it's own dead check
+			pass
+		else:
+			defender.queue_free()
 
 func get_terrain_bonus(grid_data : GridData) -> int:
 	if grid_data.property !=null:

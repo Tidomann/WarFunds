@@ -143,11 +143,30 @@ func use_power() -> void:
 					# If this is an enemy unit and it is beside another unit, take damage
 					# Deal 20 damage only if it would not kill the unit
 					if beside_unit:
+						var t = Timer.new()
+						t.set_wait_time(0.15)
+						t.set_one_shot(true)
+						self.add_child(t)
+						t.start()
+						yield(t, "timeout")
+						t.queue_free()
+						game_data.unit.power_animation(self)
 						if game_data.unit.health > 20:
 							game_data.unit.take_damage(20)
 						else:
 							# Otherwise the unit lives at 1% hit points
 							game_data.unit.take_damage(game_data.unit.health-1)
+				else:
+					var t = Timer.new()
+					t.set_wait_time(0.15)
+					t.set_one_shot(true)
+					self.add_child(t)
+					t.start()
+					yield(t, "timeout")
+					t.queue_free()
+					game_data.unit.power_animation(self)
+					pass
+		emit_signal("power_changed", playerOwner, power, maxPower)
 
 func special_attack(_attacker, _defender, damage_result) -> int:
 	if used_power:

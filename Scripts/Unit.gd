@@ -320,3 +320,116 @@ func army_color_set() -> void:
 				_army_colour.play("Cyan")
 			Constants.COLOUR.PURPLE:
 				_army_colour.play("Purple")
+
+func power_animation(commander: Node2D) -> void:
+	# Sally and William have special Attacks and don't need to wait
+	# When calling power animation
+	if commander.name == "William" || commander.name == "Sally":
+		# Congrats you don't need a timer!
+		pass
+	else:
+		var panim = Timer.new()
+		panim.set_wait_time(5.25)
+		panim.set_one_shot(true)
+		self.add_child(panim)
+		panim.start()
+		yield(panim, "timeout")
+		panim.queue_free()
+	match commander.powerName:
+		"Hackathon":
+			if playerOwner == commander.playerOwner:
+				var panim = Timer.new()
+				panim.set_wait_time(5.25)
+				panim.set_one_shot(true)
+				self.add_child(panim)
+				panim.start()
+				yield(panim, "timeout")
+				panim.queue_free()
+				$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power0.png")
+				$PathFollow2D/Power.show()
+				$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+				$PowerSound.stream = load("res://assets/Sound Effects/powers/power0.wav")
+				$PowerSound.play()
+			else:
+				$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power9.png")
+				$PathFollow2D/Power.show()
+				$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+				$PowerSound.stream = load("res://assets/Sound Effects/powers/power9_1.wav")
+				$PowerSound.play()
+		"Liquidate":
+			if playerOwner == commander.playerOwner:
+				var panim = Timer.new()
+				panim.set_wait_time(5.25)
+				panim.set_one_shot(true)
+				self.add_child(panim)
+				panim.start()
+				yield(panim, "timeout")
+				panim.queue_free()
+				$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power0.png")
+				$PathFollow2D/Power.show()
+				$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+				$PowerSound.stream = load("res://assets/Sound Effects/powers/power0.wav")
+				$PowerSound.play()
+			else:
+				$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power5.png")
+				$PathFollow2D/Power.show()
+				$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+				$PowerSound.stream = load("res://assets/Sound Effects/powers/power_sally.wav")
+				$PowerSound.play()
+		"Viral Outbreak":
+			if playerOwner == commander.playerOwner:
+				$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power0.png")
+				$PathFollow2D/Power.show()
+				$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+				$PowerSound.stream = load("res://assets/Sound Effects/powers/power0.wav")
+				$PowerSound.play()
+			else:
+				$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power1.png")
+				$PathFollow2D/Power.show()
+				$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+				$PowerSound.stream = load("res://assets/Sound Effects/powers/power1.wav")
+				$PowerSound.play()
+		"Cram Time":
+			$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power7.png")
+			$PathFollow2D/Power.show()
+			$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+			$PowerSound.stream = load("res://assets/Sound Effects/powers/power7_1.wav")
+			$PowerSound.play()
+		"Hyper Heal":
+			$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power11.png")
+			$PathFollow2D/Power.show()
+			$PowerAnimation.play("PowerCycle", -1, 1.0, false)
+			$PowerSound.stream = load("res://assets/Sound Effects/powers/power11.wav")
+			$PowerSound.play()
+		"Homestretch":
+			$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power10.png")
+			$PathFollow2D/Power.hframes = 9
+			$PathFollow2D/Power.show()
+			$PowerAnimation.play("PowerCycle9", -1, 1.0, false)
+			$PowerSound.stream = load("res://assets/Sound Effects/powers/power10_1.wav")
+			$PowerSound.play()
+		"Hapless Hero":
+			$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power2.png")
+			$PathFollow2D/Power.show()
+			$PowerAnimation.play("PowerCycle9", -1, 1.0, false)
+			$PowerSound.stream = load("res://assets/Sound Effects/powers/power2_2.wav")
+			$PowerSound.play()
+		"Sheik's Demand":
+			$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power12.png")
+			$PathFollow2D/Power.hframes = 12
+			$PathFollow2D/Power.show()
+			$PowerAnimation.play("PowerCycle9", -1, 1.0, false)
+			$PowerSound.stream = load("res://assets/Sound Effects/powers/power12_1.wav")
+			$PowerSound.play()
+
+
+func _on_PowerAnimation_animation_finished(anim_name):
+	$PathFollow2D/Power.hframes = 8
+	$PathFollow2D/Power.hide()
+	if self.is_dead():
+		self.hide()
+
+
+func _on_PowerSound_finished():
+	if self.is_dead():
+		self.queue_free()

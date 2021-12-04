@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/power11.wav-088f44f584a7ab7afa73f9165e8e11ca.sample"
+
+[deps]
+
+source_file="res://assets/Sound Effects/powers/power11.wav"
+dest_files=[ "res://.import/power11.wav-088f44f584a7ab7afa73f9165e8e11ca.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
