@@ -74,8 +74,8 @@ var leaderPath = [
 
 # Leader abilities and information
 var leadersDesc = [
-	"[u][color=#62beff]William[/color][/u]\n[u][color=#62beff]Power[/color][/u]\n[color=#62beff]Hackathon[/color] - Attacking an enemy unit will disable it for one turn.\n\nLeader of the Computer Science Club.",
-	"[u][color=#d39c36]Sally[/color][/u]\nUnits on properties gain a +40% attack bonus.\n[u][color=#d39c36]Power[/color][/u]\n[color=#d39c36]Liquidation[/color] - Gain funds equal to 50% of the damage dealt when attacking enemy units.\n\nLeader of the Finance Region. Money is power!",
+	"[u][color=#62beff]William[/color][/u]\n[u][color=#62beff]Power[/color][/u]\n[color=#62beff]Hackathon[/color] - For one round, attacking an enemy unit will disable it for one turn.\n\nLeader of the Computer Science Club.",
+	"[u][color=#d39c36]Sally[/color][/u]\nUnits on properties gain a +40% attack bonus.\n[u][color=#d39c36]Power[/color][/u]\n[color=#d39c36]Liquidation[/color] - For one round, gain funds equal to 50% of the damage dealt to enemy units.\n\nLeader of the Finance Region. Money is power!",
 	"[u][color=#30f830]Dr. Deficit[/color][/u]\nEnemy units that are not next to a friendly unit take +20% more damage.\n[u][color=#30f830]Power[/color][/u]\n[color=#30f830]Viral Outbreak[/color] - Enemy units that are next to another unit lose 2HP (cannot kill units).\n\nHe claims he predicted a grand deficit.",
 	"[u][color=#aa003f]Clint[/color][/u]\nUnits Units below 5 health gain +20 defense but lose -20% attack. Units 5 health and above gain +20 attack but lose -20% defense.\n[u][color=#aa003f]Power[/color][/u]\n[color=#aa003f]Cram Time[/color] - Bonus and penalty increased to +40%/-40%.\n\nWhy use math when you have lookup tables?",
 	"[u][color=#20918b]Clarissa[/color][/u]\nUnits heal 3 life when starting their turn on a property (at no additional cost).\n25% discount on the heal command.\n[u][color=#20918b]Power[/color][/u]\n[color=#20918b]Hyper Heal[/color] - All friendly units gain 2 hitpoints. Sally's units heal 3 hitpoints",
@@ -92,7 +92,9 @@ var levels = [
 	"res://Scenes/Level4.tscn",
 	"res://Scenes/Level5.tscn",
 	"res://Scenes/Level6.tscn",
-	"res://Scenes/Level7.tscn"
+	"res://Scenes/Level7.tscn",
+	"res://Scenes/Predeployed.tscn",
+	"res://Scenes/Bases.tscn"
 ]
 
 # Level Intros
@@ -104,6 +106,8 @@ var level_intros = [
 	"res://Dialog/Level5Intro.json",
 	"res://Dialog/Level6Intro.json",
 	"res://Dialog/Level1Intro.json",
+	"res://Dialog/Level0Intro.json",
+	"res://Dialog/Level0Intro.json"
 ]
 
 var intro_scenes = [
@@ -113,7 +117,9 @@ var intro_scenes = [
 	"res://Scenes/Level4Intro.tscn",
 	"res://Scenes/Level5Intro.tscn",
 	"res://Scenes/Level6Intro.tscn",
-	"res://Scenes/Level7.tscn"
+	"res://Scenes/Level7.tscn",
+	"res://Scenes/Predeployed.tscn",
+	"res://Scenes/Bases.tscn"
 ]
 
 func save():

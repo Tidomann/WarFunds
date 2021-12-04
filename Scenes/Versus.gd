@@ -19,8 +19,8 @@ onready var _units_node = $GameBoard/Units
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$"CanvasLayer/update-ui".visible = false
-	$CanvasLayer/CommanderUI.visible = false
+	#$"CanvasLayer/update-ui".visible = false
+	#$CanvasLayer/CommanderUI.visible = false
 	# Load the Game Data
 	gamegrid.initialize(self)
 	# Initialize the Humans Commander to be the chosen commander from Select
@@ -37,6 +37,72 @@ func _ready():
 	commander.playerOwner = player
 	commander.connect("power_changed", $CanvasLayer/CommanderUI, "power_changed")
 
+	#Generate a random enemy commander
+	var computer = $TurnQueue/Computer1
+	for child in computer.get_children():
+		computer.remove_child(child)
+		child.free()
+	var possible_enemies = []
+	for n in Global.discoveredLeaders.size():
+		if Global.discoveredLeaders[n]:
+			possible_enemies.append(Global.leaderPath[n])
+	var chosen_index = randi()%possible_enemies.size()
+	var opponent = load(possible_enemies[chosen_index])
+	computer.add_child(opponent.instance())
+	opponent = computer.get_child(0)
+	computer.playerName = opponent.commanderName
+	match opponent.commanderName:
+		"William":
+			computer.player_colour = Constants.COLOUR.BLUE
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"Sally":
+			computer.player_colour = Constants.COLOUR.YELLOW
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"Dr. Deficit":
+			computer.player_colour = Constants.COLOUR.GREEN
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"Clint":
+			computer.player_colour = Constants.COLOUR.RED
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"Clarissa":
+			computer.player_colour = Constants.COLOUR.CYAN
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"Red Line":
+			computer.player_colour = Constants.COLOUR.PURPLE
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"Kronk":
+			computer.player_colour = Constants.COLOUR.PURPLE
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+		"General Ghani":
+			computer.player_colour = Constants.COLOUR.PURPLE
+			while computer.player_colour == $TurnQueue/Human.player_colour:
+				computer.player_colour = randi()%6
+	commander = computer.get_child(0)
+	computer.commander = commander
+	commander.playerOwner = computer
+	commander.connect("power_changed", $CanvasLayer/CommanderUI, "power_changed")
+	# Choose a random tileset
+	var tileset_chosen = randi()%3
+	match tileset_chosen:
+		0:
+			$RenderedTiles.tile_set = load("res://assets/Sprites/Tile/NormalTileset.tres")
+			$RenderedTiles2.tile_set = load("res://assets/Sprites/Tile/NormalTileset.tres")
+			$"CanvasLayer/update-ui/TileMap".tile_set = load("res://assets/Sprites/Tile/UI Tileset/normalui.tres")
+		1:
+			$RenderedTiles.tile_set = load("res://assets/Sprites/Tile/WastelandTileset.tres")
+			$RenderedTiles2.tile_set = load("res://assets/Sprites/Tile/WastelandTileset.tres")
+			$"CanvasLayer/update-ui/TileMap".tile_set = load("res://assets/Sprites/Tile/UI Tileset/wastelandui.tres")
+		2:
+			$RenderedTiles.tile_set = load("res://assets/Sprites/Tile/SnowTileset.tres")
+			$RenderedTiles2.tile_set = load("res://assets/Sprites/Tile/SnowTileset.tres")
+			$"CanvasLayer/update-ui/TileMap".tile_set = load("res://assets/Sprites/Tile/UI Tileset/snowui.tres")
 	
 	# Setup the Map now that proper commander is in place
 	setup_tiles()
@@ -62,38 +128,15 @@ func _ready():
 	$TurnQueue.initialize(self)
 	$Devtiles.visible = false
 	$AIControl.init(self)
-	#Start of battle dialog
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
-	match level_number:
-		0:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
-		1:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Start.json"
-		2:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Start.json"
-		3:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Start.json"
-		4:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Start.json"
-		5:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Start.json"
-		6:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Start.json"
-		7:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
-	$CanvasLayer/DialogBox.start_dialog()
-	yield($CanvasLayer/DialogBox, "dialog_finished")
-	$"CanvasLayer/update-ui".visible = true
-	$CanvasLayer/CommanderUI.visible = true
 	$GameBoard/Cursor.activate()
 	# Uncomment out to automatically win test
-	var t = Timer.new()
-	t.set_wait_time(1)
-	t.set_one_shot(true)
-	self.add_child(t)
-	t.start()
-	yield(t, "timeout")
-	victory()
+	#var t = Timer.new()
+	#t.set_wait_time(1)
+	#t.set_one_shot(true)
+	#self.add_child(t)
+	#t.start()
+	#yield(t, "timeout")
+	#victory()
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
@@ -342,119 +385,9 @@ func is_victory(human : Node2D) -> bool:
 
 func victory() -> void:
 	print("Victory")
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/VersusVictory.json"
 	$"CanvasLayer/update-ui".visible = false
 	$CanvasLayer/CommanderUI.visible = false
-	match level_number:
-		0:
-			for n in Global.unlockedLevels.size():
-				Global.unlockedLevels[n] = true
-			for n in Global.unlockedLeaders.size():
-				Global.unlockedLeaders[n] = true
-			for n in Global.unlockedColours.size():
-				Global.unlockedColours[n] = true
-			for n in Global.discoveredLeaders.size():
-				Global.discoveredLeaders[n] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
-		1:
-			Global.unlockedLevels[1] = true
-			Global.discoveredLeaders[5] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Victory.json"
-		2:
-			Global.unlockedLevels[2] = true
-			Global.discoveredLeaders[5] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Victory.json"
-		3:
-			Global.unlockedLevels[3] = true
-			Global.unlockedLevels[7] = true
-			Global.discoveredLeaders[1] = true
-			Global.discoveredLeaders[5] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Victory.json"
-		4:
-			var previously_beaten = Global.unlockedLeaders[1]
-			Global.unlockedLevels[4] = true
-			Global.unlockedLeaders[1] = true
-			Global.unlockedColours[3] = true
-			Global.discoveredLeaders[6] = true
-			Global.save_game()
-			if not previously_beaten:
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
-				$CanvasLayer/DialogBox.start_dialog()
-				$GameBoard/Cursor.deactivate(true)
-				yield($CanvasLayer/DialogBox, "dialog_finished")
-				var t = Timer.new()
-				t.set_wait_time(0.05)
-				t.set_one_shot(true)
-				self.add_child(t)
-				t.start()
-				yield(t, "timeout")
-				$"Music Player".set_stream(load("res://assets/Music/Busy Day At The Market-LOOP.wav"))
-				$"Music Player".set_volume_db(-30)
-				$"Music Player".play()
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory2.json"
-			else:
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Victory1.json"
-		5:
-			var previously_beaten = Global.unlockedColours[2]
-			Global.unlockedColours[2] = true
-			Global.unlockedLevels[5] = true
-			Global.discoveredLeaders[2] = true
-			Global.save_game()
-			if not previously_beaten:
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory.json"
-				$CanvasLayer/DialogBox.start_dialog()
-				$GameBoard/Cursor.deactivate(true)
-				yield($CanvasLayer/DialogBox, "dialog_finished")
-				var t = Timer.new()
-				t.set_wait_time(0.05)
-				t.set_one_shot(true)
-				self.add_child(t)
-				t.start()
-				yield(t, "timeout")
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory2.json"
-			else:
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Victory.json"
-		6:
-			var previously_beaten = Global.unlockedLeaders[2]
-			Global.unlockedLeaders[2] = true
-			Global.unlockedLevels[6] = true
-			Global.unlockedColours[2] = true
-			Global.unlockedLevels[6] = true
-			Global.discoveredLeaders[6] = true
-			Global.discoveredLeaders[2] = true
-			Global.discoveredLeaders[3] = true
-			Global.discoveredLeaders[4] = true
-			Global.unlockedLevels[8] = true
-			Global.save_game()
-			if not previously_beaten:
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Victory.json"
-				$CanvasLayer/DialogBox.start_dialog()
-				$GameBoard/Cursor.deactivate(true)
-				yield($CanvasLayer/DialogBox, "dialog_finished")
-				var t = Timer.new()
-				t.set_wait_time(0.05)
-				t.set_one_shot(true)
-				self.add_child(t)
-				t.start()
-				yield(t, "timeout")
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Victory2.json"
-			else:
-				$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Victory.json"
-		7:
-			for n in Global.unlockedLevels.size():
-				Global.unlockedLevels[n] = true
-			for n in Global.unlockedLeaders.size():
-				Global.unlockedLeaders[n] = true
-			for n in Global.unlockedColours.size():
-				Global.unlockedColours[n] = true
-			for n in Global.discoveredLeaders.size():
-				Global.discoveredLeaders[n] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
@@ -462,36 +395,9 @@ func victory() -> void:
 
 func defeat() -> void:
 	print("Defeat")
-	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"
+	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/VersusDefeat.json"
 	$"CanvasLayer/update-ui".visible = false
 	$CanvasLayer/CommanderUI.visible = false
-	match level_number:
-		0:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Defeat.json"
-		1:
-			Global.discoveredLeaders[5] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level1Defeat.json"
-		2:
-			Global.discoveredLeaders[5] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level2Defeat.json"
-		3:
-			Global.discoveredLeaders[5] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level3Defeat.json"
-		4:
-			Global.discoveredLeaders[6] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level4Defeat.json"
-		5:
-			Global.discoveredLeaders[2] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level5Defeat.json"
-		6:
-			Global.discoveredLeaders[6] = true
-			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/GenericDefeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")

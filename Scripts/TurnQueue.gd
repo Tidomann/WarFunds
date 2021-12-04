@@ -27,11 +27,19 @@ func initialize(battlemap):
 
 func nextTurn():
 	cursor.activate()
-	#yield(active_character.endTurn(), "completed")
 	var newIndex : int = (activePlayer.get_index() + 1) % get_child_count()
 	if newIndex == 0:
 		round_count += 1
 	activePlayer = get_child(newIndex)
+	if activePlayer.computerAI:
+		var t = Timer.new()
+		t.set_wait_time(0.08)
+		t.set_one_shot(true)
+		self.add_child(t)
+		t.start()
+		yield(t, "timeout")
+		cursor.deactivate(true)
+		t.queue_free()
 	#Auto fill power line
 	#activePlayer.commander.setPowerFilled()
 	start_turn(activePlayer)
@@ -95,7 +103,6 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
 						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
-						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		2:
 			match turn_count:
 				1:
@@ -118,7 +125,6 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
 						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
-						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		3:
 			match turn_count:
 				1:
@@ -141,7 +147,6 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
 						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
-						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 				2:
 					if not inPlayer.computerAI:
 						#this is the players 2nd turn
@@ -207,7 +212,6 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
 						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
-						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 		5:
 			match turn_count:
 				1:
@@ -230,7 +234,6 @@ func check_new_turn_dialogue(turn_count: int, inPlayer: Node2D) -> void:
 						dialogue_node.start_dialog()
 						yield(dialogue_node, "dialog_finished")
 						gamegrid.battlemap.get_node("CanvasLayer/update-ui").visible = true
-						gamegrid.battlemap.get_node("GameBoard/Cursor").activate()
 	var t = Timer.new()
 	t.set_wait_time(0.08)
 	t.set_one_shot(true)
