@@ -7,7 +7,7 @@ signal power_changed(playerOwner, power)
 # the current power meter value
 export(float) var power = 0.0
 # the maximum power meter value
-export(float) var maxPower = 27000.0
+export(float) var maxPower = 36000.0
 # The name of the commander
 export(String) var commanderName
 # The name of the commander's power
@@ -15,7 +15,7 @@ export(String) var powerName
 # referance to the player that is using this commander
 export var player_path := @""
 var playerOwner : Node2D
-export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/3stars.png"
+export var stars_path := "res://assets/Sprites/UI/UICommander/PowerBar/4stars.png"
 #onready var stars_overlay : Texture = stars_path
 export(Constants.ARMY) var army_type := Constants.ARMY.COSC
 var used_power := false
