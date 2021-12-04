@@ -201,6 +201,7 @@ hframes = 9
 frame = 8
 
 [node name="Power" type="Sprite" parent="PathFollow2D"]
+visible = false
 texture = ExtResource( 5 )
 hframes = 8
 

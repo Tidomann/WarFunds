@@ -411,7 +411,7 @@ func power_animation(commander: Node2D) -> void:
 		"Hapless Hero":
 			$PathFollow2D/Power.texture = load("res://assets/Sprites/powers/power2.png")
 			$PathFollow2D/Power.show()
-			$PowerAnimation.play("PowerCycle9", -1, 1.0, false)
+			$PowerAnimation.play("PowerCycle", -1, 1.0, false)
 			$PowerSound.stream = load("res://assets/Sound Effects/powers/power2_2.wav")
 			$PowerSound.play()
 		"Sheik's Demand":
