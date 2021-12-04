@@ -68,7 +68,7 @@ tile_data = PoolIntArray( 720915, 10, 131073, 720916, 11, 1, 720917, 11, 1, 7209
 tile_set = ExtResource( 20 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 65546, 1, 0, 65554, 1, 0, 131077, 13, 0, 131080, 13, 0, 131084, 2, 0, 131093, 26, 0, 196615, 12, 0, 196623, 5, 0, 196631, 25, 0, 262155, 1, 0, 327693, 1, 0, 327697, 1, 0, 393221, 7, 0, 393226, 1, 0, 393235, 26, 0, 393239, 1, 0, 458766, 2, 0, 524294, 6, 0, 524296, 8, 0, 524310, 24, 0, 589831, 8, 0, 589843, 26, 0, 655369, 1, 0, 655373, 5, 0, 655376, 1, 0, 655383, 25, 0, 786442, 1, 0, 851973, 19, 0, 851985, 1, 0, 851991, 25, 0, 917511, 18, 0, 983048, 19, 0, 983055, 5, 0, 983062, 26, 0, 1048587, 2, 0, 1048595, 1, 0 )
+tile_data = PoolIntArray( 65546, 1, 0, 65554, 1, 0, 131077, 13, 0, 131080, 13, 0, 131084, 2, 0, 131093, 26, 0, 196615, 12, 0, 196623, 5, 0, 196631, 1, 0, 262155, 1, 0, 327693, 1, 0, 327697, 1, 0, 393221, 7, 0, 393226, 1, 0, 393235, 26, 0, 393239, 1, 0, 458766, 2, 0, 524294, 6, 0, 524296, 8, 0, 524310, 24, 0, 589831, 8, 0, 589843, 26, 0, 655369, 1, 0, 655373, 5, 0, 655376, 1, 0, 655383, 1, 0, 786442, 1, 0, 851973, 19, 0, 851985, 1, 0, 851991, 1, 0, 917511, 18, 0, 983048, 19, 0, 983055, 5, 0, 983062, 26, 0, 1048587, 2, 0, 1048595, 1, 0 )
 
 [node name="PropertyTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 19 )
@@ -158,11 +158,6 @@ position = Vector2( 344.466, 39.2882 )
 player_path = NodePath("../../../TurnQueue/Computer 3")
 cell = Vector2( 21, 2 )
 
-[node name="Book-zooka Senior4" parent="GameBoard/Units" instance=ExtResource( 32 )]
-position = Vector2( 375.023, 103.181 )
-player_path = NodePath("../../../TurnQueue/Computer 3")
-cell = Vector2( 23, 6 )
-
 [node name="Junior7" parent="GameBoard/Units" instance=ExtResource( 31 )]
 position = Vector2( 358.753, 248.428 )
 player_path = NodePath("../../../TurnQueue/Computer 3")
@@ -172,11 +167,6 @@ cell = Vector2( 22, 15 )
 position = Vector2( 377.405, 55.9559 )
 player_path = NodePath("../../../TurnQueue/Computer 3")
 cell = Vector2( 23, 3 )
-
-[node name="Senior2" parent="GameBoard/Units" instance=ExtResource( 33 )]
-position = Vector2( 376.611, 167.471 )
-player_path = NodePath("../../../TurnQueue/Computer 3")
-cell = Vector2( 23, 10 )
 
 [node name="Senior3" parent="GameBoard/Units" instance=ExtResource( 33 )]
 position = Vector2( 377.801, 217.077 )
