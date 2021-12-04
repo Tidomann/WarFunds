@@ -141,7 +141,6 @@ playerName = "University"
 commander_path = NodePath("RedLine")
 player_colour = 1
 facing = "Right"
-computerAI = true
 
 [node name="RedLine" parent="TurnQueue/Human" instance=ExtResource( 14 )]
 player_path = NodePath("..")
