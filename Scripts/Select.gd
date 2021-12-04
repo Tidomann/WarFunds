@@ -61,10 +61,13 @@ func _ready():
 		leaderButton.connect("pressed", self, "_on_LeaderButton_pressed", [n+1])
 		$Leaders.add_child(leaderButton)
 	# Generate the Level Select Buttons
-	for n in 8:
+	for n in 9:
 		var button = Button.new()
 		button.text = "Level " + str(n+1)
-		
+		if n == 7:
+			button.text = "Versus AI"
+		if n == 8:
+			button.text = "Base Vs AI"
 		# Sets theme of the button
 		var t = Theme.new()
 		t.set_color("font_color_hover", "Button", Color(1,1,0))

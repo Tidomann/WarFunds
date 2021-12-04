@@ -9,7 +9,7 @@ var player_colour = Constants.COLOUR.BLUE
 # Currently Unlocked Leaders and Levels
 var unlockedLeaders = [true,false,false,false,false,false,false,false]
 var discoveredLeaders = [true,false,false,false,false,false,false,false]
-var unlockedLevels = [true,false,false,false,false,false,false,false]
+var unlockedLevels = [true,false,false,false,false,false,false,false, false]
 var unlockedColours = [false,true,false,false,false,false]
 
 # Leader Images

@@ -58,7 +58,7 @@ func take_computer_turn(computer : Node2D) -> void:
 	yield(timer, "timeout")
 	if computer.commander.canUsePower():
 		computer.commander.use_power()
-		timer.set_wait_time(6)
+		timer.set_wait_time(7.5)
 		timer.set_one_shot(true)
 		timer.start()
 		yield(timer, "timeout")
@@ -66,7 +66,7 @@ func take_computer_turn(computer : Node2D) -> void:
 		yield(direct_actions(light_direct), "completed")
 	if computer.commander.canUsePower() && not computer.commander.used_power:
 		computer.commander.use_power()
-		timer.set_wait_time(6)
+		timer.set_wait_time(7.5)
 		timer.set_one_shot(true)
 		timer.start()
 		yield(timer, "timeout")
