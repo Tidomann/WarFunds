@@ -33,14 +33,35 @@ func power_changed(playerOwner, power, maxPower):
 		if uiPlayerData.player == playerOwner:
 			uiPlayerData.power_progress_bar.value = power
 			uiPlayerData.power_progress_bar.max_value = maxPower
+			if playerOwner.commander.used_power:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("Powered Up", -1, 1.0, false)
+			else:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("no power", -1, 1.0, false)
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").stop(true)
+		else:
+			if uiPlayerData.player.commander.used_power:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("Powered Up", -1, 1.0, false)
+			else:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("no power", -1, 1.0, false)
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").stop(true)
 
 
 func _on_TurnQueue_turn_changed(activePlayer):
 	for uiPlayerData in self.get_children():
 		if uiPlayerData.player == activePlayer:
 			uiPlayerData.player_turn_arrow.visible = true
+			if uiPlayerData.player.commander.used_power:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("Powered Up", -1, 1.0, false)
+			else:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("no power", -1, 1.0, false)
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").stop(true)
 		else:
 			uiPlayerData.player_turn_arrow.visible = false
+			if uiPlayerData.player.commander.used_power:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("Powered Up", -1, 1.0, false)
+			else:
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").play("no power", -1, 1.0, false)
+				uiPlayerData.get_node("PlayerInfo/PowerAnimation").stop(true)
 
 
 func funds_changed(self_referance, funds):

@@ -1,6 +1,6 @@
 [	
 	{"Name":"William", "Emotion":"Thinking", "Text":"It's going to be tough. He's caught us off guard. We barely have any units..."},
-	{"Name":"Sally", "Emotion":"Neutral", "Text":"With my connections in the finance reagion, we've got the budget to be able to use bases!"},
+	{"Name":"Sally", "Emotion":"Neutral", "Text":"With my connections in the finance region, we've got the budget to be able to use bases!"},
 	{"Name":"Sally", "Emotion":"NeutralClosed", "Text":"We can use them to deploy units."},
 	{"Name":"William", "Emotion":"Happy", "Text":"I'm glad we have you Sally. I had thought the University closed all their bases for good."},
 	{"Name":"William", "Emotion":"Thinking", "Text":"But how do we use them?"},
