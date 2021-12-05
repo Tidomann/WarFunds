@@ -36,7 +36,11 @@ func _ready():
 	player.commander = commander
 	commander.playerOwner = player
 	commander.connect("power_changed", $CanvasLayer/CommanderUI, "power_changed")
-
+	
+	# Enforcing colourblind accessbility
+	if level_number == 5:
+		if $TurnQueue/Human.player_colour == Constants.COLOUR.YELLOW || $TurnQueue/Human.player_colour == Constants.COLOUR.GREEN:
+			$TurnQueue/Computer1.player_colour = Constants.COLOUR.CYAN
 	
 	# Setup the Map now that proper commander is in place
 	setup_tiles()

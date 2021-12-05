@@ -19,6 +19,7 @@ onready var _units_node = $GameBoard/Units
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#Engine.set_time_scale(6.0)#slow down/increase speed
 	#$"CanvasLayer/update-ui".visible = false
 	#$CanvasLayer/CommanderUI.visible = false
 	# Load the Game Data
@@ -84,6 +85,9 @@ func _ready():
 			computer.player_colour = Constants.COLOUR.PURPLE
 			while computer.player_colour == $TurnQueue/Human.player_colour:
 				computer.player_colour = randi()%6
+	if $TurnQueue/Human.player_colour == Constants.COLOUR.GREEN || $TurnQueue/Human.player_colour == Constants.COLOUR.YELLOW:
+		while computer.player_colour == Constants.COLOUR.GREEN || computer.player_colour == Constants.COLOUR.YELLOW:
+			computer.player_colour = randi()%6
 	commander = computer.get_child(0)
 	computer.commander = commander
 	commander.playerOwner = computer
