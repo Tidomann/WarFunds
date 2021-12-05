@@ -497,6 +497,10 @@ func defeat() -> void:
 			Global.discoveredLeaders[6] = true
 			Global.save_game()
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/GenericDefeat.json"
+		7:
+			Global.discoveredLeaders[6] = true
+			Global.save_game()
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/GenericDefeat.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
