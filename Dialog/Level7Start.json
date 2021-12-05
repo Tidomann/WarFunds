@@ -1,0 +1,14 @@
+[
+	{"Name":"Clint", "Emotion":"Four", "Text":"It's no use, we're completely outmatched!"},
+	{"Name":"Clarissa", "Emotion":"Five", "Text":"What can we do against such an army!"},
+	{"Name":"Sally", "Emotion":"Yellhappy", "Text":"Did someone call for backup!?"},
+	{"Name":"Dr Deficit", "Emotion":"Smile1", "Text":"You two have cause quite the reaction from Banktania."},
+	{"Name":"William", "Emotion":"Happy", "Text":"Engineering and Nursing don't need to stand alone anymore."},
+	{"Name":"Clint", "Emotion":"Seven", "Text":"No way! Our Bharti Brothers, the Computer Science department is here-"},
+	{"Name":"Clarissa", "Emotion":"Eight", "Text":"Be nice Clint! We need their help."},
+	{"Name":"Clint", "Emotion":"Two", "Text":"You're right Clarissa, they aren't real engineers anyway."},
+	{"Name":"Clarissa", "Emotion":"Six", "Text":"Now's not the time for your ego Clint!"},
+	{"Name":"Clint", "Emotion":"Ten", "Text":"C'mon Clarissa! We can use a bit of exam time gallows humor."},
+	{"Name":"Sally", "Emotion":"Yell", "Text":"If you two are finished, you've been authorized to use bases!"},
+	{"Name":"William", "Emotion":"Neutral", "Text":"Okay team, keep Banktania distracted. Advisor, you help Clint and Clarissa beat this guy!"},
+]

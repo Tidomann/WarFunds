@@ -80,7 +80,7 @@ func _ready():
 		6:
 			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level6Start.json"
 		7:
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Intro.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level7Start.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	yield($CanvasLayer/DialogBox, "dialog_finished")
 	$"CanvasLayer/update-ui".visible = true
