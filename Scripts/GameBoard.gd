@@ -95,6 +95,8 @@ func _on_Cursor_select_pressed(cell: Vector2) -> void:
 		if _active_unit.playerOwner == _turn_queue.activePlayer:
 			if not gamegrid.is_occupied(cell) || gamegrid.get_unit(cell) == _active_unit:
 				$SoundManager.playsound("Select")
+				if _active_unit.cell == cell:
+					_unit_path.draw(_active_unit, cell)
 				_move_active_unit(cell)
 			else:
 				$SoundManager.playsound("Error")
@@ -168,7 +170,7 @@ func _move_active_unit(new_position: Vector2) -> void:
 				$SoundManager.playsound("TreadMove")
 			Constants.MOVEMENT_TYPE.TIRES:
 				$SoundManager.playsound("TireMove")
-	yield(_active_unit, "walk_finished")
+		yield(_active_unit, "walk_finished")
 	
 	if trapped:
 		#TODO: Play trapped effect

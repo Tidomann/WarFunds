@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/MissionComplete.mp3-b63128b74442a24c852df13ffcb935ee.mp3str"
+
+[deps]
+
+source_file="res://assets/Sound Effects/gameplay/MissionComplete.mp3"
+dest_files=[ "res://.import/MissionComplete.mp3-b63128b74442a24c852df13ffcb935ee.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -141,15 +141,10 @@ position = Vector2( 280.228, 69.9246 )
 player_path = NodePath("../../../TurnQueue/Computer1")
 cell = Vector2( 17, 4 )
 
-[node name="Scanner3" parent="GameBoard/Units" instance=ExtResource( 43 )]
-position = Vector2( 327.396, 81.317 )
-player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 20, 5 )
-
 [node name="Printer" parent="GameBoard/Units" instance=ExtResource( 36 )]
-position = Vector2( 311.332, 71.1171 )
+position = Vector2( 326.69, 69.9934 )
 player_path = NodePath("../../../TurnQueue/Computer1")
-cell = Vector2( 19, 4 )
+cell = Vector2( 20, 4 )
 
 [node name="Cursor" parent="GameBoard" instance=ExtResource( 5 )]
 

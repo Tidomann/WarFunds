@@ -345,6 +345,7 @@ func victory() -> void:
 	$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
 	$"CanvasLayer/update-ui".visible = false
 	$CanvasLayer/CommanderUI.visible = false
+	$GameBoard/SoundManager/SoundMissionComplete.play()
 	match level_number:
 		0:
 			for n in Global.unlockedLevels.size():
