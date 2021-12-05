@@ -91,13 +91,13 @@ func _ready():
 	$CanvasLayer/CommanderUI.visible = true
 	$GameBoard/Cursor.activate()
 	# Uncomment out to automatically win test
-	#var t = Timer.new()
-	#t.set_wait_time(1)
-	#t.set_one_shot(true)
-	#self.add_child(t)
-	#t.start()
-	#yield(t, "timeout")
-	#victory()
+	var t = Timer.new()
+	t.set_wait_time(1)
+	t.set_one_shot(true)
+	self.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	victory()
 
 
 # Uses the Devtiles tilemap to create the appropriate map on the RenderedTiles
@@ -459,7 +459,7 @@ func victory() -> void:
 			for n in Global.discoveredLeaders.size():
 				Global.discoveredLeaders[n] = true
 			Global.save_game()
-			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level0Victory.json"
+			$CanvasLayer/DialogBox.dialogPath = "res://Dialog/Level7Victory.json"
 	$CanvasLayer/DialogBox.start_dialog()
 	$GameBoard/Cursor.deactivate(true)
 	yield($CanvasLayer/DialogBox, "dialog_finished")
