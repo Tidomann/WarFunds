@@ -3,24 +3,23 @@
 	{"Name":"General Ghani", "Emotion":"Four", "Text":"There is no way."},
 	{"Name":"Clarissa", "Emotion":"Three", "Text":"Advisor, we did it!"},
 	{"Name":"Clint", "Emotion":"Twelve", "Text":"Hmm I guess I owe you an apology."},
-	{"Name":"Clarissa", "Emotion":"Eight", "Text":"You! Who are you working for?"},
-	{"Name":"General Ghani", "Emotion":"Selected", "Text":"Ugh. The President."},
+	{"Name":"Sally", "Emotion":"Yell", "Text":"You! Who are you working for?"},
+	{"Name":"General Ghani", "Emotion":"Selected", "Text":"Don't you know? The President."},
 	{"Name":"Clint", "Emotion":"Selected", "Text":"Who's the President?"},
 	{"Name":"General Ghani", "Emotion":"Three", "Text":"Hah. Look at you...so innocent."},
-	{"Name":"General Ghani", "Emotion":"Five", "Text":"This was an inside job. Your so-called President was selling you out."},
+	{"Name":"General Ghani", "Emotion":"Five", "Text":"Your so-called President was selling you out."},
 	{"Name":"Clarissa", "Emotion":"Five", "Text":"Gahh."},
 	{"Name":"Clint", "Emotion":"Eight", "Text":"I don't believe you."},
-	{"Name":"Clarissa", "Emotion":"Neutral", "Text":"No, Clint, I think he's right."},
+	{"Name":"Clarissa", "Emotion":"Five", "Text":"No, Clint, I think he's right."},
 	{"Name":"General Ghani", "Emotion":"Three", "Text":"Of course I'm right."},
-	{"Name":"Clarissa", "Emotion":"Two", "Text":"But why?"},
+	{"Name":"Dr Deficit", "Emotion":"Smile2", "Text":"The theory becomes law."},
+	{"Name":"Sally", "Emotion":"Thinkthree", "Text":"But why?"},
 	{"Name":"General Ghani", "Emotion":"One", "Text":"Why else? Greed."},
-	{"Name":"General Ghani", "Emotion":"One", "Text":"He probably wanted to expand University Kingdom, but he couldn't keep up with the payments..."},
+	{"Name":"General Ghani", "Emotion":"One", "Text":"He probably wanted to expand University into a kingdom, but he couldn't keep up with the payments..."},
 	{"Name":"General Ghani", "Emotion":"One", "Text":"So, Banktania sent us in to collect."},
 	{"Name":"General Ghani", "Emotion":"Two", "Text":"And they're not going to like that we're coming back empty handed."},
 	{"Name":"Clint", "Emotion":"Selected", "Text":"Hmph. Who says you're going back?"},
-	{"Name":"Clarissa", "Emotion":"Neutral", "Text":"Alright Clint, lets take him and get back to the others."}
-	
-	
-	
-	
+	{"Name":"William", "Emotion":"Happy", "Text":"We need to take him back to Professor Hewel.."},
+	{"Name":"William", "Emotion":"Neutral", "Text":"He'll know what to do about the President."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"I hope the professor is alright..."},
 ]
