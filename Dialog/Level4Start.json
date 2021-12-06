@@ -2,7 +2,7 @@
 	{"Name":"William", "Emotion":"Neutral", "Text":"Alright Advisor, we're ready to advance."},
 	{"Name":"William", "Emotion":"Happy", "Text":"With the parking lot liberated, we now have Mecha-Equipment."},
 	{"Name":"William", "Emotion":"Neutral", "Text":"One of the units, the Mecha-Stapler is an indirect unit. In order to attack, it can't move."},
-	{"Name":"William", "Emotion":"Thinking", "Text":"But it has the benefit of being able to attack at range."},
+	{"Name":"William", "Emotion":"Thinking", "Text":"But it has the benefit of being able to attack at range. Perform a ranged attack by selecting your stapler, then selecting the same tile it is on."},
 	{"Name":"William", "Emotion":"Neutral", "Text":"If you hold cancel (X on the keyboard or right click) ontop of the unit, you will see what tiles it can attack on their turn."},
 	{"Name":"William", "Emotion":"Happy", "Text":"Take your time and check the range on all of our new equipment."},
 	{"Name":"William", "Emotion":"Thinking", "Text":"We're up against indirect units as well. Check the range of the enemies before making your move."},

@@ -134,7 +134,7 @@ func use_power() -> void:
 			# If there is a unit at this location
 			if game_data.unit != null:
 				# If the unit belongs to the enemy
-				if game_data.unit.playerOwner != playerOwner:
+				if game_data.unit.playerOwner.team != playerOwner.team:
 					# Check adjacent cells for any unit
 					for direction in DIRECTIONS:
 						var coordinates: Vector2 = game_data.coordinates + direction
@@ -157,15 +157,16 @@ func use_power() -> void:
 							# Otherwise the unit lives at 1% hit points
 							game_data.unit.take_damage(game_data.unit.health-1)
 				else:
-					var t = Timer.new()
-					t.set_wait_time(0.15)
-					t.set_one_shot(true)
-					self.add_child(t)
-					t.start()
-					yield(t, "timeout")
-					t.queue_free()
-					game_data.unit.power_animation(self)
-					pass
+					if game_data.unit.playerOwner == playerOwner:
+						var t = Timer.new()
+						t.set_wait_time(0.15)
+						t.set_one_shot(true)
+						self.add_child(t)
+						t.start()
+						yield(t, "timeout")
+						t.queue_free()
+						game_data.unit.power_animation(self)
+						pass
 		emit_signal("power_changed", playerOwner, power, maxPower)
 
 func special_attack(_attacker, _defender, damage_result) -> int:
